@@ -1,4 +1,10 @@
-# <h1 align="center">RadianceOS</h1>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Artwork/RadianceLogoWhite.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Artwork/RadianceLogoWhite.png">
+    <img width=60% src="">
+  </picture>
+</p>
 RadianceOS is an operating system based on [Cosmos](https://github.com/CosmosOS/Cosmos), developed in C# by [Szymekk](https://youtube.com/Szymekk).
 
 ## Window System
