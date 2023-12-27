@@ -1,6 +1,5 @@
 # <h1 align="center">RadianceOS</h1>
-## Introduction
-Welcome to RadianceOS, an operating system built on the foundation of [Cosmos](https://github.com/CosmosOS/Cosmos) and crafted in C# by [Szymekk](https://youtube.com/Szymekk).
+RadianceOS is an operating system based on [Cosmos](https://github.com/CosmosOS/Cosmos), developed in C# by [Szymekk](https://youtube.com/Szymekk).
 
 ## Window System
 RadianceOS boasts a sophisticated windowing system that supports features such as window resizing, maximizing, repositioning, and multitasking. Run multiple applications simultaneously in separate windows to enhance your productivity.
