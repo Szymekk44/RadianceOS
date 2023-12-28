@@ -8,11 +8,12 @@
 
 RadianceOS is an operating system based on [Cosmos](https://github.com/CosmosOS/Cosmos), developed in C# by [Szymekk](https://youtube.com/Szymekk).
 
-## Window System
-RadianceOS boasts a sophisticated windowing system that supports features such as window resizing, maximizing, repositioning, and multitasking. Run multiple applications simultaneously in separate windows to enhance your productivity.
-
 > [!CAUTION]
 > RadianceOS is in a very early stage of development! (There's still crap in the code)
+
+
+## Window System
+RadianceOS boasts a sophisticated windowing system that supports features such as window resizing, maximizing, repositioning, and multitasking.
 
 ## Applications
 RadianceOS includes a variety of built-in applications, providing a versatile computing environment. Notable applications include:
