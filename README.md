@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Artwork/RadianceLogoWhite.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Artwork/RadianceLogoWhite.png">
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Artwork/RadianceLogoBlack.png">
     <img width=60% src="">
   </picture>
 </p>
