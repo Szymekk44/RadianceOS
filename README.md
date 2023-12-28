@@ -11,6 +11,9 @@ RadianceOS is an operating system based on [Cosmos](https://github.com/CosmosOS/
 ## Window System
 RadianceOS boasts a sophisticated windowing system that supports features such as window resizing, maximizing, repositioning, and multitasking. Run multiple applications simultaneously in separate windows to enhance your productivity.
 
+> [!CAUTION]
+> RadianceOS is in a very early stage of development! (There's still crap in the code)
+
 ## Applications
 RadianceOS includes a variety of built-in applications, providing a versatile computing environment. Notable applications include:
 - **Terminal**: A command-line interface for executing system commands.
