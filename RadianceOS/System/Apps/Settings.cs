@@ -14,7 +14,7 @@ using static Cosmos.HAL.Drivers.Video.VGADriver;
 
 namespace RadianceOS.System.Apps
 {
-	public static class Settings
+    public static class Settings
 	{
 		public static int resouresLoaded;
 		public static void Render(int X, int Y, int SizeX, int SizeY, int index)

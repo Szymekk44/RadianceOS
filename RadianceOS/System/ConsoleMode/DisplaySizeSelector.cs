@@ -1,4 +1,5 @@
 ﻿using Cosmos.Core;
+using Cosmos.Core.Memory;
 using RadianceOS.System.Apps;
 using RadianceOS.System.Managment;
 using RadianceOS.System.Radiance;
@@ -20,6 +21,7 @@ namespace RadianceOS.System.ConsoleMode
 		{
 			while(!Finished)
 			{
+				Heap.Collect();
 				if(Last != Curr)
 				{
 					Console.BackgroundColor = ConsoleColor.White;
@@ -269,6 +271,10 @@ namespace RadianceOS.System.ConsoleMode
 				{
 					File.Create(@"0:\RadianceOS\Settings\DisplayMode.dat");
 					File.WriteAllText(@"0:\RadianceOS\Settings\DisplayMode.dat", mode.ToString());
+				}
+				if(Kernel.AllLoaded)
+				{
+					ConsoleCommands.RunCommand("gui");
 				}
 			}
 			catch

@@ -28,7 +28,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
                             Explorer.CanvasMain.DrawImageAlpha(new Bitmap(RadianceOS.System.Managment.Files.RadianceOSIconTransparent), X + (SizeX - 456) / 2, Y + 30);
                             StringsAcitons.DrawCenteredTTFString("Welcome to RadianceOS installer", SizeX, X, Y + 110, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("To start the installation process, please click Install", SizeX, X, Y + 130, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("To start the installation process, please click Install", SizeX, X, Y + 130, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer");
                         }
                         break;
@@ -38,7 +38,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
                             Explorer.CanvasMain.DrawImageAlpha(new Bitmap(RadianceOS.System.Managment.Files.RadianceOSIconTransparent), X + (SizeX - 456) / 2, Y + 30);
                             StringsAcitons.DrawCenteredTTFString("About", SizeX, X, Y + 110, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("RadianceOS " + Kernel.version + " - " + Kernel.subversion + "\nRa# version: " + Kernel.RasVersion + "\nRam: " + Cosmos.Core.GCImplementation.GetAvailableRAM() + "MB (Using " + (Cosmos.Core.GCImplementation.GetUsedRAM() / 1048576) + "MB)" + "\n\nRadianceOS is an open source operating system created by Szymekk using Cosmos\nC# Open Source Managed Operating System\n\nSzymekk.pl\nYouTube.com/Szymekk\ngocosmos.org", SizeX, X, Y + 130, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("RadianceOS " + Kernel.version + " - " + Kernel.subversion + "\nRa# version: " + Kernel.RasVersion + "\nRam: " + Cosmos.Core.GCImplementation.GetAvailableRAM() + "MB (Using " + (Cosmos.Core.GCImplementation.GetUsedRAM() / 1048576) + "MB)" + "\n\nRadianceOS is an open source operating system created by Szymekk using Cosmos\nC# Open Source Managed Operating System\n\nSzymekk.pl\nYouTube.com/Szymekk\ngocosmos.org", SizeX, X, Y + 130, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer", 1);
                         }
                         break;
@@ -48,7 +48,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
                             Explorer.CanvasMain.DrawImageAlpha(new Bitmap(RadianceOS.System.Managment.Files.RadianceOSIconTransparent), X + (SizeX - 456) / 2, Y + 30);
                             StringsAcitons.DrawCenteredTTFString("Test RadianceOS", SizeX, X, Y + 110, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("Warning!\nSystem will not have access to the disk!\nSome apps may not work!\n\nYou can always install RadianceOS later.", SizeX, X, Y + 135, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("Warning!\nSystem will not have access to the disk!\nSome apps may not work!\n\nYou can always install RadianceOS later.", SizeX, X, Y + 135, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer", 2);
                         }
                         break;
@@ -71,7 +71,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X, Y + 25, SizeX / 4, 25);
 
                             StringsAcitons.DrawCenteredTTFString("Disk Formatting", SizeX, X, Y + 70, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("Before installing RadianceOS you have to format your drive.\nWARNING!\nDon't do this on a real pc! This may damage your entire drive!\n\nFS type: FAT32\nDisk size: " + Kernel.fs.Disks[0].Size / (1024 * 1024) + " MB", SizeX, X, Y + 100, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("Before installing RadianceOS you have to format your drive.\nWARNING!\nDon't do this on a real pc! This may damage your entire drive!\n\nFS type: FAT32\nDisk size: " + Kernel.fs.Disks[0].Size / (1024 * 1024) + " MB", SizeX, X, Y + 100, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer");
                         }
                         break;
@@ -84,7 +84,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X, Y + 25, SizeX / 4, 25);
 
                             StringsAcitons.DrawCenteredTTFString("Disk Formatting", SizeX, X, Y + 70, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("Before installing RadianceOS you have to format your drive.\nWARNING!\nDon't do this on a real pc! This may damage your entire drive!\n\nFS type: FAT32\n\nPlease enter new disk size\nMinimum 32 MB!", SizeX, X, Y + 100, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("Before installing RadianceOS you have to format your drive.\nWARNING!\nDon't do this on a real pc! This may damage your entire drive!\n\nFS type: FAT32\n\nPlease enter new disk size\nMinimum 32 MB!", SizeX, X, Y + 100, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer", 1);
                         }
                         break;
@@ -101,7 +101,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             else
                                 diskSize = Kernel.fs.Disks[0].Size / (1024 * 1024);
                             StringsAcitons.DrawCenteredTTFString("Formatting Your Disk", SizeX, X, Y + 70, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("Please wait\n\nFS type: Fat32\nDisk size: " + diskSize + " MB", SizeX, X, Y + 100, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("Please wait\n\nFS type: Fat32\nDisk size: " + diskSize + " MB", SizeX, X, Y + 100, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer");
                         }
                         break;
@@ -114,7 +114,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X, Y + 25, SizeX / 2, 25);
 
                             StringsAcitons.DrawCenteredTTFString("Disk Formatting Done!", SizeX, X, Y + 70, 20, Kernel.fontColor, "UMB", 24);
-                            StringsAcitons.DrawCenteredTTFString("Restart RadianceOS to continue.", SizeX, X, Y + 100, 14, Kernel.fontColor, "UMR", 18);
+                            StringsAcitons.DrawCenteredTTFString("Restart RadianceOS to continue.", SizeX, X, Y + 100, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer");
                         }
                         break;
@@ -292,19 +292,20 @@ namespace RadianceOS.System.Apps.NewInstaller
                                     Kernel.fs.Disks[0].DeletePartition(0);
                                 Kernel.fs.Disks[0].Clear();
                                 int diskSize = 0;
-                                if (InputSystem.CurrentString != "" || InputSystem.CurrentString == null || InputSystem.CurrentString == string.Empty)
-                                    diskSize = int.Parse(InputSystem.CurrentString);
-                                else
+                                if (InputSystem.CurrentString == null)
+								{
+									diskSize = Kernel.fs.Disks[0].Size / 1048576;
+									//MessageBoxCreator.CreateMessageBox("Info", "Default size: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", MessageBoxCreator.MessageBoxIcon.info, 400, 175);
+
+								}
+								else
                                 {
-                                    diskSize = Kernel.fs.Disks[0].Size / 1048576;
-                                    MessageBoxCreator.CreateMessageBox("Info", "Default size: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", MessageBoxCreator.MessageBoxIcon.info, 400, 175);
+                                    diskSize = int.Parse(InputSystem.CurrentString);
                                 }
 
-                                //	Kernel.fs.Disks[0].CreatePartition(Kernel.fs.Disks[0].Size / 1048576);
                                 if (Kernel.fs.Disks[0].Size > 1)
                                 {
                                     Kernel.fs.Disks[0].CreatePartition(diskSize);
-                                    //Kernel.fs.Disks[0].CreatePartition(512);
                                 }
                                 else
                                     Kernel.fs.Disks[0].CreatePartition(diskSize);

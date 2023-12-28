@@ -333,6 +333,7 @@ namespace RadianceOS.System.Managment
 
 				if (!Kernel.diskReady)
 				{
+					InputSystem.CurrentString = "";
 					Processes start = new Processes
 					{
 						ID = -1,
@@ -804,6 +805,7 @@ namespace RadianceOS.System.Managment
 			}
 			else if (command[0] == "display")
 			{
+				DisplaySizeSelector.Finished = false;
 				DisplaySizeSelector.SelectMode();
 			}
 			else if (command[0] == "ras")

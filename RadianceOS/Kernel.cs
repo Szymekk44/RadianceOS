@@ -80,24 +80,9 @@ namespace RadianceOS
 
 		public static int Theme = 0;
 		public static string htmlcode = "";
-		static void SplitAndSaveBytes(string baseFileName, byte[] bytesToSplit, int numberOfParts)
-		{
-			int chunkSize = bytesToSplit.Length / numberOfParts;
 
-			for (int i = 0; i < numberOfParts; i++)
-			{
-				File.Create(@"0:\BadApple\" + baseFileName + i + ".bmp");
-				int partSize = (i == numberOfParts - 1) ? bytesToSplit.Length - i * chunkSize : chunkSize;
-				byte[] part = new byte[partSize];
-				Buffer.BlockCopy(bytesToSplit, i * chunkSize, part, 0, partSize);
+		public static bool AllLoaded = false;
 
-
-
-				File.WriteAllBytes(@"0:\BadApple\" + baseFileName + i + ".bmp", part);
-				Console.WriteLine(i + "/" + numberOfParts);
-				Heap.Collect();
-			}
-		}
 		protected override void BeforeRun()
 		{
 		
@@ -353,7 +338,7 @@ namespace RadianceOS
 			BootScreen.Render("LOADING SYSTEM FILES", "Cursor");
 			WriteLineOK("Cursor1");
 			BootScreen.Render("Audio", "Starting audio");
-
+			AllLoaded = true;
 			try
 			{
 				var mixer = new AudioMixer();

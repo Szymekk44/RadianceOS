@@ -4,6 +4,7 @@ using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using RadianceOS.System.Programming.RaSharp;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 //using System.Diagnostics;
 using System.Text;
 
@@ -17,7 +18,7 @@ namespace RadianceOS.System.Managment
 		{
 			bool enterChar = true;
 			char charToEnter = ' ';
-			
+			bool isSpaceBar = false;
 			while (Console.KeyAvailable)
 			{
 				Process.Processes[Index].saved = false;
@@ -478,6 +479,7 @@ namespace RadianceOS.System.Managment
 						break;
 					case ConsoleKey.Spacebar:
 						charToEnter = ' ';
+						isSpaceBar = true;
 						break;
 					case ConsoleKey.OemPeriod:
 
@@ -909,8 +911,13 @@ namespace RadianceOS.System.Managment
 								break;
 						}
 						break;
+						enterChar = false;
 
-
+				}
+				if(charToEnter == ' ')
+				{
+					if (!isSpaceBar)
+						return;
 				}
 				if (enterChar)
 				{

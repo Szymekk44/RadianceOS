@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RadianceOS.System.Apps
 {
-	public static class Login
+    public static class Login
 	{
 		public static bool Clicked;
 		public static void Render(int X, int Y, int SizeX, int SizeY, int i)

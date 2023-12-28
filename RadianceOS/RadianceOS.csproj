@@ -20,7 +20,7 @@
         <QemuVideoDriver>VMWare</QemuVideoDriver>
         <StackCorruptionDetectionEnabled>False</StackCorruptionDetectionEnabled>
         <DebugEnabled>False</DebugEnabled>
-        <Launch>VMware</Launch>
+        <Launch>ISO</Launch>
         <QemuUseCustomParameters>False</QemuUseCustomParameters>
         <RemoveBootDebugOutput>True</RemoveBootDebugOutput>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
