@@ -100,12 +100,12 @@ namespace webkerneltest.HTMLRENDERV2
                     break;
                 case "button":
                     canv.DrawFilledRectangle(Color.LightGray,Pos.X+10, Pos.Y + PagePos,node.InnerText.Length * 8,18);
-                    ElementData ed = new ElementData
+                  /*  ElementData ed = new ElementData
                     {
                         x = Pos.X + 10, y = Pos.Y + PagePos, SizeX = node.InnerText.Length * 8, SizeY = 18, type = 0,
                         url = node.InnerHtml
                     };
-                    Process.Processes[ProcessID].webData.elements.Add(ed);
+                    Process.Processes[ProcessID].webData.elements.Add(ed);*/
 
 
 

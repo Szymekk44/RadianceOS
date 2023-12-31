@@ -20,7 +20,7 @@
         <QemuVideoDriver>VMWare</QemuVideoDriver>
         <StackCorruptionDetectionEnabled>False</StackCorruptionDetectionEnabled>
         <DebugEnabled>False</DebugEnabled>
-        <Launch>ISO</Launch>
+        <Launch>VMware</Launch>
         <QemuUseCustomParameters>False</QemuUseCustomParameters>
         <RemoveBootDebugOutput>True</RemoveBootDebugOutput>
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
@@ -45,6 +45,12 @@
       <None Remove="Resources\Icons\crash.bmp" />
       <None Remove="Resources\Icons\error.bmp" />
       <None Remove="Resources\Icons\fileExplorer.bmp" />
+      <None Remove="Resources\Icons\FileExplorer\data16.bmp" />
+      <None Remove="Resources\Icons\FileExplorer\data16.png" />
+      <None Remove="Resources\Icons\FileExplorer\document16.bmp" />
+      <None Remove="Resources\Icons\FileExplorer\folder16.bmp" />
+      <None Remove="Resources\Icons\FileExplorer\sysData16.bmp" />
+      <None Remove="Resources\Icons\FileExplorer\text16.bmp" />
       <None Remove="Resources\Icons\gamepad icon.bmp" />
       <None Remove="Resources\Icons\info.bmp" />
       <None Remove="Resources\Icons\noDisk.bmp" />
@@ -97,6 +103,11 @@
       <EmbeddedResource Include="Resources\Icons\cmd.bmp" />
       <EmbeddedResource Include="Resources\Icons\crash.bmp" />
       <EmbeddedResource Include="Resources\Icons\fileExplorer.bmp" />
+      <EmbeddedResource Include="Resources\Icons\FileExplorer\data16.bmp" />
+      <EmbeddedResource Include="Resources\Icons\FileExplorer\document16.bmp" />
+      <EmbeddedResource Include="Resources\Icons\FileExplorer\folder16.bmp" />
+      <EmbeddedResource Include="Resources\Icons\FileExplorer\sysData16.bmp" />
+      <EmbeddedResource Include="Resources\Icons\FileExplorer\text16.bmp" />
       <EmbeddedResource Include="Resources\Icons\gamepad icon.bmp" />
       <EmbeddedResource Include="Resources\Icons\noDisk.bmp" />
     </ItemGroup>

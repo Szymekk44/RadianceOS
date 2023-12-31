@@ -1,5 +1,7 @@
 ﻿using Cosmos.System.Graphics;
 using RadianceOS.System.Apps.Games;
+using RadianceOS.System.Programming.RaSharp;
+using RadianceOS.System.Programming.RaSharp2;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,6 +44,7 @@ namespace RadianceOS.System.Apps
 		public bool closeAble = true;
 		public bool sizeAble = false;
 		public bool hideAble = true;
+		public bool hidden = false;
 		public int MinX = 200, MinY = 100;
 		public int notMaxX, notMaxY;
 		public bool maximized;
@@ -71,6 +74,8 @@ namespace RadianceOS.System.Apps
         public Bitmap bitmapTop;
         public FileExplorerData FileExplorerDat;
 		public WebData webData;
+
+		public RasProcessData RasData;
 
 	}
 	public class WebData

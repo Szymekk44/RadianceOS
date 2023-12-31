@@ -121,6 +121,7 @@ namespace RadianceOS.System.Apps
 											X = 300,
 											Y = 200,
 											SizeX = 900,
+											MinX = 500,
 											SizeY = 550,
 											sizeAble = true,
 											moveAble = true

@@ -52,7 +52,8 @@ namespace RadianceOS.System.Apps
 						}
 					}
 				}
-				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Directories[i].Name, Kernel.font18, Kernel.fontColor, X + 204, Y + 28 + (i * 20));
+				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Directories[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + (i * 20));
+				Explorer.CanvasMain.DrawImage(Kernel.folder16, X + 202, Y + 28 + (i * 20));
 			}
 			int start = Process.Processes[id].FileExplorerDat.Directories.Count;
 			for (int i = 0; i < Process.Processes[id].FileExplorerDat.Files.Count; i++)
@@ -102,8 +103,25 @@ namespace RadianceOS.System.Apps
 						
 					}
 				}
-				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Files[i].Name, Kernel.font18, Kernel.fontColor, X + 204, Y + 28 + ((i + start) * 20));
-				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Files[i].Extension, Kernel.font18, Kernel.fontColor, X + 704, Y + 28 + ((i + start) * 20));
+				string extension = Process.Processes[id].FileExplorerDat.Files[i].Extension;
+				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Files[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + ((i + start) * 20));
+				Explorer.CanvasMain.DrawString(extension, Kernel.font18, Kernel.fontColor, X + SizeX-150, Y + 28 + ((i + start) * 20));
+				if(extension == "text file")
+				{
+					Explorer.CanvasMain.DrawImage(Kernel.text16, X + 202, Y + 28 + ((i + start) * 20));
+				}
+				else if(extension == "data file" || extension == "configuration file")
+				{
+					Explorer.CanvasMain.DrawImage(Kernel.data16, X + 202, Y + 28 + ((i + start) * 20));
+				}
+				else if(extension == "system data file" || extension == "system file")
+				{
+					Explorer.CanvasMain.DrawImage(Kernel.sysData16, X + 202, Y + 28 + ((i + start) * 20));
+				}
+				else
+				{
+					Explorer.CanvasMain.DrawImage(Kernel.docuent16, X + 202, Y + 28 + ((i + start) * 20));
+				}
 			}
 
 			if(MouseManager.MouseState == MouseState.Right && !clickedOn)
@@ -168,7 +186,9 @@ namespace RadianceOS.System.Apps
 							tempExt = "data file";
 						else if (curr == ".SysData")
 							tempExt = "system data file";
-                        else if (curr == ".bin")
+						else if (curr == ".sys")
+							tempExt = "system file";
+						else if (curr == ".bin")
                             tempExt = "binary file";
                         else if (curr == ".cfg")
                             tempExt = "configuration file";

@@ -82,6 +82,16 @@ namespace RadianceOS.System.Managment
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.fileExplorer.bmp")]
 		public static byte[] FileExplorer;
 
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.text16.bmp")]
+		public static byte[] text16;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.document16.bmp")]
+		public static byte[] document16;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.folder16.bmp")]
+		public static byte[] folder16;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.data16.bmp")]
+		public static byte[] data16;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.sysData16.bmp")]
+		public static byte[] sysData16;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.FilesIcons.txt.bmp")]
 		public static byte[] txt;

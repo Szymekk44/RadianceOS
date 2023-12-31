@@ -17,12 +17,24 @@ namespace RadianceOS.System.Graphic
 	public static class Window
 	{
 		public static Bitmap tempBitmap;
-		public static void DrawTop(int ProcessID, int X, int Y, int SizeX, string windowName, bool sizeAble = false, bool closeAble = true, bool ttf = false, bool hideAble = true)
+		public static void DrawTop(int ProcessID, int X, int Y, int SizeX, string windowName, bool sizeAble = false, bool closeAble = true, bool ttf = false, bool hideAble = true, int tempSize = -1)
 		{
+			if (tempSize == -1)
+				tempSize = SizeX;
+			int cornerSize = 20;
+			if(SizeX - tempSize != 0)
+			{
+				cornerSize = (SizeX - tempSize);
+			}
+
+			if (cornerSize < 0)
+				cornerSize = 0;
+
+
 			if (SizeX < Explorer.screenSizeX)
 			{
-				DrawRoundedRectangle(X + SizeX - 22, Y + 3, 25, 25, 10, Kernel.middark);
-				DrawRoundedRectangle(X, Y, SizeX, 25, 10, Kernel.shadow);
+				DrawRoundedRectangle(X + SizeX - 22, Y + 3, 25, 25, 10, Kernel.middark, cornerSize);
+				DrawRoundedRectangle(X, Y, tempSize, 25, 10, Kernel.shadow, cornerSize);
 			}
 			else
 			{
@@ -45,26 +57,26 @@ namespace RadianceOS.System.Graphic
 					Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
 				}
 			}
-			if (closeAble)
+			if (closeAble && 38 - (SizeX - tempSize) > 35)
 				Explorer.CanvasMain.DrawImage(Kernel.Xicon, X + SizeX - 38, Y);
-			if (sizeAble)
+			if (sizeAble && 68 - (SizeX - tempSize) > 35)
 				Explorer.CanvasMain.DrawImage(Kernel.maxIcon, X + SizeX - 68, Y);
-			else if (hideAble)
+			else if (hideAble && 68 - (SizeX - tempSize) > 35)
 				Explorer.CanvasMain.DrawImage(Kernel.MinusIcon, X + SizeX - 68, Y);
 
-			if (sizeAble && hideAble)
+			if (sizeAble && hideAble && 98 - (SizeX - tempSize) > 35)
 				Explorer.CanvasMain.DrawImage(Kernel.MinusIcon, X + SizeX - 98, Y);
 
 		}
 
-		public static void DrawRoundedRectangle(int x, int y, int width, int height, int radius, Color col)
+		public static void DrawRoundedRectangle(int x, int y, int width, int height, int radius, Color col, int modifedX)
 		{
 			Explorer.CanvasMain.DrawFilledRectangle(col, x + radius, y, width - 2 * radius, height);
 
 			Explorer.CanvasMain.DrawFilledRectangle(col, x, y + radius, width, height - radius);
 
 			Explorer.CanvasMain.DrawFilledCircle(col, x + radius, y + radius, radius);
-
+			if(modifedX > 19)
 			Explorer.CanvasMain.DrawFilledCircle(col, x + width - radius - 1, y + radius, radius);
 		}
 

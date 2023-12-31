@@ -13,6 +13,7 @@ using RadianceOS.System.Graphic;
 using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using RadianceOS.System.Apps.NewInstaller;
 using Cosmos.System;
+using RadianceOS.System.Programming.RaSharp2;
 
 namespace RadianceOS.System.Apps
 {
@@ -114,6 +115,8 @@ namespace RadianceOS.System.Apps
 				{
 					if (i >= Process.Processes.Count)
 						break;
+					if (Process.Processes[i].hidden)
+						continue;
 					switch (Process.Processes[i].ID)
 					{
 						case 0:
@@ -164,6 +167,9 @@ namespace RadianceOS.System.Apps
 						case 11:
 							Information.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
 							break;
+						case 12:
+							RasExecuter.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
 						case 100:
 							NewInstallator.Render(i, Process.Processes[i].tempInt, Process.Processes[i].X, Process.Processes[i].Y, 800, 500, Process.Processes[i].tempBool);
 							break;
@@ -199,6 +205,8 @@ namespace RadianceOS.System.Apps
 						if (i >= Process.Processes.Count)
 							return;
 						if (!Process.Processes[i].moveAble)
+							continue;
+						if (Process.Processes[i].hidden)
 							continue;
 						if (MX - 3 >= Process.Processes[i].X && MX + 3 <= Process.Processes[i].X + Process.Processes[i].SizeX)
 						{
@@ -297,8 +305,28 @@ namespace RadianceOS.System.Apps
 											ClickedOnWindow = false;
 										}
 									}
+									if (Process.Processes[i].hideAble)
+									{
+										if (Process.Processes[i].sizeAble)
+										{
+											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
+											{
+												Process.Processes[i].hidden = true;
+											}
+										}
+										else
+										{
+											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
+											{
+												Process.Processes[i].hidden = true;
+											}
+										}
+									}
 								}
-							}
+							
+							
+							
+						}
 
 
 
@@ -560,6 +588,8 @@ namespace RadianceOS.System.Apps
 				}
 				else
 					CanvasMain.DrawImage(Kernel.DarkButton, 5, (int)Explorer.screenSizeY - 35);
+
+				TaskBar.Render();
 			}
 			if (MouseManager.MouseState == MouseState.Left)
 				Clicked = true;
@@ -629,6 +659,34 @@ namespace RadianceOS.System.Apps
 			Kernel.Error = Window.tempBitmap;
 		}
 
+		public static void RenderSmallIcons()
+		{
+			CanvasMain.DrawFilledRectangle(Kernel.main, 0, 25, 16, 16);
+			CanvasMain.DrawImageAlpha(new Bitmap(Files.text16), 0, 25);
+			Window.GetTempImage(0, 25, 16, 16, "text16");
+			Kernel.text16 = Window.tempBitmap;
+
+			CanvasMain.DrawFilledRectangle(Kernel.main, 0, 25, 16, 16);
+			CanvasMain.DrawImageAlpha(new Bitmap(Files.document16), 0, 25);
+			Window.GetTempImage(0, 25, 16, 16, "document16");
+			Kernel.docuent16 = Window.tempBitmap;
+
+			CanvasMain.DrawFilledRectangle(Kernel.main, 0, 25, 16, 16);
+			CanvasMain.DrawImageAlpha(new Bitmap(Files.folder16), 0, 25);
+			Window.GetTempImage(0, 25, 16, 16, "folder16");
+			Kernel.folder16 = Window.tempBitmap;
+
+			CanvasMain.DrawFilledRectangle(Kernel.main, 0, 25, 16, 16);
+			CanvasMain.DrawImageAlpha(new Bitmap(Files.data16), 0, 25);
+			Window.GetTempImage(0, 25, 16, 16, "data16");
+			Kernel.data16 = Window.tempBitmap;
+
+			CanvasMain.DrawFilledRectangle(Kernel.main, 0, 25, 16, 16);
+			CanvasMain.DrawImageAlpha(new Bitmap(Files.sysData16), 0, 25);
+			Window.GetTempImage(0, 25, 16, 16, "sysData16");
+			Kernel.sysData16 = Window.tempBitmap;
+		}
+
 		public static void UpdateIcons()
 		{
 			RenderIconx();
@@ -637,6 +695,7 @@ namespace RadianceOS.System.Apps
 			RenderIconInfo();
 			RenderIconError();
 			RenderIconWarning();
+			RenderSmallIcons();
 		}
 
 	}

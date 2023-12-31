@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using RadianceOS.System.Programming.RaSharp;
 using Cosmos.System.Graphics;
 using RadianceOS.System.Graphic;
+using RadianceOS.System.Programming.RaSharp2;
 
 namespace RadianceOS.System.Managment
 {
@@ -81,7 +82,7 @@ namespace RadianceOS.System.Managment
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 								
-									RasPerformer.RunScript(Icons[index].path);
+									RasExecuter.StartScript(Icons[index].path);
 									clicked = true;
 									Icons[index].selected = false;
 									Icons[index].showMenu = false;
@@ -328,7 +329,7 @@ namespace RadianceOS.System.Managment
 											{
 												// Obsługa double click
 												//	Explorer.CanvasMain.DrawString("Double click! " + (Icons[i].dateTime - DateTime.Now).TotalMilliseconds, Kernel.font18, Color.White, 500, 500);
-												Notepad.OpenFile(Icons[i].path);
+												RasExecuter.StartScript(Icons[i].path);
 												clicked = true;
 												Icons[i].selected = false;
 

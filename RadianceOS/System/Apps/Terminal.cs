@@ -15,11 +15,20 @@ namespace RadianceOS.System.Apps
 	{
 		public static void Render( int X, int Y, int SizeX, int SizeY, int i, List<TextColor> texts)
 		{
-			Window.DrawTop(i, X, Y, SizeX, "Terminal", true, true, true);
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY-25);
-			
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y+25, SizeX, SizeY-25);
-			Explorer.CanvasMain.DrawFilledRectangle(Color.Black, X+2, Y+27, SizeX-4, SizeY-29);
+			int tempX = SizeX;
+			if (SizeX + X > Explorer.screenSizeX)
+			{
+				tempX -= SizeX + X - (int)Explorer.screenSizeX;
+			}
+			Window.DrawTop(i, X, Y, SizeX, "Terminal", true, true, true, true, tempX);
+			if(tempX == SizeX)
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, tempX, SizeY-25);
+			else
+			{
+				Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y + 28, tempX, SizeY - 25);
+			}
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y+25, tempX, SizeY-25);
+			Explorer.CanvasMain.DrawFilledRectangle(Color.Black, X+2, Y+27, tempX-4, SizeY-29);
 
 
 			int start = 0;

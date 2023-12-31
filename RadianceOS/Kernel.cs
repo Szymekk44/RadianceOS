@@ -34,6 +34,7 @@ namespace RadianceOS
 		public static Bitmap Error, Stop, Info, DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer;
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
+		public static Bitmap text16, docuent16, folder16, data16, sysData16;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Websites.Test.skk.bmp")]
 		public static byte[] skk;
@@ -337,7 +338,16 @@ namespace RadianceOS
 			Cursor1 = new Bitmap(Files.cursor1);
 			BootScreen.Render("LOADING SYSTEM FILES", "Cursor");
 			WriteLineOK("Cursor1");
+			
+			BootScreen.Render("LOADING SYSTEM FILES", "File Icons 16px");
+			text16 = new Bitmap(Files.text16);
+			docuent16 = new Bitmap(Files.document16);
+			folder16 = new Bitmap(Files.folder16);
+			data16 = new Bitmap(Files.data16);
+			sysData16 = new Bitmap(Files.sysData16);
+			WriteLineOK("File Icons 16px");
 			BootScreen.Render("Audio", "Starting audio");
+
 			AllLoaded = true;
 			try
 			{
