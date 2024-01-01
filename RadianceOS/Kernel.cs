@@ -369,7 +369,6 @@ namespace RadianceOS
 				workingAudio = false;
 				WriteLineERROR("Audio driver AC97 is not supported!");
 				BootScreen.Render("Audio", "Audio driver AC97 is not supported!", Color.Red, false);
-				Thread.Sleep(500);
 			}
 
 			Heap.Collect();

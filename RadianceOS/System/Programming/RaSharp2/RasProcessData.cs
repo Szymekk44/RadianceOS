@@ -18,5 +18,6 @@ namespace RadianceOS.System.Programming.RaSharp2
 		public string Input;
 		public Color TextColor = Color.White;
 		public Color BackgroundColor = Color.Black;
+		public Dictionary<string, string> Variables = new Dictionary<string, string>();
 	}
 }

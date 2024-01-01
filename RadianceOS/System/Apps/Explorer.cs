@@ -14,6 +14,9 @@ using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using RadianceOS.System.Apps.NewInstaller;
 using Cosmos.System;
 using RadianceOS.System.Programming.RaSharp2;
+using Cosmos.HAL.Drivers.Audio;
+using Cosmos.System.Audio.IO;
+using Cosmos.System.Audio;
 
 namespace RadianceOS.System.Apps
 {
@@ -51,7 +54,17 @@ namespace RadianceOS.System.Apps
 		{
 			if (Kernel.workingAudio)
 			{
-				//start audio here
+				/*var mixer = new AudioMixer();
+				var audioStream = MemoryAudioStream.FromWave(Files.startupAduio);
+				var driver = AC97.Initialize(bufferSize: 4096);
+				mixer.Streams.Add(audioStream);
+
+				var audioManager = new AudioManager()
+				{
+					Stream = mixer,
+					Output = driver
+				};
+				audioManager.Enable();*/
 			}
 			BootScreen.BootImage = null;
 			Heap.Collect();

@@ -1,9 +1,11 @@
 ﻿using Cosmos.HAL.Drivers.Video.SVGAII;
 using RadianceOS.System.Apps;
 using RadianceOS.System.Programming.RaSharp2.Commands.Console;
+using RadianceOS.System.Programming.RaSharp2.Functions;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace RadianceOS.System.Programming.RaSharp2
@@ -33,14 +35,30 @@ namespace RadianceOS.System.Programming.RaSharp2
 				if (dots[i][0] == "Console")
 				{
 					string parametr = dots[i][1].Substring(0,dots[i][1].IndexOf("("));
-					int startIndex = commands[i].IndexOf("(") + 1;  // Dodaj 1, aby zacząć od znaku po "("
-					int length = commands[i].LastIndexOf(")") - startIndex;  // Określ długość, aby zakończyć na znaku przed ")"
+					int startIndex = commands[i].IndexOf("(") + 1;//Dodaj 1, aby zacząć od znaku po "("
+					int length = commands[i].LastIndexOf(")") - startIndex;//Określ długość, aby zakończyć na znaku przed ")"
 					string textIn = commands[i].Substring(startIndex, length);
+					string FinaleString = GetString.ReturnString(textIn.Split("+"), ProcessID, com, i);
 
-					if (parametr == "WriteLine")
+					if (parametr == "Write")
 					{
-						RasWrite.WriteLine(ProcessID, textIn);
+						RasWrite.Write(ProcessID, FinaleString);
 					}
+					else if (parametr == "WriteLine")
+					{
+						RasWrite.WriteLine(ProcessID, FinaleString);
+					}
+					else
+						ReportError("Unknown parametr!", i, ProcessID);
+
+				}
+				else if (paramets[i][0].ToLower() == "string")
+				{
+					GetString.MakeString(paramets[i], ProcessID, com, i);
+				}
+				else if (Process.Processes[ProcessID].RasData.Variables.ContainsKey(paramets[i][0]))
+				{
+					
 				}
 				else
 				{
