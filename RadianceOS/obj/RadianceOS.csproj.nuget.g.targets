@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
-<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)cosmos.plugs\0.1.0-localbuild20231211070546\build\Cosmos.Plugs.targets" Condition="Exists('$(NuGetPackageRoot)cosmos.plugs\0.1.0-localbuild20231211070546\build\Cosmos.Plugs.targets')" />
-    <Import Project="$(NuGetPackageRoot)cosmos.build\0.1.0-localbuild20231211070538\build\Cosmos.Build.targets" Condition="Exists('$(NuGetPackageRoot)cosmos.build\0.1.0-localbuild20231211070538\build\Cosmos.Build.targets')" />
-  </ImportGroup>
-</Project>
