@@ -432,6 +432,24 @@ namespace RadianceOS.System.Apps
 										}
 									}
 									break;
+								case 12:
+									{
+										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										{
+											if (!Process.Processes[i].selected)
+											{
+												for (int j = 0; j < Process.Processes.Count; j++)
+												{
+													Process.Processes[j].selected = false;
+												}
+												Process.Processes[i].selected = true;
+												//InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
+												InputSystem.CurrentString = Process.Processes[i].RasData.lines[Process.Processes[i].RasData.lines.Count - 1].text;
+											}
+
+										}
+									}
+									break;
 							}
 						}
 
@@ -671,7 +689,13 @@ namespace RadianceOS.System.Apps
 			Window.GetTempImage(182, 0, 48, 48, "warning");
 			Kernel.Error = Window.tempBitmap;
 		}
-
+		public static void RenderIconError2()
+		{
+			CanvasMain.DrawFilledRectangle(Kernel.main, 134, 0, 48, 48);
+			CanvasMain.DrawImageAlpha(new Bitmap(Files.criticalStop), 134, 0);
+			Window.GetTempImage(134, 0, 48, 48, "stop2");
+			Kernel.CriticalStop = Window.tempBitmap;
+		}
 		public static void RenderSmallIcons()
 		{
 			CanvasMain.DrawFilledRectangle(Kernel.main, 0, 25, 16, 16);
@@ -707,6 +731,7 @@ namespace RadianceOS.System.Apps
 			RenderIconminus();
 			RenderIconInfo();
 			RenderIconError();
+			RenderIconError2();
 			RenderIconWarning();
 			RenderSmallIcons();
 		}

@@ -20,7 +20,7 @@ namespace RadianceOS.System.Radiance
         public static Canvas canvas;
         public static int State;
         public static string reason;
-        public static uint screenSizeX = 1920, screenSizeY = 1080;
+        public static uint screenSizeX, screenSizeY;
 
         public static Bitmap crash;
 
@@ -44,6 +44,8 @@ namespace RadianceOS.System.Radiance
 
         public static void StartGui()
         {
+            screenSizeX = Explorer.screenSizeX;
+            screenSizeY = Explorer.screenSizeY;
             Kernel.Cursor1 = new Bitmap(Files.cursor1);
             Cosmos.System.MouseManager.ScreenWidth = screenSizeX;
             Cosmos.System.MouseManager.ScreenHeight = screenSizeY;

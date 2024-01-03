@@ -909,6 +909,11 @@ namespace RadianceOS.System.Managment
 									RadiantWave.ChangeWebsite(Index, CurrentString);
 								}
 								break;
+							case 6:
+								{
+									Process.Processes[Index].RasData.syncInput = true;
+								}
+								break;
 						}
 						break;
 						enterChar = false;

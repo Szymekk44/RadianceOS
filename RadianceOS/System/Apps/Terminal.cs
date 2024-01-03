@@ -38,15 +38,20 @@ namespace RadianceOS.System.Apps
 			}
 			for (int j = start; j < texts.Count; j++)
 			{
-				if(j+1 < texts.Count)
-				Explorer.CanvasMain.DrawString(texts[j].text, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j-start)*18));
+				string tempText = texts[j].text;
+                if (tempText.Length > SizeX / 8)
+                {
+					tempText = tempText.Substring(0, SizeX / 8 - 1);
+                }
+                if (j+1 < texts.Count)
+				Explorer.CanvasMain.DrawString(tempText, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j-start)*18));
 				else if(Process.Processes[i].selected)
 				{
-					string result = texts[j].text.Substring(0, Process.Processes[i].CurrChar) + "_" + texts[j].text.Substring(Process.Processes[i].CurrChar);
+					string result = tempText.Substring(0, Process.Processes[i].CurrChar) + "_" + tempText.Substring(Process.Processes[i].CurrChar);
 					Explorer.CanvasMain.DrawString(Process.Processes[i].metaData + ">" + result, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
 				}
 				else
-					Explorer.CanvasMain.DrawString(Process.Processes[i].metaData + ">" + texts[j].text, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
+					Explorer.CanvasMain.DrawString(Process.Processes[i].metaData + ">" + tempText, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
 			}
 			if (Process.Processes[i].selected)
 			{

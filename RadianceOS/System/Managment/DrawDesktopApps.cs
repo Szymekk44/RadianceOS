@@ -329,6 +329,7 @@ namespace RadianceOS.System.Managment
 											{
 												// Obsługa double click
 												//	Explorer.CanvasMain.DrawString("Double click! " + (Icons[i].dateTime - DateTime.Now).TotalMilliseconds, Kernel.font18, Color.White, 500, 500);
+												//	RasExecuter.StartScript(Icons[i].path);
 												RasExecuter.StartScript(Icons[i].path);
 												clicked = true;
 												Icons[i].selected = false;

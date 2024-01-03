@@ -63,6 +63,8 @@ namespace RadianceOS.System.Managment
         public static byte[] stop;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.info.bmp")]
 		public static byte[] info;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.criticalStop.bmp")]
+		public static byte[] criticalStop;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.noDisk.bmp")]
 		public static byte[] disk;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.cmd.bmp")]

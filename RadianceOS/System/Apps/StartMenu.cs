@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using RadianceOS.System.Apps.Games;
 using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using Cosmos.HAL;
+using RadianceOS.Render;
 
 namespace RadianceOS.System.Apps
 {
@@ -211,31 +212,31 @@ namespace RadianceOS.System.Apps
 			switch (id)
 			{
 				case 0:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.cmd, 10, y+4 + (id * 32));
+					Canvas.DrawImageAlpha(Kernel.cmd, 10, y+4 + (id * 32));
 					Explorer.CanvasMain.DrawString("Terminal",Kernel.font18, Kernel.fontColor, 47, y+12 + (id * 32));
 					break;
 				case 1:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.notepad, 10, y + 4 + (id * 40));
+					Canvas.DrawImageAlpha(Kernel.notepad, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Notepad", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 2:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.settingIcon, 10, y + 4 + (id * 40));
+					Canvas.DrawImageAlpha(Kernel.settingIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Settings", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 3:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.fileExplorer, 10, y + 4 + (id * 40));
+					Canvas.DrawImageAlpha(Kernel.fileExplorer, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("File explorer", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 4:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.gamepadIcon, 10, y + 4 + (id * 40));
+					Canvas.DrawImageAlpha(Kernel.gamepadIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Snake", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 5:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.sysinfoIcon, 10, y + 4 + (id * 40));
+					Canvas.DrawImageAlpha(Kernel.sysinfoIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Performance", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 6:
-					Explorer.CanvasMain.DrawImageAlpha(Kernel.RadiantWave, 10, y + 4 + (id * 40));
+					Canvas.DrawImageAlpha(Kernel.RadiantWave, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 			}

@@ -31,7 +31,7 @@ namespace RadianceOS
 		public static Bitmap Wallpaper1small, Wallpaper2small;
 		public static Bitmap TaskBar1, lightButton, DarkButton, StartMenu;
 		public static Bitmap Cursor1;
-		public static Bitmap Error, Stop, Info, DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer;
+		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer;
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
 		public static Bitmap text16, docuent16, folder16, data16, sysData16;
@@ -299,6 +299,9 @@ namespace RadianceOS
 			Info = new Bitmap(Files.info);
 			BootScreen.Render("LOADING SYSTEM FILES", "Info Icon");
 			WriteLineOK("Info Icon");
+			CriticalStop = new Bitmap(Files.criticalStop);
+			BootScreen.Render("LOADING SYSTEM FILES", "Critical Stop Icon");
+			WriteLineOK("Critical Stop Icon");
 			cmd = new Bitmap(Files.cmd);
 			BootScreen.Render("LOADING SYSTEM FILES", "Terminal Icon Small");
 			WriteLineOK("Terminal Icon Small");

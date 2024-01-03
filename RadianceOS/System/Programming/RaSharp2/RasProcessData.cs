@@ -14,7 +14,8 @@ namespace RadianceOS.System.Programming.RaSharp2
 		public List<TextColor> lines = new List<TextColor>();
 		public int CurrentLine;
 		public bool waitForUserInput;
-		public bool syncInput;
+		public string toVariable;
+		public bool syncInput = false, syncFIX;
 		public string Input;
 		public Color TextColor = Color.White;
 		public Color BackgroundColor = Color.Black;

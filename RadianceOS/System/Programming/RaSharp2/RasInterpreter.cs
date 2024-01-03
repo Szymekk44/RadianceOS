@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace RadianceOS.System.Programming.RaSharp2
@@ -18,7 +19,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 			string[] commands = com.Split(';');
 			List<string[]> paramets = new List<string[]>();
 			List<string[]> dots = new List<string[]>();
-
+			int datId = Process.Processes[ProcessID].DataID;
 			// Poprawiona pętla, aby uniknąć błędów związanych z indeksowaniem
 			for (int i = 0; i < commands.Length; i++)
 			{
@@ -56,9 +57,13 @@ namespace RadianceOS.System.Programming.RaSharp2
 				{
 					GetString.MakeString(paramets[i], ProcessID, com, i);
 				}
-				else if (Process.Processes[ProcessID].RasData.Variables.ContainsKey(paramets[i][0]))
+				else if (RasExecuter.Data[datId].variables.ContainsKey(paramets[i][0]))
 				{
-					
+					string temp = com.Substring(com.IndexOf("=") + 1);
+					string[] fragments = temp.Split("+");
+					string finaleString = GetString.ReturnString(fragments, ProcessID, com, i);
+					if (finaleString != "null")
+						RasExecuter.Data[datId].variables[paramets[i][0]] = finaleString;
 				}
 				else
 				{

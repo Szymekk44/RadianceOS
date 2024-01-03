@@ -43,6 +43,7 @@
       <None Remove="Resources\Fonts\ruscii_8x16.psf" />
       <None Remove="Resources\Icons\cmd.bmp" />
       <None Remove="Resources\Icons\crash.bmp" />
+      <None Remove="Resources\Icons\criticalStop.bmp" />
       <None Remove="Resources\Icons\error.bmp" />
       <None Remove="Resources\Icons\fileExplorer.bmp" />
       <None Remove="Resources\Icons\FileExplorer\data16.bmp" />
@@ -102,6 +103,7 @@
       <EmbeddedResource Include="Resources\Fonts\ruscii_8x16.psf" />
       <EmbeddedResource Include="Resources\Icons\cmd.bmp" />
       <EmbeddedResource Include="Resources\Icons\crash.bmp" />
+      <EmbeddedResource Include="Resources\Icons\criticalStop.bmp" />
       <EmbeddedResource Include="Resources\Icons\fileExplorer.bmp" />
       <EmbeddedResource Include="Resources\Icons\FileExplorer\data16.bmp" />
       <EmbeddedResource Include="Resources\Icons\FileExplorer\document16.bmp" />

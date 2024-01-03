@@ -60,6 +60,8 @@ namespace RadianceOS.System.Apps
                     Explorer.CanvasMain.DrawImage(Kernel.Stop, X + 20, Y + 40);
                 else if (Meta == "info")
 					Explorer.CanvasMain.DrawImage(Kernel.Info, X + 20, Y + 40);
+				else if (Meta == "criticalStop")
+					Explorer.CanvasMain.DrawImage(Kernel.CriticalStop, X + 20, Y + 40);
 				else if (Meta == "diskError")
 					Explorer.CanvasMain.DrawImageAlpha(Kernel.DiskError, X + 42, Y + 50);
 

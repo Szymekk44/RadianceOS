@@ -39,6 +39,11 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Console
 
 		}
 
+		public static void ReadLine(int id, string Variable)
+		{
+			Process.Processes[id].RasData.waitForUserInput = true;
+			Process.Processes[id].RasData.toVariable = Variable;
+		}
 
 	}
 }

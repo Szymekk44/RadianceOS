@@ -26,6 +26,9 @@ namespace RadianceOS.System.Managment
 				case MessageBoxIcon.diskError:
 					MetaData = "diskError";
 					break;
+				case MessageBoxIcon.STOP:
+					MetaData = "criticalStop";
+					break;
 			}
 			Processes MessageBox = new Processes
 			{
@@ -48,7 +51,8 @@ namespace RadianceOS.System.Managment
 			info,
 			warning,
 			error,
-			diskError
+			diskError,
+			STOP
 		}
 	}
 }
