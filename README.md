@@ -30,11 +30,12 @@ Experience web browsing with the built-in HTTP browser, with basic html+css pars
 RadianceOS comes equipped with a user-friendly installer, making it easy to set up and run on your system.
 
 ## Ra# Programming Language
-RadianceOS introduces Ra#, a programming language based on C#. Explore the [documentation](https://github.com/SzymekkYT/RadianceOS/blob/main/RaSharp.md) to unleash the full potential of Ra# in your projects.
+RadianceOS introduces Ra#, a programming language based on C#. Explore the [documentation](https://github.com/SzymekkYT/RadianceOS/blob/main/RaSharp.md) to unleash the full potential of Ra# in your projects!
 
 
 > [!NOTE]
-> RadianceOS is an ongoing project, and contributions are encouraged to enhance its features and functionality.
+> RadianceOS is an ongoing project, and contributions are encouraged to enhance its features and functionality.<br>
+> If you would like to help, please remeber to use **dev kit** 
 
 
 ## License
