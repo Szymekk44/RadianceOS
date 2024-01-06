@@ -103,10 +103,30 @@ namespace RadianceOS.System.Managment
         public static byte[] restart;
         [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.power.png")]
         public static byte[] powersmall;
-        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.power.png")]
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.standby.png")]
         public static byte[] standbysmall;
         [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.restart.png")]
         public static byte[] restartsmall;
+
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.UAC.png")]
+        public static byte[] UAC;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UAC.png")]
+		public static byte[] UACSmall;
+
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.UACShield.png")]
+        public static byte[] UACShield;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield16.png")]
+        public static byte[] UACShield16;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield24.png")]
+        public static byte[] UACShield24;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield32.png")]
+        public static byte[] UACShield32;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield48.png")]
+        public static byte[] UACShield48;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield64.png")]
+        public static byte[] UACShield64;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield128.png")]
+        public static byte[] UACShield128;
 
         [ManifestResourceStream(ResourceName = "RadianceOS.Resources.FilesIcons.txt.bmp")]
 		public static byte[] txt;

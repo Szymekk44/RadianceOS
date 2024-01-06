@@ -16,6 +16,14 @@ namespace RadianceOS.System.Security.Auth
     {
         public static bool Clicked;
         public static bool Closed = true; // Whether or not to display the clock or the login screen
+        public static bool LoggingIn = false;
+
+        // 0 = None (Displays "Logging in..."
+        // 1 = Incorrect password
+        // 2 = Needs Force (UAC popup)
+        // 3 = Access Denied (Can't log into the system, use console mode)
+        // 4 = Doesn't exist
+        public static int LoggingInMode = 0; 
 
         /// <summary>
         /// The Render function for rendering the login screen.
@@ -43,7 +51,8 @@ namespace RadianceOS.System.Security.Auth
                 // Testing how to centre properly
                 //Explorer.CanvasMain.DrawImage(Kernel.padlockIcon, (SizeX / 2) - (int)Kernel.padlockIcon.Width / 2, (SizeY / 2) - (int)Kernel.padlockIcon.Height / 2);
 
-                Explorer.CanvasMain.DrawImageAlpha(Kernel.standbysmall, (int)(SizeX - Kernel.standbysmall.Width - 3), 3);
+                Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, (int)(SizeX - Kernel.standbysmall.Width - (6 + 24)), (6 + 24), (int)Kernel.standbysmall.Width + 24);
+                Explorer.CanvasMain.DrawImageAlpha(Kernel.standbysmall, (int)(SizeX - Kernel.standbysmall.Width - 7), 7);
 
                 if (Clicked)
                 {
@@ -62,15 +71,40 @@ namespace RadianceOS.System.Security.Auth
                         StringsAcitons.DrawCenteredTTFString(FetchTime(), SizeX, 0, (SizeY / 2) - 163 / 2 - 100, 1, Color.White, "UMB", 163);
                         StringsAcitons.DrawCenteredTTFString(FetchDate(), SizeX, 0, (SizeY / 2) - 41 / 2 - 59, 1, Color.White, "UMR", 41);
 
-                        StringsAcitons.DrawCenteredTTFString("Press any key to unlock", SizeX, 0, (SizeY / 2) - 21 / 2 + 159, 1, Color.Gray, "UMR", 21);
+                        StringsAcitons.DrawCenteredTTFString("Press any key or click to unlock", SizeX, 0, (SizeY / 2) - 21 / 2 + 159, 1, Color.Gray, "UMR", 21);
 
                         Explorer.CanvasMain.DrawImageAlpha(Kernel.RadianceOSLogoTransparent, (SizeX / 2) - (int)Kernel.RadianceOSLogoTransparent.Width / 2, (int)(SizeY - Kernel.RadianceOSLogoTransparent.Height - 15));
 
-                        if (string.IsNullOrEmpty(InputSystem.CurrentString)) Closed = false; InputSystem.CurrentString = "";
+                        if (!string.IsNullOrEmpty(InputSystem.CurrentString) || Explorer.Clicked) Closed = false; InputSystem.CurrentString = "";
                         break;
                     case false:
-                        RenderCurrentUser(SizeX, SizeY);
-                        RenderOtherUsers(SizeX, SizeY);
+                        if(LoggingIn)
+                        {
+                            switch (LoggingInMode)
+                            {
+                                case 0:
+                                    StringsAcitons.DrawCenteredTTFString("Logging in...", SizeX, 0, (SizeY / 2) - 163 / 3 / 4, 1, Color.White, "UMB", (163 / 3));
+                                    break;
+                                case 1:
+                                    LoggingIn = false;
+                                    // Not needed (May be in the future), just a popup for now.
+                                    break;
+                                case 2:
+                                    //StringsAcitons.DrawCenteredTTFString("There is another user logged in");
+                                    break;
+                                case 3:
+                                    break;
+                                case 4:
+                                    break;
+                                default:
+                                    LoggingIn = false;
+                                    break;
+                            }
+                        } else
+                        {
+                            RenderCurrentUser(SizeX, SizeY);
+                            RenderOtherUsers(SizeX, SizeY);
+                        }
 
                         break;
                 }
@@ -106,6 +140,43 @@ namespace RadianceOS.System.Security.Auth
 
         private static void RenderCurrentUser(int SizeX, int SizeY)
         {
+            if (Explorer.MY > SizeY / 2 - (25 / 2) + 17 && Explorer.MY < SizeY / 2 - (25 / 2) + 17 + 25)
+            {
+                if(Explorer.MX > SizeX / 2 - (250 / 2) && Explorer.MX < SizeX / 2 - (250 / 2) + 250)
+                {
+                    if(Explorer.Clicked && !LoggingIn)
+                    {
+                        Explorer.Clicked = false;
+                        LoggingIn = true;
+                        if(string.IsNullOrEmpty(InputSystem.CurrentString))
+                        {
+                            MessageBoxCreator.CreateMessageBox("Invalid input", "Please input a password to login.");
+                        } else
+                        {
+                            int output = Session.Authenticate(Kernel.loggedUser, InputSystem.CurrentString);
+                            MessageBoxCreator.CreateMessageBox("Attempting to login", $"{output}");
+                            if(output == 0)
+                            {
+                                MessageBoxCreator.CreateMessageBox("Logged in successfully", "?");
+                            } else if(output == 1)
+                            {
+                                MessageBoxCreator.CreateMessageBox("Incorrect password", "The password you input is incorrect");
+                                LoggingInMode = 1;
+                            } else if(output == 2)
+                            {
+                                MessageBoxCreator.CreateMessageBox("User not found", "The user you are attempting to log into does not exist");
+                            } else if(output == 3)
+                            {
+                                Session.Authenticate(Kernel.loggedUser, InputSystem.CurrentString, true);
+                            } else
+                            {
+                                MessageBoxCreator.CreateMessageBox("Something happened", "?");
+                            }
+                        }
+                    }
+                }
+            }
+
             StringsAcitons.DrawCenteredTTFString(Kernel.loggedUser, SizeX, 0, (SizeY / 2) - 50, 1, Color.White, "UMR", 50);
             string result;
             if(InputSystem.CurrentString.Length > 0)
@@ -128,6 +199,9 @@ namespace RadianceOS.System.Security.Auth
             {
                 Explorer.CanvasMain.DrawStringTTF(new string('•', result.Length) + "|", "UMR", Color.White, 17, inputX + 7, inputY + 17);
             }
+
+            Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, inputX, inputY + 20, inputW, inputH);
+            StringsAcitons.DrawCenteredTTFString("Login", SizeX, 0, inputY + 37, 1, Color.White, "UMR", 17);
         }
 
         private static void RenderOtherUsers(int SizeX, int SizeY)

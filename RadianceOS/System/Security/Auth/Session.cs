@@ -12,10 +12,19 @@ namespace RadianceOS.System.Security.Auth
 {
     public static class Session
     {
-        public static bool IsAuthenticated { get; private set; }
+        public static bool IsAuthenticated { get; private set; } = false;
         public static DateTime? AuthenticatedAt { get; private set; }
-        public static string UserName { get; private set; }
-        public static bool IsLocked { get; private set; }
+        public static string UserName { get; private set; } = "";
+        public static bool IsLocked { get; private set; } = false;
+        public static UserLevel CurrentUserLevel { get; private set; } = UserLevel.User;
+
+        public enum UserLevel
+        {
+            User = 0,
+            Administrator = 1,
+            Root = 2 // You probably wont be able to get this
+        }
+
         /// <summary>
         /// An upgradable authentication system
         /// </summary>
@@ -23,10 +32,10 @@ namespace RadianceOS.System.Security.Auth
         /// <param name="password">Their password</param>
         /// <param name="force">If there's an active user, you can forcefully bypass that and log them out so you can log in.</param>
         /// <returns>0 = Success, 1 = Wrong password, 2 = User not found, 3 = User already logged in (Do you want to force log in and log the other user out?)</returns>
-        public static int Authenticate(string username, string password, bool? force)
+        public static int Authenticate(string username, string password, bool? force = null)
         {
             // This can be easily upgraded
-            if(!string.IsNullOrEmpty(username))
+            if(!string.IsNullOrEmpty(UserName))
             {
                 if(force != true)
                 {
@@ -34,7 +43,7 @@ namespace RadianceOS.System.Security.Auth
                 }
             }
 
-            if(File.Exists(@"0:\Users\" + username + @"\"))
+            if(Directory.Exists(@"0:\Users\" + username + @"\"))
             {
                 if(password == File.ReadAllText(@"0:\Users\" + username + @"\AccountInfo\Password.SysData"))
                 {

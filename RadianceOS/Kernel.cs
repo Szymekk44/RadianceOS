@@ -38,6 +38,7 @@ namespace RadianceOS
 		public static Bitmap power, restart, standby;
 		public static Bitmap powersmall, restartsmall, standbysmall;
 		public static Bitmap RadianceOSLogo, RadianceOSLogoTransparent;
+		public static Bitmap UAC, UACSmall;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Websites.Test.skk.bmp")]
 		public static byte[] skk;
@@ -367,6 +368,11 @@ namespace RadianceOS
 			RadianceOSLogo = new Bitmap(Files.RadianceOSIcon);
 			RadianceOSLogoTransparent = new Bitmap(Files.RadianceOSIconTransparent);
 			WriteLineOK("RadianceOS Logos");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "Security Icons");
+			UAC = new Bitmap(Files.UAC);
+			UACSmall = new Bitmap(Files.UACSmall);
+			WriteLineOK("Security Icons");
 
 			AllLoaded = true;
 			try
