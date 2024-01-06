@@ -57,6 +57,12 @@
       <None Remove="Resources\Icons\noDisk.bmp" />
       <None Remove="Resources\Icons\notepad.bmp" />
       <None Remove="Resources\Icons\padlock.bmp" />
+      <None Remove="Resources\Icons\Power\power.png" />
+      <None Remove="Resources\Icons\Power\restart.png" />
+      <None Remove="Resources\Icons\Power\Small\power.png" />
+      <None Remove="Resources\Icons\Power\Small\restart.png" />
+      <None Remove="Resources\Icons\Power\Small\standby.png" />
+      <None Remove="Resources\Icons\Power\standby.png" />
       <None Remove="Resources\Icons\RadiantWave.bmp" />
       <None Remove="Resources\Icons\setting icon.bmp" />
       <None Remove="Resources\Icons\stop.bmp" />
@@ -120,6 +126,12 @@
       <EmbeddedResource Include="Resources\Icons\info.bmp" />
       <EmbeddedResource Include="Resources\Icons\notepad.bmp" />
       <EmbeddedResource Include="Resources\Icons\padlock.bmp" />
+      <EmbeddedResource Include="Resources\Icons\Power\power.png" />
+      <EmbeddedResource Include="Resources\Icons\Power\restart.png" />
+      <EmbeddedResource Include="Resources\Icons\Power\Small\power.png" />
+      <EmbeddedResource Include="Resources\Icons\Power\Small\restart.png" />
+      <EmbeddedResource Include="Resources\Icons\Power\Small\standby.png" />
+      <EmbeddedResource Include="Resources\Icons\Power\standby.png" />
       <EmbeddedResource Include="Resources\Icons\RadiantWave.bmp" />
       <EmbeddedResource Include="Resources\Icons\setting icon.bmp" />
       <EmbeddedResource Include="Resources\Icons\stop.bmp">

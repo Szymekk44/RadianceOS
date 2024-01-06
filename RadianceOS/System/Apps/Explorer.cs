@@ -157,7 +157,9 @@ namespace RadianceOS.System.Apps
 							RasRender.Render(i);
 							break;
 						case 4:
-							Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							// Rendering the new Login window, keeping the old one, just in case.
+							//Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							Security.Auth.LoginScreen.Render(0, 0, (int)screenSizeX, (int)screenSizeY, i);
 							break;
 						case 5:
 							Settings.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);

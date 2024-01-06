@@ -35,6 +35,9 @@ namespace RadianceOS
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
 		public static Bitmap text16, docuent16, folder16, data16, sysData16;
+		public static Bitmap power, restart, standby;
+		public static Bitmap powersmall, restartsmall, standbysmall;
+		public static Bitmap RadianceOSLogo, RadianceOSLogoTransparent;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Websites.Test.skk.bmp")]
 		public static byte[] skk;
@@ -350,6 +353,20 @@ namespace RadianceOS
 			sysData16 = new Bitmap(Files.sysData16);
 			WriteLineOK("File Icons 16px");
 			BootScreen.Render("Audio", "Starting audio");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "Power Icons");
+			power = new Bitmap(Files.power);
+			restart = new Bitmap(Files.restart);
+			standby = new Bitmap(Files.standby);
+			powersmall = new Bitmap(Files.powersmall);
+			restartsmall = new Bitmap(Files.restartsmall);
+			standbysmall = new Bitmap(Files.standbysmall);
+			WriteLineOK("Power Icons");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "RadianceOS Logos");
+			RadianceOSLogo = new Bitmap(Files.RadianceOSIcon);
+			RadianceOSLogoTransparent = new Bitmap(Files.RadianceOSIconTransparent);
+			WriteLineOK("RadianceOS Logos");
 
 			AllLoaded = true;
 			try
