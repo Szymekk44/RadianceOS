@@ -254,7 +254,7 @@ namespace RadianceOS.System.Apps
 					Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 7:
-                    Canvas.DrawImageAlpha(Kernel.UACSmall, 10, y + 4 + (id * 40));
+                    Canvas.DrawImageAlpha(Kernel.UAC , 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Security Manager", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 			}
