@@ -14,7 +14,7 @@ namespace RadianceOS.System.Security.Auth
     {
         public static bool IsAuthenticated { get; private set; } = false;
         public static DateTime? AuthenticatedAt { get; private set; }
-        public static string UserName { get; private set; } = "";
+        public static string UserName { get; private set; } = "TestA"; // I added a username for testing
         public static bool IsLocked { get; private set; } = false;
         public static UserLevel CurrentUserLevel { get; private set; } = UserLevel.User;
 
@@ -107,6 +107,22 @@ namespace RadianceOS.System.Security.Auth
                 Explorer.drawIcons = true;
                 DrawDesktopApps.UpdateIcons();
                 Explorer.DrawTaskbar = true;
+            }
+        }
+
+        public static void ElevateUser(Action complete = null)
+        {
+            complete();
+        }
+
+        /// <summary>
+        /// Does the opposite of ElevateUser, but this requires no extra permission, do check before using it though.
+        /// </summary>
+        public static void RestrictUser()
+        {
+            if(CurrentUserLevel == 0)
+            {
+                Kernel.Crash("Attempted to restrict a user when already at base 'User' permissions.", -1);
             }
         }
     }

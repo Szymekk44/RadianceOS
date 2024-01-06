@@ -185,6 +185,9 @@ namespace RadianceOS.System.Apps
 						case 12:
 							RasExecuter.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
 							break;
+						case 13:
+							SecurityManager.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
 						case 100:
 							NewInstallator.Render(i, Process.Processes[i].tempInt, Process.Processes[i].X, Process.Processes[i].Y, 800, 500, Process.Processes[i].tempBool);
 							break;

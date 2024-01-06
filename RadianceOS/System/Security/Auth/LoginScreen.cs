@@ -9,6 +9,7 @@ using System.Drawing;
 using RadianceOS.System.Graphic;
 using CosmosTTF;
 using System.Dynamic;
+using Cosmos.System.Graphics;
 
 namespace RadianceOS.System.Security.Auth
 {
@@ -17,6 +18,7 @@ namespace RadianceOS.System.Security.Auth
         public static bool Clicked;
         public static bool Closed = true; // Whether or not to display the clock or the login screen
         public static bool LoggingIn = false;
+        public static bool Doing = false;
 
         // 0 = None (Displays "Logging in..."
         // 1 = Incorrect password
@@ -90,7 +92,42 @@ namespace RadianceOS.System.Security.Auth
                                     // Not needed (May be in the future), just a popup for now.
                                     break;
                                 case 2:
-                                    //StringsAcitons.DrawCenteredTTFString("There is another user logged in");
+                                    StringsAcitons.DrawCenteredTTFString("Someone else is already logged in, would you like to log them out?", SizeX, 0, SizeY / 2, 1, Color.White, "UMR", 163 / 6);
+                                    
+                                    int inputX = SizeX / 2 - (250 / 2);
+                                    int inputY = SizeY / 2 - (25 / 2);
+                                    int inputW = 250;
+                                    int inputH = 25;
+                                    Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, inputX, inputY + 20, inputW, inputH);
+                                    Bitmap UACShield = new Bitmap(Files.UACShield16);
+                                    Explorer.CanvasMain.DrawImageAlpha(UACShield, inputX, inputY + 20);
+                                    StringsAcitons.DrawCenteredTTFString("Login", SizeX, 0, (int)(inputY + 37 + UACShield.Width), 1, Color.White, "UMR", 17);
+
+                                    Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, inputX, inputY + 40, inputW, inputH);
+                                    StringsAcitons.DrawCenteredTTFString("Cancel", SizeX, 0, inputY + 57, 1, Color.White, "UMR", 17);
+
+                                    if (Explorer.MY > SizeY / 2 - (25 / 2) + 17 && Explorer.MY < SizeY / 2 - (25 / 2) + 17 + 25)
+                                    {
+                                        if (Explorer.MX > SizeX / 2 - (250 / 2) && Explorer.MX < SizeX / 2 - (250 / 2) + 250)
+                                        {
+                                            if(Explorer.Clicked && !Doing)
+                                            {
+                                                Doing = true;
+                                                Session.ElevateUser(() =>
+                                                {
+                                                    Session.Authenticate(Kernel.loggedUser, InputSystem.CurrentString, true);
+                                                });
+                                            }
+                                        }
+                                    }
+
+                                    if (Explorer.MY > SizeY / 2 - (25 / 2) + 17 && Explorer.MY < SizeY / 2 - (25 / 2) + 17 + 25)
+                                    {
+                                        if (Explorer.MX > SizeX / 2 - (250 / 2) && Explorer.MX < SizeX / 2 - (250 / 2) + 250)
+                                        {
+                                        }
+                                    }
+
                                     break;
                                 case 3:
                                     break;
@@ -150,24 +187,25 @@ namespace RadianceOS.System.Security.Auth
                         LoggingIn = true;
                         if(string.IsNullOrEmpty(InputSystem.CurrentString))
                         {
-                            MessageBoxCreator.CreateMessageBox("Invalid input", "Please input a password to login.");
+                            MessageBoxCreator.CreateMessageBox("Invalid input", "Please input a password to login.", MessageBoxCreator.MessageBoxIcon.warning, 400);
+                            LoggingIn = false;
                         } else
                         {
                             int output = Session.Authenticate(Kernel.loggedUser, InputSystem.CurrentString);
-                            MessageBoxCreator.CreateMessageBox("Attempting to login", $"{output}");
                             if(output == 0)
                             {
-                                MessageBoxCreator.CreateMessageBox("Logged in successfully", "?");
+                                //MessageBoxCreator.CreateMessageBox("Logged in successfully", "?");
                             } else if(output == 1)
                             {
-                                MessageBoxCreator.CreateMessageBox("Incorrect password", "The password you input is incorrect");
+                                MessageBoxCreator.CreateMessageBox("Incorrect password", "The password you input is incorrect", MessageBoxCreator.MessageBoxIcon.error, 500);
                                 LoggingInMode = 1;
                             } else if(output == 2)
                             {
-                                MessageBoxCreator.CreateMessageBox("User not found", "The user you are attempting to log into does not exist");
+                                MessageBoxCreator.CreateMessageBox("User not found", "The user you are attempting to log into does not exist", MessageBoxCreator.MessageBoxIcon.error, 600);
                             } else if(output == 3)
                             {
-                                Session.Authenticate(Kernel.loggedUser, InputSystem.CurrentString, true);
+                                LoggingInMode = 2;
+                                //Session.Authenticate(Kernel.loggedUser, InputSystem.CurrentString, true);
                             } else
                             {
                                 MessageBoxCreator.CreateMessageBox("Something happened", "?");

@@ -66,6 +66,13 @@
       <None Remove="Resources\Icons\Power\standby.png" />
       <None Remove="Resources\Icons\Power\UAC.png" />
       <None Remove="Resources\Icons\RadiantWave.bmp" />
+      <None Remove="Resources\Icons\Security\Small\UACSheild48.png" />
+      <None Remove="Resources\Icons\Security\Small\UACShield128.png" />
+      <None Remove="Resources\Icons\Security\Small\UACShield16.png" />
+      <None Remove="Resources\Icons\Security\Small\UACShield24.png" />
+      <None Remove="Resources\Icons\Security\Small\UACShield32.png" />
+      <None Remove="Resources\Icons\Security\Small\UACShield64.png" />
+      <None Remove="Resources\Icons\Security\UACShield.png" />
       <None Remove="Resources\Icons\setting icon.bmp" />
       <None Remove="Resources\Icons\stop.bmp" />
       <None Remove="Resources\Icons\sysinfo icon.bmp" />
@@ -130,6 +137,12 @@
       <EmbeddedResource Include="Resources\Icons\padlock.bmp" />
       <EmbeddedResource Include="Resources\Icons\Power\power.png" />
       <EmbeddedResource Include="Resources\Icons\Power\restart.png" />
+      <EmbeddedResource Include="Resources\Icons\Security\Small\UACSheild48.png" />
+      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield128.png" />
+      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield16.png" />
+      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield24.png" />
+      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield32.png" />
+      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield64.png" />
 		<EmbeddedResource Include="Resources\Icons\Security\UAC.png" />
       <EmbeddedResource Include="Resources\Icons\Power\Small\power.png" />
       <EmbeddedResource Include="Resources\Icons\Power\Small\restart.png" />
@@ -137,6 +150,7 @@
       <EmbeddedResource Include="Resources\Icons\Security\Small\UAC.png" />
       <EmbeddedResource Include="Resources\Icons\Power\standby.png" />
       <EmbeddedResource Include="Resources\Icons\RadiantWave.bmp" />
+      <EmbeddedResource Include="Resources\Icons\Security\UACShield.png" />
       <EmbeddedResource Include="Resources\Icons\setting icon.bmp" />
       <EmbeddedResource Include="Resources\Icons\stop.bmp">
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>

@@ -151,7 +151,7 @@ namespace RadianceOS
 				catch
 				{
 					Cursor1 = new Bitmap(Files.cursor1);
-					Security.StartGui();
+                    System.Radiance.Security.StartGui();
 					diskReady = false;
 					WriteLineERROR("Users folder not found!");
 
@@ -438,7 +438,7 @@ namespace RadianceOS
 			{
 				if (Kernel.loggedUser == null)
 				{
-					Security.Logged = true;
+                    System.Radiance.Security.Logged = true;
 					return;
 				}
 				string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
@@ -452,13 +452,13 @@ namespace RadianceOS
 				}
 				else
 				{
-					Security.Logged = true;
+                    System.Radiance.Security.Logged = true;
 				}
 
 			}
 			else
 			{
-				Security.Logged = true;
+                System.Radiance.Security.Logged = true;
 			}
 
 		}
@@ -501,34 +501,34 @@ namespace RadianceOS
 			}
 			else if (!Repair)
 			{
-				if (Security.Logged)
+				if (System.Radiance.Security.Logged)
 				{
 
-					Console.Write(path + ">");
+                    Console.Write(path + ">");
 					var input = Console.ReadLine();
-					ConsoleCommands.RunCommand(input);
+                    ConsoleCommands.RunCommand(input);
 				}
 				else
 				{
-					Console.ForegroundColor = ConsoleColor.Cyan;
-					Console.Write("Password> ");
-					Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("Password> ");
+                    Console.ForegroundColor = ConsoleColor.White;
 					var input = Console.ReadLine();
 					string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
 					if (input == File.ReadAllText(myUser + @"AccountInfo\Password.SysData"))
 					{
-						Security.Logged = true;
-						WriteLineOK("Logged as " + loggedUser);
+                        System.Radiance.Security.Logged = true;
+                        WriteLineOK("Logged as " + loggedUser);
 					}
 					else
 					{
-						WriteLineERROR("Incorrect password!");
+                        WriteLineERROR("Incorrect password!");
 					}
 				}
 			}
 			else if (Repair)
 			{
-				Security.Render();
+                System.Radiance.Security.Render();
 			}
 
 			if(countFPS)
@@ -567,9 +567,9 @@ namespace RadianceOS
 
 			Explorer.CanvasMain.Clear(Color.FromArgb(132, 0, 0));
 			Explorer.CanvasMain.Display();
-			Security.reason = Error + "\nID: " + id;
-			Security.State = 1;
-			Security.StartGui();
+            System.Radiance.Security.reason = Error + "\nID: " + id;
+            System.Radiance.Security.State = 1;
+            System.Radiance.Security.StartGui();
 		}
 
     }
