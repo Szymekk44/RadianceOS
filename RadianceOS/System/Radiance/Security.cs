@@ -33,13 +33,10 @@ namespace RadianceOS.System.Radiance
             if(Kernel.render)
             {
                 Process.Processes.RemoveAt(1);
-				Explorer.drawIcons = true;
-				DrawDesktopApps.UpdateIcons();
-				Explorer.DrawTaskbar = true;
-			}
-
-			
-
+		Explorer.drawIcons = true;
+		DrawDesktopApps.UpdateIcons();
+		Explorer.DrawTaskbar = true;
+	    }		
         }
 
         public static void StartGui()
