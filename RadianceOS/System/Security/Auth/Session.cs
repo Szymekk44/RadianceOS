@@ -64,10 +64,33 @@ namespace RadianceOS.System.Security.Auth
         /// </summary>
         public static void Logout()
         {
+            Process.Processes.Clear();
+            foreach (var p in Process.Processes)
+            {
+                //if (p.ID == 4) return; // Stop the process if the login screen already exists
+            }
+
             IsAuthenticated = false;
             AuthenticatedAt = null;
             UserName = "";
             IsLocked = false;
+            //Kernel.loggedUser = "";
+            Radiance.Security.Logged = false;
+
+            // Kill all processes
+            foreach (var p in Process.Processes)
+            {
+                if (p.ID == 0) continue; // Unless it's Explorer
+                Process.Processes.Remove(p);
+            }
+
+            Explorer.drawIcons = false;
+            DrawDesktopApps.UpdateIcons();
+            Explorer.DrawTaskbar = false;
+
+            Process.Processes.Add(new Processes() { ID = 4, Name = "Login", moveAble = false, SizeX = 1200, SizeY = 700 });
+            Process.UpdateProcess(Process.Processes.Count - 1);
+            LoginScreen.Reinitialise();
         }
         /// <summary>
         /// Returns the user to the login screen but it's slightly different because it keeps them logged in
@@ -82,6 +105,7 @@ namespace RadianceOS.System.Security.Auth
         {
             // Initialises the theme and things
             Kernel.loggedUser = username;
+            UserName = username;
 
             if (File.Exists(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Theme.dat"))
             {

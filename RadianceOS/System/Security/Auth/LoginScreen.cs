@@ -43,12 +43,16 @@ namespace RadianceOS.System.Security.Auth
 
                 // TODO: Fix the below code
                 //Explorer.CanvasMain.DrawImageAlpha(Kernel.Wallpaper1, 0, 0);
-                //Window.GetTempImageDarkAndBlur(0, 0, SizeX, SizeY, "Wallpaper", 0.5f, 3);
+                if(Window.tempBitmap == null)
+                {
+                    Window.GetTempImageDarkAndBlur(0, 0, SizeX, SizeY, "Wallpaper", 0.5f, 3);
+                }
                 //Kernel.TaskBar1 = Window.tempBitmap;
+                Explorer.CanvasMain.DrawImage(Window.tempBitmap, X, Y);
 
                 // Temp
                 // Was middark, not main
-                Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(127, Kernel.main), 0, 0, SizeX, SizeY);
+                //Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(127, Kernel.main), 0, 0, SizeX, SizeY);
 
                 // Testing how to centre properly
                 //Explorer.CanvasMain.DrawImage(Kernel.padlockIcon, (SizeX / 2) - (int)Kernel.padlockIcon.Width / 2, (SizeY / 2) - (int)Kernel.padlockIcon.Height / 2);
@@ -150,6 +154,15 @@ namespace RadianceOS.System.Security.Auth
             {
                 MessageBoxCreator.CreateMessageBox("Fatal Error", "Please open RadianceOS console mode!\n" + e.Message, MessageBoxCreator.MessageBoxIcon.error, 600, 175);
             }
+        }
+
+        public static void Reinitialise()
+        {
+            Clicked = false;
+            Closed = true;
+            LoggingIn = false;
+            Doing = false;
+            LoggingInMode = 0;
         }
 
         public static string FetchTime()

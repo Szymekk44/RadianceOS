@@ -11,6 +11,7 @@ using RadianceOS.System.Apps.Games;
 using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using Cosmos.HAL;
 using RadianceOS.Render;
+using RadianceOS.System.Managment;
 
 namespace RadianceOS.System.Apps
 {
@@ -200,7 +201,7 @@ namespace RadianceOS.System.Apps
 									{
 										Processes SecurityManager = new Processes
 										{
-											ID = 9,
+											ID = 13,
 											Name = "Security Manager",
 											Description = "The RadianceOS Security Manager",
 											X = 100,
@@ -254,7 +255,7 @@ namespace RadianceOS.System.Apps
 					Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 				case 7:
-                    Canvas.DrawImageAlpha(Kernel.UAC , 10, y + 4 + (id * 40));
+                    Canvas.DrawImageAlpha(new Cosmos.System.Graphics.Bitmap(Files.UACShield32) , 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Security Manager", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 			}
