@@ -41,10 +41,11 @@ namespace RadianceOS.System.Security.Auth
             {
                 InputSystem.Monitore(0, Process.Processes[i].CurrChar, i);
 
-                // TODO: Fix the below code
+                // TODO: Fix the below code (Won't blur correctly)
                 //Explorer.CanvasMain.DrawImageAlpha(Kernel.Wallpaper1, 0, 0);
                 if(Window.tempBitmap == null)
                 {
+                    Explorer.CanvasMain.DrawImageAlpha(Kernel.Wallpaper1, 0, 0);
                     Window.GetTempImageDarkAndBlur(0, 0, SizeX, SizeY, "Wallpaper", 0.5f, 3);
                 }
                 //Kernel.TaskBar1 = Window.tempBitmap;
