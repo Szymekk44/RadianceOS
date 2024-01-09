@@ -14,7 +14,7 @@ namespace RadianceOS.System.Security.Auth
     {
         public static bool IsAuthenticated { get; private set; } = false;
         public static DateTime? AuthenticatedAt { get; private set; }
-        public static string UserName { get; private set; } = "TestA"; // I added a username for testing
+        public static string UserName { get; private set; } = ""; //"TestA"; // I added a username for testing
         public static bool IsLocked { get; private set; } = false;
         public static UserLevel CurrentUserLevel { get; private set; } = UserLevel.User;
 

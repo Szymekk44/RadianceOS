@@ -93,6 +93,27 @@ namespace RadianceOS.System.Apps
                         }
                     }
                     StringsAcitons.DrawCenteredString("Logout", 100, X + 210, Y + 20 + 35 + (15 * 6) + 3, 1, Color.White, Cosmos.System.Graphics.Fonts.PCScreenFont.Default);
+
+                    // Shut down
+                    Window.DrawFullRoundedRectangle(X + 210 + 110, Y + 20 + 35 + (15 * 6), 100, 20, 5, Kernel.lightMain);
+                    if (IsCursorInArea(Explorer.MX, Explorer.MY, X + 210 + 110, Y + 20 + 35 + (15 * 6), 100, 20))
+                    {
+                        Window.DrawFullRoundedRectangle(X + 210 + 110, Y + 20 + 35 + (15 * 6), 100, 20, 5, Kernel.middark);
+                        if (Explorer.Clicked)
+                        {
+                            Processes processes = new Processes()
+                            {
+                                Name = "Power options",
+                                ID = 99,
+                                X = (int)((Explorer.screenSizeX / 2) - 600),
+                                Y = (int)((Explorer.screenSizeY / 2) - 200),
+                                SizeX = 600,
+                                SizeY = 200,
+                            };
+                            Process.Processes.Add(processes);
+                        }
+                    }
+                    StringsAcitons.DrawCenteredString("Power options", 100, X + 210 + 100, Y + 20 + 35 + (15 * 6) + 3, 1, Color.White, Cosmos.System.Graphics.Fonts.PCScreenFont.Default);
                     break;
             }
         }
