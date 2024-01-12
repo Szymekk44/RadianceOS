@@ -1,4 +1,5 @@
-﻿using RadianceOS.System.Security.Auth;
+﻿using RadianceOS.System.Apps;
+using RadianceOS.System.Security.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,11 +34,20 @@ namespace RadianceOS.System.Security
 
         public class ApplicationElevation : UACRequest
         {
+            public ProcessSecurityLevel RequestedLevel { get; private set; }
+            public ProcessSecurityLevel CurrentLevel { get; private set; }
+            Processes Process;
 
+            public ApplicationElevation(Processes process, ProcessSecurityLevel requestedLevel)
+            {
+                Process = process;
+                CurrentLevel = process.ProcessSecurityInfo.Level;
+                RequestedLevel = requestedLevel;
+            }
         }
         public class ApplicationElevationResult : UACResult
         {
-
+            public bool Success { get; private set; } = false;
         }
 
         public class UserElevation : UACRequest
