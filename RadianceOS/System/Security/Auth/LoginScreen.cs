@@ -25,7 +25,9 @@ namespace RadianceOS.System.Security.Auth
         // 2 = Needs Force (UAC popup)
         // 3 = Access Denied (Can't log into the system, use console mode)
         // 4 = Doesn't exist
-        public static int LoggingInMode = 0; 
+        public static int LoggingInMode = 0;
+
+        public static bool IsPowerClicked = false;
 
         /// <summary>
         /// The Render function for rendering the login screen.
@@ -58,8 +60,39 @@ namespace RadianceOS.System.Security.Auth
                 // Testing how to centre properly
                 //Explorer.CanvasMain.DrawImage(Kernel.padlockIcon, (SizeX / 2) - (int)Kernel.padlockIcon.Width / 2, (SizeY / 2) - (int)Kernel.padlockIcon.Height / 2);
 
-                Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, (int)(SizeX - Kernel.standbysmall.Width - (6 + 24)), (6 + 24), (int)Kernel.standbysmall.Width + 24);
-                Explorer.CanvasMain.DrawImageAlpha(Kernel.standbysmall, (int)(SizeX - Kernel.standbysmall.Width - 7), 7);
+                // 5 for padding
+                int x = (int)(SizeX - Kernel.standbysmall.Width - 5);
+                int y = (int)(Kernel.standbysmall.Height + 5);
+                int radius = (int)(Kernel.standbysmall.Width);
+
+                Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, x, y, radius);
+                if(IsCursorInArea(Explorer.MX, Explorer.MY, x, y, radius, radius))
+                {
+                    Explorer.CanvasMain.DrawFilledCircle(Kernel.dark, x, y, radius);
+                    if(Explorer.Clicked && !IsPowerClicked)
+                    {
+                        IsPowerClicked = true;
+
+                        Processes processes = new Processes()
+                        {
+                            Name = "Power options",
+                            ID = 99,
+                            X = (int)((Explorer.screenSizeX / 2) - 600),
+                            Y = (int)((Explorer.screenSizeY / 2) - 200),
+                            SizeX = 600,
+                            SizeY = 200,
+                        };
+                        Process.Processes.Add(processes);
+                    }
+                } else if(IsPowerClicked)
+                {
+                    IsPowerClicked = false;
+                }
+                Explorer.CanvasMain.DrawImageAlpha(Kernel.standbysmall, x - 12, y - 12);
+
+                // (int)(SizeX - Kernel.standbysmall.Width - (6 + 24))
+                //Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, (int)(SizeX - Kernel.standbysmall.Width - 7 - 24) + 12, 6 + 24, (int)Kernel.standbysmall.Width);
+                //Explorer.CanvasMain.DrawImageAlpha(Kernel.standbysmall, (int)(SizeX - Kernel.standbysmall.Width - 7 - 24) - 5, 7 + 5);
 
                 if (Clicked)
                 {
@@ -259,6 +292,15 @@ namespace RadianceOS.System.Security.Auth
         private static void RenderOtherUsers(int SizeX, int SizeY)
         {
 
+        }
+
+        // By ChatGPT, makes it easier to detect if the cursor is in the area.
+        public static bool IsCursorInArea(int cursorX, int cursorY, int areaLeft, int areaTop, int areaWidth, int areaHeight)
+        {
+            return cursorX >= areaLeft &&
+                   cursorX <= areaLeft + areaWidth &&
+                   cursorY >= areaTop &&
+                   cursorY <= areaTop + areaHeight;
         }
     }
 }
