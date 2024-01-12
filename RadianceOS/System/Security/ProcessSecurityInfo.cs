@@ -8,6 +8,11 @@ namespace RadianceOS.System.Security
 {
     public class ProcessSecurityInfo
     {
+        /**
+         * Built-in apps don't actually have to use this as they don't require permissions because they already have
+         * access to everything they could need.
+         * */
+
         public SecurityLevel Level { get; private set; }
         public string Name { get; private set; }
         public string Description { get; private set; }
@@ -30,7 +35,7 @@ namespace RadianceOS.System.Security
             Verified = verified; // Probably not a good idea but oh well
         }
 
-        public void AttemptElevation()
+        public void AttemptElevation(Action success, Action? failure = null)
         {
 
         }
