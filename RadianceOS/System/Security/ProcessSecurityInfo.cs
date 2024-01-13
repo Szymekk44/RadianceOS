@@ -29,14 +29,20 @@ namespace RadianceOS.System.Security
             Verified = verified; // Probably not a good idea but oh well
         }
 
-        public void AttemptElevation(Processes process, Action? success = null, Action? failure = null)
+        public void AttemptElevation(Processes process, Action<UAC.UACResult?>? success = null, Action<UAC.UACResult?>? failure = null)
         {
+            if(Level + 1 >= ProcessSecurityLevel.Root)
+            {
+                if(failure != null) failure(null);
+            }
+
             UAC.ApplicationElevation applicationElevation = new UAC.ApplicationElevation(process, Level + 1);
             applicationElevation.RequestComplete = (UAC.UACResult result) =>
             {
-                if (success != null && result.Success) success();
-                if(failure != null && !result.Success) failure();
+                if (success != null && result.Success) success(result);
+                if (failure != null && !result.Success) failure(result);
             };
+            UAC.RequestUAC(applicationElevation);
         }
     }
 

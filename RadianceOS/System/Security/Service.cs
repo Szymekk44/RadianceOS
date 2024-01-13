@@ -51,6 +51,8 @@ namespace RadianceOS.System.Security
         /// </summary>
         public static void UpdateInternal()
         {
+            UAC.Render();
+
             // Render every 100 frames, prevents lag
             updates++;
             if (updates >= 100)

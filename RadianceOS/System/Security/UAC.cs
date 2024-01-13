@@ -15,6 +15,11 @@ namespace RadianceOS.System.Security
 
         private static List<UACRequest> UACRequestQueue = new List<UACRequest>();
 
+        public static void Render()
+        {
+            if (UACRequestQueue.Count == 0) return;
+        }
+
         public static void RequestUAC(UACRequest request)
         {
             UACRequestQueue.Add(request);
