@@ -89,6 +89,22 @@ namespace RadianceOS.System.Security
             }
         }
 
+        public static void PauseAllProcesses()
+        {
+            for (int i = 0; i < Process.Processes.Count; i++)
+            {
+                Process.Processes[i].hidden = true;
+            }
+        }
+
+        public static void UnPauseAllProcesses()
+        {
+            for (int i = 0; i < Process.Processes.Count; i++)
+            {
+                Process.Processes[i].hidden = false;
+            }
+        }
+
         /// <summary>
         /// Initialises RS Security, should only be called once
         /// </summary>

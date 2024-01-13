@@ -44,6 +44,11 @@ namespace RadianceOS.System.Apps
                 if(Session.CurrentUserLevel == Session.UserLevel.User && InitLoop == 1)
                 {
                     MessageBoxCreator.CreateMessageBox("Security Manager", "You do not have permission to access Security Manager, attempting to elevate your permissions...", MessageBoxCreator.MessageBoxIcon.info, 875);
+                    Process.Processes[i].ProcessSecurityInfo = new Security.ProcessSecurityInfo("Security Manager", "RadianceOS Security Manager", "RadianceOS", true);
+                    Process.Processes[i].ProcessSecurityInfo.AttemptElevation(Process.Processes[i], (Security.UAC.UACResult? result) =>
+                    {
+
+                    }, (Security.UAC.UACResult? result) => { Process.Processes.RemoveAt(i); });
                     Session.ElevateUser(() =>
                     {
                         Initialised = true;

@@ -1,4 +1,5 @@
 ﻿using RadianceOS.System.Apps;
+using RadianceOS.System.Graphic;
 using RadianceOS.System.Security.Auth;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,31 @@ namespace RadianceOS.System.Security
 
         private static List<UACRequest> UACRequestQueue = new List<UACRequest>();
 
+        static bool init = false;
+
         public static void Render()
         {
             if (UACRequestQueue.Count == 0) return;
+
+            UACRequest currentRequest = UACRequestQueue[0];
+
+            Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+
+            if(!init)
+            {
+                Explorer.DrawTaskbar = false;
+                Explorer.DrawMenu = false;
+                Explorer.drawIcons = false;
+
+                Service.PauseAllProcesses();
+                init = true;
+            }
+
+            int width = 200;
+            int height = 450;
+            int x = (int)((Explorer.screenSizeX / 2) - width);
+            int y = (int)((Explorer.screenSizeY / 2) - height);
+            Window.DrawFullRoundedRectangle(x, y, width, height, 5, Kernel.main);
         }
 
         public static void RequestUAC(UACRequest request)
