@@ -22,7 +22,9 @@ RadianceOS includes a variety of built-in applications, providing a versatile co
 - **File Explorer**: Navigate and manage files and directories seamlessly.
 - **Settings**: Customize and configure various system settings like system wallpaper or theme.
 - **Snake Game**: RadianceOS also includes games like snake, the settings of which can be changed, e.g. the speed of the snake!
-- - **Security**: RadianceOS includes an easy way of managing the security of the device
+
+### Security
+RadianceOS includes an easy way of managing the security of the device
 
 ### RadiantWave Browser
 Experience web browsing with the built-in HTTP browser, with basic html+css parser by [SammaPixelStudio](https://github.com/Samma2009/)
