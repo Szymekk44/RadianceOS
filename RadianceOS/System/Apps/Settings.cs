@@ -165,8 +165,10 @@ namespace RadianceOS.System.Apps
                                         {
                                             Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
 											Kernel.Wallpaper1 = Window.tempBitmap;
-                                        }
-                                        Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+									
+										}
+										DrawDesktopApps.clearIcons();
+										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
                                         Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
                                         Kernel.TaskBar1 = Window.tempBitmap;
 
@@ -181,8 +183,11 @@ namespace RadianceOS.System.Apps
                                         {
                                             Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
                                             Kernel.Wallpaper1 = Window.tempBitmap;
-                                        }
-                                        Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+										
+
+										}
+										DrawDesktopApps.clearIcons();
+										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
                                         Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
                                         Kernel.TaskBar1 = Window.tempBitmap;
                                     }

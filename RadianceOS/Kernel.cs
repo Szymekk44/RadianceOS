@@ -396,7 +396,7 @@ namespace RadianceOS
 			{
 				Console.WriteLine();
 				Console.Write(DrawConsole.CenterText("Welcome"));
-				BootScreen.Render("Welcome", "Connecting to network", Color.White, false);
+				BootScreen.Render("NETWORKING", "Connecting to network", Color.White, false);
 			
 				RadianceOS.System.Networking.NetworkManager.Connect();
 				if (!RadianceOS.System.Networking.NetworkManager.Network)
@@ -405,11 +405,15 @@ namespace RadianceOS
 					Thread.Sleep(500);
 				}
 					if (BootScreen.on)
+				{
+					BootScreen.Render("WELCOME", "Loading user environment", Color.White, false);
 					ConsoleCommands.RunCommand("gui");
+				}
+					
 			}
 			else
 			{
-				BootScreen.Render("Welcome", "Starting installer...", Color.White, false);
+				BootScreen.Render("WELCOME", "Starting installer...", Color.White, false);
 				Thread.Sleep(750);
 				if (BootScreen.on)
 				{

@@ -140,6 +140,7 @@ namespace RadianceOS.System.Managment
 
 		public static void Render()
 		{
+			bool refresh = false;
 			clickedOn = false;
 			int menuIndex = -1;
 			for (int i = 0; i < Icons.Count; i++)
@@ -186,11 +187,17 @@ namespace RadianceOS.System.Managment
 						{
                             if (Icons[i].alphaIcon != null)
                             {
+							
                                 Explorer.CanvasMain.DrawImage(Icons[i].alphaIcon, Icons[i].x, Icons[i].y);
                             }
                             else
                             {
-                                Explorer.CanvasMain.DrawImageAlpha(Kernel.unknownIcon, Icons[i].x, Icons[i].y);
+								if (!refresh)
+								{
+									refresh = true;
+									Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+								}
+								Explorer.CanvasMain.DrawImageAlpha(Kernel.unknownIcon, Icons[i].x, Icons[i].y);
                                 Window.GetTempImage(Icons[i].x, Icons[i].y, 48, 48, "File icon");
                                 Icons[i].alphaIcon = Window.tempBitmap;
                             }
@@ -255,7 +262,12 @@ namespace RadianceOS.System.Managment
                             }
 							else
 							{
-                                Explorer.CanvasMain.DrawImageAlpha(Kernel.txtIcon, Icons[i].x, Icons[i].y);
+								if (!refresh)
+								{
+									refresh = true;
+									Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+								}
+								Explorer.CanvasMain.DrawImageAlpha(Kernel.txtIcon, Icons[i].x, Icons[i].y);
 								Window.GetTempImage(Icons[i].x, Icons[i].y, 48, 48, "File icon");
 								Icons[i].alphaIcon = Window.tempBitmap;
                             }
@@ -401,6 +413,14 @@ namespace RadianceOS.System.Managment
 				}
 			}
 
+		}
+
+		public static void clearIcons()
+		{
+			for (int i = 0; i < Icons.Count; i++)
+			{
+				Icons[i].alphaIcon = null;
+			}
 		}
 	}
 

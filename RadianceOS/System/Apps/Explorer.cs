@@ -81,9 +81,12 @@ namespace RadianceOS.System.Apps
 
 		public static void ResizeWallpaper(int SizeX, int SizeY)
 		{
-			CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
-			Window.GetTempImage(0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY, "Wallpaper");
-			Kernel.Wallpaper1 = Window.tempBitmap;
+			if(Kernel.Wallpaper1.Width != SizeX || Kernel.Wallpaper1.Height != SizeY)
+			{
+				CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
+				Window.GetTempImage(0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY, "Wallpaper");
+				Kernel.Wallpaper1 = Window.tempBitmap;
+			}
 		}
 
 
@@ -759,6 +762,7 @@ namespace RadianceOS.System.Apps
 
 		public static void UpdateIcons()
 		{
+			
 			RenderIconx();
 			RenderIconSquare();
 			RenderIconminus();
