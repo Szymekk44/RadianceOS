@@ -51,7 +51,7 @@ namespace RadianceOS.System.Managment
 				else
 					lengh = strings[i].Length * 6;
 				int posX = (WinLengh - lengh) / 2;
-				Security.canvas.DrawString(strings[i], font, color, posX + WinPosX, WinPosY + i * space);
+				Radiance.Security.canvas.DrawString(strings[i], font, color, posX + WinPosX, WinPosY + i * space);
 			}
 		}
 	}

@@ -11,6 +11,7 @@ using RadianceOS.System.Apps.Games;
 using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using Cosmos.HAL;
 using RadianceOS.Render;
+using RadianceOS.System.Managment;
 
 namespace RadianceOS.System.Apps
 {
@@ -30,7 +31,8 @@ namespace RadianceOS.System.Apps
 			DrawStartButton(4);
 			DrawStartButton(5);
 			DrawStartButton(6);
-		}
+            DrawStartButton(7);
+        }
 
 		public static void DrawStartButton(int id)
 		{
@@ -195,11 +197,24 @@ namespace RadianceOS.System.Apps
 
 									}
 									break;
-
-
+								case 7:
+									{
+										Processes SecurityManager = new Processes
+										{
+											ID = 13,
+											Name = "Security Manager",
+											Description = "The RadianceOS Security Manager",
+											X = 100,
+											Y = 70,
+											SizeX = 1200,
+											SizeY = 700,
+											moveAble = true
+										};
+										Process.Processes.Add(SecurityManager);
+										Process.UpdateProcess(Process.Processes.Count - 1);
+									}
+									break;
 							}
-
-
 						}
 					}
 				}
@@ -238,6 +253,10 @@ namespace RadianceOS.System.Apps
 				case 6:
 					Canvas.DrawImageAlpha(Kernel.RadiantWave, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					break;
+				case 7:
+                    Canvas.DrawImageAlpha(new Cosmos.System.Graphics.Bitmap(Files.UACShield32) , 10, y + 4 + (id * 40));
+					Explorer.CanvasMain.DrawString("Security Manager", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 			}
 		}

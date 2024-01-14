@@ -35,6 +35,10 @@ namespace RadianceOS
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
 		public static Bitmap text16, docuent16, folder16, data16, sysData16;
+		public static Bitmap power, restart, standby;
+		public static Bitmap powersmall, restartsmall, standbysmall;
+		public static Bitmap RadianceOSLogo, RadianceOSLogoTransparent;
+		public static Bitmap UAC, UACSmall;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Websites.Test.skk.bmp")]
 		public static byte[] skk;
@@ -147,7 +151,7 @@ namespace RadianceOS
 				catch
 				{
 					Cursor1 = new Bitmap(Files.cursor1);
-					Security.StartGui();
+                    System.Radiance.Security.StartGui();
 					diskReady = false;
 					WriteLineERROR("Users folder not found!");
 
@@ -351,6 +355,25 @@ namespace RadianceOS
 			WriteLineOK("File Icons 16px");
 			BootScreen.Render("Audio", "Starting audio");
 
+			BootScreen.Render("LOADING SYSTEM FILES", "Power Icons");
+			power = new Bitmap(Files.power);
+			restart = new Bitmap(Files.restart);
+			standby = new Bitmap(Files.standby);
+			powersmall = new Bitmap(Files.powersmall);
+			restartsmall = new Bitmap(Files.restartsmall);
+			standbysmall = new Bitmap(Files.standbysmall);
+			WriteLineOK("Power Icons");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "RadianceOS Logos");
+			RadianceOSLogo = new Bitmap(Files.RadianceOSIcon);
+			RadianceOSLogoTransparent = new Bitmap(Files.RadianceOSIconTransparent);
+			WriteLineOK("RadianceOS Logos");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "Security Icons");
+			UAC = new Bitmap(Files.UAC);
+			UACSmall = new Bitmap(Files.UACSmall);
+			WriteLineOK("Security Icons");
+
 			AllLoaded = true;
 			try
 			{
@@ -415,7 +438,7 @@ namespace RadianceOS
 			{
 				if (Kernel.loggedUser == null)
 				{
-					Security.Logged = true;
+                    System.Radiance.Security.Logged = true;
 					return;
 				}
 				string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
@@ -429,13 +452,13 @@ namespace RadianceOS
 				}
 				else
 				{
-					Security.Logged = true;
+                    System.Radiance.Security.Logged = true;
 				}
 
 			}
 			else
 			{
-				Security.Logged = true;
+                System.Radiance.Security.Logged = true;
 			}
 
 		}
@@ -478,34 +501,34 @@ namespace RadianceOS
 			}
 			else if (!Repair)
 			{
-				if (Security.Logged)
+				if (System.Radiance.Security.Logged)
 				{
 
-					Console.Write(path + ">");
+                    Console.Write(path + ">");
 					var input = Console.ReadLine();
-					ConsoleCommands.RunCommand(input);
+                    ConsoleCommands.RunCommand(input);
 				}
 				else
 				{
-					Console.ForegroundColor = ConsoleColor.Cyan;
-					Console.Write("Password> ");
-					Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("Password> ");
+                    Console.ForegroundColor = ConsoleColor.White;
 					var input = Console.ReadLine();
 					string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
 					if (input == File.ReadAllText(myUser + @"AccountInfo\Password.SysData"))
 					{
-						Security.Logged = true;
-						WriteLineOK("Logged as " + loggedUser);
+                        System.Radiance.Security.Logged = true;
+                        WriteLineOK("Logged as " + loggedUser);
 					}
 					else
 					{
-						WriteLineERROR("Incorrect password!");
+                        WriteLineERROR("Incorrect password!");
 					}
 				}
 			}
 			else if (Repair)
 			{
-				Security.Render();
+                System.Radiance.Security.Render();
 			}
 
 			if(countFPS)
@@ -544,9 +567,9 @@ namespace RadianceOS
 
 			Explorer.CanvasMain.Clear(Color.FromArgb(132, 0, 0));
 			Explorer.CanvasMain.Display();
-			Security.reason = Error + "\nID: " + id;
-			Security.State = 1;
-			Security.StartGui();
+            System.Radiance.Security.reason = Error + "\nID: " + id;
+            System.Radiance.Security.State = 1;
+            System.Radiance.Security.StartGui();
 		}
 
     }

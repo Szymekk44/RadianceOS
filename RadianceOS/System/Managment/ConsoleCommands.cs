@@ -389,7 +389,7 @@ namespace RadianceOS.System.Managment
 					};
 					//		Process.Processes.Add(MessageBox);
 					//	Process.UpdateProcess(Process.Processes.Count - 1);
-					if (!Security.Logged)
+					if (!Radiance.Security.Logged)
 					{
 						Processes MessageBox2 = new Processes
 						{
@@ -508,7 +508,7 @@ namespace RadianceOS.System.Managment
 			}
 			else if (command[0] == "repair")
 			{
-				Security.StartGui();
+				Radiance.Security.StartGui();
 				Kernel.render = false;
 				Kernel.Repair = true;
 			}
