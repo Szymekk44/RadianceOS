@@ -724,6 +724,21 @@ namespace RadianceOS.System.Apps
 			Kernel.sysData16 = Window.tempBitmap;
 		}
 
+		public static void RenderIconUser()
+		{
+			
+			
+				CanvasMain.DrawFilledRectangle(Kernel.shadow, 134, 0, 60, 73);
+				if (Kernel.fontColor == Color.White)
+					CanvasMain.DrawImageAlpha(new Bitmap(Files.udt), 134, 0);
+				else
+				CanvasMain.DrawImageAlpha(new Bitmap(Files.ult), 134, 0);
+			Window.GetTempImage(134, 0, 60, 73, "usesIcon");
+				Kernel.userIcon = Window.tempBitmap;
+			
+
+		}
+
 		public static void UpdateIcons()
 		{
 			RenderIconx();
@@ -734,6 +749,7 @@ namespace RadianceOS.System.Apps
 			RenderIconError2();
 			RenderIconWarning();
 			RenderSmallIcons();
+			RenderIconUser();
 		}
 
 	}

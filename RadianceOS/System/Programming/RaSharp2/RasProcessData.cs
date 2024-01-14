@@ -1,4 +1,5 @@
-﻿using RadianceOS.System.Apps;
+﻿using Cosmos.System.Graphics.Fonts;
+using RadianceOS.System.Apps;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,12 +14,23 @@ namespace RadianceOS.System.Programming.RaSharp2
 		public string[] code;
 		public List<TextColor> lines = new List<TextColor>();
 		public int CurrentLine;
+		public string CurrentVoid;
 		public bool waitForUserInput;
 		public string toVariable;
 		public bool syncInput = false, syncFIX;
 		public string Input;
+		public bool StopRenderConsole;
 		public Color TextColor = Color.White;
 		public Color BackgroundColor = Color.Black;
-		public Dictionary<string, string> Variables = new Dictionary<string, string>();
+		public List<Element> text = new List<Element>();
+	}
+
+	public class Element
+	{
+		public string Text = "null";
+		public Font Font;
+		public int FontWidth;
+		public int posX, posY, size;
+		public bool center;
 	}
 }

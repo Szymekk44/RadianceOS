@@ -20,7 +20,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 				string finaleString = "";
 				string temp = com.Substring(com.IndexOf("=") + 1);
 				string[] fragments = temp.Split("+");
-				finaleString = ReturnString(fragments, ProcessID, com, i);
+				finaleString = ReturnString(fragments, ProcessID, com);
 
 				RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.Add(paramets[1], finaleString);
 			}
@@ -29,7 +29,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 				RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.Add(paramets[1], "empt0x");
 			}
 		}
-		public static string ReturnString(string[] paramets, int ProcessID, string com, int i)
+		public static string ReturnString(string[] paramets, int ProcessID, string com)
 		{
 			if (paramets.Length > 1)
 			{
@@ -55,7 +55,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 							}
 							if (RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.ContainsKey(without))
 							{
-								finaleString += RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[without];
+								finaleString += RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[without].ToString();
 							}
 							else if (without == "Console.ReadLine()")
 							{
@@ -96,7 +96,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 					}
 					if (RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.ContainsKey(fragments[0]))
 					{
-						finaleString += RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[fragments[0]];
+						finaleString += RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[fragments[0]].ToString();
 					}
 					else if (without == "Console.ReadLine()")
 					{

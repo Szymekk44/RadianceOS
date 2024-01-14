@@ -95,6 +95,14 @@ namespace RadianceOS.System.Graphic
 			Explorer.CanvasMain.DrawFilledCircle(col, x + radius, y + height - radius - 1, radius);
 			Explorer.CanvasMain.DrawFilledCircle(col, x + width - radius - 1, y + height - radius - 1, radius);
 		}
+		public static void DrawRoundedTopRightCorner(int x, int y, int width, int height, int radius, Color col)
+		{
+			// Draw top rectangle (without the right corner)
+			Explorer.CanvasMain.DrawFilledRectangle(col, x, y, width - radius, height);
+			Explorer.CanvasMain.DrawFilledRectangle(col, x, y+radius, width, height-radius);
+			// Draw top right circle
+			Explorer.CanvasMain.DrawFilledCircle(col, x + width - radius - 1, y + radius, radius);
+		}
 
 
 		/*public static void RenderShadows(int x, int y, int width, int height, int radius, int ProcessID)

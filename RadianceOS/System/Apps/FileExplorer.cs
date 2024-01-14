@@ -68,17 +68,7 @@ namespace RadianceOS.System.Apps
 						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && !Process.Processes[id].tempBool)
 						{
 							string ext = Process.Processes[id].FileExplorerDat.Files[i].Extension;
-
-                            if (ext == "text file" || ext == "data file" || ext == "ra# file")
-							{
-                                Notepad.OpenFile(Process.Processes[id].FileExplorerDat.Files[i].Path);
-                               
-                            }
-							else if (ext == "system data file")
-							{
-								MessageBoxCreator.CreateMessageBox("STOP", "RadianceOS blocked an attempt to open a system file.", MessageBoxCreator.MessageBoxIcon.STOP, 600, 150);
-							}
-							else if(ext == "binary file")
+							if(ext == "binary file")
 							{
 								MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be opened!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
 							}

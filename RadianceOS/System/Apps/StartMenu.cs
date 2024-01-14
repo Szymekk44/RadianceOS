@@ -11,6 +11,11 @@ using RadianceOS.System.Apps.Games;
 using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using Cosmos.HAL;
 using RadianceOS.Render;
+using RadianceOS.System.Graphic;
+using static Cosmos.HAL.Drivers.Video.VGADriver;
+using RadianceOS.System.Managment;
+using CosmosTTF;
+using Cosmos.HAL.Drivers.Video.SVGAII;
 
 namespace RadianceOS.System.Apps
 {
@@ -22,7 +27,10 @@ namespace RadianceOS.System.Apps
 		{
 	//		Explorer.CanvasMain.DrawImage(Kernel.StartMenu, 5, y);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, 5,y,250,700);
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, 255, y, 450, 700);
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, 255, y, 250, 700);
+			Window.DrawRoundedRectangle(5, y-25, 500, 25, 10, Kernel.shadow, 20);
+			TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadianceOS " + Kernel.version, "UMR", Kernel.fontColor, 17, 10, y - 7, 18);
+			//Window.DrawRoundedTopRightCorner(255, y, 200, 700, 15, Kernel.main);
 			DrawStartButton(0);
 			DrawStartButton(1);
 			DrawStartButton(2);
@@ -30,6 +38,11 @@ namespace RadianceOS.System.Apps
 			DrawStartButton(4);
 			DrawStartButton(5);
 			DrawStartButton(6);
+			Explorer.CanvasMain.DrawImage(Kernel.userIcon, 275, y + 5);
+			TTFManager.DrawStringTTF(Explorer.CanvasMain, Kernel.loggedUser, "UMR", Kernel.fontColor, 24, 330, y + 35);
+			Explorer.CanvasMain.DrawLine(Kernel.lightMain, 326, y + 69, 429, y + 69);
+			Explorer.CanvasMain.DrawLine(Kernel.lightMain, 325, y+70, 430, y+70);
+			Explorer.CanvasMain.DrawLine(Kernel.lightMain, 326, y + 71, 429, y + 71);
 		}
 
 		public static void DrawStartButton(int id)
@@ -206,38 +219,45 @@ namespace RadianceOS.System.Apps
 			}
 		
 			if(!selected)
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.startDefault, 5, y + (id * 40), 250, 40);
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, 5, y + (id * 40), 250, 40);
 			else
-				Explorer.CanvasMain.DrawFilledRectangle(Kernel.startLight, 5, y + (id * 40), 250, 40);
+				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, 5, y + (id * 40), 250, 40);
 			switch (id)
 			{
 				case 0:
 					Canvas.DrawImageAlpha(Kernel.cmd, 10, y+4 + (id * 32));
 					Explorer.CanvasMain.DrawString("Terminal",Kernel.font18, Kernel.fontColor, 47, y+12 + (id * 32));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Terminal", "UMR", Kernel.fontColor, 15, 47, y + 27 + (id * 47));
 					break;
 				case 1:
 					Canvas.DrawImageAlpha(Kernel.notepad, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Notepad", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Notepad", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 				case 2:
 					Canvas.DrawImageAlpha(Kernel.settingIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Settings", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Settings", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 				case 3:
 					Canvas.DrawImageAlpha(Kernel.fileExplorer, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("File explorer", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "File explorer", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 				case 4:
 					Canvas.DrawImageAlpha(Kernel.gamepadIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Snake", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Snake", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 				case 5:
 					Canvas.DrawImageAlpha(Kernel.sysinfoIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Performance", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Performance", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 				case 6:
 					Canvas.DrawImageAlpha(Kernel.RadiantWave, 10, y + 4 + (id * 40));
-					Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+						Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+				//	TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadiantWave Web Browser", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 			}
 		}

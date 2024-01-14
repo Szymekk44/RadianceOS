@@ -3,6 +3,7 @@ using LunarLabs.Fonts;
 using System.Collections.Generic;
 using System;
 using System.Drawing;
+using RadianceOS.System.Apps;
 
 namespace CosmosTTF
 {
@@ -96,7 +97,7 @@ namespace CosmosTTF
 				}
 
 				GlyphResult g = RenderGlyphAsBitmap(font, c, color, px);
-				RadianceOS.Render.Canvas.DrawImageAlpha(g.bmp, x + (int)offX, y + g.offY);
+				Explorer.CanvasMain.DrawImageAlpha(g.bmp, x + (int)offX, y + g.offY);
 				offX += g.offX;
 			}
 		}

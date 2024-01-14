@@ -15,6 +15,9 @@ using Cosmos.Core.Memory;
 using System.IO;
 using Cosmos.System.Graphics;
 using RadianceOS.System.Managment;
+using Cosmos.System;
+using System.Net;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 {
@@ -176,14 +179,150 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 					Explorer.CanvasMain.DrawString("http://" + result, Kernel.font18, Kernel.fontColor, X + 65, Y + 33);
 				}
 				Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmap, X, Y+60);
+				for (int i = 0; i < Process.Processes[ProcessID].webData.elements.Count; i++)
+				{
+					if(MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
+					{
+						if (Explorer.MX > Process.Processes[ProcessID].webData.elements[i].x + X && Explorer.MX < Process.Processes[ProcessID].webData.elements[i].x + Process.Processes[ProcessID].webData.elements[i].SizeX + X)
+						{
+							if (Explorer.MY > Process.Processes[ProcessID].webData.elements[i].y + Y && Explorer.MY < Process.Processes[ProcessID].webData.elements[i].y + Process.Processes[ProcessID].webData.elements[i].SizeY + Y)
+							{
+								if (Process.Processes[ProcessID].webData.elements[i].url != Process.Processes[ProcessID].texts[0])
+								{
+									if(!Process.Processes[ProcessID].webData.elements[i].download)
+									{
+										string newUrl = Process.Processes[ProcessID].webData.elements[i].url;
+										if (newUrl.StartsWith("https"))
+										{
+											MessageBoxCreator.CreateMessageBox("RadiantWave", "RadiantWave does not support HTTPS connections\nTrying to connect via http", MessageBoxCreator.MessageBoxIcon.warning, 550);
+											newUrl = newUrl.Substring(8);
+										}
+										else if (newUrl.StartsWith("http"))
+											newUrl = newUrl.Substring(7);
+										else
+										{
+											MessageBoxCreator.CreateMessageBox("RadiantWave Error", "Unknow URL.\nRadiantWave does not yet support JavaScript!\n" + newUrl, MessageBoxCreator.MessageBoxIcon.error, 550);
+											return;
+										}
+
+										ChangeWebsite(ProcessID, newUrl);
+									}
+									else
+									{
+
+										string newUrl = Process.Processes[ProcessID].webData.elements[i].url;
+										if (newUrl.StartsWith("https"))
+										{
+											MessageBoxCreator.CreateMessageBox("RadiantWave", "RadiantWave does not support HTTPS connections\nTrying to connect via http", MessageBoxCreator.MessageBoxIcon.warning, 550);
+											newUrl = newUrl.Substring(8);
+										}
+										else if (newUrl.StartsWith("http"))
+											newUrl = newUrl.Substring(7);
+										else
+										{
+											MessageBoxCreator.CreateMessageBox("RadiantWave Error", "Unknow URL.\nRadiantWave does not yet support JavaScript!\n" + newUrl, MessageBoxCreator.MessageBoxIcon.error, 550);
+											return;
+										}
+										InputSystem.CurrentString = newUrl;
+										Process.Processes[ProcessID].texts[0] = newUrl;
+										Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
+										sysStatus.DrawBusy("Requesting data");
+										string[] urlAddress = newUrl.Split('/');
+										string webAddress = "";
+										for (int j = 1; j < urlAddress.Length; j++)
+										{
+											webAddress += "/";
+											webAddress += urlAddress[j];
+										}
+
+										using (TcpClient client = new TcpClient())
+										{
+											var dnsClient = new DnsClient();
+
+											// DNS
+											dnsClient.Connect(DNSConfig.DNSNameservers[0]);
+											dnsClient.SendAsk(urlAddress[0]);
+
+											// Address from ip
+											Address address = dnsClient.Receive();
+											dnsClient.Close();
+											string serverIp = address.ToString();
+											int serverPort = 80;
+
+											client.Connect(serverIp, serverPort);
+											NetworkStream stream = client.GetStream();
+											string httpget = "GET " + webAddress + " HTTP/1.1\r\n" +
+														 "User-Agent: RadianceOS\r\n" +
+														 "Accept: */*\r\n" +
+														 "Accept-Encoding: identity\r\n" +
+														 "Host: " + urlAddress[0] + "\r\n" +
+														 "Connection: Keep-Alive\r\n\r\n";
+											string messageToSend = httpget;
+											byte[] dataToSend = Encoding.ASCII.GetBytes(messageToSend);
+											stream.Write(dataToSend, 0, dataToSend.Length);
+
+											/** Receive data **/
+											byte[] receivedData = new byte[client.ReceiveBufferSize];
+											int bytesRead = stream.Read(receivedData, 0, receivedData.Length);
+											string receivedMessage = Encoding.ASCII.GetString(receivedData, 0, bytesRead);
+
+
+											string[] responseParts = receivedMessage.Split(new[] { "\r\n\r\n" }, 2, StringSplitOptions.None);
+
+											if (responseParts.Length == 2)
+											{
+												string headers = responseParts[0];
+												string content = responseParts[1];
+												Process.Processes[ProcessID].temp = content;
+											}
+								
+
+											/** Close data stream **/
+											stream.Close();
+											File.Create(@"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + urlAddress[urlAddress.Length - 1]);
+											if (!responseParts[1].Contains('\n'))
+											File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + urlAddress[urlAddress.Length - 1], responseParts[1]);
+											else
+											{
+												string[] lines = responseParts[1].Split('\n');
+						
+
+												File.WriteAllLines(@"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + urlAddress[urlAddress.Length - 1], lines);
+												MessageBoxCreator.CreateMessageBox("Yes", "yes");
+											}
+											DrawDesktopApps.Render();
+
+										}
+
+
+										
+					
+										
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 
 		}
+		static Bitmap Base64ToImage(string base64String)
+		{
+			byte[] imageBytes = Convert.FromBase64String(base64String);
 
+				return new Bitmap(imageBytes);
+			
+		}
+		static int tries = 0;
 		public static void ChangeWebsite(int ProcessID, string url)
 		{
 			try
 			{
+
+				InputSystem.CurrentString = url;
+				Process.Processes[ProcessID].texts[0] = url;
+				Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
 				sysStatus.DrawBusy("Requesting data");
 				string[] urlAddress = url.Split('/');
 				string webAddress = "";
@@ -232,7 +371,22 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 						string content = responseParts[1];
 						Process.Processes[ProcessID].temp = content;
 					}
-
+					if(responseParts[0].Length > 8)
+					{
+						string info ="";
+						info += responseParts[0][9];
+						info += responseParts[0][10];
+						info += responseParts[0][11];
+						if (info == "400" && tries == 0)
+						{
+							tries++;
+							ChangeWebsite(ProcessID, url + "/");
+							return;
+						}
+						else
+							tries = 0;
+					}
+					
 					/** Close data stream **/
 					stream.Close();
 				}

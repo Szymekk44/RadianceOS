@@ -83,6 +83,10 @@ namespace RadianceOS.System.Managment
 		public static byte[] RadiantWave;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.fileExplorer.bmp")]
 		public static byte[] FileExplorer;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.user dark theme.bmp")]
+		public static byte[] udt;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.user light theme.bmp")]
+		public static byte[] ult;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.text16.bmp")]
 		public static byte[] text16;

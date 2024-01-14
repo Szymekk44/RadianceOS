@@ -1,6 +1,9 @@
 ﻿using Cosmos.HAL.Drivers.Video.SVGAII;
 using RadianceOS.System.Apps;
+using RadianceOS.System.Managment;
 using RadianceOS.System.Programming.RaSharp2.Commands.Console;
+using RadianceOS.System.Programming.RaSharp2.Commands.Draw;
+using RadianceOS.System.Programming.RaSharp2.Commands.Window;
 using RadianceOS.System.Programming.RaSharp2.Functions;
 using System;
 using System.Collections.Generic;
@@ -20,7 +23,6 @@ namespace RadianceOS.System.Programming.RaSharp2
 			List<string[]> paramets = new List<string[]>();
 			List<string[]> dots = new List<string[]>();
 			int datId = Process.Processes[ProcessID].DataID;
-			// Poprawiona pętla, aby uniknąć błędów związanych z indeksowaniem
 			for (int i = 0; i < commands.Length; i++)
 			{
 				string[] dotSplit = commands[i].Split('.');
@@ -29,17 +31,22 @@ namespace RadianceOS.System.Programming.RaSharp2
 				string[] spaceSplit = commands[i].Split(' ');
 				paramets.Add(spaceSplit);
 			}
-
-
+			com = com.Trim();
+			if (com.StartsWith("void") || com.StartsWith("//"))
+			{
+				Process.Processes[ProcessID].RasData.CurrentLine++;
+				return;
+			}	
+				
 			for (int i = 0; i < commands.Length-1; i++)
 			{
 				if (dots[i][0] == "Console")
 				{
 					string parametr = dots[i][1].Substring(0,dots[i][1].IndexOf("("));
-					int startIndex = commands[i].IndexOf("(") + 1;//Dodaj 1, aby zacząć od znaku po "("
-					int length = commands[i].LastIndexOf(")") - startIndex;//Określ długość, aby zakończyć na znaku przed ")"
+					int startIndex = commands[i].IndexOf("(") + 1;
+					int length = commands[i].LastIndexOf(")") - startIndex;
 					string textIn = commands[i].Substring(startIndex, length);
-					string FinaleString = GetString.ReturnString(textIn.Split("+"), ProcessID, com, i);
+					string FinaleString = GetString.ReturnString(textIn.Split("+"), ProcessID, com);
 
 					if (parametr == "Write")
 					{
@@ -53,17 +60,53 @@ namespace RadianceOS.System.Programming.RaSharp2
 						ReportError("Unknown parametr!", i, ProcessID);
 
 				}
+				else if (dots[i][0] == "Draw")
+				{
+					DrawMain.RunCommand(com, ProcessID);
+				}
+				else if(dots[i][0] == "Window")
+				{
+					RasWindow.RunCommand(paramets[i].ToArray(), dots[i].ToArray(), com, ProcessID);
+				}
 				else if (paramets[i][0].ToLower() == "string")
 				{
 					GetString.MakeString(paramets[i], ProcessID, com, i);
+				}
+				else if (paramets[i][0].ToLower() == "int")
+				{
+					GetInt.MakeInt(paramets[i], ProcessID, com, i);
+				}
+				else if (paramets[i][0].ToLower() == "goto")
+				{
+					List<string> temp = new List<string>();
+					for (int j = 1; j < paramets[i].Length; j++)
+					{
+						temp.Add(paramets[i][j]);
+					}
+					string name = GetString.ReturnString(temp.ToArray(), ProcessID, com).Trim();
+					if (RasExecuter.Data[Process.Processes[i].DataID].voids.ContainsKey(name))
+					{
+						Process.Processes[ProcessID].RasData.CurrentLine = RasExecuter.Data[Process.Processes[i].DataID].voids[name];
+					}
+					else
+						MessageBoxCreator.CreateMessageBox("Ra# Error", "Void " + name + " does not exist", MessageBoxCreator.MessageBoxIcon.error);
 				}
 				else if (RasExecuter.Data[datId].variables.ContainsKey(paramets[i][0]))
 				{
 					string temp = com.Substring(com.IndexOf("=") + 1);
 					string[] fragments = temp.Split("+");
-					string finaleString = GetString.ReturnString(fragments, ProcessID, com, i);
-					if (finaleString != "null")
-						RasExecuter.Data[datId].variables[paramets[i][0]] = finaleString;
+					if (RasExecuter.Data[datId].variables[paramets[i][0]] is string)
+					{
+						string finaleString = GetString.ReturnString(fragments, ProcessID, com);
+						if (finaleString != "null")
+							RasExecuter.Data[datId].variables[paramets[i][0]] = finaleString;
+					}
+					else if(RasExecuter.Data[datId].variables[paramets[i][0]] is int)
+					{
+						int finaleNumber = GetInt.ReturnInt(i, com, Process.Processes[i].DataID);
+						RasExecuter.Data[datId].variables[paramets[i][0]] = finaleNumber;
+					}
+
 				}
 				else
 				{
@@ -71,6 +114,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 				}
 			}
 			Process.Processes[ProcessID].RasData.CurrentLine++;
+
 
 		}
 

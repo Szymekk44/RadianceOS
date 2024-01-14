@@ -73,20 +73,21 @@ namespace RadianceOS.System.Apps
         public Bitmap bitmap3;
         public Bitmap bitmapTop;
         public FileExplorerData FileExplorerDat;
-		public WebData webData;
+		public WebData webData =  new WebData();
 
 		public RasProcessData RasData;
 		public int DataID;
 	}
 	public class WebData
 	{
-		public List<ElementData> elements;
+		public List<ElementData> elements = new List<ElementData>();
 	}
 	public class ElementData
 	{
 		public int x, y, SizeX, SizeY;
 		public int type = 0;
 		public string url;
+		public bool download;
 	}
 	public class FileExplorerData
 	{

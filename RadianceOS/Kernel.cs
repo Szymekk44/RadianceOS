@@ -31,7 +31,7 @@ namespace RadianceOS
 		public static Bitmap Wallpaper1small, Wallpaper2small;
 		public static Bitmap TaskBar1, lightButton, DarkButton, StartMenu;
 		public static Bitmap Cursor1;
-		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer;
+		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer, userIcon;
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
 		public static Bitmap text16, docuent16, folder16, data16, sysData16;
@@ -75,7 +75,7 @@ namespace RadianceOS
 		public static ulong MaxRam;
 
 		public static string version = "1.0";
-		public static string subversion = "pre 0.0.1";
+		public static string subversion = "0.0.1";
 		public static string RasVersion = "alpha 1.0.0";
 		public static bool loggedAsAdmin = false;
 
@@ -547,6 +547,10 @@ namespace RadianceOS
 			Security.reason = Error + "\nID: " + id;
 			Security.State = 1;
 			Security.StartGui();
+		}
+		public static void Write(string s)
+		{
+			Console.Write(s);
 		}
 
     }

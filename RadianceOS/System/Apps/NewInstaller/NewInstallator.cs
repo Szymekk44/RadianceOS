@@ -30,6 +30,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             StringsAcitons.DrawCenteredTTFString("Welcome to RadianceOS installer", SizeX, X, Y + 110, 20, Kernel.fontColor, "UMB", 24);
                             StringsAcitons.DrawCenteredTTFString("To start the installation process, please click Install", SizeX, X, Y + 130, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer");
+                            InputSystem.CurrentString = "";
                         }
                         break;
                     case 1:

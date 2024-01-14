@@ -61,6 +61,8 @@
       <None Remove="Resources\Icons\setting icon.bmp" />
       <None Remove="Resources\Icons\stop.bmp" />
       <None Remove="Resources\Icons\sysinfo icon.bmp" />
+      <None Remove="Resources\Icons\user dark theme.bmp" />
+      <None Remove="Resources\Icons\user light theme.bmp" />
       <None Remove="Resources\Icons\Xicon.bmp" />
       <None Remove="Resources\Installer\ButtonInstaller" />
       <None Remove="Resources\Installer\ButtonInstaller.bmp" />
@@ -126,6 +128,8 @@
         <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       </EmbeddedResource>
       <EmbeddedResource Include="Resources\Icons\sysinfo icon.bmp" />
+      <EmbeddedResource Include="Resources\Icons\user dark theme.bmp" />
+      <EmbeddedResource Include="Resources\Icons\user light theme.bmp" />
       <EmbeddedResource Include="Resources\Icons\Xicon.bmp" />
       <EmbeddedResource Include="Resources\Installer\ButtonInstaller.bmp" />
       <EmbeddedResource Include="Resources\Installer\ButtonInstaller2.bmp" />
