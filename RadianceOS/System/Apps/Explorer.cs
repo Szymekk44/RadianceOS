@@ -73,6 +73,9 @@ namespace RadianceOS.System.Apps
 			Cosmos.System.MouseManager.ScreenHeight = screenSizeY;
 			Cosmos.System.MouseManager.X = screenSizeX / 2; Cosmos.System.MouseManager.Y = screenSizeY / 2;
 			CanvasMain = FullScreenCanvas.GetFullScreenCanvas(new Mode(screenSizeX, screenSizeY, ColorDepth.ColorDepth32));
+
+			// Initialise Radiance Security (It'll start everything up)
+			Security.Service.Initialise();
 		}
 
 		public static void ResizeWallpaper(int SizeX, int SizeY)
@@ -86,6 +89,9 @@ namespace RadianceOS.System.Apps
 
 		public static void Update()
 		{
+			// Update the internal RS Service
+			Security.Service.UpdateInternal();
+			
 			MX = (int)Cosmos.System.MouseManager.X;
 			MY = (int)Cosmos.System.MouseManager.Y;
 
@@ -157,7 +163,9 @@ namespace RadianceOS.System.Apps
 							RasRender.Render(i);
 							break;
 						case 4:
-							Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							// Rendering the new Login window, keeping the old one, just in case.
+							//Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							Security.Auth.LoginScreen.Render(0, 0, (int)screenSizeX, (int)screenSizeY, i);
 							break;
 						case 5:
 							Settings.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
@@ -183,8 +191,17 @@ namespace RadianceOS.System.Apps
 						case 12:
 							RasExecuter.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
 							break;
+						case 13:
+							SecurityManager.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
+						case 99:
+							PowerOptions.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
 						case 100:
 							NewInstallator.Render(i, Process.Processes[i].tempInt, Process.Processes[i].X, Process.Processes[i].Y, 800, 500, Process.Processes[i].tempBool);
+							break;
+						case 101:
+							Security.Service.Update(i);
 							break;
 					}
 				}

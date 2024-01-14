@@ -77,6 +77,9 @@ namespace RadianceOS.System.Apps
 
 		public RasProcessData RasData;
 		public int DataID;
+
+		// SECURITY
+		public System.Security.ProcessSecurityInfo ProcessSecurityInfo;
 	}
 	public class WebData
 	{
