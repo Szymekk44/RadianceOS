@@ -22,12 +22,34 @@ RadianceOS includes a variety of built-in applications, providing a versatile co
 - **File Explorer**: Navigate and manage files and directories seamlessly.
 - **Settings**: Customize and configure various system settings like system wallpaper or theme.
 - **Snake Game**: RadianceOS also includes games like snake, the settings of which can be changed, e.g. the speed of the snake!
+<p align="center">
+ <picture>
+     <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadianceOSapps.png">
+    <img width=49% src="">
+  </picture>
+   <picture>
+    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadianceOSsettings.png">
+    <img width=49% src="">
+  </picture>
+</p>
 
 ### Security
 RadianceOS includes an easy way of managing the security of the device
+<p align="center">
+  <picture>
+    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadianceLogin.png">
+    <img width=60% src="">
+  </picture>
+</p>
 
 ### RadiantWave Browser
 Experience web browsing with the built-in HTTP browser, with basic html+css parser by [SammaPixelStudio](https://github.com/Samma2009/)
+<p align="center">
+ <picture>
+    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadiantWave.png">
+    <img width=60% src="">
+  </picture>
+</p>
 
 ### Installer
 RadianceOS comes equipped with a user-friendly installer, making it easy to set up and run on your system.
@@ -48,23 +70,3 @@ Made by MrBisquit (WTDawson)
 
 ## License
 RadianceOS is licensed under the [MIT License](LICENSE).
-
-
-<p align="center">
-  <picture>
-    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadianceLogin.png">
-    <img width=60% src="">
-  </picture>
- <picture>
-    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadianceOSapps.png">
-    <img width=60% src="">
-  </picture>
- <picture>
-    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadiantWave.png">
-    <img width=60% src="">
-  </picture>
- <picture>
-    <source srcset="https://raw.githubusercontent.com/SzymekkYT/RadianceOS/main/Images/RadianceOSsettings.png">
-    <img width=60% src="">
-  </picture>
-</p>
