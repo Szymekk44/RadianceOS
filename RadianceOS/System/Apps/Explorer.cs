@@ -17,6 +17,7 @@ using RadianceOS.System.Programming.RaSharp2;
 using Cosmos.HAL.Drivers.Audio;
 using Cosmos.System.Audio.IO;
 using Cosmos.System.Audio;
+using RadianceOS.System.Security.Auth;
 
 namespace RadianceOS.System.Apps
 {
@@ -107,7 +108,7 @@ namespace RadianceOS.System.Apps
 				Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
 			}
 
-			if (Kernel.TaskBar1 == null)
+			if (Kernel.TaskBar1 == null && Radiance.Security.Logged)
 			{
 				Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
 
@@ -122,7 +123,7 @@ namespace RadianceOS.System.Apps
 				Kernel.TaskBar1 = Window.tempBitmap;
 				UpdateIcons();
 			}
-
+			
 			if (drawIcons)
 				DrawDesktopApps.Render();
 

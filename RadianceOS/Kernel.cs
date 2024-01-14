@@ -18,6 +18,7 @@ using Cosmos.HAL.Audio;
 using RadianceOS.System.Radiance;
 using CosmosTTF;
 using RadianceOS.System.ConsoleMode;
+using RadianceOS.System.Security.Auth;
 
 namespace RadianceOS
 {
@@ -235,15 +236,8 @@ namespace RadianceOS
                         File.WriteAllText(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat", "0");
 						MessageBoxCreator.CreateMessageBox("Config Erorr", "Wallpaper config was corrupted!\nRadianceOS has restored default settings.", MessageBoxCreator.MessageBoxIcon.warning, 500, 175);
                     }
-					switch (Explorer.Wallpaper)
-					{
-						case 0:
-							Wallpaper1 = new Bitmap(Files.wallpaper1);
-							break;
-						case 1:
-							Wallpaper1 = new Bitmap(Files.wallpaper2);
-							break;
-					}
+					LoginScreen.set = true;
+					Kernel.Wallpaper1 = new Bitmap(Files.wallpaperL);
 				}
 				else
 				{

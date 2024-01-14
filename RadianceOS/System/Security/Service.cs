@@ -36,7 +36,7 @@ namespace RadianceOS.System.Security
         {
             // Render every 100 frames, prevents lag
             updates++;
-            if (updates >= 100)
+            if (updates >= 250)
             {
                 updates = 0;
             }
@@ -53,9 +53,9 @@ namespace RadianceOS.System.Security
         {
             UAC.Render();
 
-            // Render every 100 frames, prevents lag
+            // Render every 250 frames, prevents lag
             updates++;
-            if (updates >= 100)
+            if (updates >= 250)
             {
                 updates = 0;
             }

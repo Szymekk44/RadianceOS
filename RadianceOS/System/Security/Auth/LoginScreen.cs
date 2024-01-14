@@ -37,38 +37,38 @@ namespace RadianceOS.System.Security.Auth
         /// <param name="SizeX">The width of the screen</param>
         /// <param name="SizeY">The height of the screen</param>
         /// <param name="i">The process ID</param>
+        /// 
+        public static bool set;
+        public static Bitmap shadowLogo;
+        static int width, height;
         public static void Render(int X, int Y, int SizeX, int SizeY, int i)
         {
             try
             {
                 InputSystem.Monitore(0, Process.Processes[i].CurrChar, i);
-
+               
                 // TODO: Fix the below code (Won't blur correctly)
                 //Explorer.CanvasMain.DrawImageAlpha(Kernel.Wallpaper1, 0, 0);
-                if(Window.tempBitmap == null)
+                if(!set)
                 {
-                    Explorer.CanvasMain.DrawImageAlpha(Kernel.Wallpaper1, 0, 0);
-                    Window.GetTempImageDarkAndBlur(0, 0, SizeX, SizeY, "Wallpaper", 0.5f, 3);
+                    set = true;
+                    Kernel.Wallpaper1 = new Bitmap(Files.wallpaperL);
                 }
-                //Kernel.TaskBar1 = Window.tempBitmap;
-                Explorer.CanvasMain.DrawImage(Window.tempBitmap, X, Y);
+                if(shadowLogo == null)
+                {
+                   shadowLogo = new Bitmap(Files.RadianceOSIconShadow);
+                    height = (int)shadowLogo.Height;
+                    width = (int)shadowLogo.Width;
+				}
 
-                // Temp
-                // Was middark, not main
-                //Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(127, Kernel.main), 0, 0, SizeX, SizeY);
-
-                // Testing how to centre properly
-                //Explorer.CanvasMain.DrawImage(Kernel.padlockIcon, (SizeX / 2) - (int)Kernel.padlockIcon.Width / 2, (SizeY / 2) - (int)Kernel.padlockIcon.Height / 2);
-
-                // 5 for padding
                 int x = (int)(SizeX - Kernel.standbysmall.Width - 5);
                 int y = (int)(Kernel.standbysmall.Height + 5);
                 int radius = (int)(Kernel.standbysmall.Width);
 
-                Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, x, y, radius);
+              //  Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, x, y, radius);
                 if(IsCursorInArea(Explorer.MX, Explorer.MY, x, y, radius, radius))
                 {
-                    Explorer.CanvasMain.DrawFilledCircle(Kernel.dark, x, y, radius);
+                  //  Explorer.CanvasMain.DrawFilledCircle(Kernel.dark, x, y, radius);
                     if(Explorer.Clicked && !IsPowerClicked)
                     {
                         IsPowerClicked = true;
@@ -113,7 +113,7 @@ namespace RadianceOS.System.Security.Auth
 
                         StringsAcitons.DrawCenteredTTFString("Press any key or click to unlock", SizeX, 0, (SizeY / 2) - 21 / 2 + 159, 1, Color.Gray, "UMR", 21);
 
-                        Explorer.CanvasMain.DrawImageAlpha(Kernel.RadianceOSLogoTransparent, (SizeX / 2) - (int)Kernel.RadianceOSLogoTransparent.Width / 2, (int)(SizeY - Kernel.RadianceOSLogoTransparent.Height - 15));
+                        Explorer.CanvasMain.DrawImageAlpha(shadowLogo, (SizeX / 2) - (int)width / 2 + 5, (int)(SizeY - height - 15));
 
                         if (!string.IsNullOrEmpty(InputSystem.CurrentString) || Explorer.Clicked) Closed = false; InputSystem.CurrentString = "";
                         break;
@@ -186,7 +186,7 @@ namespace RadianceOS.System.Security.Auth
             }
             catch (Exception e)
             {
-                MessageBoxCreator.CreateMessageBox("Fatal Error", "Please open RadianceOS console mode!\n" + e.Message, MessageBoxCreator.MessageBoxIcon.error, 600, 175);
+                MessageBoxCreator.CreateMessageBox("Fatal Error", "Please open RadianceOS in console mode!\n" + e.Message, MessageBoxCreator.MessageBoxIcon.error, 600, 175);
             }
         }
 

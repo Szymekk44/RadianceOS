@@ -103,10 +103,12 @@
       <None Remove="Resources\Malgun_Gothic_32x.psf" />
       <None Remove="Resources\Other\Boot.bmp" />
       <None Remove="Resources\RadianceOS\RadianceOS icon.bmp" />
+      <None Remove="Resources\RadianceOS\RadianceOS iconShadow.bmp" />
       <None Remove="Resources\RadianceOS\RadianceOS iconTransparent.bmp" />
       <None Remove="Resources\wallpaper-tree.bmp" />
       <None Remove="Resources\Wallpapers\buttonDark.bmp" />
       <None Remove="Resources\Wallpapers\buttonLight.bmp" />
+      <None Remove="Resources\Wallpapers\login.bmp" />
       <None Remove="Resources\Wallpapers\wallpaper-tree2.bmp" />
       <None Remove="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
       <None Remove="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
@@ -184,10 +186,12 @@
       <EmbeddedResource Include="Resources\Installer\ButtonInstaller2.bmp" />
       <EmbeddedResource Include="Resources\Installer\RadianceInstaller.bmp" />
       <EmbeddedResource Include="Resources\Other\Boot.bmp" />
+      <EmbeddedResource Include="Resources\RadianceOS\RadianceOS iconShadow.bmp" />
       <EmbeddedResource Include="Resources\RadianceOS\RadianceOS icon.bmp" />
       <EmbeddedResource Include="Resources\RadianceOS\RadianceOS iconTransparent.bmp" />
       <EmbeddedResource Include="Resources\Start\buttonDark.bmp" />
       <EmbeddedResource Include="Resources\Start\buttonLight.bmp" />
+      <EmbeddedResource Include="Resources\Wallpapers\login.bmp" />
       <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree.bmp" />
       <EmbeddedResource Include="Resources\Fonts\zap-ext-light16.psf" />
       <EmbeddedResource Include="Resources\Fonts\zap-ext-light18.psf" />

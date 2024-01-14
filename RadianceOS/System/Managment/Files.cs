@@ -46,11 +46,17 @@ namespace RadianceOS.System.Managment
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree2Small.bmp")]
 		public static byte[] wallpaper2S;
 
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.login.bmp")]
+		public static byte[] wallpaperL;
+
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS icon.bmp")]
 		public static byte[] RadianceOSIcon;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS iconTransparent.bmp")]
 		public static byte[] RadianceOSIconTransparent;
+
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS iconShadow.bmp")]
+		public static byte[] RadianceOSIconShadow;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Start.buttonLight.bmp")]
 		public static byte[] LButton;

@@ -1,4 +1,5 @@
-﻿using RadianceOS.System.Apps;
+﻿using Cosmos.System.Graphics;
+using RadianceOS.System.Apps;
 using RadianceOS.System.Graphic;
 using RadianceOS.System.Managment;
 using System;
@@ -49,6 +50,26 @@ namespace RadianceOS.System.Security.Auth
                 {
                     AuthenticatedAt = DateTime.Now;
                     StartSession(username);
+					switch (Explorer.Wallpaper)
+					{
+						case 0:
+							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper1);
+							break;
+						case 1:
+							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper2);
+							break;
+					}
+					for (int i = 0; i < Process.Processes.Count; i++)
+                    {
+                        if (Process.Processes[i].ID == 4)
+                        {
+							Process.Processes.RemoveAt(i);
+
+                            break;
+						}
+
+
+					}
                     return 0;
                 } else
                 {
