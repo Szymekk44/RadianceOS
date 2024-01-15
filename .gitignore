@@ -399,3 +399,8 @@ FodyWeavers.xsd
 *.sln.iml
 *.v2
 *.v2
+RadianceOS/.vs/RadianceOS/v17/.suo
+RadianceOS/.vs/ProjectEvaluation/radianceos.metadata.v7.bin
+RadianceOS/.vs/ProjectEvaluation/radianceos.projects.v7.bin
+RadianceOS/.vs/RadianceOS/DesignTimeBuild/.dtbcache.v2
+RadianceOS/.vs/RadianceOS/v17/.futdcache.v2
