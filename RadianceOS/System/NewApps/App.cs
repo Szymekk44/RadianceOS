@@ -16,7 +16,6 @@ namespace RadianceOS.System.NewApps
         public Rectangle apprect;
         public UIKit.UIKit ui;
         //Processes process;
-        int pid = 0;
         string appname;
         public App(Rectangle apprect,string appname = "App")
         {
@@ -25,7 +24,6 @@ namespace RadianceOS.System.NewApps
             ui = new(apprect.Size);
             //process = new();
             //Process.Processes.Add(process);
-            pid = Process.Processes.Count - 1;
             this.appname = appname;
             Start();
 
@@ -41,8 +39,8 @@ namespace RadianceOS.System.NewApps
         {
 
             ui.Update(this);
-            //Window.DrawTop(pid, apprect.X, apprect.Y, apprect.Width, appname, true, true, false, true);
-            Explorer.CanvasMain.DrawImage(ui.GetRender(),apprect.X,apprect.Y);
+            Window.DrawTop(-1, apprect.X, apprect.Y, apprect.Width, appname, true, true, false, true);
+            Explorer.CanvasMain.DrawImage(ui.GetRender(),apprect.X,apprect.Y+25);
 
         }
         public virtual void Stop() 

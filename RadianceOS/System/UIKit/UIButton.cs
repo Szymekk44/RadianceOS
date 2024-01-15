@@ -23,7 +23,7 @@ namespace RadianceOS.System.UIKit
         {
             base.Update(ui,apprect);
 
-            if (this.rect.IntersectsWith(new Rectangle((int)MouseManager.X - apprect.X, (int)MouseManager.Y - apprect.Y, (int)Kernel.Cursor1.Width,(int)Kernel.Cursor1.Height)))
+            if (this.rect.IntersectsWith(new Rectangle(((int)MouseManager.X) - apprect.X, ((int)MouseManager.Y) - (apprect.Y+25), (int)Kernel.Cursor1.Width,(int)Kernel.Cursor1.Height)))
             {
 
                 if (MouseManager.MouseState == MouseState.Left)
