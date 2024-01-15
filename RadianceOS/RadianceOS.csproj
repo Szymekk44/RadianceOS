@@ -26,9 +26,9 @@
         <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
-      <Compile Remove="System\Apps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
-      <EmbeddedResource Remove="System\Apps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
-      <None Remove="System\Apps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
+      <Compile Remove="System\LegacyApps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
+      <EmbeddedResource Remove="System\LegacyApps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
+      <None Remove="System\LegacyApps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
     </ItemGroup>
 
     <ItemGroup>
@@ -217,6 +217,7 @@
         <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
         <PackageReference Include="Cosmos.Plugs" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="CosmosHttp" Version="1.0.4" />
     </ItemGroup>
 
     <ItemGroup>
