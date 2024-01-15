@@ -27,6 +27,7 @@ namespace RadianceOS.System.Radiance
 			if (!on)
 				return;
 			BootImage = new Bitmap(Files.RadianceOSIcon);
+			Explorer.GetBootSize();
 			Explorer.CanvasMain = (SVGAIICanvas)FullScreenCanvas.GetFullScreenCanvas(new Mode(Explorer.screenSizeX, Explorer.screenSizeY, ColorDepth.ColorDepth32));
 			
 				Explorer.CanvasMain.DrawImage(BootImage, (int)(Explorer.screenSizeX - 456) / 2, (int)(Explorer.screenSizeY) - 250);
