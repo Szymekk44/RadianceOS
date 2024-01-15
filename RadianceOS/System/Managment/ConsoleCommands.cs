@@ -712,10 +712,10 @@ namespace RadianceOS.System.Managment
 				{
 
 
-					Explorer.CanvasMain.Clear(Color.Blue);
-					Explorer.CanvasMain.Display();
-					Explorer.CanvasMain.RenderHTML(Kernel.htmlcode);
-					Explorer.CanvasMain.Display();
+					//Explorer.CanvasMain.Clear(Color.Blue);
+					//Explorer.CanvasMain.Display();
+					//Explorer.CanvasMain.RenderHTML(Kernel.htmlcode);
+					//Explorer.CanvasMain.Display();
 				}
 				catch (Exception ex)
 				{
