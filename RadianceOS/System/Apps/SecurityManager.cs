@@ -31,7 +31,9 @@ namespace RadianceOS.System.Apps
             {
                 RenderPage(SelectedPage, X, Y, SizeX, SizeY, i);
                 Window.GetImage(X, Y, SizeX, SizeY, i, "Security Manager");
-            }
+                Process.Processes[i].bitmap = Window.tempBitmap;
+
+			}
             else
                 Explorer.CanvasMain.DrawImage(Process.Processes[i].bitmap, X, Y + 25);
 

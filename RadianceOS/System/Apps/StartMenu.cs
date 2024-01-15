@@ -38,6 +38,7 @@ namespace RadianceOS.System.Apps
 			DrawStartButton(4);
 			DrawStartButton(5);
 			DrawStartButton(6);
+			DrawStartButton(7);
 			Explorer.CanvasMain.DrawImage(Kernel.userIcon, 275, y + 5);
 			TTFManager.DrawStringTTF(Explorer.CanvasMain, Kernel.loggedUser, "UMR", Kernel.fontColor, 24, 330, y + 35);
 			Explorer.CanvasMain.DrawLine(Kernel.lightMain, 326, y + 69, 429, y + 69);
@@ -208,6 +209,23 @@ namespace RadianceOS.System.Apps
 
 									}
 									break;
+								case 7:
+									{
+										Processes SecurityManager = new Processes
+										{
+											ID = 13,
+											Name = "Security Manager",
+											Description = "The RadianceOS Security Manager",
+											X = 100,
+											Y = 70,
+											SizeX = 1200,
+											SizeY = 700,
+											moveAble = true
+										};
+										Process.Processes.Add(SecurityManager);
+										Process.UpdateProcess(Process.Processes.Count - 1);
+									}
+									break;
 
 
 							}
@@ -258,6 +276,10 @@ namespace RadianceOS.System.Apps
 					Canvas.DrawImageAlpha(Kernel.RadiantWave, 10, y + 4 + (id * 40));
 						Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 				//	TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadiantWave Web Browser", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
+					break;
+				case 7:
+					Canvas.DrawImageAlpha(Kernel.UACIcon, 10, y + 4 + (id * 40));
+					Explorer.CanvasMain.DrawString("Security Manager", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					break;
 			}
 		}
