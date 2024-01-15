@@ -42,7 +42,7 @@ Window.width or Window.sizeX = 100; //Sets the window width to 100
 Window.minHeight or Window.minSizeY = 100; //Sets the minimum window height to 100
 Window.minWidth or Window.minSizeX = 100; //Sets the minimum window width to 100
 ```
-**position**
+**position**<br> 
 *Also works to console!*
 ```csharp
 Window.moveAble = 0; //removes the ability to move your window
