@@ -18,6 +18,7 @@ using Cosmos.HAL.Drivers.Audio;
 using Cosmos.System.Audio.IO;
 using Cosmos.System.Audio;
 using RadianceOS.System.Security.Auth;
+using System.IO;
 
 namespace RadianceOS.System.Apps
 {
@@ -51,6 +52,13 @@ namespace RadianceOS.System.Apps
 
 		public static int TaskBarHeight = 40;
 
+		public static void GetBootSize()
+		{
+            var sizes = File.ReadAllText("0:\\RadianceOS\\Settings\\Canvas.size").Split("\n");
+            screenSizeX = (uint)int.Parse(sizes[0]);
+            screenSizeY = (uint)int.Parse(sizes[1]);
+        }
+
 		public static void Start()
 		{
 			if (Kernel.workingAudio)
@@ -70,11 +78,12 @@ namespace RadianceOS.System.Apps
 			BootScreen.BootImage = null;
 			Heap.Collect();
 
-			Cosmos.System.MouseManager.ScreenWidth = screenSizeX;
+            Explorer.GetBootSize();
+            Cosmos.System.MouseManager.ScreenWidth = screenSizeX;
 			Cosmos.System.MouseManager.ScreenHeight = screenSizeY;
 			Cosmos.System.MouseManager.X = screenSizeX / 2; Cosmos.System.MouseManager.Y = screenSizeY / 2;
 			CanvasMain = FullScreenCanvas.GetFullScreenCanvas(new Mode(screenSizeX, screenSizeY, ColorDepth.ColorDepth32));
-
+			
 			// Initialise Radiance Security (It'll start everything up)
 			Security.Service.Initialise();
 		}

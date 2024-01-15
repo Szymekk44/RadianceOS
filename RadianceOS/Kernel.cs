@@ -92,8 +92,6 @@ namespace RadianceOS
 
 		protected override void BeforeRun()
 		{
-		
-
 
 			Console.OutputEncoding = Cosmos.System.ExtendedASCII.CosmosEncodingProvider.Instance.GetEncoding(437);
 			Console.SetWindowSize(90, 30);
@@ -130,6 +128,7 @@ namespace RadianceOS
 			}
 			else
 			{
+
 				try
 				{
 					int DisplayMode = int.Parse(File.ReadAllText(@"0:\RadianceOS\Settings\DisplayMode.dat"));
@@ -146,7 +145,13 @@ namespace RadianceOS
 
 			if (!fileSytstemError)
 			{
-				try
+
+                if (!File.Exists("0:\\RadianceOS\\Settings\\Canvas.size"))
+                {
+                    File.WriteAllText("0:\\RadianceOS\\Settings\\Canvas.size", "1920\n1080");
+                }
+
+                try
 				{
 					Directory.GetDirectories(@"0:\Users");
 				}
@@ -244,7 +249,7 @@ namespace RadianceOS
 				{
 					Wallpaper1 = new Bitmap(Files.wallpaper1);
 				}
-				
+
 			}
 			else
 			{

@@ -21,6 +21,7 @@ mono_crash.*
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+RadianceOS/.vs/RadianceOS/v17/
 x64/
 x86/
 [Ww][Ii][Nn]32/
@@ -97,7 +98,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-
+*.suo
 # Chutzpah Test files
 _Chutzpah*
 
@@ -111,7 +112,7 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
-
+*.v2
 # Visual Studio profiler
 *.psess
 *.vsp
@@ -396,3 +397,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+*.v2
+*.v2
