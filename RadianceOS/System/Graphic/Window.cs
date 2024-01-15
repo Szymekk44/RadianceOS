@@ -45,17 +45,21 @@ namespace RadianceOS.System.Graphic
 				Explorer.CanvasMain.DrawString(windowName, Kernel.fontLat, Kernel.fontColor, X + 8, Y + 5);
 			else
 			{
-				if (Process.Processes[ProcessID].bitmapTop == null)
+				if (ProcessID != -1)
 				{
-					Explorer.CanvasMain.DrawStringTTF(windowName, "UMR", Kernel.fontColor, 17, X + 8, Y + 18);
-					int sizeX = TTFManager.GetTTFWidth(windowName, "UMR", 17);
-					Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
-					Process.Processes[ProcessID].bitmapTop = tempBitmap;
-				}
-				else
-				{
-					Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
-				}
+                    if (Process.Processes[ProcessID].bitmapTop == null)
+                    {
+                        Explorer.CanvasMain.DrawStringTTF(windowName, "UMR", Kernel.fontColor, 17, X + 8, Y + 18);
+                        int sizeX = TTFManager.GetTTFWidth(windowName, "UMR", 17);
+                        Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
+                        Process.Processes[ProcessID].bitmapTop = tempBitmap;
+                    }
+                    else
+                    {
+                        Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
+                    }
+                }
+				
 			}
 			if (closeAble && 38 - (SizeX - tempSize) > 35)
 				Explorer.CanvasMain.DrawImage(Kernel.Xicon, X + SizeX - 38, Y);
@@ -69,7 +73,64 @@ namespace RadianceOS.System.Graphic
 
 		}
 
-		public static void DrawRoundedRectangle(int x, int y, int width, int height, int radius, Color col, int modifedX)
+        public static void DrawTop(int X, int Y, int SizeX, string windowName, bool sizeAble = false, bool closeAble = true, bool ttf = false, bool hideAble = true, int tempSize = -1)
+        {
+            if (tempSize == -1)
+                tempSize = SizeX;
+            int cornerSize = 20;
+            if (SizeX - tempSize != 0)
+            {
+                cornerSize = (SizeX - tempSize);
+            }
+
+            if (cornerSize < 0)
+                cornerSize = 0;
+
+
+            if (SizeX < Explorer.screenSizeX)
+            {
+                DrawRoundedRectangle(X + SizeX - 22, Y + 3, 25, 25, 10, Kernel.middark, cornerSize);
+                DrawRoundedRectangle(X, Y, tempSize, 25, 10, Kernel.shadow, cornerSize);
+            }
+            else
+            {
+                Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X, Y, SizeX, 25);
+            }
+
+            Explorer.CanvasMain.DrawString(windowName, Kernel.fontLat, Kernel.fontColor, X + 8, Y + 5);
+            //if (!ttf)
+                
+            //else
+            //{
+            //    if (ProcessID != -1)
+            //    {
+            //        if (Process.Processes[ProcessID].bitmapTop == null)
+            //        {
+            //            Explorer.CanvasMain.DrawStringTTF(windowName, "UMR", Kernel.fontColor, 17, X + 8, Y + 18);
+            //            int sizeX = TTFManager.GetTTFWidth(windowName, "UMR", 17);
+            //            Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
+            //            Process.Processes[ProcessID].bitmapTop = tempBitmap;
+            //        }
+            //        else
+            //        {
+            //            Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
+            //        }
+            //    }
+
+            //}
+            if (closeAble && 38 - (SizeX - tempSize) > 35)
+                Explorer.CanvasMain.DrawImage(Kernel.Xicon, X + SizeX - 38, Y);
+            if (sizeAble && 68 - (SizeX - tempSize) > 35)
+                Explorer.CanvasMain.DrawImage(Kernel.maxIcon, X + SizeX - 68, Y);
+            else if (hideAble && 68 - (SizeX - tempSize) > 35)
+                Explorer.CanvasMain.DrawImage(Kernel.MinusIcon, X + SizeX - 68, Y);
+
+            if (sizeAble && hideAble && 98 - (SizeX - tempSize) > 35)
+                Explorer.CanvasMain.DrawImage(Kernel.MinusIcon, X + SizeX - 98, Y);
+
+        }
+
+        public static void DrawRoundedRectangle(int x, int y, int width, int height, int radius, Color col, int modifedX)
 		{
 			Explorer.CanvasMain.DrawFilledRectangle(col, x + radius, y, width - 2 * radius, height);
 
