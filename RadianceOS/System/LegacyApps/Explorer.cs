@@ -662,10 +662,10 @@ namespace RadianceOS.System.Apps
 				app.Update();
 			}
 
-			if (NewApps.Count == 0)
-			{
-                NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
-            }
+			//if (NewApps.Count == 0)
+			//{
+   //             NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
+   //         }
 
 			Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
 
