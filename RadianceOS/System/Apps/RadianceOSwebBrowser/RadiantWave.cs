@@ -44,6 +44,19 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 
 					client.Connect(serverIp, serverPort);
 					NetworkStream stream = client.GetStream();
+
+					string url = "szymekk.pl/RadianceOS/index.html";
+					Process.Processes[ProcessID].texts[0] = url;
+					Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
+					sysStatus.DrawBusy("Requesting data");
+					string[] urlAddress = url.Split('/');
+					string webAddress = "";
+					for (int i = 1; i < urlAddress.Length; i++)
+					{
+						webAddress += "/";
+						webAddress += urlAddress[i];
+					}
+
 					string httpget = "GET /RadianceOS.html HTTP/1.1\r\n" +
 								 "User-Agent: RadianceOS\r\n" +
 								 "Accept: */*\r\n" +
@@ -77,6 +90,8 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 
 				HtmlRender2.AddResource(@"skk.png", Kernel.skk);
 				HtmlRender2.AddResource(@"ok.png", Kernel.ok);
+				HtmlRender2.AddResource(@"Radiance.png", Files.RadianceOSIconTransparent);
+				HtmlRender2.AddResource(@"RadianceShadow.png", Files.RadianceOSIconShadow);
 				HtmlRender2.AddResource(@"https://i.creativecommons.org/l/by-nd/4.0/80x15.png", Kernel.cc);
 				HtmlRender2.PagePos = 10;
 			}
@@ -223,9 +238,6 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 											MessageBoxCreator.CreateMessageBox("RadiantWave Error", "Unknow URL.\nRadiantWave does not yet support JavaScript!\n" + newUrl, MessageBoxCreator.MessageBoxIcon.error, 550);
 											return;
 										}
-										InputSystem.CurrentString = newUrl;
-										Process.Processes[ProcessID].texts[0] = newUrl;
-										Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
 										sysStatus.DrawBusy("Requesting data");
 										string[] urlAddress = newUrl.Split('/');
 										string webAddress = "";
@@ -396,6 +408,9 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 
 				HtmlRender2.AddResource(@"skk.png", Kernel.skk);
 				HtmlRender2.AddResource(@"ok.png", Kernel.ok);
+				HtmlRender2.AddResource(@"Radiance.png", Files.RadianceOSIconTransparent);
+				HtmlRender2.AddResource(@"RadianceShadow.png", Files.RadianceOSIconShadow);
+
 				HtmlRender2.AddResource(@"https://i.creativecommons.org/l/by-nd/4.0/80x15.png", Kernel.cc);
 				HtmlRender2.PagePos = 10;
 			}

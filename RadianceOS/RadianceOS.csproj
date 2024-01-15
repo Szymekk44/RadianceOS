@@ -46,6 +46,7 @@
       <None Remove="Resources\Icons\criticalStop.bmp" />
       <None Remove="Resources\Icons\error.bmp" />
       <None Remove="Resources\Icons\fileExplorer.bmp" />
+      <None Remove="Resources\Icons\fileExplorer16.bmp" />
       <None Remove="Resources\Icons\FileExplorer\data16.bmp" />
       <None Remove="Resources\Icons\FileExplorer\data16.png" />
       <None Remove="Resources\Icons\FileExplorer\document16.bmp" />
@@ -141,6 +142,7 @@
       <EmbeddedResource Include="Resources\Icons\crash.bmp" />
       <EmbeddedResource Include="Resources\Icons\criticalStop.bmp" />
       <EmbeddedResource Include="Resources\Icons\fileExplorer.bmp" />
+      <EmbeddedResource Include="Resources\Icons\fileExplorer16.bmp" />
       <EmbeddedResource Include="Resources\Icons\FileExplorer\data16.bmp" />
       <EmbeddedResource Include="Resources\Icons\FileExplorer\document16.bmp" />
       <EmbeddedResource Include="Resources\Icons\FileExplorer\folder16.bmp" />

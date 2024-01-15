@@ -29,7 +29,7 @@ namespace RadianceOS.System.Apps
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, 5,y,250,700);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, 255, y, 250, 700);
 			Window.DrawRoundedRectangle(5, y-25, 500, 25, 10, Kernel.shadow, 20);
-			TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadianceOS " + Kernel.version, "UMR", Kernel.fontColor, 17, 10, y - 7, 18);
+			TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadianceOS", "UMB", Kernel.fontColor, 17, 10, y - 7, 18);
 			//Window.DrawRoundedTopRightCorner(255, y, 200, 700, 15, Kernel.main);
 			DrawStartButton(0);
 			DrawStartButton(1);
@@ -38,7 +38,8 @@ namespace RadianceOS.System.Apps
 			DrawStartButton(4);
 			DrawStartButton(5);
 			DrawStartButton(6);
-			DrawStartButton(7);
+
+			DrawStartSmallButton(0);
 			Explorer.CanvasMain.DrawImage(Kernel.userIcon, 275, y + 5);
 			TTFManager.DrawStringTTF(Explorer.CanvasMain, Kernel.loggedUser, "UMR", Kernel.fontColor, 24, 330, y + 35);
 			Explorer.CanvasMain.DrawLine(Kernel.lightMain, 326, y + 69, 429, y + 69);
@@ -129,28 +130,6 @@ namespace RadianceOS.System.Apps
 									{
 
 
-										Processes FE = new Processes
-										{
-											ID = 10,
-											Name = "File Explorer",
-											X = 300,
-											Y = 200,
-											SizeX = 900,
-											MinX = 500,
-											SizeY = 550,
-											sizeAble = true,
-											moveAble = true
-										};
-										Process.Processes.Add(FE);
-										FileExplorer.UpdateList(Process.Processes.Count - 1, @"0:\");
-
-
-									}
-									break;
-								case 4:
-									{
-
-
 										Processes MessageBox2 = new Processes
 										{
 											ID = 6,
@@ -165,9 +144,10 @@ namespace RadianceOS.System.Apps
 										Process.Processes.Add(MessageBox2);
 										Snake.Start(Process.Processes.Count - 1);
 
+
 									}
 									break;
-								case 5:
+								case 4:
 									{
 
 
@@ -187,7 +167,7 @@ namespace RadianceOS.System.Apps
 
 									}
 									break;
-								case 6:
+								case 5:
 									{
 
 
@@ -200,8 +180,8 @@ namespace RadianceOS.System.Apps
 											SizeX = 1200,
 											SizeY = 700,
 											tempInt = 0,
-											texts = new string[2] { "szymekk.pl/RadianceOS.html", "" },
-											CurrChar = "szymekk.pl/RadianceOS.html".Length,
+											texts = new string[2] { "szymekk.pl/RadianceOS/index.html", "" },
+											CurrChar = "szymekk.pl/RadianceOS/index.html".Length,
 											moveAble = true
 										};
 										Process.Processes.Add(MessageBox2);
@@ -209,8 +189,10 @@ namespace RadianceOS.System.Apps
 
 									}
 									break;
-								case 7:
+								case 6:
 									{
+
+
 										Processes SecurityManager = new Processes
 										{
 											ID = 13,
@@ -224,8 +206,10 @@ namespace RadianceOS.System.Apps
 										};
 										Process.Processes.Add(SecurityManager);
 										Process.UpdateProcess(Process.Processes.Count - 1);
+
 									}
 									break;
+								
 
 
 							}
@@ -236,10 +220,8 @@ namespace RadianceOS.System.Apps
 				}
 			}
 		
-			if(!selected)
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, 5, y + (id * 40), 250, 40);
-			else
-				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, 5, y + (id * 40), 250, 40);
+			if(selected)
+				Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, 5, y + (id * 40), 250, 40);
 			switch (id)
 			{
 				case 0:
@@ -258,28 +240,80 @@ namespace RadianceOS.System.Apps
 					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Settings", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
 				case 3:
-					Canvas.DrawImageAlpha(Kernel.fileExplorer, 10, y + 4 + (id * 40));
-					Explorer.CanvasMain.DrawString("File explorer", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
-					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "File explorer", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
-					break;
-				case 4:
 					Canvas.DrawImageAlpha(Kernel.gamepadIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Snake", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Snake", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
-				case 5:
+				case 4:
 					Canvas.DrawImageAlpha(Kernel.sysinfoIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Performance", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
 					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Performance", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
-				case 6:
+				case 5:
 					Canvas.DrawImageAlpha(Kernel.RadiantWave, 10, y + 4 + (id * 40));
-						Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
-				//	TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadiantWave Web Browser", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
+					Explorer.CanvasMain.DrawString("RadiantWave Web Browser", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					//	TTFManager.DrawStringTTF(Explorer.CanvasMain, "RadiantWave Web Browser", "UMR", Kernel.fontColor, 15, 47, y + 12 + (id * 47));
 					break;
-				case 7:
+				case 6:
 					Canvas.DrawImageAlpha(Kernel.UACIcon, 10, y + 4 + (id * 40));
 					Explorer.CanvasMain.DrawString("Security Manager", Kernel.font18, Kernel.fontColor, 47, y + 12 + (id * 40));
+					break;
+			}
+		}
+
+
+		public static void DrawStartSmallButton(int id)
+		{
+
+			bool selected = false;
+			if (state == 0)
+			{
+				if (Explorer.MY >= y + (id * 20) +  80&& Explorer.MY <= y + (id * 20) + 100)
+				{
+					if (Explorer.MX >= 270 && Explorer.MX <= 490)
+					{
+						selected = true;
+						if (MouseManager.MouseState == MouseState.Left)
+						{
+
+							state = 2;
+
+							switch (id)
+							{
+								case 0:
+									{
+										Processes FE = new Processes
+										{
+											ID = 10,
+											Name = "File Explorer",
+											X = 300,
+											Y = 200,
+											SizeX = 900,
+											MinX = 500,
+											SizeY = 550,
+											sizeAble = true,
+											moveAble = true
+										};
+										Process.Processes.Add(FE);
+										FileExplorer.UpdateList(Process.Processes.Count - 1, @"0:\");
+									}
+									break;
+							}
+
+
+						}
+					}
+				}
+			}
+
+			if (selected)
+				Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, 265, y + 82 + (id * 16), 225, 20);
+			switch (id)
+			{
+				case 0:
+					Canvas.DrawImageAlpha(Kernel.SmallFE, 270, y + 84 + (id * 16));
+					Explorer.CanvasMain.DrawString("File Explorer", Kernel.font18, Kernel.fontColor, 290, y + 84 + (id * 16));
+					//TTFManager.DrawStringTTF(Explorer.CanvasMain, "Terminal", "UMR", Kernel.fontColor, 15, 47, y + 27 + (id * 47));
 					break;
 			}
 		}
