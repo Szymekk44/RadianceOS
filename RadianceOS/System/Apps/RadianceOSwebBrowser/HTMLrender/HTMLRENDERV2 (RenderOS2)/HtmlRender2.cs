@@ -75,7 +75,6 @@ namespace webkerneltest.HTMLRENDERV2
             foreach (var attribute in node.Attributes)
             {
                 attribs.Add(attribute.Name,attribute.Value);
-                MessageBoxCreator.CreateMessageBox("Node", attribute.Name + "\n" + attribute.Value);
             }
 
             int tsize = 14;
@@ -98,7 +97,6 @@ namespace webkerneltest.HTMLRENDERV2
                 case "a":
                     if (attribs.ContainsKey("href"))
                     {
-                        col = Color.Blue;
                         bool downloadLink = false;
 						string link2 = "empty";
 						if (node.OuterHtml.Contains("href") && node.OuterHtml.Contains("'"))
@@ -145,30 +143,43 @@ namespace webkerneltest.HTMLRENDERV2
 					}
                     break;
                 case "button":
-                    canv.DrawFilledRectangle(Color.LightGray,Pos.X+10, Pos.Y + PagePos,node.InnerText.Length * 8,18);
+					bool downloadLink2 = false;
+					canv.DrawFilledRectangle(Color.LightGray,Pos.X+10, Pos.Y + PagePos,node.InnerText.Length * 8,18);
                     string link = "empty";
 					if (node.OuterHtml.Contains("href"))
                     {
 						link = node.OuterHtml.Substring(node.OuterHtml.IndexOf('\'') + 1);
                         link = link.Substring(0,link.IndexOf("'"));
 					}
-	
+
+					if (node.OuterHtml.Contains("download"))
+					{
+						string temp = node.OuterHtml.Substring(node.OuterHtml.IndexOf("download"));
+						temp = temp.Trim();
+						if (temp[8] != '"' && temp[8] != '\'')
+						{
+							downloadLink2 = true;
+
+						}
+
+
+					}
 					try
-                    {
+					{
 						ElementData ed = new ElementData
 						{
 							x = 10 + Pos.X - Process.Processes[ProcessID].X,
 							y = 36 + Pos.Y + PagePos - Process.Processes[ProcessID].Y,
 							SizeX = node.InnerText.Length * 8,
 							SizeY = 18,
+							download = downloadLink2,
 							type = 0,
-                       
 							url = link
 						};
 						Process.Processes[ProcessID].webData.elements.Add(ed);
 					}
-      
-                    catch(Exception ex)
+
+					catch (Exception ex)
                     {
                         MessageBoxCreator.CreateMessageBox("Error", ex.Message, MessageBoxCreator.MessageBoxIcon.error) ;
 					}

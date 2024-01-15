@@ -105,6 +105,9 @@ namespace RadianceOS.System.Managment
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.sysData16.bmp")]
 		public static byte[] sysData16;
 
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.fileExplorer16.bmp")]
+		public static byte[] FE16;
+
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.power.bmp")]
 		public static byte[] power;
         [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.standby.bmp")]

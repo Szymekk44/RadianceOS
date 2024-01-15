@@ -33,6 +33,7 @@ namespace RadianceOS
 		public static Bitmap TaskBar1, lightButton, DarkButton, StartMenu;
 		public static Bitmap Cursor1;
 		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer, userIcon, UACIcon;
+		public static Bitmap SmallFE;
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
 		public static Bitmap text16, docuent16, folder16, data16, sysData16;
@@ -351,6 +352,7 @@ namespace RadianceOS
 			folder16 = new Bitmap(Files.folder16);
 			data16 = new Bitmap(Files.data16);
 			sysData16 = new Bitmap(Files.sysData16);
+			SmallFE = new Bitmap(Files.FE16);
 			WriteLineOK("File Icons 16px");
 			BootScreen.Render("Audio", "Starting audio");
 
