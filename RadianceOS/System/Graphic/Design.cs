@@ -75,6 +75,7 @@ namespace RadianceOS.System.Graphic
                 Process.Processes[i].bitmapTop = null; //Change ttf title background color
 
 			}
+
         }
     }
 }
