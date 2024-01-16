@@ -50,6 +50,7 @@ namespace RadianceOS.System.Security.Auth
                 {
                     AuthenticatedAt = DateTime.Now;
                     StartSession(username);
+                    Settings.LoadMainSettings();
 					switch (Explorer.Wallpaper)
 					{
 						case 0:

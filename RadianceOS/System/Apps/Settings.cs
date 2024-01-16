@@ -11,12 +11,17 @@ using Cosmos.System.Graphics;
 using System.IO;
 using RadianceOS.System.Graphic;
 using static Cosmos.HAL.Drivers.Video.VGADriver;
+using RadianceOS.Render;
+using System.Text.Json;
 
 namespace RadianceOS.System.Apps
 {
 	public static class Settings
 	{
 		public static int resouresLoaded;
+		public static bool SettingAllowTTF;
+
+
 		public static void Render(int X, int Y, int SizeX, int SizeY, int index)
 		{
 			Window.DrawTop(index, X, Y, SizeX, "Settings", false, true, true);
@@ -65,8 +70,44 @@ namespace RadianceOS.System.Apps
 
 		public static void RenderMain(int X, int Y, int SizeX, int SizeY, int index)
 		{
-			StringsAcitons.DrawCenteredString("These settings are not supported.\nPlease update RadianceOS to the latest version.", SizeX - 200, X + 200, Y + (SizeY - 25) / 2, 25, Color.Red, Kernel.fontRuscii);
+
+			if (SettingAllowTTF)
+			{
+				TTFManager.DrawStringTTF(Explorer.CanvasMain, "Performance", "UMB", Kernel.fontColor, 20, X + 220, Y + 50);
+				Explorer.CanvasMain.DrawString("- Disabling these features may speed up RadianceOS", Kernel.fontDefault, Kernel.fontColor, X + 335, Y + 37);
+			}
+			else
+			{
+				Explorer.CanvasMain.DrawString("Performance", Kernel.fontRuscii, Kernel.fontColor, X + 220, Y + 37);
+				Explorer.CanvasMain.DrawString("- Disabling these features may speed up RadianceOS", Kernel.fontDefault, Kernel.fontColor, X + 316, Y + 37);
+			}
+			
+			Explorer.CanvasMain.DrawString("Allow TTF", Kernel.font18, Kernel.fontColor, X + 245, Y + 61);
+			if(!SettingAllowTTF)
+			{
+				Explorer.CanvasMain.DrawString("The remaining TTF text does not negatively impact system performance.", Kernel.font16, Kernel.fontColor, X + 245+78, Y + 63);
+			}
+			if(Explorer.MX > X+215 && Explorer.MX < X+235)
+			{
+				if(Explorer.MY > Y+60 &&  Explorer.MY < Y+80)
+				{
+					UICheckBox.DrawCheckBox(X + 215, Y + 60, SettingAllowTTF, true);
+					if(MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
+					{
+						SettingAllowTTF = !SettingAllowTTF;
+						SaveMainSettings();
+					}
+				}
+				else
+					UICheckBox.DrawCheckBox(X + 215, Y + 60, SettingAllowTTF, false);
+			}
+			else
+			{
+				UICheckBox.DrawCheckBox(X + 215, Y + 60, SettingAllowTTF, false);
+			}
 		}
+
+	
 		public static void RenderApperance(int X, int Y, int SizeX, int SizeY, int index, bool msc)
 		{
 			DrawWallpaper(0, Y + 50, X + 260, SizeX, index, msc);
@@ -302,12 +343,47 @@ namespace RadianceOS.System.Apps
 			{
 				case 0:
 					//Explorer.CanvasMain.DrawString("System", Kernel.font18, Color.White, x+10, y + 7 + (id * 32));
-					Explorer.CanvasMain.DrawStringTTF("System", "UMR", Kernel.fontColor, 20, x + 10, y + 27 + (id * 32));
+					if (SettingAllowTTF)
+						Explorer.CanvasMain.DrawStringTTF("System", "UMR", Kernel.fontColor, 20, x + 10, y + 27 + (id * 32));
+					else
+						Explorer.CanvasMain.DrawString("System", Kernel.fontDefault, Kernel.fontColor, x + 10, y + 13 + (id * 32));
 					break;
 				case 1:
 					//Explorer.CanvasMain.DrawString("System", Kernel.font18, Color.White, x+10, y + 7 + (id * 32));
+					if(SettingAllowTTF)
 					Explorer.CanvasMain.DrawStringTTF("Appearance", "UMR", Kernel.fontColor, 20, x + 10, y + 27 + (id * 40));
+					else
+						Explorer.CanvasMain.DrawString("Appearance", Kernel.fontDefault, Kernel.fontColor, x + 10, y + 13 + (id * 40));
 					break;
+			}
+		}
+
+		public static void SaveMainSettings()
+		{
+			string path1 = @"0:\Users\" + Kernel.loggedUser + @"\Settings\AllowTTF.dat";
+			if (!File.Exists(path1))
+			{
+				File.Create(path1);
+			}
+			File.WriteAllText(path1, SettingAllowTTF.ToString());
+		}
+
+		public static void LoadMainSettings()
+		{
+			string path1 = @"0:\Users\" + Kernel.loggedUser + @"\Settings\AllowTTF.dat";
+			if (File.Exists(path1))
+			{
+				SettingAllowTTF = bool.Parse(File.ReadAllText(path1));
+			}
+			else
+			{
+
+				if (!File.Exists(path1))
+				{
+					File.Create(path1);
+				}
+				File.WriteAllText(path1, "True");
+				SettingAllowTTF = true;
 			}
 		}
 	}

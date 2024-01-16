@@ -20,6 +20,8 @@ namespace RadianceOS.System.Managment
 		public static byte[] FontLat;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Fonts.ruscii_8x16.psf")]
 		public static byte[] FontRuscii;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Fonts.tis-ptlight.f16.psf")]
+		public static byte[] FontTis;
 
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.TTF.Fonts.UbuntuMono-Regular.ttf")]

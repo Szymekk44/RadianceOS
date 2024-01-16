@@ -41,16 +41,16 @@ namespace RadianceOS.System.Graphic
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X, Y, SizeX, 25);
 			}
 
-			if (!ttf)
-				Explorer.CanvasMain.DrawString(windowName, Kernel.fontLat, Kernel.fontColor, X + 8, Y + 5);
+			if (!ttf || !Settings.SettingAllowTTF)
+				Explorer.CanvasMain.DrawString(windowName, Kernel.fontDefault, Kernel.fontColor, X + 8, Y + 5);
 			else
 			{
 				if (ProcessID != -1)
 				{
                     if (Process.Processes[ProcessID].bitmapTop == null)
                     {
-                        Explorer.CanvasMain.DrawStringTTF(windowName, "UMR", Kernel.fontColor, 17, X + 8, Y + 18);
-                        int sizeX = TTFManager.GetTTFWidth(windowName, "UMR", 17);
+                        Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 8, Y + 18);
+                        int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
                         Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
                         Process.Processes[ProcessID].bitmapTop = tempBitmap;
                     }

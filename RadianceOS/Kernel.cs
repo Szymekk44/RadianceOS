@@ -27,7 +27,7 @@ namespace RadianceOS
 		public static CosmosVFS fs;
 		public static Canvas canvas;
 		public static Font font16;
-		public static Font font18, fontRuscii, fontLat;
+		public static Font font18, fontRuscii, fontLat, fontTis, fontDefault;
 		public static Bitmap Wallpaper1;
 		public static Bitmap Wallpaper1small, Wallpaper2small, Wallpaper3small;
 		public static Bitmap TaskBar1, lightButton, DarkButton, StartMenu;
@@ -90,9 +90,9 @@ namespace RadianceOS
 
 		public static bool AllLoaded = false;
 
+
 		protected override void BeforeRun()
 		{
-
 			Console.OutputEncoding = Cosmos.System.ExtendedASCII.CosmosEncodingProvider.Instance.GetEncoding(437);
 			Console.SetWindowSize(90, 30);
 			Console.ForegroundColor = ConsoleColor.Cyan;
@@ -105,7 +105,6 @@ namespace RadianceOS
 			Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
 
 
-			RAT.MinFreePages = 24;
 
 			bool fileSytstemError = false;
 			try
@@ -133,6 +132,7 @@ namespace RadianceOS
 				{
 					int DisplayMode = int.Parse(File.ReadAllText(@"0:\RadianceOS\Settings\DisplayMode.dat"));
 					DisplaySizeSelector.SaveMode(DisplayMode);
+					Console.WriteLine("Zmieniono na " + Explorer.screenSizeX + "x" + Explorer.screenSizeY);
 				}
 				catch(Exception e)
 				{
@@ -146,10 +146,7 @@ namespace RadianceOS
 			if (!fileSytstemError)
 			{
 
-                if (!File.Exists("0:\\RadianceOS\\Settings\\Canvas.size"))
-                {
-                    File.WriteAllText("0:\\RadianceOS\\Settings\\Canvas.size", "1920\n1080");
-                }
+          
 
                 try
 				{
@@ -217,7 +214,7 @@ namespace RadianceOS
 
 
 			TTFManager.RegisterFont("STR", Files.STRegualr);
-
+			fontDefault = PCScreenFont.Default;
 			Console.WriteLine("Loading files...");
 			font16 = PCScreenFont.LoadFont(Files.Font16);
 			WriteLineOK("Font16 Default");
@@ -227,6 +224,8 @@ namespace RadianceOS
 			WriteLineOK("Font16 Ruscii");
 			fontLat = PCScreenFont.LoadFont(Files.FontLat);
 			WriteLineOK("Font16 Lat");
+			fontTis = PCScreenFont.LoadFont(Files.FontTis);
+			WriteLineOK("Font16 Tis");
 			if (diskReady)
 			{
 				if (File.Exists(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat"))

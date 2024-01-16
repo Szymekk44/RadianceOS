@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System;
 using System.Drawing;
 using RadianceOS.System.Apps;
+using Cosmos.System;
+using RadianceOS;
 
 namespace CosmosTTF
 {
@@ -84,22 +86,26 @@ namespace CosmosTTF
 		/// <param name="point"></param>
 		public static void DrawStringTTF(this Canvas cv, string text, string font, Color color, float px, int x, int y, float spacingMultiplier = 1f)
 		{
-			prevCanv = cv;
-			float offX = 0;
-			float offY = 0;
+			
+				prevCanv = cv;
+				float offX = 0;
+				float offY = 0;
 
-			foreach (char c in text)
-			{
-				if (c == '\n')
+				foreach (char c in text)
 				{
-					offY += px;
-					continue;
-				}
+					if (c == '\n')
+					{
+						offY += px;
+						continue;
+					}
 
-				GlyphResult g = RenderGlyphAsBitmap(font, c, color, px);
-				Explorer.CanvasMain.DrawImageAlpha(g.bmp, x + (int)offX, y + g.offY);
-				offX += g.offX;
-			}
+					GlyphResult g = RenderGlyphAsBitmap(font, c, color, px);
+					Explorer.CanvasMain.DrawImageAlpha(g.bmp, x + (int)offX, y + g.offY);
+					offX += g.offX;
+				}
+			
+		
+
 		}
 
 		public static int GetTTFWidth(this string text, string font, float px)

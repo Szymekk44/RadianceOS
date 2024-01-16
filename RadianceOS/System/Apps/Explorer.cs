@@ -53,12 +53,6 @@ namespace RadianceOS.System.Apps
 
 		public static int TaskBarHeight = 40;
 
-		public static void GetBootSize()
-		{
-            var sizes = File.ReadAllText("0:\\RadianceOS\\Settings\\Canvas.size").Split("\n");
-            screenSizeX = (uint)int.Parse(sizes[0]);
-            screenSizeY = (uint)int.Parse(sizes[1]);
-        }
 
 		public static void Start()
 		{
@@ -78,11 +72,13 @@ namespace RadianceOS.System.Apps
 			}
 			BootScreen.BootImage = null;
 			Heap.Collect();
-
-            Explorer.GetBootSize();
             Cosmos.System.MouseManager.ScreenWidth = screenSizeX;
 			Cosmos.System.MouseManager.ScreenHeight = screenSizeY;
 			Cosmos.System.MouseManager.X = screenSizeX / 2; Cosmos.System.MouseManager.Y = screenSizeY / 2;
+
+
+
+
 			CanvasMain = FullScreenCanvas.GetFullScreenCanvas(new Mode(screenSizeX, screenSizeY, ColorDepth.ColorDepth32));
 			
 			// Initialise Radiance Security (It'll start everything up)
@@ -657,7 +653,7 @@ namespace RadianceOS.System.Apps
 			if (MouseManager.MouseState == MouseState.Left)
 				Clicked = true;
 
-			foreach (var app in NewApps)
+		/*	foreach (var app in NewApps)
 			{
 				app.Update();
 			}
@@ -665,7 +661,7 @@ namespace RadianceOS.System.Apps
 			if (NewApps.Count == 0)
 			{
 				NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
-			}
+			}*/
 
 			Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
 
