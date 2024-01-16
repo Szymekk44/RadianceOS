@@ -18,11 +18,15 @@ using RadianceOS.System.Managment;
 using Cosmos.System;
 using System.Net;
 using static System.Net.Mime.MediaTypeNames;
+using HtmlAgilityPack;
 
 namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 {
 	public static class RadiantWave
 	{
+
+		static HtmlDocument document = new();
+
 		public static void LoadWebsite(int ProcessID)
 		{
 			try
@@ -79,7 +83,8 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 					{
 						string headers = responseParts[0];
 						string content = responseParts[1];
-						Process.Processes[ProcessID].temp = content;
+						document = new();
+						document.LoadHtml(content);
 					}
 
 					/** Close data stream **/
@@ -112,7 +117,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
 				sysStatus.DrawBusy("Rendering page");
 				Heap.Collect();
-				Explorer.CanvasMain.RenderHTML(Process.Processes[ProcessID].temp, X, Y + 25, SizeX, SizeY -35, ProcessID);
+				Explorer.CanvasMain.RenderHTML(document, X, Y + 25, SizeX, SizeY -35, ProcessID);
 				Heap.Collect();
 
 				int width = SizeX;

@@ -289,23 +289,21 @@ namespace webkerneltest.HTMLRENDERV2
         {
         }
 
-        public static void RenderHTML(this Canvas Canv,string HTMLCODE,int X=0,int Y=0,int Widht=1280,int Height=720, int ProcessID = 0)
+        public static void RenderHTML(this Canvas Canv,HtmlDocument doc,int X=0,int Y=0,int Widht=1280,int Height=720, int ProcessID = 0)
         {
 
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(HTMLCODE);
             PageStyle = CssParser.Empty();
 
             canv = Canv;
 
             Pos = new Point(X,Y);
-            htmlCode = HTMLCODE;
+            htmlCode = doc.DocumentNode.InnerHtml;
             renderpoint.X = X;
             renderpoint.Y = Y;
             renderpoint.Width = Widht;
             renderpoint.Height = Height;
             canv.DrawFilledRectangle(Color.White,X, Y, Widht, Height);
-            RenderNode(htmlDoc.DocumentNode,Color.Black, ProcessID);
+            RenderNode(doc.DocumentNode,Color.Black, ProcessID);
         }
 
 

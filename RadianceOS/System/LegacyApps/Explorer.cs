@@ -19,6 +19,7 @@ using Cosmos.System.Audio.IO;
 using Cosmos.System.Audio;
 using RadianceOS.System.Security.Auth;
 using System.IO;
+using RadianceOS.System.NewApps;
 
 namespace RadianceOS.System.Apps
 {
@@ -32,7 +33,7 @@ namespace RadianceOS.System.Apps
 		public static int ClickedIndex;
 		public static bool ClickedOnWindow;
 		static int OldX, OldY;
-
+		static List<App> NewApps = new();
 
 
 		public static bool DrawTaskbar, DrawMenu;
@@ -86,6 +87,7 @@ namespace RadianceOS.System.Apps
 			
 			// Initialise Radiance Security (It'll start everything up)
 			Security.Service.Initialise();
+
 		}
 
 		public static void ResizeWallpaper(int SizeX, int SizeY)
@@ -655,7 +657,15 @@ namespace RadianceOS.System.Apps
 			if (MouseManager.MouseState == MouseState.Left)
 				Clicked = true;
 
+			foreach (var app in NewApps)
+			{
+				app.Update();
+			}
 
+			if (NewApps.Count == 0)
+			{
+				NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
+			}
 
 			Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
 
