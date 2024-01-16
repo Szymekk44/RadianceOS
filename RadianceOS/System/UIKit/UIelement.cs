@@ -22,5 +22,10 @@ namespace RadianceOS.System.UIKit
 
         }
 
+        public virtual void Redraw(UIKit ui, Rectangle apprect)
+        {
+            Update(ui,apprect);
+        }
+
     }
 }

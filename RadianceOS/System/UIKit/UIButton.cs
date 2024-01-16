@@ -12,12 +12,16 @@ namespace RadianceOS.System.UIKit
     {
 
         MouseState Pmstate = MouseState.None;
-        Action action;
-        Color col;
-        public UIButton(Rectangle rect,Color col,Action action) :base(rect)
+        public Action action;
+        public Color col,textcol = Color.White;
+        public string text;
+        public int rounding = 0;
+        public UIButton(Rectangle rect, Color col, Action action, string text,int rounding = 0) :base(rect)
         {
             this.action = action;
             this.col = col;
+            this.text = text;
+            this.rounding = rounding;
         }
         public override void Update(UIKit ui, Rectangle apprect)
         {
@@ -32,14 +36,15 @@ namespace RadianceOS.System.UIKit
                     {
                         Pmstate = MouseState.Left;
                         int R= col.R - 10,G= col.G - 10, B = col.B - 10;
-                        if (R < 0)
-                            R = 0;
-                        if (G < 0)
-                            G = 0;
-                        if (B < 0)
-                            B = 0;
+                        R = Math.Max(0,R);
+                        G = Math.Max(0,G);
+                        B = Math.Max(0,B);
 
-                        ui.DrawFilledRect(this.rect,Color.FromArgb(R,G,B));
+                        if (rounding > 0)
+                            ui.DrawRoundedRect(rect, rounding, Color.FromArgb(R, G, B));
+                        else
+                            ui.DrawFilledRect(rect, Color.FromArgb(R, G, B));
+                        ui.DrawACSIIString(text,this.rect.X + (rect.Width/2 - (text.Length*8)/2),this.rect.Y + (rect.Height / 2 - 16 / 2), textcol);
 
                     }
                 }
@@ -48,7 +53,11 @@ namespace RadianceOS.System.UIKit
                     if (Pmstate == MouseState.Left)
                     {
                         Pmstate = MouseState.None;
-                        ui.DrawFilledRect(this.rect, col);
+                        if (rounding > 0)
+                            ui.DrawRoundedRect(rect, rounding, col);
+                        else
+                            ui.DrawFilledRect(rect, col);
+                        ui.DrawACSIIString(text, this.rect.X + (rect.Width / 2 - (text.Length * 8) / 2), this.rect.Y + (rect.Height / 2 - 16 / 2), textcol);
                         action.Invoke();
                     }
                 }
@@ -56,6 +65,13 @@ namespace RadianceOS.System.UIKit
             }
 
         }
-
+        public override void Redraw(UIKit ui, Rectangle apprect)
+        {
+            if (rounding > 0)
+                ui.DrawRoundedRect(rect, rounding, col);
+            else
+                ui.DrawFilledRect(rect, col);
+            ui.DrawACSIIString(text, this.rect.X + (rect.Width / 2 - (text.Length * 8) / 2), this.rect.Y + (rect.Height / 2 - 16 / 2), textcol);
+        }
     }
 }
