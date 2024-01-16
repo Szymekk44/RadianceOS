@@ -31,36 +31,82 @@ namespace RadianceOS.System.Graphic
 				cornerSize = 0;
 	
 
-            if (SizeX < Explorer.screenSizeX)
+            if (SizeX < Explorer.screenSizeX && Settings.SettingAllowRoundedWindows)
 			{
 				DrawRoundedRectangle(X + SizeX - 22, Y + 3, 25, 25, 10, Kernel.middark, cornerSize);
 				DrawRoundedRectangle(X, Y, tempSize, 25, 10, Kernel.shadow, cornerSize);
+				if (!ttf || !Settings.SettingAllowTTF)
+					Explorer.CanvasMain.DrawString(windowName, Kernel.fontDefault, Kernel.fontColor, X + 8, Y + 5);
+				else
+				{
+					if (ProcessID != -1)
+					{
+						if (Process.Processes[ProcessID].bitmapTop == null)
+						{
+							Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 8, Y + 18);
+							int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
+							Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
+							Process.Processes[ProcessID].bitmapTop = tempBitmap;
+						}
+						else
+						{
+							Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
+						}
+					}
+
+				}
 			}
-			else
+			else if(SizeX > Explorer.screenSizeX)
 			{
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X, Y, SizeX, 25);
+				if (!ttf || !Settings.SettingAllowTTF)
+					Explorer.CanvasMain.DrawString(windowName, Kernel.fontDefault, Kernel.fontColor, X + 8, Y + 5);
+				else
+				{
+					if (ProcessID != -1)
+					{
+						if (Process.Processes[ProcessID].bitmapTop == null)
+						{
+							Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 8, Y + 18);
+							int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
+							Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
+							Process.Processes[ProcessID].bitmapTop = tempBitmap;
+						}
+						else
+						{
+							Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
+						}
+					}
+
+				}
+			}
+            else
+            {
+                Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X+3, Y+3, SizeX, 25); 
+                Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X, Y, SizeX, 25);
+				if (!ttf || !Settings.SettingAllowTTF)
+					Explorer.CanvasMain.DrawString(windowName, Kernel.fontDefault, Kernel.fontColor, X + 4, Y + 5);
+				else
+				{
+					if (ProcessID != -1)
+					{
+						if (Process.Processes[ProcessID].bitmapTop == null)
+						{
+							Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 4, Y + 18);
+							int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
+							Window.GetTempImage(X + 4, Y + 1, sizeX, 21, "Top");
+							Process.Processes[ProcessID].bitmapTop = tempBitmap;
+						}
+						else
+						{
+							Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 4, Y + 1);
+						}
+					}
+
+				}
 			}
 
-			if (!ttf || !Settings.SettingAllowTTF)
-				Explorer.CanvasMain.DrawString(windowName, Kernel.fontDefault, Kernel.fontColor, X + 8, Y + 5);
-			else
-			{
-				if (ProcessID != -1)
-				{
-                    if (Process.Processes[ProcessID].bitmapTop == null)
-                    {
-                        Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 8, Y + 18);
-                        int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
-                        Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
-                        Process.Processes[ProcessID].bitmapTop = tempBitmap;
-                    }
-                    else
-                    {
-                        Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
-                    }
-                }
-				
-			}
+	
 			if (closeAble && 38 - (SizeX - tempSize) > 35)
 				Explorer.CanvasMain.DrawImage(Kernel.Xicon, X + SizeX - 38, Y);
 			if (sizeAble && 68 - (SizeX - tempSize) > 35)

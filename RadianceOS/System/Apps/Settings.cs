@@ -19,7 +19,7 @@ namespace RadianceOS.System.Apps
 	public static class Settings
 	{
 		public static int resouresLoaded;
-		public static bool SettingAllowTTF;
+		public static bool SettingAllowTTF, SettingAllowRoundedWindows;
 
 
 		public static void Render(int X, int Y, int SizeX, int SizeY, int index)
@@ -104,6 +104,27 @@ namespace RadianceOS.System.Apps
 			else
 			{
 				UICheckBox.DrawCheckBox(X + 215, Y + 60, SettingAllowTTF, false);
+			}
+
+			Explorer.CanvasMain.DrawString("Allow rounded windows", Kernel.font18, Kernel.fontColor, X + 245, Y + 86);
+
+			if (Explorer.MX > X + 215 && Explorer.MX < X + 235)
+			{
+				if (Explorer.MY > Y + 85 && Explorer.MY < Y + 105)
+				{
+					UICheckBox.DrawCheckBox(X + 215, Y + 85, SettingAllowRoundedWindows, true);
+					if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
+					{
+						SettingAllowRoundedWindows = !SettingAllowRoundedWindows;
+						SaveMainSettings();
+					}
+				}
+				else
+					UICheckBox.DrawCheckBox(X + 215, Y + 85, SettingAllowRoundedWindows, false);
+			}
+			else
+			{
+				UICheckBox.DrawCheckBox(X + 215, Y + 85, SettingAllowRoundedWindows, false);
 			}
 		}
 
@@ -366,6 +387,13 @@ namespace RadianceOS.System.Apps
 				File.Create(path1);
 			}
 			File.WriteAllText(path1, SettingAllowTTF.ToString());
+
+			string path2 = @"0:\Users\" + Kernel.loggedUser + @"\Settings\AllowRoundedWindows.dat";
+			if (!File.Exists(path2))
+			{
+				File.Create(path2);
+			}
+			File.WriteAllText(path2, SettingAllowRoundedWindows.ToString());
 		}
 
 		public static void LoadMainSettings()
@@ -384,6 +412,22 @@ namespace RadianceOS.System.Apps
 				}
 				File.WriteAllText(path1, "True");
 				SettingAllowTTF = true;
+			}
+
+			string path2 = @"0:\Users\" + Kernel.loggedUser + @"\Settings\AllowRoundedWindows.dat";
+			if (File.Exists(path2))
+			{
+				SettingAllowRoundedWindows = bool.Parse(File.ReadAllText(path2));
+			}
+			else
+			{
+
+				if (!File.Exists(path2))
+				{
+					File.Create(path2);
+				}
+				File.WriteAllText(path2, "True");
+				SettingAllowRoundedWindows = true;
 			}
 		}
 	}
