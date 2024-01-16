@@ -30,9 +30,8 @@ namespace RadianceOS.Render
 				for (int j = 0; j < image.Height; j++)
 				{
 					Color color = Color.FromArgb(image.RawData[i + j * image.Width]);
-					if (color.A == 0)
-						continue;
-					canvas.DrawPoint(color, x + i, y + j);
+					if (color.A > 0)	
+						canvas.DrawPoint(color, x + i, y + j);
 				}
 			}
 		}
