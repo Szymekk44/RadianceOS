@@ -72,6 +72,14 @@ namespace RadianceOS.System.Apps
 							{
 								MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be opened!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
 							}
+							else if (ext == "theme")
+							{
+								File.Copy(Process.Processes[id].FileExplorerDat.Files[i].Path, @"0:\Users\" + Kernel.loggedUser + @"\Settings\Ctheme.rtheme");
+                                File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Theme.dat", "3");
+                                Design.ChangeTheme(3);
+                                MessageBoxCreator.CreateMessageBox("Error", "Theme setted", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+
+                            }
 							else
                                 Notepad.OpenFile(Process.Processes[id].FileExplorerDat.Files[i].Path);
                             Process.Processes[id].tempBool = false;
@@ -186,6 +194,8 @@ namespace RadianceOS.System.Apps
                             tempExt = "binary file";
                         else if (curr == ".cfg")
                             tempExt = "configuration file";
+                        else if (curr == ".rtheme")
+                            tempExt = "theme";
                         else
 							tempExt = curr;
 					}

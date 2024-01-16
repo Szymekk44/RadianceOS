@@ -18,7 +18,7 @@ namespace RadianceOS.System.NewApps
         {
             base.Start();
 
-            ui.Button(new Rectangle(10, 10, 100, 40), Color.DarkBlue,() => { });
+            ui.Button(new Rectangle(10, 10, 100, 40), Color.DarkBlue,() => { },"Button1");
 
         }
 

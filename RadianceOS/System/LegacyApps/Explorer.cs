@@ -33,7 +33,7 @@ namespace RadianceOS.System.Apps
 		public static int ClickedIndex;
 		public static bool ClickedOnWindow;
 		static int OldX, OldY;
-		static List<App> NewApps = new();
+		public static List<App> NewApps = new();
 
 
 		public static bool DrawTaskbar, DrawMenu;
@@ -231,11 +231,6 @@ namespace RadianceOS.System.Apps
 			{
 				fail = 0;
 			}
-
-
-
-
-
 
 			if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 			{
