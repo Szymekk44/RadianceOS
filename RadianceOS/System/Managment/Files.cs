@@ -20,6 +20,8 @@ namespace RadianceOS.System.Managment
 		public static byte[] FontLat;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Fonts.ruscii_8x16.psf")]
 		public static byte[] FontRuscii;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Fonts.tis-ptlight.f16.psf")]
+		public static byte[] FontTis;
 
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.TTF.Fonts.UbuntuMono-Regular.ttf")]
@@ -45,6 +47,10 @@ namespace RadianceOS.System.Managment
 		public static byte[] wallpaper2;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree2Small.bmp")]
 		public static byte[] wallpaper2S;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3.bmp")]
+		public static byte[] wallpaper3;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3Small.bmp")]
+		public static byte[] wallpaper3S;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.login.bmp")]
 		public static byte[] wallpaperL;

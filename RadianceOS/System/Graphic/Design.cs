@@ -7,7 +7,7 @@ namespace RadianceOS.System.Graphic
 {
     public static class Design
     {
-        public static void ChangeTheme(int theme)
+        public static void ChangeTheme(int theme, bool refresh = true)
         {
             switch (theme)
             {
@@ -69,6 +69,7 @@ namespace RadianceOS.System.Graphic
                     CustomTheme.ParseTheme(File.ReadAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Ctheme.rtheme"));
                     break;
             }
+            if(refresh)
             Explorer.UpdateIcons();
             for (int i = 0; i < Process.Processes.Count; i++)
             {

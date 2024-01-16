@@ -7,237 +7,237 @@
     <SupportsX86Intrinsics>false</SupportsX86Intrinsics>
     <SelfContained>True</SelfContained>
   </PropertyGroup>
-    <PropertyGroup>
-        <StartCosmosGDB>True</StartCosmosGDB>
-        <VisualStudioDebugPort>Pipe: Cosmos\Serial</VisualStudioDebugPort>
-        <CosmosDebugPort>Serial: COM1</CosmosDebugPort>
-        <Profile>VMware</Profile>
-        <Description>Use VMware Player or Workstation to deploy and debug.</Description>
-        <PxeInterface>192.168.0.8</PxeInterface>
-        <QemuAudioDriver>SoundBlaster16</QemuAudioDriver>
-        <VMWareEdition>Player</VMWareEdition>
-        <QemuMemory>256</QemuMemory>
-        <QemuVideoDriver>VMWare</QemuVideoDriver>
-        <StackCorruptionDetectionEnabled>False</StackCorruptionDetectionEnabled>
-        <DebugEnabled>False</DebugEnabled>
-        <Launch>VMware</Launch>
-        <QemuUseCustomParameters>False</QemuUseCustomParameters>
-        <RemoveBootDebugOutput>True</RemoveBootDebugOutput>
-        <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    </PropertyGroup>
-    <ItemGroup>
-      <Compile Remove="System\LegacyApps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
-      <EmbeddedResource Remove="System\LegacyApps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
-      <None Remove="System\LegacyApps\RadianceOSwebBrowser\HTMLrender\LocalResources\**" />
-    </ItemGroup>
+  <PropertyGroup>
+    <StartCosmosGDB>True</StartCosmosGDB>
+    <VisualStudioDebugPort>Pipe: Cosmos\Serial</VisualStudioDebugPort>
+    <CosmosDebugPort>Serial: COM1</CosmosDebugPort>
+    <Profile>VMware</Profile>
+    <Description>Use VMware Player or Workstation to deploy and debug.</Description>
+    <PxeInterface>192.168.0.8</PxeInterface>
+    <QemuAudioDriver>SoundBlaster16</QemuAudioDriver>
+    <VMWareEdition>Player</VMWareEdition>
+    <QemuMemory>256</QemuMemory>
+    <QemuVideoDriver>VMWare</QemuVideoDriver>
+    <StackCorruptionDetectionEnabled>False</StackCorruptionDetectionEnabled>
+    <DebugEnabled>False</DebugEnabled>
+    <Launch>VMware</Launch>
+    <QemuUseCustomParameters>False</QemuUseCustomParameters>
+    <RemoveBootDebugOutput>True</RemoveBootDebugOutput>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
 
-    <ItemGroup>
-      <None Remove="isoFiles\RadianceOS-Installer.iso" />
-      <None Remove="Resources\Audio\startup.wav" />
-      <None Remove="Resources\Cursors\cursor.bmp" />
-      <None Remove="Resources\Cursors\cursorodl.bmp" />
-      <None Remove="Resources\FilesIcons\ras.bmp" />
-      <None Remove="Resources\FilesIcons\txt.bmp" />
-      <None Remove="Resources\FilesIcons\unknown.bmp" />
-      <None Remove="Resources\Fonts\lat9w-16.psf" />
-      <None Remove="Resources\Fonts\ruscii_8x16.psf" />
-      <None Remove="Resources\Icons\cmd.bmp" />
-      <None Remove="Resources\Icons\crash.bmp" />
-      <None Remove="Resources\Icons\criticalStop.bmp" />
-      <None Remove="Resources\Icons\error.bmp" />
-      <None Remove="Resources\Icons\fileExplorer.bmp" />
-      <None Remove="Resources\Icons\fileExplorer16.bmp" />
-      <None Remove="Resources\Icons\FileExplorer\data16.bmp" />
-      <None Remove="Resources\Icons\FileExplorer\data16.png" />
-      <None Remove="Resources\Icons\FileExplorer\document16.bmp" />
-      <None Remove="Resources\Icons\FileExplorer\folder16.bmp" />
-      <None Remove="Resources\Icons\FileExplorer\sysData16.bmp" />
-      <None Remove="Resources\Icons\FileExplorer\text16.bmp" />
-      <None Remove="Resources\Icons\gamepad icon.bmp" />
-      <None Remove="Resources\Icons\info.bmp" />
-      <None Remove="Resources\Icons\noDisk.bmp" />
-      <None Remove="Resources\Icons\notepad.bmp" />
-      <None Remove="Resources\Icons\padlock.bmp" />
-      <None Remove="Resources\Icons\Power\logout.bmp" />
-      <None Remove="Resources\Icons\Power\power.bmp" />
-      <None Remove="Resources\Icons\Power\power.png" />
-      <None Remove="Resources\Icons\Power\restart.bmp" />
-      <None Remove="Resources\Icons\Power\restart.png" />
-      <None Remove="Resources\Icons\Power\Small\logout.bmp" />
-      <None Remove="Resources\Icons\Power\Small\power.bmp" />
-      <None Remove="Resources\Icons\Power\Small\power.png" />
-      <None Remove="Resources\Icons\Power\Small\restart.bmp" />
-      <None Remove="Resources\Icons\Power\Small\restart.png" />
-      <None Remove="Resources\Icons\Power\Small\standby.bmp" />
-      <None Remove="Resources\Icons\Power\Small\standby.png" />
-      <None Remove="Resources\Icons\Power\Small\UAC.png" />
-      <None Remove="Resources\Icons\Power\standby.bmp" />
-      <None Remove="Resources\Icons\Power\standby.png" />
-      <None Remove="Resources\Icons\Power\UAC.png" />
-      <None Remove="Resources\Icons\RadiantWave.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UAC.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACSheild48.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACSheild48.png" />
-      <None Remove="Resources\Icons\Security\Small\UACShield128.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACShield128.png" />
-      <None Remove="Resources\Icons\Security\Small\UACShield16.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACShield16.png" />
-      <None Remove="Resources\Icons\Security\Small\UACShield24.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACShield24.png" />
-      <None Remove="Resources\Icons\Security\Small\UACShield32.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACShield32.png" />
-      <None Remove="Resources\Icons\Security\Small\UACShield64.bmp" />
-      <None Remove="Resources\Icons\Security\Small\UACShield64.png" />
-      <None Remove="Resources\Icons\Security\UAC.bmp" />
-      <None Remove="Resources\Icons\Security\UACShield.bmp" />
-      <None Remove="Resources\Icons\Security\UACShield.png" />
-      <None Remove="Resources\Icons\setting icon.bmp" />
-      <None Remove="Resources\Icons\stop.bmp" />
-      <None Remove="Resources\Icons\sysinfo icon.bmp" />
-      <None Remove="Resources\Icons\user dark theme.bmp" />
-      <None Remove="Resources\Icons\user light theme.bmp" />
-      <None Remove="Resources\Icons\Xicon.bmp" />
-      <None Remove="Resources\Installer\ButtonInstaller" />
-      <None Remove="Resources\Installer\ButtonInstaller.bmp" />
-      <None Remove="Resources\Installer\ButtonInstaller2.bmp" />
-      <None Remove="Resources\Installer\RadianceInstaller.bmp" />
-      <None Remove="Resources\Malgun_Gothic_32x.psf" />
-      <None Remove="Resources\Other\Boot.bmp" />
-      <None Remove="Resources\RadianceOS\RadianceOS icon.bmp" />
-      <None Remove="Resources\RadianceOS\RadianceOS iconShadow.bmp" />
-      <None Remove="Resources\RadianceOS\RadianceOS iconTransparent.bmp" />
-      <None Remove="Resources\wallpaper-tree.bmp" />
-      <None Remove="Resources\Wallpapers\buttonDark.bmp" />
-      <None Remove="Resources\Wallpapers\buttonLight.bmp" />
-      <None Remove="Resources\Wallpapers\login.bmp" />
-      <None Remove="Resources\Wallpapers\wallpaper-tree2.bmp" />
-      <None Remove="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
-      <None Remove="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
-      <None Remove="Resources\Websites\Test\cc.bmp" />
-      <None Remove="Resources\Websites\Test\ok.bmp" />
-      <None Remove="Resources\Websites\Test\skk.bmp" />
-      <None Remove="Resources\zap-ext-light16.psf" />
-      <None Remove="Resources\zap-ext-light18.psf" />
-      <None Remove="Resources\zap-ext-light20.psf" />
-      <None Remove="Resources\zap-ext-light24.psf" />
-      <None Remove="TTF\Fonts\Arial.ttf" />
-      <None Remove="TTF\Fonts\AzeretMono-Medium.ttf" />
-      <None Remove="TTF\Fonts\Cousine-Bold.ttf" />
-      <None Remove="TTF\Fonts\Cousine-Regular.ttf" />
-      <None Remove="TTF\Fonts\SometypeMono-Regular.ttf" />
-      <None Remove="TTF\Fonts\UbuntuMono-Bold.ttf" />
-      <None Remove="TTF\Fonts\UbuntuMono-Regular.ttf" />
-    </ItemGroup>
+  <ItemGroup>
+    <None Remove="isoFiles\RadianceOS-Installer.iso" />
+    <None Remove="Resources\Audio\startup.wav" />
+    <None Remove="Resources\Cursors\cursor.bmp" />
+    <None Remove="Resources\Cursors\cursorodl.bmp" />
+    <None Remove="Resources\FilesIcons\ras.bmp" />
+    <None Remove="Resources\FilesIcons\txt.bmp" />
+    <None Remove="Resources\FilesIcons\unknown.bmp" />
+    <None Remove="Resources\Fonts\lat9w-16.psf" />
+    <None Remove="Resources\Fonts\ruscii_8x16.psf" />
+    <None Remove="Resources\Fonts\tis-ptlight.f16.psf" />
+    <None Remove="Resources\Icons\cmd.bmp" />
+    <None Remove="Resources\Icons\crash.bmp" />
+    <None Remove="Resources\Icons\criticalStop.bmp" />
+    <None Remove="Resources\Icons\error.bmp" />
+    <None Remove="Resources\Icons\fileExplorer.bmp" />
+    <None Remove="Resources\Icons\fileExplorer16.bmp" />
+    <None Remove="Resources\Icons\FileExplorer\data16.bmp" />
+    <None Remove="Resources\Icons\FileExplorer\data16.png" />
+    <None Remove="Resources\Icons\FileExplorer\document16.bmp" />
+    <None Remove="Resources\Icons\FileExplorer\folder16.bmp" />
+    <None Remove="Resources\Icons\FileExplorer\sysData16.bmp" />
+    <None Remove="Resources\Icons\FileExplorer\text16.bmp" />
+    <None Remove="Resources\Icons\gamepad icon.bmp" />
+    <None Remove="Resources\Icons\info.bmp" />
+    <None Remove="Resources\Icons\noDisk.bmp" />
+    <None Remove="Resources\Icons\notepad.bmp" />
+    <None Remove="Resources\Icons\padlock.bmp" />
+    <None Remove="Resources\Icons\Power\logout.bmp" />
+    <None Remove="Resources\Icons\Power\power.bmp" />
+    <None Remove="Resources\Icons\Power\power.png" />
+    <None Remove="Resources\Icons\Power\restart.bmp" />
+    <None Remove="Resources\Icons\Power\restart.png" />
+    <None Remove="Resources\Icons\Power\Small\logout.bmp" />
+    <None Remove="Resources\Icons\Power\Small\power.bmp" />
+    <None Remove="Resources\Icons\Power\Small\power.png" />
+    <None Remove="Resources\Icons\Power\Small\restart.bmp" />
+    <None Remove="Resources\Icons\Power\Small\restart.png" />
+    <None Remove="Resources\Icons\Power\Small\standby.bmp" />
+    <None Remove="Resources\Icons\Power\Small\standby.png" />
+    <None Remove="Resources\Icons\Power\Small\UAC.png" />
+    <None Remove="Resources\Icons\Power\standby.bmp" />
+    <None Remove="Resources\Icons\Power\standby.png" />
+    <None Remove="Resources\Icons\Power\UAC.png" />
+    <None Remove="Resources\Icons\RadiantWave.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UAC.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACSheild48.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACSheild48.png" />
+    <None Remove="Resources\Icons\Security\Small\UACShield128.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACShield128.png" />
+    <None Remove="Resources\Icons\Security\Small\UACShield16.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACShield16.png" />
+    <None Remove="Resources\Icons\Security\Small\UACShield24.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACShield24.png" />
+    <None Remove="Resources\Icons\Security\Small\UACShield32.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACShield32.png" />
+    <None Remove="Resources\Icons\Security\Small\UACShield64.bmp" />
+    <None Remove="Resources\Icons\Security\Small\UACShield64.png" />
+    <None Remove="Resources\Icons\Security\UAC.bmp" />
+    <None Remove="Resources\Icons\Security\UACShield.bmp" />
+    <None Remove="Resources\Icons\Security\UACShield.png" />
+    <None Remove="Resources\Icons\setting icon.bmp" />
+    <None Remove="Resources\Icons\stop.bmp" />
+    <None Remove="Resources\Icons\sysinfo icon.bmp" />
+    <None Remove="Resources\Icons\user dark theme.bmp" />
+    <None Remove="Resources\Icons\user light theme.bmp" />
+    <None Remove="Resources\Icons\Xicon.bmp" />
+    <None Remove="Resources\Installer\ButtonInstaller" />
+    <None Remove="Resources\Installer\ButtonInstaller.bmp" />
+    <None Remove="Resources\Installer\ButtonInstaller2.bmp" />
+    <None Remove="Resources\Installer\RadianceInstaller.bmp" />
+    <None Remove="Resources\Malgun_Gothic_32x.psf" />
+    <None Remove="Resources\Other\Boot.bmp" />
+    <None Remove="Resources\RadianceOS\RadianceOS icon.bmp" />
+    <None Remove="Resources\RadianceOS\RadianceOS iconShadow.bmp" />
+    <None Remove="Resources\RadianceOS\RadianceOS iconTransparent.bmp" />
+    <None Remove="Resources\wallpaper-tree.bmp" />
+    <None Remove="Resources\Wallpapers\buttonDark.bmp" />
+    <None Remove="Resources\Wallpapers\buttonLight.bmp" />
+    <None Remove="Resources\Wallpapers\login.bmp" />
+    <None Remove="Resources\Wallpapers\wallpaper-tree2.bmp" />
+    <None Remove="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
+    <None Remove="Resources\Wallpapers\wallpaper-tree3.bmp" />
+    <None Remove="Resources\Wallpapers\wallpaper-tree3Small.bmp" />
+    <None Remove="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
+    <None Remove="Resources\Websites\Test\cc.bmp" />
+    <None Remove="Resources\Websites\Test\ok.bmp" />
+    <None Remove="Resources\Websites\Test\skk.bmp" />
+    <None Remove="Resources\zap-ext-light16.psf" />
+    <None Remove="Resources\zap-ext-light18.psf" />
+    <None Remove="Resources\zap-ext-light20.psf" />
+    <None Remove="Resources\zap-ext-light24.psf" />
+    <None Remove="TTF\Fonts\Arial.ttf" />
+    <None Remove="TTF\Fonts\AzeretMono-Medium.ttf" />
+    <None Remove="TTF\Fonts\Cousine-Bold.ttf" />
+    <None Remove="TTF\Fonts\Cousine-Regular.ttf" />
+    <None Remove="TTF\Fonts\SometypeMono-Regular.ttf" />
+    <None Remove="TTF\Fonts\UbuntuMono-Bold.ttf" />
+    <None Remove="TTF\Fonts\UbuntuMono-Regular.ttf" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <ApplicationDefinition Include="isoFiles\RadianceOS-Installer.iso" />
-      <EmbeddedResource Include="Resources\Audio\startup.wav" />
-      <EmbeddedResource Include="Resources\Cursors\cursor.bmp" />
-      <EmbeddedResource Include="Resources\FilesIcons\ras.bmp" />
-      <EmbeddedResource Include="Resources\FilesIcons\txt.bmp" />
-      <EmbeddedResource Include="Resources\FilesIcons\unknown.bmp" />
-      <EmbeddedResource Include="Resources\Fonts\lat9w-16.psf" />
-      <EmbeddedResource Include="Resources\Fonts\ruscii_8x16.psf" />
-      <EmbeddedResource Include="Resources\Icons\cmd.bmp" />
-      <EmbeddedResource Include="Resources\Icons\crash.bmp" />
-      <EmbeddedResource Include="Resources\Icons\criticalStop.bmp" />
-      <EmbeddedResource Include="Resources\Icons\fileExplorer.bmp" />
-      <EmbeddedResource Include="Resources\Icons\fileExplorer16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\FileExplorer\data16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\FileExplorer\document16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\FileExplorer\folder16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\FileExplorer\sysData16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\FileExplorer\text16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\gamepad icon.bmp" />
-      <EmbeddedResource Include="Resources\Icons\noDisk.bmp" />
-    </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="isoFiles\RadianceOS-Installer.iso" />
+    <EmbeddedResource Include="Resources\Fonts\tis-ptlight.f16.psf" />
+    <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree3.bmp" />
+    <EmbeddedResource Include="Resources\Audio\startup.wav" />
+    <EmbeddedResource Include="Resources\Cursors\cursor.bmp" />
+    <EmbeddedResource Include="Resources\FilesIcons\ras.bmp" />
+    <EmbeddedResource Include="Resources\FilesIcons\txt.bmp" />
+    <EmbeddedResource Include="Resources\FilesIcons\unknown.bmp" />
+    <EmbeddedResource Include="Resources\Fonts\lat9w-16.psf" />
+    <EmbeddedResource Include="Resources\Fonts\ruscii_8x16.psf" />
+    <EmbeddedResource Include="Resources\Icons\cmd.bmp" />
+    <EmbeddedResource Include="Resources\Icons\crash.bmp" />
+    <EmbeddedResource Include="Resources\Icons\criticalStop.bmp" />
+    <EmbeddedResource Include="Resources\Icons\fileExplorer.bmp" />
+    <EmbeddedResource Include="Resources\Icons\fileExplorer16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\FileExplorer\data16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\FileExplorer\document16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\FileExplorer\folder16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\FileExplorer\sysData16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\FileExplorer\text16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\gamepad icon.bmp" />
+    <EmbeddedResource Include="Resources\Icons\noDisk.bmp" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Include="Resources\Cursors\cursorodl.bmp" />
-      <EmbeddedResource Include="Resources\Icons\error.bmp" />
-      <EmbeddedResource Include="Resources\Icons\info.bmp" />
-      <EmbeddedResource Include="Resources\Icons\notepad.bmp" />
-      <EmbeddedResource Include="Resources\Icons\padlock.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\logout.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\power.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\restart.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\Small\logout.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\Small\power.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\Small\restart.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\Small\standby.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Power\standby.bmp" />
-      <EmbeddedResource Include="Resources\Icons\RadiantWave.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UAC.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UACSheild48.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield128.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield16.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield24.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield32.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield64.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\UAC.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Security\UACShield.bmp" />
-      <EmbeddedResource Include="Resources\Icons\setting icon.bmp" />
-      <EmbeddedResource Include="Resources\Icons\stop.bmp">
-        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      </EmbeddedResource>
-      <EmbeddedResource Include="Resources\Icons\sysinfo icon.bmp" />
-      <EmbeddedResource Include="Resources\Icons\user dark theme.bmp" />
-      <EmbeddedResource Include="Resources\Icons\user light theme.bmp" />
-      <EmbeddedResource Include="Resources\Icons\Xicon.bmp" />
-      <EmbeddedResource Include="Resources\Installer\ButtonInstaller.bmp" />
-      <EmbeddedResource Include="Resources\Installer\ButtonInstaller2.bmp" />
-      <EmbeddedResource Include="Resources\Installer\RadianceInstaller.bmp" />
-      <EmbeddedResource Include="Resources\Other\Boot.bmp" />
-      <EmbeddedResource Include="Resources\RadianceOS\RadianceOS iconShadow.bmp" />
-      <EmbeddedResource Include="Resources\RadianceOS\RadianceOS icon.bmp" />
-      <EmbeddedResource Include="Resources\RadianceOS\RadianceOS iconTransparent.bmp" />
-      <EmbeddedResource Include="Resources\Start\buttonDark.bmp" />
-      <EmbeddedResource Include="Resources\Start\buttonLight.bmp" />
-      <EmbeddedResource Include="Resources\Wallpapers\login.bmp" />
-      <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree.bmp" />
-      <EmbeddedResource Include="Resources\Fonts\zap-ext-light16.psf" />
-      <EmbeddedResource Include="Resources\Fonts\zap-ext-light18.psf" />
-      <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree2.bmp" />
-      <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
-      <EmbeddedResource Include="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
-      <EmbeddedResource Include="Resources\Websites\Test\cc.bmp" />
-      <EmbeddedResource Include="Resources\Websites\Test\ok.bmp" />
-      <EmbeddedResource Include="Resources\Websites\Test\skk.bmp" />
-      <EmbeddedResource Include="TTF\Fonts\Arial.ttf" />
-      <EmbeddedResource Include="TTF\Fonts\AzeretMono-Medium.ttf" />
-      <EmbeddedResource Include="TTF\Fonts\Cousine-Bold.ttf" />
-      <EmbeddedResource Include="TTF\Fonts\Cousine-Regular.ttf" />
-      <EmbeddedResource Include="TTF\Fonts\SometypeMono-Regular.ttf" />
-      <EmbeddedResource Include="TTF\Fonts\UbuntuMono-Bold.ttf" />
-      <EmbeddedResource Include="TTF\Fonts\UbuntuMono-Regular.ttf" />
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Cursors\cursorodl.bmp" />
+    <EmbeddedResource Include="Resources\Icons\error.bmp" />
+    <EmbeddedResource Include="Resources\Icons\info.bmp" />
+    <EmbeddedResource Include="Resources\Icons\notepad.bmp" />
+    <EmbeddedResource Include="Resources\Icons\padlock.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\logout.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\power.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\restart.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\Small\logout.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\Small\power.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\Small\restart.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\Small\standby.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Power\standby.bmp" />
+    <EmbeddedResource Include="Resources\Icons\RadiantWave.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UAC.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UACSheild48.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield128.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield16.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield24.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield32.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\Small\UACShield64.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\UAC.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Security\UACShield.bmp" />
+    <EmbeddedResource Include="Resources\Icons\setting icon.bmp" />
+    <EmbeddedResource Include="Resources\Icons\stop.bmp">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Icons\sysinfo icon.bmp" />
+    <EmbeddedResource Include="Resources\Icons\user dark theme.bmp" />
+    <EmbeddedResource Include="Resources\Icons\user light theme.bmp" />
+    <EmbeddedResource Include="Resources\Icons\Xicon.bmp" />
+    <EmbeddedResource Include="Resources\Installer\ButtonInstaller.bmp" />
+    <EmbeddedResource Include="Resources\Installer\ButtonInstaller2.bmp" />
+    <EmbeddedResource Include="Resources\Installer\RadianceInstaller.bmp" />
+    <EmbeddedResource Include="Resources\Other\Boot.bmp" />
+    <EmbeddedResource Include="Resources\RadianceOS\RadianceOS iconShadow.bmp" />
+    <EmbeddedResource Include="Resources\RadianceOS\RadianceOS icon.bmp" />
+    <EmbeddedResource Include="Resources\RadianceOS\RadianceOS iconTransparent.bmp" />
+    <EmbeddedResource Include="Resources\Start\buttonDark.bmp" />
+    <EmbeddedResource Include="Resources\Start\buttonLight.bmp" />
+    <EmbeddedResource Include="Resources\Wallpapers\login.bmp" />
+    <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree.bmp" />
+    <EmbeddedResource Include="Resources\Fonts\zap-ext-light16.psf" />
+    <EmbeddedResource Include="Resources\Fonts\zap-ext-light18.psf" />
+    <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree2.bmp" />
+    <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
+    <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree3Small.bmp" />
+    <EmbeddedResource Include="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
+    <EmbeddedResource Include="Resources\Websites\Test\cc.bmp" />
+    <EmbeddedResource Include="Resources\Websites\Test\ok.bmp" />
+    <EmbeddedResource Include="Resources\Websites\Test\skk.bmp" />
+    <EmbeddedResource Include="TTF\Fonts\Arial.ttf" />
+    <EmbeddedResource Include="TTF\Fonts\AzeretMono-Medium.ttf" />
+    <EmbeddedResource Include="TTF\Fonts\Cousine-Bold.ttf" />
+    <EmbeddedResource Include="TTF\Fonts\Cousine-Regular.ttf" />
+    <EmbeddedResource Include="TTF\Fonts\SometypeMono-Regular.ttf" />
+    <EmbeddedResource Include="TTF\Fonts\UbuntuMono-Bold.ttf" />
+    <EmbeddedResource Include="TTF\Fonts\UbuntuMono-Regular.ttf" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="Cosmos.Plugs" Version="0-*" NoWarn="NU1604" />
-        <PackageReference Include="CosmosHttp" Version="1.0.4" />
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
+    <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
+    <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
+    <PackageReference Include="Cosmos.Plugs" Version="0-*" NoWarn="NU1604" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="PngRender\" />
-      <Folder Include="Resources\Media\BadApple\" />
-    </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PngRender\" />
+    <Folder Include="Resources\Media\BadApple\" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <Compile Update="Properties\Resources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
-      </Compile>
-    </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Update="Properties\Resources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
 
 </Project>
