@@ -14,20 +14,20 @@ using static Cosmos.HAL.Drivers.Video.VGADriver;
 
 namespace RadianceOS.System.Apps
 {
-    public static class Settings
+	public static class Settings
 	{
 		public static int resouresLoaded;
 		public static void Render(int X, int Y, int SizeX, int SizeY, int index)
 		{
 			Window.DrawTop(index, X, Y, SizeX, "Settings", false, true, true);
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X + 3, Y + 28, SizeX, SizeY-25);
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y+25, SizeX, SizeY - 25);
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y+25, 200, SizeY-25);
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X + 3, Y + 28, SizeX, SizeY - 25);
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y + 25, 200, SizeY - 25);
 			//	Explorer.CanvasMain.DrawFilledRectangle(Color.Black, X + 2, Y + 27, SizeX - 4, SizeY - 29);
 			bool mouseClicked = false;
-			if(Process.Processes[index].tempBool)
+			if (Process.Processes[index].tempBool)
 			{
-				if(MouseManager.MouseState == MouseState.None)
+				if (MouseManager.MouseState == MouseState.None)
 				{
 					Process.Processes[index].tempBool = false;
 				}
@@ -38,17 +38,17 @@ namespace RadianceOS.System.Apps
 				mouseClicked = true;
 				Process.Processes[index].tempBool = true;
 			}
-		
-			DrawButton(0, Y+25, X, SizeX, index, mouseClicked);
+
+			DrawButton(0, Y + 25, X, SizeX, index, mouseClicked);
 			DrawButton(1, Y + 25, X, SizeX, index, mouseClicked);
 
 
-			switch(Process.Processes[index].tempInt)
+			switch (Process.Processes[index].tempInt)
 			{
 				case 0:
 					{
-						RenderMain(X, Y, SizeX,SizeY,index);
-						
+						RenderMain(X, Y, SizeX, SizeY, index);
+
 					}
 					break;
 				case 1:
@@ -65,15 +65,16 @@ namespace RadianceOS.System.Apps
 
 		public static void RenderMain(int X, int Y, int SizeX, int SizeY, int index)
 		{
-			StringsAcitons.DrawCenteredString("These settings are not supported.\nPlease update RadianceOS to the latest version.", SizeX - 200, X + 200, Y + (SizeY-25) / 2,25, Color.Red, Kernel.fontRuscii);
+			StringsAcitons.DrawCenteredString("These settings are not supported.\nPlease update RadianceOS to the latest version.", SizeX - 200, X + 200, Y + (SizeY - 25) / 2, 25, Color.Red, Kernel.fontRuscii);
 		}
-		public static void RenderApperance (int X, int Y, int SizeX, int SizeY, int index, bool msc)
+		public static void RenderApperance(int X, int Y, int SizeX, int SizeY, int index, bool msc)
 		{
-			DrawWallpaper(0, Y + 50, X+260, SizeX, index, msc);
-			DrawWallpaper(1, Y + 50, X + 260, SizeX, index, msc);
-			DrawThemeButton(0, Y + 350, X + 310, SizeX, index, msc);
-			DrawThemeButton(1, Y + 350, X + 310, SizeX, index, msc);
-			DrawThemeButton(2, Y + 350, X + 310, SizeX, index, msc);
+			DrawWallpaper(0, Y + 50, X + 260, SizeX, index, msc);
+			DrawWallpaper(1, Y + 50, X + 260 + 360, SizeX, index, msc);
+			DrawWallpaper(2, Y + 270, X + 260, SizeX, index, msc);
+			DrawThemeButton(0, Y + 550, X + 310, SizeX, index, msc);
+			DrawThemeButton(1, Y + 550, X + 310, SizeX, index, msc);
+			DrawThemeButton(2, Y + 550, X + 310, SizeX, index, msc);
 		}
 		public static void DrawThemeButton(int id, int y, int x, int sizeX, int index, bool clicked)
 		{
@@ -81,7 +82,7 @@ namespace RadianceOS.System.Apps
 
 
 			bool selected = false;
-			if (Explorer.MY >= y-50 && Explorer.MY <= y + 50)
+			if (Explorer.MY >= y - 50 && Explorer.MY <= y + 50)
 			{
 				if (Explorer.MX >= x + (id * 110) - 60 && Explorer.MX <= x + (id * 110) + 40)
 				{
@@ -110,16 +111,16 @@ namespace RadianceOS.System.Apps
 			if (id != curr)
 			{
 				if (!selected)
-				Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(47, 44, 66), x + (id * 110) - 10, y + 10, 50);
+					Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(47, 44, 66), x + (id * 110) - 10, y + 10, 50);
 				else
-				Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(56, 51, 82), x + (id * 110) - 10, y + 10, 50);
+					Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(56, 51, 82), x + (id * 110) - 10, y + 10, 50);
 			}
 			else
 			{
 				if (!selected)
-				Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(41, 36, 66), x + (id * 110) - 10, y + 10, 50);
+					Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(41, 36, 66), x + (id * 110) - 10, y + 10, 50);
 				else
-				Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(53, 48, 84), x + (id * 110) - 10, y + 10, 50);
+					Explorer.CanvasMain.DrawFilledCircle(Color.FromArgb(53, 48, 84), x + (id * 110) - 10, y + 10, 50);
 			}
 			switch (id)
 			{
@@ -140,62 +141,77 @@ namespace RadianceOS.System.Apps
 			bool selected = false;
 			if (Explorer.MY >= y && Explorer.MY <= y + 200)
 			{
-				if (Explorer.MX >= x + (id * 360) && Explorer.MX <= x + (id * 360) + 340)
+				if (Explorer.MX >= x && Explorer.MX <= x + 340)
 				{
 					selected = true;
 					if (clicked)
 					{
-						if(Explorer.Wallpaper != id)
+						if (Explorer.Wallpaper != id)
 						{
 							Explorer.Wallpaper = id;
-							if(Kernel.diskReady)
-							File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Wallpaper.dat", id.ToString());
+							if (Kernel.diskReady)
+								File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Wallpaper.dat", id.ToString());
 							else
 							{
-									MessageBoxCreator.CreateMessageBox("Error", "Wallpaper settings could not be saved.\nRadianceOS is not installed on this computer.", MessageBoxCreator.MessageBoxIcon.error, 500);
+								MessageBoxCreator.CreateMessageBox("Error", "Wallpaper settings could not be saved.\nRadianceOS is not installed on this computer.", MessageBoxCreator.MessageBoxIcon.error, 500);
 							}
-							switch(Explorer.Wallpaper)
+							switch (Explorer.Wallpaper)
 							{
 								case 0:
 									{
 										Kernel.Wallpaper1 = new Bitmap(Files.wallpaper1);
-										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0,0);
-         
-                                        if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
-                                        {
-                                            Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
-											Kernel.Wallpaper1 = Window.tempBitmap;
-									
-										}
-										DrawDesktopApps.clearIcons();
 										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
-                                        Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
-                                        Kernel.TaskBar1 = Window.tempBitmap;
 
-                                    }
+										if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
+										{
+											Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
+											Kernel.Wallpaper1 = Window.tempBitmap;
+										}
+										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+										Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
+										Kernel.TaskBar1 = Window.tempBitmap;
+										DrawDesktopApps.clearIcons();
+										DrawDesktopApps.UpdateIcons();
+									}
 									break;
 								case 1:
 									{
 										Kernel.Wallpaper1 = new Bitmap(Files.wallpaper2);
-                                        Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
-                               
-                                        if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
-                                        {
-                                            Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
-                                            Kernel.Wallpaper1 = Window.tempBitmap;
-										
-
-										}
-										DrawDesktopApps.clearIcons();
 										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
-                                        Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
-                                        Kernel.TaskBar1 = Window.tempBitmap;
-                                    }
+
+										if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
+										{
+											Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
+											Kernel.Wallpaper1 = Window.tempBitmap;
+										}
+										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+										Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
+										Kernel.TaskBar1 = Window.tempBitmap;
+										DrawDesktopApps.clearIcons();
+										DrawDesktopApps.UpdateIcons();
+									}
+									break;
+								case 2:
+									{
+										Kernel.Wallpaper1 = new Bitmap(Files.wallpaper3);
+										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+
+										if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
+										{
+											Explorer.ResizeWallpaper((int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
+											Kernel.Wallpaper1 = Window.tempBitmap;
+										}
+										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+										Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
+										Kernel.TaskBar1 = Window.tempBitmap;
+										DrawDesktopApps.clearIcons();
+										DrawDesktopApps.UpdateIcons();
+									}
 									break;
 							}
-							
+
 						}
-					
+
 					}
 				}
 			}
@@ -203,24 +219,27 @@ namespace RadianceOS.System.Apps
 			if (id != curr)
 			{
 				if (!selected)
-					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(47, 44, 66), x + (id * 360) -10, y+10, 340, 200);
+					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(47, 44, 66), x - 10, y + 10, 340, 200);
 				else
-					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(56, 51, 82), x + (id * 360)-10, y+10, 340, 200);
+					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(56, 51, 82), x - 10, y + 10, 340, 200);
 			}
 			else
 			{
 				if (!selected)
-					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(41, 36, 66), x + (id * 360) - 10, y + 10, 340, 200);
+					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(41, 36, 66), x - 10, y + 10, 340, 200);
 				else
-					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(53, 48, 84), x + (id * 360) - 10, y + 10, 340, 200);
+					Explorer.CanvasMain.DrawFilledRectangle(Color.FromArgb(53, 48, 84), x - 10, y + 10, 340, 200);
 			}
 			switch (id)
 			{
 				case 0:
-					Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1small, x + (id * 360), y + 20);
+					Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1small, x, y + 20);
 					break;
 				case 1:
-					Explorer.CanvasMain.DrawImage(Kernel.Wallpaper2small, x + (id * 360), y + 20);
+					Explorer.CanvasMain.DrawImage(Kernel.Wallpaper2small, x, y + 20);
+					break;
+				case 2:
+					Explorer.CanvasMain.DrawImage(Kernel.Wallpaper3small, x, y + 20);
 					break;
 			}
 		}
@@ -229,12 +248,14 @@ namespace RadianceOS.System.Apps
 		{
 			Kernel.Wallpaper1small = new Bitmap(Files.wallpaper1S);
 			Kernel.Wallpaper2small = new Bitmap(Files.wallpaper2S);
+			Kernel.Wallpaper3small = new Bitmap(Files.wallpaper3S);
 			resouresLoaded++;
 		}
 		public static void UnloadData()
 		{
 			Kernel.Wallpaper1small = null;
 			Kernel.Wallpaper2small = null;
+			Kernel.Wallpaper3small = null;
 			resouresLoaded = 0;
 		}
 		public static void DrawButton(int id, int y, int x, int sizeX, int index, bool clicked)
@@ -246,10 +267,10 @@ namespace RadianceOS.System.Apps
 				if (Explorer.MX >= x && Explorer.MX <= x + 200)
 				{
 					selected = true;
-					if(clicked && id != Process.Processes[index].tempInt)
+					if (clicked && id != Process.Processes[index].tempInt)
 					{
 						Process.Processes[index].tempInt = id;
-						switch(id)
+						switch (id)
 						{
 							case 0:
 								resouresLoaded--;
@@ -263,7 +284,7 @@ namespace RadianceOS.System.Apps
 					}
 				}
 			}
-			if(id != curr)
+			if (id != curr)
 			{
 				if (!selected)
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.startDefault, x, y + (id * 40), 200, 40);

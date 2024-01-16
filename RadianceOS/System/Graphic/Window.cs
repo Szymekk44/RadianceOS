@@ -29,9 +29,9 @@ namespace RadianceOS.System.Graphic
 
 			if (cornerSize < 0)
 				cornerSize = 0;
+	
 
-
-			if (SizeX < Explorer.screenSizeX)
+            if (SizeX < Explorer.screenSizeX)
 			{
 				DrawRoundedRectangle(X + SizeX - 22, Y + 3, 25, 25, 10, Kernel.middark, cornerSize);
 				DrawRoundedRectangle(X, Y, tempSize, 25, 10, Kernel.shadow, cornerSize);

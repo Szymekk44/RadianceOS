@@ -112,6 +112,8 @@
       <None Remove="Resources\Wallpapers\login.bmp" />
       <None Remove="Resources\Wallpapers\wallpaper-tree2.bmp" />
       <None Remove="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
+      <None Remove="Resources\Wallpapers\wallpaper-tree3.bmp" />
+      <None Remove="Resources\Wallpapers\wallpaper-tree3Small.bmp" />
       <None Remove="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
       <None Remove="Resources\Websites\Test\cc.bmp" />
       <None Remove="Resources\Websites\Test\ok.bmp" />
@@ -199,6 +201,8 @@
       <EmbeddedResource Include="Resources\Fonts\zap-ext-light18.psf" />
       <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree2.bmp" />
       <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree2Small.bmp" />
+      <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree3.bmp" />
+      <EmbeddedResource Include="Resources\Wallpapers\wallpaper-tree3Small.bmp" />
       <EmbeddedResource Include="Resources\Wallpapers\wallpaper-treeSmall.bmp" />
       <EmbeddedResource Include="Resources\Websites\Test\cc.bmp" />
       <EmbeddedResource Include="Resources\Websites\Test\ok.bmp" />

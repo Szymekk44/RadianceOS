@@ -293,7 +293,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                                     Kernel.fs.Disks[0].DeletePartition(0);
                                 Kernel.fs.Disks[0].Clear();
                                 int diskSize = 0;
-                                if (InputSystem.CurrentString == null)
+                                if (InputSystem.CurrentString == "")
 								{
 									diskSize = Kernel.fs.Disks[0].Size / 1048576;
 									//MessageBoxCreator.CreateMessageBox("Info", "Default size: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", MessageBoxCreator.MessageBoxIcon.info, 400, 175);
@@ -544,7 +544,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                                     Process.Processes[ProcessID].CurrChar = 0;
                                 }
                                 break;
-                            case 6:
+                            case 6: //Default
                                 {
                                     Process.Processes[ProcessID].tempInt = 6;
                                     Process.Processes[ProcessID].bitmapTop = null;

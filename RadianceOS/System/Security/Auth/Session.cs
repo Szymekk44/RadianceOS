@@ -58,6 +58,9 @@ namespace RadianceOS.System.Security.Auth
 						case 1:
 							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper2);
 							break;
+						case 2:
+							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper3);
+							break;
 					}
 					for (int i = 0; i < Process.Processes.Count; i++)
                     {
@@ -133,8 +136,11 @@ namespace RadianceOS.System.Security.Auth
                 try
                 {
                     int theme = int.Parse(File.ReadAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Theme.dat"));
-                    Design.ChangeTheme(theme);
-                    Kernel.Theme = theme;
+					if (theme == 0)
+						Design.ChangeTheme(theme, false);
+                    else
+						Design.ChangeTheme(theme);
+					Kernel.Theme = theme;
                 }
                 catch (Exception e)
                 {

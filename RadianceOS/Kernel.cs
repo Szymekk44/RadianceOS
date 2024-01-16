@@ -29,7 +29,7 @@ namespace RadianceOS
 		public static Font font16;
 		public static Font font18, fontRuscii, fontLat;
 		public static Bitmap Wallpaper1;
-		public static Bitmap Wallpaper1small, Wallpaper2small;
+		public static Bitmap Wallpaper1small, Wallpaper2small, Wallpaper3small;
 		public static Bitmap TaskBar1, lightButton, DarkButton, StartMenu;
 		public static Bitmap Cursor1;
 		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer, userIcon, UACIcon;
@@ -415,6 +415,7 @@ namespace RadianceOS
 					if (BootScreen.on)
 				{
 					BootScreen.Render("WELCOME", "Loading user environment", Color.White, false);
+					Explorer.UpdateIcons();
 					ConsoleCommands.RunCommand("gui");
 				}
 					

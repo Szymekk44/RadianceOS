@@ -133,7 +133,7 @@ namespace RadianceOS.System.Apps
 
 				Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
 				Kernel.TaskBar1 = Window.tempBitmap;
-				UpdateIcons();
+				
 			}
 			
 			if (drawIcons)
@@ -771,7 +771,8 @@ namespace RadianceOS.System.Apps
 
 		public static void UpdateIcons()
 		{
-			
+			Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0,0);
+			Explorer.CanvasMain.Display();
 			RenderIconx();
 			RenderIconSquare();
 			RenderIconminus();

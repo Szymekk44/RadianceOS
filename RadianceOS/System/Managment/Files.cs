@@ -45,6 +45,10 @@ namespace RadianceOS.System.Managment
 		public static byte[] wallpaper2;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree2Small.bmp")]
 		public static byte[] wallpaper2S;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3.bmp")]
+		public static byte[] wallpaper3;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3Small.bmp")]
+		public static byte[] wallpaper3S;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.login.bmp")]
 		public static byte[] wallpaperL;
