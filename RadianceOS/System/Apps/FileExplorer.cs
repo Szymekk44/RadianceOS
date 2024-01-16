@@ -160,6 +160,10 @@ namespace RadianceOS.System.Apps
 
 		public static void PreRender(int X, int Y, int SizeX, int SizeY, int id)
 		{
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
+
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X, Y + 25, 200, SizeY - 25);
 			for (int i = 0; i < Process.Processes[id].FileExplorerDat.MainDirectories.Count; i++)
 			{
 				if (Process.Processes[id].FileExplorerDat.MainDirectories.Count <= i)

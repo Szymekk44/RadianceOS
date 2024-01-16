@@ -19,7 +19,7 @@ namespace RadianceOS.System.Radiance
 	public static class BootScreen
 	{
 		public static Bitmap BootImage;
-		public static int ToLoad = 23, Loaded;
+		public static int ToLoad = 26, Loaded;
 		public static bool on = true;
 		public static Bitmap bit;
 		public static void Start()
