@@ -2,7 +2,7 @@
 > [!CAUTION]
 > The new better version of Ra# has not been finished yet. More features will be added over time!
 ## How to start?
-Open a notepad and save your file as .ras! (currently you can only run it from the desktop, we will finish the file explorer soon ;p)
+Open a notepad and save your file as .ras
 ### Variables
 **Supported Types:** Ra# currently supports two variable types: String and Int.<br>
 **Variable Creation:** Variables can be created using the syntax similar to C#. Example:
