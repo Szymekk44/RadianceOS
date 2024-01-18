@@ -186,7 +186,9 @@ namespace RadianceOS.System.Security.Auth
             }
             catch (Exception e)
             {
+
                 MessageBoxCreator.CreateMessageBox("Fatal Error", "Please open RadianceOS in console mode!\n" + e.Message, MessageBoxCreator.MessageBoxIcon.error, 600, 175);
+                Kernel.Crash("Login failed!\nTry to login in console mode!\nException: " + e.Message, 100, 0);
             }
         }
 

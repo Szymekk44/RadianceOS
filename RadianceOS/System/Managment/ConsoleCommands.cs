@@ -133,7 +133,7 @@ namespace RadianceOS.System.Managment
 
 				if (File.Exists(location))
 				{
-					if (location.Contains(".SysData"))
+					if (location.Contains(".SysData") && !Kernel.Root)
 					{
 
 						ReportError(2);
@@ -200,7 +200,7 @@ namespace RadianceOS.System.Managment
 
 				if (File.Exists(location))
 				{
-					if (command[1].Contains(".SysData"))
+					if (command[1].Contains(".SysData") && !Kernel.Root)
 					{
 						ReportError(2);
 					}
@@ -512,9 +512,20 @@ namespace RadianceOS.System.Managment
 				Kernel.render = false;
 				Kernel.Repair = true;
 			}
+			else if (command[0] == "root")
+			{
+				if(Kernel.Root)
+				{
+					Kernel.WriteLineWARN("Users are already logged in as Root.");
+				}
+				else
+				{
+					RootScreen.Display();
+				}
+			}
 			else if (command[0] == "format")
 			{
-				if (!Kernel.diskReady)
+				if (!Kernel.diskReady || Kernel.Root)
 				{
 					Kernel.WriteLineWARN("Starting...");
 					if (Kernel.fs.Disks[0].Partitions.Count > 0) //FORMAT
@@ -557,7 +568,7 @@ namespace RadianceOS.System.Managment
 			}
 			else if (command[0] == "install")
 			{
-				if (!Kernel.diskReady)
+				if (!Kernel.diskReady || Kernel.Root)
 				{
 					Kernel.WriteLineWARN("Starting...");
 

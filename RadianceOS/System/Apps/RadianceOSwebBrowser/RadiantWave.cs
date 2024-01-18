@@ -61,7 +61,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 						webAddress += urlAddress[i];
 					}
 
-					string httpget = "GET /RadianceOS.html HTTP/1.1\r\n" +
+					string httpget = "GET "  +"/RadianceOS.html" + " HTTP/1.1\r\n" +
 								 "User-Agent: RadianceOS\r\n" +
 								 "Accept: */*\r\n" +
 								 "Accept-Encoding: identity\r\n" +
@@ -336,11 +336,11 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 		{
 			try
 			{
-
+				Process.Processes[ProcessID].bitmap = null;
 				InputSystem.CurrentString = url;
 				Process.Processes[ProcessID].texts[0] = url;
 				Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
-				sysStatus.DrawBusy("Requesting data");
+				sysStatus.DrawBusy("Requesting http data");
 				string[] urlAddress = url.Split('/');
 				string webAddress = "";
 				for (int i = 1; i < urlAddress.Length; i++)
@@ -382,11 +382,22 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 
 					string[] responseParts = receivedMessage.Split(new[] { "\r\n\r\n" }, 2, StringSplitOptions.None);
 
-					if (responseParts.Length == 2)
+					if (responseParts.Length >= 2)
 					{
 						string headers = responseParts[0];
 						string content = responseParts[1];
+
+						document = new();
+						document.LoadHtml(content);
+
 						Process.Processes[ProcessID].temp = content;
+			
+					}
+					else
+					{
+						//MessageBoxCreator.CreateMessageBox("RadiantWave Error", "Error generating html", MessageBoxCreator.MessageBoxIcon.error);
+						ChangeWebsite(ProcessID, webAddress);
+						return;
 					}
 					if(responseParts[0].Length > 8)
 					{
@@ -407,7 +418,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 					/** Close data stream **/
 					stream.Close();
 				}
-				Process.Processes[ProcessID].bitmap = null;
+				
 				Process.Processes[ProcessID].selected = false;
 				HtmlRender2.resources.Clear();
 
@@ -417,7 +428,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 				HtmlRender2.AddResource(@"RadianceShadow.png", Files.RadianceOSIconShadow);
 
 				HtmlRender2.AddResource(@"https://i.creativecommons.org/l/by-nd/4.0/80x15.png", Kernel.cc);
-				HtmlRender2.PagePos = 10;
+				HtmlRender2.PagePos = 5;
 			}
 			catch (Exception ex)
 			{

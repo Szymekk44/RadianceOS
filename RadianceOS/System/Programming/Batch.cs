@@ -2,6 +2,7 @@
 using Cosmos.Core.Memory;
 using RadianceOS.System.Apps;
 using RadianceOS.System.Managment;
+using RadianceOS.System.Security.FileManagment;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -168,6 +169,7 @@ namespace RadianceOS.System.Programming
 							string fileName = parts[parts.Length - 1];
 							fileName = fileName.Substring(0, fileName.Length - 1);
 							var file_stream = File.Create(Process.Processes[index].metaData + fileName);
+						
 							file_stream.Close();
 							string content = "";
 							for (int i = 0; i < parts.Length - 1; i++)
@@ -233,7 +235,7 @@ namespace RadianceOS.System.Programming
 
 					if (File.Exists(location))
 					{
-						if (location.Contains(".SysData"))
+						if (location.Contains(".SysData") && !Kernel.Root)
 						{
 
 							TextColor empty = new TextColor
@@ -326,7 +328,7 @@ namespace RadianceOS.System.Programming
 
 					if (File.Exists(location))
 					{
-						if (commands[1].Contains(".SysData"))
+						if (commands[1].Contains(".SysData") && !Kernel.Root)
 						{
 
 							TextColor empty = new TextColor

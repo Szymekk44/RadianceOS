@@ -361,7 +361,7 @@ namespace RadianceOS.System.Apps
                 warningLevel = 2;
 			if(path.Contains(@"1:\") && !path.Contains(@"0:\"))
                 warningLevel = 2;
-            if (extension == "SysData")
+            if (extension == "SysData" && !Kernel.Root)
 			{
 				MessageBoxCreator.CreateMessageBox("STOP", "RadianceOS blocked an attempt to open a system file.", MessageBoxCreator.MessageBoxIcon.STOP, 600, 150);
 				return;

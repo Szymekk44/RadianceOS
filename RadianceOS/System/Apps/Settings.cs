@@ -401,7 +401,15 @@ namespace RadianceOS.System.Apps
 			string path1 = @"0:\Users\" + Kernel.loggedUser + @"\Settings\AllowTTF.dat";
 			if (File.Exists(path1))
 			{
-				SettingAllowTTF = bool.Parse(File.ReadAllText(path1));
+				try
+				{
+					SettingAllowTTF = bool.Parse(File.ReadAllText(path1));
+				}
+				catch
+				{
+					SettingAllowRoundedWindows = true;
+					File.WriteAllText(path1, "True");
+				}
 			}
 			else
 			{
@@ -417,7 +425,16 @@ namespace RadianceOS.System.Apps
 			string path2 = @"0:\Users\" + Kernel.loggedUser + @"\Settings\AllowRoundedWindows.dat";
 			if (File.Exists(path2))
 			{
-				SettingAllowRoundedWindows = bool.Parse(File.ReadAllText(path2));
+				try
+				{
+					SettingAllowRoundedWindows = bool.Parse(File.ReadAllText(path2));
+				}
+				catch 
+				{
+					SettingAllowRoundedWindows = true;
+					File.WriteAllText(path2, "True");
+				}
+
 			}
 			else
 			{

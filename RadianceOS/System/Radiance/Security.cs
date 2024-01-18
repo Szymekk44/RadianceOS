@@ -62,10 +62,10 @@ namespace RadianceOS.System.Radiance
                 case 0:
                     {
                         canvas.Clear(Color.FromArgb(132, 0, 0));
-                        canvas.DrawImage(crash, 860, 400);
-                        StringsAcitons.DrawCenteredStringAlt("RadianceOS did not start correctly.", 1920, 0, 600, 18, Color.White, Kernel.font18);
+                         canvas.DrawImage(crash, ((int)Explorer.screenSizeX-200)/2, 300);
+						StringsAcitons.DrawCenteredStringAlt("An error occurred while running RadianceOS\nThe main system process has been stopped to prevent damage to you computer.\nRadianceOS " + Kernel.version + " - " + Kernel.subversion + "\n" + reason + "\nFor more information please visit szymekk.pl/RadianceOS/stop", (int)Explorer.screenSizeX, 0, 500, 18, Color.White, Kernel.font18);
 
-                        DrawButton(0);
+						DrawButton(0);
                         DrawButton(1);
                         DrawButton(2);
                         DrawButton(3);
@@ -77,8 +77,8 @@ namespace RadianceOS.System.Radiance
                 case 1:
                     {
                         canvas.Clear(Color.FromArgb(132, 0, 0));
-                        canvas.DrawImage(crash, 860, 400);
-                        StringsAcitons.DrawCenteredStringAlt("An error occurred while running RadianceOS\n" + reason, 1920, 0, 600, 18, Color.White, Kernel.font18);
+                        canvas.DrawImage(crash, ((int)Explorer.screenSizeX-200)/2, 300);
+                        StringsAcitons.DrawCenteredStringAlt("An error occurred while running RadianceOS\nThe main system process has been stopped to prevent damage to you computer.\nRadianceOS " + Kernel.version + " - " + Kernel.subversion + "\n" + reason + "\nFor more information please visit szymekk.pl/RadianceOS/stop", (int)Explorer.screenSizeX, 0, 500, 18, Color.White, Kernel.font18);
 
                         DrawButton(1);
                         DrawButton(2);
@@ -94,11 +94,11 @@ namespace RadianceOS.System.Radiance
         }
         public static void DrawButton(int id)
         {
-            if (Cosmos.System.MouseManager.X > 810 && Cosmos.System.MouseManager.X < 1110)
+            if (Cosmos.System.MouseManager.X > ((int)Explorer.screenSizeX-300)/2 && Cosmos.System.MouseManager.X < ((int)Explorer.screenSizeX + 300) / 2)
             {
-                if (Cosmos.System.MouseManager.Y > 645 + id * 30 && Cosmos.System.MouseManager.Y < 675 + id * 30)
+                if (Cosmos.System.MouseManager.Y > 745 + id * 30 && Cosmos.System.MouseManager.Y < 775 + id * 30)
                 {
-                    canvas.DrawFilledRectangle(Color.FromArgb(90, 0, 0), 810, 645 + id * 30, 300, 30);
+                    canvas.DrawFilledRectangle(Color.FromArgb(90, 0, 0), ((int)Explorer.screenSizeX - 300) / 2, 745 + id * 30, 300, 30);
                     if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
                     {
                         switch (State)
@@ -111,9 +111,36 @@ namespace RadianceOS.System.Radiance
 
                                             break;
                                         case 1:
+                                            Kernel.render = false;
+                                            Kernel.Repair = false;
+                                            canvas.Disable();
+                                            while(!System.Radiance.Security.Logged)
+                                            {
+												Console.ForegroundColor = ConsoleColor.Cyan;
+												Console.Write("Password> ");
+												Console.ForegroundColor = ConsoleColor.White;
+												var input = Console.ReadLine();
+												string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
+												if (input == File.ReadAllText(myUser + @"AccountInfo\Password.SysData"))
+												{
+													System.Radiance.Security.Logged = true;
+													Kernel.WriteLineOK("Logged as " + Kernel.loggedUser);
+												}
+												else
+												{
+													Kernel.WriteLineERROR("Incorrect password!");
+												}
+											}
+                                            while(!Kernel.render && Kernel.Repair)
+                                            {
 
+												Console.Write(Kernel.path + ">");
+												var input = Console.ReadLine();
+												ConsoleCommands.RunCommand(input);
+											}
                                             break;
                                         case 2:
+                                            if(Kernel.Error == null)
                                             Kernel.LoadFiles();
                                             Kernel.diskReady = false;
                                             Kernel.Repair = false;
@@ -184,10 +211,10 @@ namespace RadianceOS.System.Radiance
                     }
                 }
                 else
-                    canvas.DrawFilledRectangle(Color.FromArgb(110, 0, 0), 810, 645 + id * 30, 300, 30);
+                    canvas.DrawFilledRectangle(Color.FromArgb(110, 0, 0), ((int)Explorer.screenSizeX - 300) / 2, 745 + id * 30, 300, 30);
             }
             else
-                canvas.DrawFilledRectangle(Color.FromArgb(110, 0, 0), 810, 645 + id * 30, 300, 30);
+                canvas.DrawFilledRectangle(Color.FromArgb(110, 0, 0), ((int)Explorer.screenSizeX - 300) / 2, 745 + id * 30, 300, 30);
             switch (State)
             {
                 case 0:
@@ -195,19 +222,19 @@ namespace RadianceOS.System.Radiance
                         switch (id)
                         {
                             case 0:
-                                StringsAcitons.DrawCenteredStringAlt("Start troubleshooting", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Start troubleshooting", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 1:
-                                StringsAcitons.DrawCenteredStringAlt("Open console with system admin", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Open console mode", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 2:
-                                StringsAcitons.DrawCenteredStringAlt("Reinstall RadianceOS", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Reinstall RadianceOS", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 3:
-                                StringsAcitons.DrawCenteredStringAlt("Restart", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Restart", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 4:
-                                StringsAcitons.DrawCenteredStringAlt("Shutdown", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Shutdown", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                         }
                     }
@@ -217,19 +244,19 @@ namespace RadianceOS.System.Radiance
                         switch (id)
                         {
                             case 1:
-                                StringsAcitons.DrawCenteredStringAlt("Restart", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Restart", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 2:
-                                StringsAcitons.DrawCenteredStringAlt("Kill selected task", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Kill selected task", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 3:
-                                StringsAcitons.DrawCenteredStringAlt("Kill last task", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Kill last task", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 4:
-                                StringsAcitons.DrawCenteredStringAlt("Kill all tasks", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Kill all tasks", (int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
                             case 5:
-                                StringsAcitons.DrawCenteredStringAlt("Ignore", 1920, 0, 650 + id * 30, 18, Color.White, Kernel.font18);
+                                StringsAcitons.DrawCenteredStringAlt("Ignore",(int)Explorer.screenSizeX, 0, 750 + id * 30, 18, Color.White, Kernel.font18);
                                 break;
 
                         }

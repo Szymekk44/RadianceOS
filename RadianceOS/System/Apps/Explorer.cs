@@ -150,7 +150,15 @@ namespace RadianceOS.System.Apps
 					switch (Process.Processes[i].ID)
 					{
 						case 0:
-							MessageBox.Render(Process.Processes[i].Name, Process.Processes[i].texts, Process.Processes[i].metaData, Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, "OK");
+							string button1 = "OK", button2 = null;
+							if(Process.Processes[i].defaultLines.Count > 1)
+							{
+								button1 = Process.Processes[i].defaultLines[0];
+								button2 = Process.Processes[i].defaultLines[1];
+							}
+							else if (Process.Processes[i].defaultLines.Count > 0)
+								button1 = Process.Processes[i].defaultLines[0];
+							MessageBox.Render(Process.Processes[i].Name, Process.Processes[i].texts, Process.Processes[i].metaData, Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, button1, button2);
 							break;
 						case 1:
 							if (Process.Processes[i].lines.Count == 0)
@@ -346,28 +354,28 @@ namespace RadianceOS.System.Apps
 											ClickedOnWindow = false;
 										}
 									}
-									if (Process.Processes[i].hideAble)
+									
+								}
+								if (Process.Processes[i].hideAble)
+								{
+									if (Process.Processes[i].sizeAble)
 									{
-										if (Process.Processes[i].sizeAble)
+										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
 										{
-											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
-											{
-												Process.Processes[i].hidden = true;
-											}
+											Process.Processes[i].hidden = true;
 										}
-										else
+									}
+									else
+									{
+										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
 										{
-											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
-											{
-												Process.Processes[i].hidden = true;
-											}
+											Process.Processes[i].hidden = true;
 										}
 									}
 								}
-							
-							
-							
-						}
+
+
+							}
 
 
 

@@ -2,6 +2,7 @@
 using Cosmos.System;
 using RadianceOS.System.Graphic;
 using RadianceOS.System.Managment;
+using RadianceOS.System.Programming.RaSharp2;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +14,7 @@ namespace RadianceOS.System.Apps
 {
 	public static class FileExplorer
 	{
-		public static void Render( int X, int Y, int SizeX, int SizeY, int id)
+		public static void Render(int X, int Y, int SizeX, int SizeY, int id)
 		{
 			Window.DrawTop(id, X, Y, SizeX, "File Explorer - " + Process.Processes[id].temp, true);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
@@ -23,13 +24,13 @@ namespace RadianceOS.System.Apps
 			bool clickedOn = false;
 			if (Process.Processes[id].bitmap == null)
 			{
-				PreRender(X, Y,SizeX, SizeY, id);
+				PreRender(X, Y, SizeX, SizeY, id);
 			}
 			else
 			{
-				Explorer.CanvasMain.DrawImage(Process.Processes[id].bitmap, X+4, Y+  28);
+				Explorer.CanvasMain.DrawImage(Process.Processes[id].bitmap, X + 4, Y + 28);
 				Explorer.CanvasMain.DrawImage(Process.Processes[id].bitmap2, X + 202, Y + 28);
-				Explorer.CanvasMain.DrawImage(Process.Processes[id].bitmap3, X + SizeX-150, Y + 28);
+				Explorer.CanvasMain.DrawImage(Process.Processes[id].bitmap3, X + SizeX - 150, Y + 28);
 			}
 
 			for (int i = 0; i < Process.Processes[id].FileExplorerDat.MainDirectories.Count; i++)
@@ -40,16 +41,19 @@ namespace RadianceOS.System.Apps
 				{
 					if (Explorer.MX > X && Explorer.MX < X + 200)
 					{
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X, Y + 28 + (i * 20) - 1, 200, 20);
-						Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.MainDirectories[i].Name, Kernel.font18, Kernel.fontColor, X + 4, Y + 28 + (i * 20));
-						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
+						if (!Process.Processes[id].tempBool)
+						{
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X, Y + 28 + (i * 20) - 1, 200, 20);
+							Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.MainDirectories[i].Name, Kernel.font18, Kernel.fontColor, X + 4, Y + 28 + (i * 20));
+						}
+						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && !Process.Processes[id].tempBool)
 						{
 							UpdateList(id, Process.Processes[id].FileExplorerDat.MainDirectories[i].Path + @"\");
 							PreRender(X, Y, SizeX, SizeY, id);
 						}
 					}
 				}
-				
+
 			}
 			for (int i = 0; i < Process.Processes[id].FileExplorerDat.Directories.Count; i++)
 			{
@@ -59,17 +63,21 @@ namespace RadianceOS.System.Apps
 				{
 					if (Explorer.MX > X + 200 && Explorer.MX < X + SizeX)
 					{
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X + 200, Y + 28 + (i * 20) - 1, SizeX - 200, 20);
-						Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Directories[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + (i * 20));
-						Explorer.CanvasMain.DrawImage(Kernel.folder16, X + 202, Y + 28 + (i * 20));
-						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
+						if (!Process.Processes[id].tempBool)
+						{
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X + 200, Y + 28 + (i * 20) - 1, SizeX - 200, 20);
+							Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Directories[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + (i * 20));
+							Explorer.CanvasMain.DrawImage(Kernel.folder16, X + 202, Y + 28 + (i * 20));
+						}
+
+						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && !Process.Processes[id].tempBool)
 						{
 							UpdateList(id, Process.Processes[id].FileExplorerDat.Directories[i].Path + @"\");
 							PreRender(X, Y, SizeX, SizeY, id);
 						}
 					}
 				}
-				
+
 			}
 			int start = Process.Processes[id].FileExplorerDat.Directories.Count;
 			for (int i = 0; i < Process.Processes[id].FileExplorerDat.Files.Count; i++)
@@ -80,26 +88,30 @@ namespace RadianceOS.System.Apps
 				{
 					if (Explorer.MX > X + 200 && Explorer.MX < X + SizeX)
 					{
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X + 200, Y + 28 + ((i + start) * 20) - 1, SizeX - 200, 20);
-						string extension = Process.Processes[id].FileExplorerDat.Files[i].Extension;
-						Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Files[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + ((i + start) * 20));
-						Explorer.CanvasMain.DrawString(extension, Kernel.font18, Kernel.fontColor, X + SizeX - 150, Y + 28 + ((i + start) * 20));
-						if (extension == "text file")
+						if (!Process.Processes[id].tempBool)
 						{
-							Explorer.CanvasMain.DrawImage(Kernel.text16, X + 202, Y + 28 + ((i + start) * 20));
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X + 200, Y + 28 + ((i + start) * 20) - 1, SizeX - 200, 20);
+							string extension = Process.Processes[id].FileExplorerDat.Files[i].Extension;
+							Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Files[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + ((i + start) * 20));
+							Explorer.CanvasMain.DrawString(extension, Kernel.font18, Kernel.fontColor, X + SizeX - 150, Y + 28 + ((i + start) * 20));
+							if (extension == "text file")
+							{
+								Explorer.CanvasMain.DrawImage(Kernel.text16, X + 202, Y + 28 + ((i + start) * 20));
+							}
+							else if (extension == "data file" || extension == "configuration file")
+							{
+								Explorer.CanvasMain.DrawImage(Kernel.data16, X + 202, Y + 28 + ((i + start) * 20));
+							}
+							else if (extension == "system data file" || extension == "system file")
+							{
+								Explorer.CanvasMain.DrawImage(Kernel.sysData16, X + 202, Y + 28 + ((i + start) * 20));
+							}
+							else
+							{
+								Explorer.CanvasMain.DrawImage(Kernel.docuent16, X + 202, Y + 28 + ((i + start) * 20));
+							}
 						}
-						else if (extension == "data file" || extension == "configuration file")
-						{
-							Explorer.CanvasMain.DrawImage(Kernel.data16, X + 202, Y + 28 + ((i + start) * 20));
-						}
-						else if (extension == "system data file" || extension == "system file")
-						{
-							Explorer.CanvasMain.DrawImage(Kernel.sysData16, X + 202, Y + 28 + ((i + start) * 20));
-						}
-						else
-						{
-							Explorer.CanvasMain.DrawImage(Kernel.docuent16, X + 202, Y + 28 + ((i + start) * 20));
-						}
+
 						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && !Process.Processes[id].tempBool)
 						{
 							string ext = Process.Processes[id].FileExplorerDat.Files[i].Extension;
@@ -108,31 +120,34 @@ namespace RadianceOS.System.Apps
 								MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be opened!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
 							}
 							else
+							{
 								Notepad.OpenFile(Process.Processes[id].FileExplorerDat.Files[i].Path);
-							Process.Processes[id].tempBool = false;
+								Process.Processes[id].tempBool = false;
+							}
+						
+							
 						}
 						if (MouseManager.MouseState == MouseState.Right)
 						{
 							clickedOn = true;
-							if (!Process.Processes[id].tempBool)
+
+							Process.Processes[id].tempBool = true;
+							Process.Processes[id].tempInt3 = Explorer.MX - Process.Processes[id].X;
+							Process.Processes[id].tempInt2 = i;
+
+							if (Process.Processes[id].FileExplorerDat.Files[i].Extension == "text file")
 							{
-								Process.Processes[id].tempBool = true;
-								Process.Processes[id].tempInt3 = Explorer.MX - Process.Processes[id].X;
-								Process.Processes[id].tempInt2 = i;
-
-								if (Process.Processes[id].FileExplorerDat.Files[i].Extension == "text file")
-								{
-									Process.Processes[id].tempInt = 1;
-
-								}
-
+								Process.Processes[id].tempInt = 1;
 							}
-
+							if (Process.Processes[id].FileExplorerDat.Files[i].Extension == "ra# file")
+							{
+								Process.Processes[id].tempInt = 2;
+							}
 						}
 
 					}
 				}
-				
+
 			}
 
 
@@ -142,19 +157,11 @@ namespace RadianceOS.System.Apps
 			}
 			if (MouseManager.MouseState == MouseState.Left)
 			{
-				Process.Processes[id].tempBool = false;
+				//Process.Processes[id].tempBool = false;
 			}
 			if (Process.Processes[id].tempBool)
 			{
-				switch(Process.Processes[id].tempInt)
-				{
-					case 1:
-						{
-							RenderMenu(Process.Processes[id].tempInt, Process.Processes[id].FileExplorerDat.Files[Process.Processes[id].tempInt2].Path, Process.Processes[id].tempInt3 + Process.Processes[id].X, Process.Processes[id].Y + ((Process.Processes[id].tempInt2 + start) * 20) - 25, start, id);
-						}
-						break;
-				}
-
+				RenderMenu(Process.Processes[id].tempInt, Process.Processes[id].FileExplorerDat.Files[Process.Processes[id].tempInt2].Path, Process.Processes[id].tempInt3 + Process.Processes[id].X, Process.Processes[id].Y + ((Process.Processes[id].tempInt2 + start) * 20) - 25, start, id);
 			}
 		}
 
@@ -168,14 +175,14 @@ namespace RadianceOS.System.Apps
 			{
 				if (Process.Processes[id].FileExplorerDat.MainDirectories.Count <= i)
 					return;
-				
+
 				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.MainDirectories[i].Name, Kernel.font18, Kernel.fontColor, X + 4, Y + 28 + (i * 20));
 			}
 			for (int i = 0; i < Process.Processes[id].FileExplorerDat.Directories.Count; i++)
 			{
 				if (Process.Processes[id].FileExplorerDat.Directories.Count <= i)
 					return;
-				
+
 				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Directories[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + (i * 20));
 				Explorer.CanvasMain.DrawImage(Kernel.folder16, X + 202, Y + 28 + (i * 20));
 			}
@@ -184,7 +191,7 @@ namespace RadianceOS.System.Apps
 			{
 				if (Process.Processes[id].FileExplorerDat.Files.Count <= i)
 					return;
-		
+
 				string extension = Process.Processes[id].FileExplorerDat.Files[i].Extension;
 				Explorer.CanvasMain.DrawString(Process.Processes[id].FileExplorerDat.Files[i].Name, Kernel.font18, Kernel.fontColor, X + 220, Y + 28 + ((i + start) * 20));
 				Explorer.CanvasMain.DrawString(extension, Kernel.font18, Kernel.fontColor, X + SizeX - 150, Y + 28 + ((i + start) * 20));
@@ -204,18 +211,26 @@ namespace RadianceOS.System.Apps
 				{
 					Explorer.CanvasMain.DrawImage(Kernel.docuent16, X + 202, Y + 28 + ((i + start) * 20));
 				}
-				if (Process.Processes[id].bitmap == null)
-				{
-					int max = 0;
-					for (int j = 0; j < Process.Processes[id].FileExplorerDat.MainDirectories.Count; j++)
-					{
-						if (max < Process.Processes[id].FileExplorerDat.MainDirectories[j].Name.Length)
-							max = Process.Processes[id].FileExplorerDat.MainDirectories[j].Name.Length;
-					}
-					Window.GetTempImage(X+4, Y + 28, max * 9, Process.Processes[id].FileExplorerDat.MainDirectories.Count * 20, "File Explorer1");
-					Process.Processes[id].bitmap = Window.tempBitmap;
-				}
 
+
+			}
+
+			if (Process.Processes[id].bitmap == null)
+			{
+				int max = 0;
+				for (int j = 0; j < Process.Processes[id].FileExplorerDat.MainDirectories.Count; j++)
+				{
+					if (max < Process.Processes[id].FileExplorerDat.MainDirectories[j].Name.Length)
+						max = Process.Processes[id].FileExplorerDat.MainDirectories[j].Name.Length;
+				}
+				Window.GetTempImage(X + 4, Y + 28, max * 9, Process.Processes[id].FileExplorerDat.MainDirectories.Count * 20, "File Explorer1");
+				Process.Processes[id].bitmap = Window.tempBitmap;
+			}
+			int fcount = 0;
+			fcount += Process.Processes[id].FileExplorerDat.Files.Count;
+			int total = Process.Processes[id].FileExplorerDat.Files.Count + Process.Processes[id].FileExplorerDat.Directories.Count;
+			if (total != 0)
+			{
 				int maxLenght = 0;
 				for (int j = 0; j < Process.Processes[id].FileExplorerDat.Files.Count; j++)
 				{
@@ -228,25 +243,83 @@ namespace RadianceOS.System.Apps
 						maxLenght = Process.Processes[id].FileExplorerDat.Directories[j].Name.Length;
 				}
 
-				Window.GetTempImage(X + 202, Y + 28, maxLenght * 9 + 20, (Process.Processes[id].FileExplorerDat.Directories.Count + Process.Processes[id].FileExplorerDat.Files.Count) * 20, "File Explorer2");
+				Window.GetTempImage(X + 202, Y + 28, maxLenght * 9 + 20, 20 * (fcount + Process.Processes[id].FileExplorerDat.Directories.Count), "File Explorer2");
 				Process.Processes[id].bitmap2 = Window.tempBitmap;
 
-				Window.GetTempImage(X + SizeX - 150, Y + 28, 150, (Process.Processes[id].FileExplorerDat.Files.Count + Process.Processes[id].FileExplorerDat.Directories.Count) * 20, "File Explorer1");
+				Window.GetTempImage(X + SizeX - 150, Y + 28, 150, (fcount + Process.Processes[id].FileExplorerDat.Directories.Count) * 20, "File Explorer3");
+				Process.Processes[id].bitmap3 = Window.tempBitmap;
+			}
+			else
+			{
+				Window.GetTempImage(X + 202, Y + 28, 1, 1, "File Explorer2");
+				Process.Processes[id].bitmap2 = Window.tempBitmap;
+
+				Window.GetTempImage(X + SizeX - 150, Y + 28, 1, 1, "File Explorer3");
 				Process.Processes[id].bitmap3 = Window.tempBitmap;
 			}
 		}
 
-		public static void RenderMenu(int id, string path, int MX,int MY, int start, int ProcessID)
+		public static void RenderMenu(int id, string path, int MX, int MY, int start, int ProcessID)
 		{
-			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, MX, MY, 150, 64);
-			DrawExplorerButton("Open", 1, 0, MX, MY, path);
-            DrawExplorerButton("Rename", 1, 1, MX, MY, path);
-            DrawExplorerButton("Delete", 1, 2, MX, MY, path);
-        }
+			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, MX, MY, 150, 59);
+			switch (id)
+			{
+				default:
+					DrawExplorerButton("Open", 0, 0, MX, MY, path, ProcessID);
+					DrawExplorerButton("Rename", 1, 1, MX, MY, path, ProcessID);
+					DrawExplorerButton("Delete", 2, 2, MX, MY, path, ProcessID);
+					break;
+				case 2:
+					DrawExplorerButton("Run", 3, 0, MX, MY, path, ProcessID);
+					DrawExplorerButton("Edit", 0, 1, MX, MY, path, ProcessID);
+					DrawExplorerButton("Rename", 1, 2, MX, MY, path, ProcessID);
+					DrawExplorerButton("Delete", 2, 2, MX, MY, path, ProcessID);
+					break;
+			}
 
-		public static void DrawExplorerButton(string text, int action, int num, int x, int y, string filePath)
+			if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && Process.Processes[ProcessID].tempBool)
+			{
+				Process.Processes[ProcessID].tempBool = false;
+
+			}
+		}
+
+		public static void DrawExplorerButton(string text, int action, int num, int x, int y, string filePath, int ProcessID)
 		{
 			int trueY = y + (num * 18) + 2;
+
+			if (Explorer.MX > x && Explorer.MX < x + 150)
+			{
+				if (Explorer.MY > trueY && Explorer.MY < trueY + 18)
+				{
+					Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, x, trueY, 150, 18);
+					if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
+					{
+						
+						switch (action)
+						{
+							case 0:
+								{
+									Notepad.OpenFile(filePath);
+									Process.Processes[ProcessID].tempBool = false;
+								}
+								break;
+							case 2:
+								{
+									Notepad.OpenFile(filePath);
+									Process.Processes[ProcessID].tempBool = false;
+								}
+								break;
+							case 3:
+								{
+									RasExecuter.StartScript(filePath);
+									Process.Processes[ProcessID].tempBool = false;
+								}
+								break;
+						}
+					}
+				}
+			}
 			Explorer.CanvasMain.DrawString(text, Kernel.font18, Kernel.fontColor, x + 3, trueY);
 		}
 
@@ -279,39 +352,39 @@ namespace RadianceOS.System.Apps
 						else if (curr == ".sys")
 							tempExt = "system file";
 						else if (curr == ".bin")
-                            tempExt = "binary file";
-                        else if (curr == ".cfg")
-                            tempExt = "configuration file";
-                        else
+							tempExt = "binary file";
+						else if (curr == ".cfg")
+							tempExt = "configuration file";
+						else
 							tempExt = curr;
 					}
-						
+
 					else
 						tempExt = "file";
-						FilePath newFile = new FilePath
+					FilePath newFile = new FilePath
 					{
 						Name = files[i],
 						Path = path + files[i],
-						
+
 						Extension = tempExt
 					};
 					Process.Processes[ProcessID].FileExplorerDat.Files.Add(newFile);
-					
+
 				}
 				string[] directories = Directory.GetDirectories(@"0:\Users\" + Kernel.loggedUser);
-                FilePath zero = new FilePath
-                {
-                    Name = @"0:\",
-                    Path = @"0:"
-                };
-                Process.Processes[ProcessID].FileExplorerDat.MainDirectories.Add(zero);
-                FilePath one = new FilePath
-                {
-                    Name = @"1:\",
-                    Path = @"1:"
-                };
-                Process.Processes[ProcessID].FileExplorerDat.MainDirectories.Add(one);
-                for (int i = 0; i < directories.Length; i++)
+				FilePath zero = new FilePath
+				{
+					Name = @"0:\",
+					Path = @"0:"
+				};
+				Process.Processes[ProcessID].FileExplorerDat.MainDirectories.Add(zero);
+				FilePath one = new FilePath
+				{
+					Name = @"1:\",
+					Path = @"1:"
+				};
+				Process.Processes[ProcessID].FileExplorerDat.MainDirectories.Add(one);
+				for (int i = 0; i < directories.Length; i++)
 				{
 					FilePath newDir = new FilePath
 					{
@@ -331,9 +404,9 @@ namespace RadianceOS.System.Apps
 					Process.Processes[ProcessID].FileExplorerDat.Directories.Add(newDir);
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				Kernel.Crash("File Explorer Error: " + ex.Message, 12); 
+				Kernel.Crash("File Explorer Error: " + ex.Message, 12);
 			}
 
 		}

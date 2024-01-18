@@ -34,7 +34,7 @@ namespace RadianceOS.System.Apps
 		//INPUT
 		public int CurrLine;
 		public int StartLine = 0;
-		public int CurrChar;
+		public int CurrChar = 0;
 		public string[] texts;
 		public List<TextColor> lines = new List<TextColor>();
 		public List<String> defaultLines = new List<String>();
@@ -58,7 +58,7 @@ namespace RadianceOS.System.Apps
 		public int tempInt;
 		public int tempInt2;
 		public int tempInt3;
-		public List<int> tempList;
+		public List<int> tempList = new List<int>();
 
 		//OTHER
 		public List<fragment> fragments;

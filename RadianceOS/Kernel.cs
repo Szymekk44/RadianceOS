@@ -89,7 +89,7 @@ namespace RadianceOS
 		public static string htmlcode = "";
 
 		public static bool AllLoaded = false;
-
+		public static bool Root;
 
 		protected override void BeforeRun()
 		{
@@ -563,7 +563,7 @@ namespace RadianceOS
 		{
 			Crash("Kernel has been stopped! Please restart RadianceOS.", 6);
 		}
-		public static void Crash(string Error, int id)
+		public static void Crash(string Error, int id, int state = 1)
 		{
 			render = false;
 			Repair = true;
@@ -574,7 +574,7 @@ namespace RadianceOS
 			Explorer.CanvasMain.Clear(Color.FromArgb(132, 0, 0));
 			Explorer.CanvasMain.Display();
             System.Radiance.Security.reason = Error + "\nID: " + id;
-            System.Radiance.Security.State = 1;
+            System.Radiance.Security.State = state;
             System.Radiance.Security.StartGui();
 		}
 		public static void Write(string s)
