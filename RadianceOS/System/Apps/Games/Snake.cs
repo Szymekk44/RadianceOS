@@ -480,7 +480,28 @@ namespace RadianceOS.System.Apps.Games
 						{
 							StringsAcitons.DrawCenteredString("You lost!", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
 							StringsAcitons.DrawCenteredString("Points: " + Process.Processes[i].tempInt + " Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Color.White, Kernel.fontRuscii);
-						}
+                            Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + (SizeX / 2) - 50, Y + SizeY / 2 + 30, 100, 30);
+                            StringsAcitons.DrawCenteredString("Play Again", SizeX, X, Y + SizeY / 2 + 38, 15, Kernel.fontColor, Kernel.fontRuscii);
+                            Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + (SizeX / 2) - 50, Y + SizeY / 2 + 70, 100, 30);
+                            StringsAcitons.DrawCenteredString("Menu", SizeX, X, Y + SizeY / 2 + 78, 15, Kernel.fontColor, Kernel.fontRuscii);
+							if(Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+							{
+								if(Cosmos.System.MouseManager.X >= X + (SizeX / 2) - 50 && Cosmos.System.MouseManager.X <= X + (SizeX / 2) + 50)
+								{
+									if(Cosmos.System.MouseManager.Y >= Y + SizeY / 2 + 30 && Cosmos.System.MouseManager.Y <= Y + SizeY / 2 + 60)
+									{
+										PlayAgain(i);
+									}
+								}
+								if(Cosmos.System.MouseManager.X >= X + (SizeX / 2) - 50 && Cosmos.System.MouseManager.X <= X + (SizeX / 2) + 50)
+								{
+									if(Cosmos.System.MouseManager.Y >= Y + SizeY / 2 + 70 && Cosmos.System.MouseManager.Y <= Y + SizeY / 2 + 100)
+									{
+										Menu(i);
+									}
+								}
+							}
+                        }
 						else
 						{
 							StringsAcitons.DrawCenteredString("LOADING...", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
@@ -494,6 +515,84 @@ namespace RadianceOS.System.Apps.Games
 			
 
 		}
+		public static void PlayAgain(int i)
+		{
+            Process.Processes[i].fragments = new List<fragment>();
+            Process.Processes[i].fragments2 = new List<fragment>();
+            fragment frag = new fragment
+            {
+                x = 16,
+                y = 15,
+                lastx = 15,
+                lasty = 14
+            };
+            fragment frag2 = new fragment
+            {
+                x = 15,
+                y = 15,
+                lastx = 14,
+                lasty = 14
+            };
+            Process.Processes[i].fragments.Add(frag);
+            Process.Processes[i].fragments.Add(frag2);
+            Random random = new Random();
+            for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+            {
+                int x1 = random.Next(0, 30);
+                int y1 = random.Next(2, 31);
+                fragment fragApple = new fragment
+                {
+                    x = x1,
+                    y = y1
+                };
+                Process.Processes[i].fragments2.Add(fragApple);
+            }
+            for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+            {
+                for (int j = 0; j < Process.Processes[i].tempList[3]; j++)
+                {
+                    if (o != j && Process.Processes[i].fragments2[o].x == Process.Processes[i].fragments2[j].x)
+                    {
+                        Process.Processes[i].fragments2[i].x = random.Next(0, 30);
+                    }
+
+                    if (o != j && Process.Processes[i].fragments2[o].y == Process.Processes[i].fragments2[j].y)
+                    {
+                        Process.Processes[i].fragments2[i].y = random.Next(2, 31);
+                    }
+                }
+            }
+            Process.Processes[i].tempInt = 1;
+            Process.Processes[i].tempInt3 = 0;
+            Process.Processes[i].tempBool = false;
+			Start(Process.Processes[i].ID);
+        }
+		public static void Menu(int i)
+		{
+            Process.Processes[i].fragments = new List<fragment>();
+            Process.Processes[i].fragments2 = new List<fragment>();
+            fragment frag = new fragment
+            {
+                x = 16,
+                y = 15,
+                lastx = 15,
+                lasty = 14
+            };
+            fragment frag2 = new fragment
+            {
+                x = 15,
+                y = 15,
+                lastx = 14,
+                lasty = 14
+            };
+            Process.Processes[i].fragments.Add(frag);
+            Process.Processes[i].fragments.Add(frag2);
+            Process.Processes[i].tempInt = 1;
+            Process.Processes[i].tempInt3 = 0;
+            Process.Processes[i].tempBool = false;
+            Process.Processes[i].tempList[2] = 0;
+			Start(Process.Processes[i].ID);
+        }
 	}
 
 
