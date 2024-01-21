@@ -18,6 +18,11 @@ using Cosmos.HAL.Audio;
 using RadianceOS.System.Radiance;
 using CosmosTTF;
 using RadianceOS.System.ConsoleMode;
+<<<<<<< Updated upstream
+=======
+using RadianceOS.System.Security.Auth;
+using RadianceOS.System;
+>>>>>>> Stashed changes
 
 namespace RadianceOS
 {
@@ -467,14 +472,20 @@ namespace RadianceOS
 			Console.WriteLine(text);
 		}
 
-
+		public static bool IsSleeping = false;
 
 		protected override void Run()
 		{
 			if (render)
 			{
-			
-				Explorer.Update();
+				if(IsSleeping)
+				{
+                    Explorer.Update();
+                    Sleep.Render();
+				} else
+				{
+                    Explorer.Update();
+                }
 			}
 			else if (!Repair)
 			{

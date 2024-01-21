@@ -12,8 +12,16 @@ namespace RadianceOS.System.Apps.NewInstaller
 {
     public static class NewInstallator
     {
+        public static bool RenderSecurityInstaller = false;
+
         public static void Render(int ProcessID, int state, int X, int Y, int SizeX, int SizeY, bool newRender)
         {
+            if(RenderSecurityInstaller)
+            {
+                Security.SecurityInstaller.Render();
+                return;
+            }
+
             newRender = Check(state, ProcessID);
 
             if (newRender) //RENDER WINDOW AS IMAGE
@@ -440,6 +448,8 @@ namespace RadianceOS.System.Apps.NewInstaller
 
         public static void InstallFiles(int ProcessID)
         {
+            RenderSecurityInstaller = true;
+
             Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
             DrawStatus("Please Wait", 0);
             Thread.Sleep(2500);
