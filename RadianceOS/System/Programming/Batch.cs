@@ -2,6 +2,7 @@
 using Cosmos.Core.Memory;
 using RadianceOS.System.Apps;
 using RadianceOS.System.Managment;
+using RadianceOS.System.Programming.RaSharp2;
 using RadianceOS.System.Security.FileManagment;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace RadianceOS.System.Programming
 			try
 			{
 				string[] commands = com.Split(' ');
+				commands[0] = commands[0].ToLower();
 				if (commands[0] == "time")
 				{
 					TextColor empty = new TextColor
@@ -757,6 +759,46 @@ namespace RadianceOS.System.Programming
 						Process.Processes.Add(MessageBox2);
 						Process.UpdateProcess(Process.Processes.Count - 1);
 					}
+					else
+					{
+                        string location;
+                        string fullLocation = "";
+						fullLocation = commands[1];
+                        if (fullLocation.Contains(@"\"))
+                        {
+                            if (fullLocation.Contains(@"0:\"))
+                                location = fullLocation;
+                            else
+                                location = @"0:\" + fullLocation;
+                        }
+                        else
+                            location = Process.Processes[index].metaData + fullLocation;
+                        if (File.Exists(location))
+                        {
+                            switch (Path.GetExtension(location))
+                            {
+                                case ".ras":
+                                    RasExecuter.StartScript(location);
+                                    break;
+                                case ".txt":
+                                    Notepad.OpenFile(location);
+                                    break;
+                                default:
+                                    Notepad.OpenFile(location);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            TextColor empty = new TextColor
+                            {
+                                text = "File" + fullLocation + " doesn't exists!",
+                                color = Color.Red
+                            };
+
+                            Process.Processes[index].lines.Add(empty);
+                        }
+                    }
 				}
 				else if (commands[0] == "help")
 				{
