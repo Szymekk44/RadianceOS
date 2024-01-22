@@ -29,7 +29,7 @@ namespace RadianceOS.System.Managment
 			Explorer.CanvasMain.DrawString("Sun", Kernel.fontDefault, Kernel.fontColor, (int)Explorer.screenSizeX - 410 + 57 * 6, (int)Explorer.screenSizeY - 420);
 			for (int i = 0; i < days; i++)
 			{
-				if (i == currDay)
+				if (i+1 == currDay)
 					Explorer.CanvasMain.DrawFilledCircle(Kernel.lightMain, (int)Explorer.screenSizeX - (410 - ((i - (i / 7) * 7) * 57)) + 9, (int)Explorer.screenSizeY - 390 + ((i / 7) * 40) + 9, 18);
 				Explorer.CanvasMain.DrawString((i + 1).ToString(), Kernel.font18, Kernel.fontColor, (int)Explorer.screenSizeX - (410 - ((i - (i/7) * 7) * 57)), (int)Explorer.screenSizeY - 390 + ((i/7) * 40));
 			}

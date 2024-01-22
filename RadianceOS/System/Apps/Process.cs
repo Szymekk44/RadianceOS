@@ -51,6 +51,7 @@ namespace RadianceOS.System.Apps
 		public bool selected;
 		public bool saved;
 		public bool saving;
+		public Color color1 = Color.FromArgb(240, 240, 240), color2 = Color.FromArgb(240, 240, 240), color3 = Color.Black;
 
 		//TEMP
 		public string temp;
