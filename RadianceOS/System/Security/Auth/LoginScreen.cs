@@ -221,7 +221,7 @@ namespace RadianceOS.System.Security.Auth
             // * MM/dd/yyyy - Still self explanatory
             // * yyyy/MM/dd - I don't know why
 
-            return DateTime.Now.ToString("dd/MM/yyyy");
+            return DateTime.Now.ToString("dddd, dd MMMM yyyy");
         }
 
         private static void RenderCurrentUser(int SizeX, int SizeY)

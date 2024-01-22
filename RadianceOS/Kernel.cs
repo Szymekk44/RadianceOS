@@ -156,7 +156,7 @@ namespace RadianceOS
 				{
 					Cursor1 = new Bitmap(Files.cursor1);
                     System.Radiance.Security.StartGui();
-					diskReady = false;
+					diskReady = false; 
 					WriteLineERROR("Users folder not found!");
 
 					Repair = true;
@@ -497,12 +497,10 @@ namespace RadianceOS
 		}
 
 
-
 		protected override void Run()
 		{
 			if (render)
 			{
-			
 				Explorer.Update();
 			}
 			else if (!Repair)

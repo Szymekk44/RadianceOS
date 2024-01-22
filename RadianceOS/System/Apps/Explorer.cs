@@ -647,6 +647,10 @@ namespace RadianceOS.System.Apps
 								StartMenu.y = (int)Explorer.screenSizeY - 35;
 								StartMenu.state = 1;
 							}
+							else
+							{
+								StartMenu.state = 2;
+							}
 
 						}
 					}

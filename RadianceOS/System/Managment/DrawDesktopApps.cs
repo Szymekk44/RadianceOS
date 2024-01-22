@@ -379,9 +379,17 @@ namespace RadianceOS.System.Managment
 					mainClick = true;
 				//Explorer.CanvasMain.DrawString(Icons[i].Name, Kernel.font18, Color.White, Icons[i].x + 48, Icons[i].y + 48);
 				if (!Icons[i].selected)
+				{
+					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x + 1, Icons[i].y + 51, 15, Color.DarkGray, Kernel.font16);
 					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x, Icons[i].y + 50, 15, Color.White, Kernel.font16);
+
+				}
 				else
+				{
+					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x + 1, Icons[i].y + 51, 15, Color.Black, Kernel.font16);
 					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x, Icons[i].y + 50, 15, Color.FromArgb(200, 200, 200), Kernel.font16);
+				}
+					
 
 				switch (Icons[i].ID)
 				{
