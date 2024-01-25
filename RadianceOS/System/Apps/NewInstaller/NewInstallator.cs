@@ -445,12 +445,21 @@ namespace RadianceOS.System.Apps.NewInstaller
             DrawStatus("Please Wait", 0);
             Thread.Sleep(2500);
             DrawStatus("Creating System Directories", 1);
-            Directory.CreateDirectory(@"0:\RadianceOS");
-            Directory.CreateDirectory(@"0:\RadianceOS\System");
-            Directory.CreateDirectory(@"0:\RadianceOS\Settings");
-            Directory.CreateDirectory(@"0:\Users");
+            if(!Directory.Exists(@"0:\RadianceOS"))
+            {
+				Directory.CreateDirectory(@"0:\RadianceOS");
+				Directory.CreateDirectory(@"0:\RadianceOS\System");
+				Directory.CreateDirectory(@"0:\RadianceOS\System\Files");
+				Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Wallpapers");
+				Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Icons");
+				Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Audio");
+				Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Apps");
+				Directory.CreateDirectory(@"0:\RadianceOS\Settings");
+			
+			}
+			Directory.CreateDirectory(@"0:\Users");
 
-            DrawStatus("Creating User", 2);
+			DrawStatus("Creating User", 2);
             string AccountName = Process.Processes[ProcessID].texts[0];
             Directory.CreateDirectory(@"0:\Users\" + AccountName);
             string myUser = @"0:\Users\" + AccountName + @"\";
@@ -463,8 +472,9 @@ namespace RadianceOS.System.Apps.NewInstaller
             Directory.CreateDirectory(@"0:\Users\" + AccountName + @"\Settings");
             Directory.CreateDirectory(@"0:\Users\" + AccountName + @"\Saved");
             Directory.CreateDirectory(@"0:\Users\" + AccountName + @"\Desktop");
+			Directory.CreateDirectory(@"0:\Users\" + AccountName + @"\Downloads");
 
-            DrawStatus("Creating Data Files", 4);
+			DrawStatus("Creating Data Files", 4);
             File.Create(@"0:\Users\" + AccountName + @"\Desktop\desktop.SysData");
             File.Create(@"0:\Users\" + AccountName + @"\Settings\Theme.dat");
             File.WriteAllText(@"0:\Users\" + AccountName + @"\Settings\Theme.dat", "0");

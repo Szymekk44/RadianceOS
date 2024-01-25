@@ -86,13 +86,13 @@ namespace RadianceOS.System.Managment
 					{
 
 
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + addX + 2, Icons[index].y + addY + 2, 200, 100);
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + addX, Icons[index].y + addY, 200, 100);
+						Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + addX + 2, Icons[index].y + addY + 2, 200, 82);
+						Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + addX, Icons[index].y + addY, 200, 82);
 						if (Cosmos.System.MouseManager.X > Icons[index].x + addX && Cosmos.System.MouseManager.X < Icons[index].x + addX + 200)
 						{
-							if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 2 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 20)
+							if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 2 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 22)
 							{
-								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 2, 200, 18);
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 2, 200, 20);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 
@@ -102,9 +102,9 @@ namespace RadianceOS.System.Managment
 									Icons[index].showMenu = false;
 								}
 							}
-							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 20 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 38)
+							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 22 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 42)
 							{
-								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 20, 200, 18);
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 22, 200, 20);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 
@@ -114,9 +114,9 @@ namespace RadianceOS.System.Managment
 									Icons[index].showMenu = false;
 								}
 							}
-							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 38 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 56)
+							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 42 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 62)
 							{
-								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 38, 200, 18);
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 42, 200, 20);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 									CallRename(index);
@@ -125,9 +125,9 @@ namespace RadianceOS.System.Managment
 									Icons[index].showMenu = false;
 								}
 							}
-							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 56 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 74)
+							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 62 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 82)
 							{
-								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 56, 200, 18);
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 62, 200, 20);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 									CallDelete(index);
@@ -143,19 +143,23 @@ namespace RadianceOS.System.Managment
 
 
 						Explorer.CanvasMain.DrawString("Run", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 2);
-						Explorer.CanvasMain.DrawString("Edit", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 20);
-						Explorer.CanvasMain.DrawString("Rename", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 38);
-						Explorer.CanvasMain.DrawString("Delete", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 56);
+					
+						Explorer.CanvasMain.DrawString("Edit", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 22);
+					
+						Explorer.CanvasMain.DrawString("Rename", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 42);
+						
+						Explorer.CanvasMain.DrawString("Delete", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 62);
+						
 					}
 					break;
 				default:
-					Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + addX + 2, Icons[index].y + addY + 2, 200, 100);
-					Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + addX, Icons[index].y + addY, 200, 100);
+					Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + addX + 2, Icons[index].y + addY + 2, 200, 62);
+					Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + addX, Icons[index].y + addY, 200, 62);
 					if (Cosmos.System.MouseManager.X > Icons[index].x + addX && Cosmos.System.MouseManager.X < Icons[index].x + addX + 200)
 					{
-						if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 2 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 20)
+						if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 2 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 22)
 						{
-							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 2, 200, 18);
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 2, 200, 20);
 							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 							{
 
@@ -165,9 +169,9 @@ namespace RadianceOS.System.Managment
 								Icons[index].showMenu = false;
 							}
 						}
-						else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 20 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 38)
+						else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 22 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 42)
 						{
-							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 20, 200, 18);
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 22, 200, 20);
 							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 							{
 								CallRename(index);
@@ -176,9 +180,9 @@ namespace RadianceOS.System.Managment
 								Icons[index].showMenu = false;
 							}
 						}
-						else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 38 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 56)
+						else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 42 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 62)
 						{
-							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 38, 200, 18);
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 42, 200, 20);
 							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 							{
 								CallDelete(index);
@@ -189,8 +193,8 @@ namespace RadianceOS.System.Managment
 						}
 					}
 					Explorer.CanvasMain.DrawString("Open", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 2);
-					Explorer.CanvasMain.DrawString("Rename", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 20);
-					Explorer.CanvasMain.DrawString("Delete", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 38);
+					Explorer.CanvasMain.DrawString("Rename", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 22);
+					Explorer.CanvasMain.DrawString("Delete", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 42);
 					break;
 
 
@@ -228,6 +232,7 @@ namespace RadianceOS.System.Managment
 			deletingid = id;
 			MessageBoxCreator.CreateMessageBox("Delete", "Are you sure you want to delete\n" + Icons[id].path, MessageBoxCreator.MessageBoxIcon.warning, 500,175, "Cancel", "Delete");
 			monitoreid = Process.Processes[Process.Processes.Count - 1].DataID;
+
 		}
 
 		public static void MonitoreDelete(int fileID, int delID)

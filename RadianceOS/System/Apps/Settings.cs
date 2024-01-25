@@ -161,7 +161,7 @@ namespace RadianceOS.System.Apps
 								MessageBoxCreator.CreateMessageBox("Error", "Theme settings could not be saved.\nRadianceOS is not installed on this computer.", MessageBoxCreator.MessageBoxIcon.error, 500);
 							}
 							Design.ChangeTheme(id);
-
+							StartMenu.bimapName = null;
 						}
 
 					}
@@ -221,7 +221,12 @@ namespace RadianceOS.System.Apps
 							{
 								case 0:
 									{
-										Kernel.Wallpaper1 = new Bitmap(Files.wallpaper1);
+										if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"))
+											Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"));
+										else
+										{
+											Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp");
+										}
 										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
 
 										if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
@@ -238,7 +243,12 @@ namespace RadianceOS.System.Apps
 									break;
 								case 1:
 									{
-										Kernel.Wallpaper1 = new Bitmap(Files.wallpaper2);
+										if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp"))
+											Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp"));
+										else
+										{
+											Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp");
+										}
 										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
 
 										if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)
@@ -255,7 +265,12 @@ namespace RadianceOS.System.Apps
 									break;
 								case 2:
 									{
-										Kernel.Wallpaper1 = new Bitmap(Files.wallpaper3);
+										if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp"))
+											Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp"));
+										else
+										{
+											Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp");
+										}
 										Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
 
 										if (Kernel.Wallpaper1.Width != Explorer.screenSizeX || Kernel.Wallpaper1.Height != Explorer.screenSizeY)

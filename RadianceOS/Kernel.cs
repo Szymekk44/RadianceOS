@@ -19,6 +19,9 @@ using RadianceOS.System.Radiance;
 using CosmosTTF;
 using RadianceOS.System.ConsoleMode;
 using RadianceOS.System.Security.Auth;
+using RadianceOS.System.Graphic;
+using System.Globalization;
+using RadianceOS.System.Managment.Crash;
 
 namespace RadianceOS
 {
@@ -91,6 +94,8 @@ namespace RadianceOS
 		public static bool AllLoaded = false;
 		public static bool Root;
 
+		public static bool FilesNotFound;
+		public static bool FileFixed;
 		protected override void BeforeRun()
 		{
 			Console.OutputEncoding = Cosmos.System.ExtendedASCII.CosmosEncodingProvider.Instance.GetEncoding(437);
@@ -109,7 +114,7 @@ namespace RadianceOS
 			bool fileSytstemError = false;
 			try
 			{
-				Directory.GetDirectories(@"0:\RadianceOS\System\");
+				Directory.GetDirectories(@"0:\Users");
 			}
 			catch
 			{
@@ -132,7 +137,12 @@ namespace RadianceOS
 				{
 					int DisplayMode = int.Parse(File.ReadAllText(@"0:\RadianceOS\Settings\DisplayMode.dat"));
 					DisplaySizeSelector.SaveMode(DisplayMode);
-					Console.WriteLine("Zmieniono na " + Explorer.screenSizeX + "x" + Explorer.screenSizeY);
+					Console.WriteLine("Please Wait...");
+					Console.ForegroundColor = ConsoleColor.Red;
+					Console.WriteLine("Drive Corrupted!");
+					Console.WriteLine("System Halted.");
+					Console.ForegroundColor = ConsoleColor.White;
+
 				}
 				catch(Exception e)
 				{
@@ -205,6 +215,9 @@ namespace RadianceOS
 				Thread.Sleep(30000);
 				Cosmos.System.Power.Shutdown();
 			}
+			BootFail.FindFiles();
+			if (BootFail.notFound)
+				BootFail.Render();
 			Console.WriteLine("Loading ttf...");
 			TTFManager.RegisterFont("UMR", Files.UbuntuMonoRegular);
 			TTFManager.RegisterFont("UMB", Files.UbuntuMonoBold);
@@ -226,6 +239,7 @@ namespace RadianceOS
 			WriteLineOK("Font16 Lat");
 			fontTis = PCScreenFont.LoadFont(Files.FontTis);
 			WriteLineOK("Font16 Tis");
+
 			if (diskReady)
 			{
 				if (File.Exists(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat"))
@@ -236,23 +250,59 @@ namespace RadianceOS
                     }
 					catch
 					{
-						File.Delete(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
-                        File.Create(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
-                        File.WriteAllText(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat", "0");
-						MessageBoxCreator.CreateMessageBox("Config Erorr", "Wallpaper config was corrupted!\nRadianceOS has restored default settings.", MessageBoxCreator.MessageBoxIcon.warning, 500, 175);
+						try
+						{
+							string newPath = File.ReadAllText(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
+							newPath = newPath.Trim();
+							if(newPath.EndsWith(".bmp"))
+							{
+								Explorer.Wallpaper = 999;
+							}
+							else
+							{
+								File.Delete(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
+								File.Create(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
+								File.WriteAllText(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat", "0");
+								MessageBoxCreator.CreateMessageBox("Config Erorr", "Wallpaper config was corrupted!\nRadianceOS has restored default settings.", MessageBoxCreator.MessageBoxIcon.warning, 500, 175);
+							}
+
+						}
+						catch
+						{
+							File.Delete(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
+							File.Create(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat");
+							File.WriteAllText(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat", "0");
+							MessageBoxCreator.CreateMessageBox("Config Erorr", "Wallpaper config was corrupted or empty!\nRadianceOS has restored default settings.", MessageBoxCreator.MessageBoxIcon.warning, 500, 175);
+						}
+					
                     }
 					LoginScreen.set = true;
-					Kernel.Wallpaper1 = new Bitmap(Files.wallpaperL);
+					if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp"))
+						Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp"));
+					else
+					{
+						Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp");
+					}
 				}
 				else
 				{
-					Wallpaper1 = new Bitmap(Files.wallpaper1);
+					if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"))
+						Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"));
+					else
+					{
+						Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp");
+					}
 				}
 
 			}
 			else
 			{
-				Wallpaper1 = new Bitmap(Files.wallpaper2);
+				if(File.Exists(@"0:\Radiance\System\Files\Wallpaper4.bmp"))
+				Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\Radiance\System\Files\Wallpaper4.bmp"));
+				else
+				{
+					Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp");
+				}
 			}
 			try
 			{
@@ -501,6 +551,7 @@ namespace RadianceOS
 		{
 			if (render)
 			{
+				
 				Explorer.Update();
 			}
 			else if (!Repair)
@@ -578,6 +629,16 @@ namespace RadianceOS
 		public static void Write(string s)
 		{
 			Console.Write(s);
+		}
+
+
+		public static void WallpaperNotFound(string path)
+		{
+			FilesNotFound = true;
+			Explorer.CanvasMain.Clear(Color.FromArgb(52, 26, 82));
+			Window.GetTempImage(0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY, "desktop");
+			Kernel.Wallpaper1 = Window.tempBitmap;
+			MessageBoxCreator.CreateMessageBox("System File Not Found!", "System file not found!\n" + path + "\nPlease run RadianceOS installer!", MessageBoxCreator.MessageBoxIcon.error, 600);
 		}
 
     }

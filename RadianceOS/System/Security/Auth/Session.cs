@@ -4,6 +4,7 @@ using RadianceOS.System.Graphic;
 using RadianceOS.System.Managment;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -54,14 +55,41 @@ namespace RadianceOS.System.Security.Auth
 					switch (Explorer.Wallpaper)
 					{
 						case 0:
-							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper1);
+							if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"))
+								Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"));
+							else
+							{
+								Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp");
+							}
 							break;
 						case 1:
-							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper2);
+							if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp"))
+								Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp"));
+							else
+							{
+								Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp");
+							}
 							break;
 						case 2:
-							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper3);
+							if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp"))
+								Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp"));
+							else
+							{
+								Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp");
+							}
 							break;
+                        case 999:
+                            {
+                                string Wpath = File.ReadAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Wallpaper.dat");
+                               Wpath = Wpath.Trim();
+								if (File.Exists(Wpath))
+									Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(Wpath));
+								else
+								{
+									Kernel.WallpaperNotFound(Wpath);
+								}
+							}
+                            break;
 					}
 					for (int i = 0; i < Process.Processes.Count; i++)
                     {

@@ -3,12 +3,14 @@ using Cosmos.System;
 using RadianceOS.System.Graphic;
 using RadianceOS.System.Managment;
 using RadianceOS.System.Programming.RaSharp2;
+using RadianceOS.System.Security.FileManagment;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
+using static System.Net.WebRequestMethods;
 
 namespace RadianceOS.System.Apps
 {
@@ -16,6 +18,34 @@ namespace RadianceOS.System.Apps
 	{
 		public static void Render(int X, int Y, int SizeX, int SizeY, int id)
 		{
+			if(Process.Processes[id].tempBool2)
+			{
+				if (MessageBox.closedWith[Process.Processes[id].tempInt2] != 0)
+				{
+					switch (MessageBox.closedWith[Process.Processes[id].tempInt2])
+					{
+						case 1:
+							{
+								Process.Processes[id].tempBool2 = false;
+							}
+							break;
+						case 2:
+							{
+								Process.Processes[id].tempBool2 = false;
+								FileAction.DelteFile(Process.Processes[id].defaultLines[0]);
+								Process.Processes[id].bitmap2 = null;
+								Process.Processes[id].bitmap3 = null;
+								
+								if (Process.Processes[id].defaultLines[0].StartsWith(@"0:\Users\" + Kernel.loggedUser + @"\Desktop"))
+								DrawDesktopApps.UpdateIcons();
+								UpdateList(id, Process.Processes[id].temp + @"\");
+								PreRender(X, Y, SizeX, SizeY, id);
+
+							}
+							break;
+					}
+				}
+			}
 			Window.DrawTop(id, X, Y, SizeX, "File Explorer - " + Process.Processes[id].temp, true);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
 
@@ -118,6 +148,11 @@ namespace RadianceOS.System.Apps
 							if (ext == "binary file")
 							{
 								MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be opened!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+							}
+							else if(ext == "bitmap image")
+							{
+								ImageViewer.OpenImage(Process.Processes[id].FileExplorerDat.Files[i].Path);
+								Process.Processes[id].tempBool = false;
 							}
 							else
 							{
@@ -306,7 +341,7 @@ namespace RadianceOS.System.Apps
 								break;
 							case 2:
 								{
-									Notepad.OpenFile(filePath);
+									CallDelete(ProcessID, filePath);
 									Process.Processes[ProcessID].tempBool = false;
 								}
 								break;
@@ -342,7 +377,7 @@ namespace RadianceOS.System.Apps
 						if (curr == ".txt")
 							tempExt = "text file";
 						else if (curr == ".bmp")
-							tempExt = "bitmap file";
+							tempExt = "bitmap image";
 						else if (curr == ".ras")
 							tempExt = "ra# file";
 						else if (curr == ".dat")
@@ -409,6 +444,18 @@ namespace RadianceOS.System.Apps
 				Kernel.Crash("File Explorer Error: " + ex.Message, 12);
 			}
 
+		}
+
+		public static void CallDelete(int ProdcessID, string path)
+		{
+			Process.Processes[ProdcessID].tempBool2 = true;
+			MessageBoxCreator.CreateMessageBox("Delete", "Are you sure you want to delete\n" + path, MessageBoxCreator.MessageBoxIcon.warning, 500, 175, "Cancel", "Delete");
+			Process.Processes[ProdcessID].tempInt2 = Process.Processes[Process.Processes.Count - 1].DataID;
+
+			Process.Processes[ProdcessID].defaultLines = new List<string>
+			{
+				path
+			};
 		}
 
 	}

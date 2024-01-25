@@ -9,7 +9,7 @@ using static Cosmos.HAL.Drivers.Video.VGADriver;
 
 namespace RadianceOS.System.Managment
 {
-	public static class sysStatus
+    public static class sysStatus
 	{
 		public static void DrawBusy(string reason)
 		{

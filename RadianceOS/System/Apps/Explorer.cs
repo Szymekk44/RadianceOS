@@ -1,7 +1,6 @@
 ﻿using Cosmos.System.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using Cosmos.Core.Memory;
 using RadianceOS.System.Managment;
@@ -14,16 +13,11 @@ using RadianceOS.System.Apps.RadianceOSwebBrowser;
 using RadianceOS.System.Apps.NewInstaller;
 using Cosmos.System;
 using RadianceOS.System.Programming.RaSharp2;
-using Cosmos.HAL.Drivers.Audio;
-using Cosmos.System.Audio.IO;
-using Cosmos.System.Audio;
-using RadianceOS.System.Security.Auth;
-using System.IO;
 using RadianceOS.System.NewApps;
 
 namespace RadianceOS.System.Apps
 {
-	public static class Explorer
+    public static class Explorer
 	{
 		public static Canvas CanvasMain;
 
@@ -49,6 +43,7 @@ namespace RadianceOS.System.Apps
 
 		public static bool drawIcons;
 		public static int Wallpaper = 0;
+		
 		public static int fail = 0;
 
 		public static int TaskBarHeight = 40;
@@ -90,6 +85,7 @@ namespace RadianceOS.System.Apps
 		{
 			if(Kernel.Wallpaper1.Width != SizeX || Kernel.Wallpaper1.Height != SizeY)
 			{
+				CanvasMain.Clear();
 				CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
 				Window.GetTempImage(0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY, "Wallpaper");
 				Kernel.Wallpaper1 = Window.tempBitmap;
@@ -212,6 +208,9 @@ namespace RadianceOS.System.Apps
 							break;
 						case 13:
 							SecurityManager.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
+						case 14:
+							ImageViewer.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
 							break;
 						case 99:
 							PowerOptions.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);

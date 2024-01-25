@@ -194,6 +194,7 @@ namespace RadianceOS.System.Programming
 							TextColor empty = new TextColor
 							{
 								text = finale,
+								color = Process.Processes[index].color1
 							};
 							Process.Processes[index].lines.Add(empty);
 						}
@@ -204,6 +205,7 @@ namespace RadianceOS.System.Programming
 						TextColor empty = new TextColor
 						{
 							text = "",
+							color = Process.Processes[index].color1
 						};
 
 						Process.Processes[index].lines.Add(empty);
@@ -749,6 +751,8 @@ namespace RadianceOS.System.Programming
 					{
 						Processes MessageBox2 = new Processes
 						{
+							Name = "RadianceOS info",
+							Description = "RadVer",
 							ID = 11,
 							X = 200,
 							Y = 100,
@@ -799,6 +803,11 @@ namespace RadianceOS.System.Programming
                             Process.Processes[index].lines.Add(empty);
                         }
                     }
+				}
+				else if (commands[0] == "disk")
+				{
+					var available_space = Kernel.fs.GetAvailableFreeSpace(@"0:\");
+					GenerateText(Kernel.fs.GetTotalSize(@"0:\")/1024 + "/" + available_space/1024 + "KB", Process.Processes[index].color1, index);
 				}
 				else if (commands[0] == "help")
 				{
