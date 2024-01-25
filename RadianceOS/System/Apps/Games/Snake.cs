@@ -1,15 +1,13 @@
-﻿using CosmosTTF;
-using Microsoft.VisualBasic;
+﻿using Cosmos.System;
+using CosmosTTF;
 using RadianceOS.System.Graphic;
 using RadianceOS.System.Managment;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Console = System.Console;
+
 
 namespace RadianceOS.System.Apps.Games
 {
@@ -94,9 +92,9 @@ namespace RadianceOS.System.Apps.Games
 			{
 				case 0:
 					{
-						StringsAcitons.DrawCenteredString("Game settings", SizeX, X, Y + 29, 15, Color.White, Kernel.fontRuscii);
-						StringsAcitons.DrawCenteredString("Speed: "+ Process.Processes[i].tempList[1], SizeX, X, Y + 379, 15, Color.White, Kernel.fontRuscii);
-						StringsAcitons.DrawCenteredString("Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + 79, 15, Color.White, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Game settings", SizeX, X, Y + 29, 15, Kernel.fontColor, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Speed: "+ Process.Processes[i].tempList[1], SizeX, X, Y + 379, 15, Kernel.fontColor, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + 79, 15, Kernel.fontColor, Kernel.fontRuscii);
 						//SPEED
 						if (Explorer.MY > Y + 379 - 17 && Explorer.MY < Y + 379 + 33)
 						{
@@ -104,34 +102,34 @@ namespace RadianceOS.System.Apps.Games
 							{
 							
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 379 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 400, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 400, 18, Kernel.fontColor, "UMB", 50);
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + 350, Y + 379 - 17, 50, 50);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 									if(!Explorer.Clicked && Process.Processes[i].tempList[1] > 1)
 									Process.Processes[i].tempList[1]--;
-									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 403, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 403, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
 								{
-									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 401, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 401, 18, Kernel.fontColor, "UMB", 50);
 								}
 							}
 							else if(Explorer.MX > X + 500 & Explorer.MX < X + 550)
 							{
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 350, Y + 379 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 400, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 400, 18, Kernel.fontColor, "UMB", 50);
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + 500, Y + 379 - 17, 50, 50);
 
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 									if (!Explorer.Clicked && Process.Processes[i].tempList[1] < 20)
 										Process.Processes[i].tempList[1]++;
-									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 403, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 403, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
 								{
-									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 401, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 401, 18, Kernel.fontColor, "UMB", 50);
 								}
 
 							
@@ -139,17 +137,17 @@ namespace RadianceOS.System.Apps.Games
 							else
 							{
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 350, Y + 379 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 400, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 400, 18, Kernel.fontColor, "UMB", 50);
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 379 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 400, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 400, 18, Kernel.fontColor, "UMB", 50);
 							}
 						}
 						else
 						{
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 350, Y + 379 - 17, 50, 50);
-							StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 400, 18, Color.White, "UMB", 50);
+							StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 400, 18, Kernel.fontColor, "UMB", 50);
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 379 - 17, 50, 50);
-							StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 400, 18, Color.White, "UMB", 50);
+							StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 400, 18, Kernel.fontColor, "UMB", 50);
 						}
 
 						//APPLES
@@ -158,35 +156,35 @@ namespace RadianceOS.System.Apps.Games
 							if (Explorer.MX > X + 350 && Explorer.MX < X + 400)
 							{
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 479 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + 350, Y + 479 - 17, 50, 50);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 									if (!Explorer.Clicked && Process.Processes[i].tempList[3] > 1)
 										Process.Processes[i].tempList[3]--;
-									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 503, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 503, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
 								{
-									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 501, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 501, 18, Kernel.fontColor, "UMB", 50);
 								}
 
 							}
 							else if (Explorer.MX > X + 500 & Explorer.MX < X + 550)
 							{
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 350, Y + 479 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 500, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + 500, Y + 479 - 17, 50, 50);
 
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
 									if (!Explorer.Clicked && Process.Processes[i].tempList[3] < 6)
 										Process.Processes[i].tempList[3]++;
-									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 503, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 503, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
 								{
-									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 501, 18, Color.White, "UMB", 50);
+									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 501, 18, Kernel.fontColor, "UMB", 50);
 								}
 
 
@@ -194,20 +192,20 @@ namespace RadianceOS.System.Apps.Games
 							else
 							{
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 350, Y + 479 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 500, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 479 - 17, 50, 50);
-								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Color.White, "UMB", 50);
+								StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 							}
 
 						}
 						else
 						{
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 350, Y + 479 - 17, 50, 50);
-							StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 500, 18, Color.White, "UMB", 50);
+							StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 479 - 17, 50, 50);
-							StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Color.White, "UMB", 50);
+							StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 						}
-						StringsAcitons.DrawCenteredString("Apples: " + Process.Processes[i].tempList[3], SizeX, X, Y + 479, 15, Color.White, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Apples: " + Process.Processes[i].tempList[3], SizeX, X, Y + 479, 15, Kernel.fontColor, Kernel.fontRuscii);
 
 
 
@@ -251,23 +249,23 @@ namespace RadianceOS.System.Apps.Games
 										Process.Processes[i].tempList[2] = 1;
 									}
 									
-									StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 622, 15, Color.White, Kernel.fontRuscii);
+									StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 622, 15, Kernel.fontColor, Kernel.fontRuscii);
 								}
 								else
 								{
-									StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 620, 15, Color.White, Kernel.fontRuscii);
+									StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 620, 15, Kernel.fontColor, Kernel.fontRuscii);
 								}
 							}
 							else
 							{
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 400, Y + 600, 100, 50);
-								StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 619, 15, Color.White, Kernel.fontRuscii);
+								StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 619, 15, Kernel.fontColor, Kernel.fontRuscii);
 							}
 						}
 						else
 						{
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 400, Y + 600, 100, 50);
-							StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 619, 15, Color.White, Kernel.fontRuscii);
+							StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 619, 15, Kernel.fontColor, Kernel.fontRuscii);
 						}
 					}
 					break;
@@ -279,7 +277,7 @@ namespace RadianceOS.System.Apps.Games
 
 
 
-							StringsAcitons.DrawCenteredString("Update every " + Process.Processes[i].tempList[0] + " frames (" + Process.Processes[i].tempList[1] + "/s)", SizeX, X, Y + 29, 15, Color.White, Kernel.fontRuscii);
+							StringsAcitons.DrawCenteredString("Update every " + Process.Processes[i].tempList[0] + " frames (" + Process.Processes[i].tempList[1] + "/s)", SizeX, X, Y + 29, 15, Kernel.fontColor, Kernel.fontRuscii);
 							bool update = false;
 							int dirrection = Process.Processes[i].tempInt3;
 
@@ -468,23 +466,44 @@ namespace RadianceOS.System.Apps.Games
 
 							}
 
-							StringsAcitons.DrawCenteredTTFString(Process.Processes[i].tempInt.ToString(), SizeX, X, Y + 70, 15, Color.White, "CB", 25);
+							StringsAcitons.DrawCenteredTTFString(Process.Processes[i].tempInt.ToString(), SizeX, X, Y + 70, 15, Kernel.fontColor, "CB", 25);
 
 						}
 						else if (!Process.Processes[i].tempBool && Kernel._fps > Process.Processes[i].tempList[1])
 						{
 							StringsAcitons.DrawCenteredString("Game paused.", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
-							StringsAcitons.DrawCenteredString("Please select this window to continue playing!", SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Color.White, Kernel.fontRuscii);
+							StringsAcitons.DrawCenteredString("Please select this window to continue playing!", SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Kernel.fontColor, Kernel.fontRuscii);
 						}
 						else if (Kernel._fps > Process.Processes[i].tempList[1])
 						{
 							StringsAcitons.DrawCenteredString("You lost!", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
-							StringsAcitons.DrawCenteredString("Points: " + Process.Processes[i].tempInt + " Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Color.White, Kernel.fontRuscii);
-						}
+							StringsAcitons.DrawCenteredString("Points: " + Process.Processes[i].tempInt + " Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Kernel.fontColor, Kernel.fontRuscii);
+                            Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + (SizeX / 2) - 50, Y + SizeY / 2 + 30, 100, 30);
+                            StringsAcitons.DrawCenteredString("Play Again", SizeX, X, Y + SizeY / 2 + 38, 15, Kernel.fontColor, Kernel.fontRuscii);
+                            Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + (SizeX / 2) - 50, Y + SizeY / 2 + 70, 100, 30);
+                            StringsAcitons.DrawCenteredString("Menu", SizeX, X, Y + SizeY / 2 + 78, 15, Kernel.fontColor, Kernel.fontRuscii);
+							if(Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+							{
+								if(Cosmos.System.MouseManager.X >= X + (SizeX / 2) - 50 && Cosmos.System.MouseManager.X <= X + (SizeX / 2) + 50)
+								{
+									if(Cosmos.System.MouseManager.Y >= Y + SizeY / 2 + 30 && Cosmos.System.MouseManager.Y <= Y + SizeY / 2 + 60)
+									{
+										PlayAgain(i);
+									}
+								}
+								if(Cosmos.System.MouseManager.X >= X + (SizeX / 2) - 50 && Cosmos.System.MouseManager.X <= X + (SizeX / 2) + 50)
+								{
+									if(Cosmos.System.MouseManager.Y >= Y + SizeY / 2 + 70 && Cosmos.System.MouseManager.Y <= Y + SizeY / 2 + 100)
+									{
+										Menu(i);
+									}
+								}
+							}
+                        }
 						else
 						{
 							StringsAcitons.DrawCenteredString("LOADING...", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
-							StringsAcitons.DrawCenteredString("Loading snake", SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Color.White, Kernel.fontRuscii);
+							StringsAcitons.DrawCenteredString("Loading snake", SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Kernel.fontColor, Kernel.fontRuscii);
 						}
 						#endregion
 					}
@@ -494,6 +513,84 @@ namespace RadianceOS.System.Apps.Games
 			
 
 		}
+		public static void PlayAgain(int i)
+		{
+            Process.Processes[i].fragments = new List<fragment>();
+            Process.Processes[i].fragments2 = new List<fragment>();
+            fragment frag = new fragment
+            {
+                x = 16,
+                y = 15,
+                lastx = 15,
+                lasty = 14
+            };
+            fragment frag2 = new fragment
+            {
+                x = 15,
+                y = 15,
+                lastx = 14,
+                lasty = 14
+            };
+            Process.Processes[i].fragments.Add(frag);
+            Process.Processes[i].fragments.Add(frag2);
+            Random random = new Random();
+            for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+            {
+                int x1 = random.Next(0, 30);
+                int y1 = random.Next(2, 31);
+                fragment fragApple = new fragment
+                {
+                    x = x1,
+                    y = y1
+                };
+                Process.Processes[i].fragments2.Add(fragApple);
+            }
+            for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+            {
+                for (int j = 0; j < Process.Processes[i].tempList[3]; j++)
+                {
+                    if (o != j && Process.Processes[i].fragments2[o].x == Process.Processes[i].fragments2[j].x)
+                    {
+                        Process.Processes[i].fragments2[i].x = random.Next(0, 30);
+                    }
+
+                    if (o != j && Process.Processes[i].fragments2[o].y == Process.Processes[i].fragments2[j].y)
+                    {
+                        Process.Processes[i].fragments2[i].y = random.Next(2, 31);
+                    }
+                }
+            }
+            Process.Processes[i].tempInt = 1;
+            Process.Processes[i].tempInt3 = 0;
+            Process.Processes[i].tempBool = false;
+			Start(Process.Processes[i].ID);
+        }
+		public static void Menu(int i)
+		{
+            Process.Processes[i].fragments = new List<fragment>();
+            Process.Processes[i].fragments2 = new List<fragment>();
+            fragment frag = new fragment
+            {
+                x = 16,
+                y = 15,
+                lastx = 15,
+                lasty = 14
+            };
+            fragment frag2 = new fragment
+            {
+                x = 15,
+                y = 15,
+                lastx = 14,
+                lasty = 14
+            };
+            Process.Processes[i].fragments.Add(frag);
+            Process.Processes[i].fragments.Add(frag2);
+            Process.Processes[i].tempInt = 1;
+            Process.Processes[i].tempInt3 = 0;
+            Process.Processes[i].tempBool = false;
+            Process.Processes[i].tempList[2] = 0;
+			Start(Process.Processes[i].ID);
+        }
 	}
 
 

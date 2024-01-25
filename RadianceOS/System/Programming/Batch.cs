@@ -2,6 +2,8 @@
 using Cosmos.Core.Memory;
 using RadianceOS.System.Apps;
 using RadianceOS.System.Managment;
+using RadianceOS.System.Programming.RaSharp2;
+using RadianceOS.System.Security.FileManagment;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -22,6 +24,7 @@ namespace RadianceOS.System.Programming
 			try
 			{
 				string[] commands = com.Split(' ');
+				commands[0] = commands[0].ToLower();
 				if (commands[0] == "time")
 				{
 					TextColor empty = new TextColor
@@ -58,7 +61,7 @@ namespace RadianceOS.System.Programming
 						TextColor folder = new TextColor
 						{
 							text = file,
-							color = gray
+							color = Process.Processes[index].color2
 						};
 						Process.Processes[index].lines.Add(folder);
 					}
@@ -78,7 +81,7 @@ namespace RadianceOS.System.Programming
 						TextColor folder = new TextColor
 						{
 							text = file,
-							color = gray
+							color = Process.Processes[index].color2
 						};
 						Process.Processes[index].lines.Add(folder);
 					}
@@ -132,13 +135,13 @@ namespace RadianceOS.System.Programming
 					TextColor empty = new TextColor
 					{
 						text = Kernel.fs.GetTotalSize(Process.Processes[index].metaData).ToString() + " Bytes",
-						color = Color.White
+						color = Process.Processes[index].color1
 					};
 					Process.Processes[index].lines.Add(empty);
 					TextColor empty2 = new TextColor
 					{
 						text = "(" + Kernel.fs.GetTotalSize(Process.Processes[index].metaData) / 1048576 + " MB)",
-						color = Color.White
+						color = Process.Processes[index].color1
 					};
 					Process.Processes[index].lines.Add(empty2);
 				}
@@ -168,6 +171,7 @@ namespace RadianceOS.System.Programming
 							string fileName = parts[parts.Length - 1];
 							fileName = fileName.Substring(0, fileName.Length - 1);
 							var file_stream = File.Create(Process.Processes[index].metaData + fileName);
+						
 							file_stream.Close();
 							string content = "";
 							for (int i = 0; i < parts.Length - 1; i++)
@@ -233,7 +237,7 @@ namespace RadianceOS.System.Programming
 
 					if (File.Exists(location))
 					{
-						if (location.Contains(".SysData"))
+						if (location.Contains(".SysData") && !Kernel.Root)
 						{
 
 							TextColor empty = new TextColor
@@ -252,7 +256,7 @@ namespace RadianceOS.System.Programming
 								TextColor empty = new TextColor
 								{
 									text = File.ReadAllText(location),
-									color = gray
+									color = Process.Processes[index].color2
 								};
 								Process.Processes[index].lines.Add(empty);
 							}
@@ -326,7 +330,7 @@ namespace RadianceOS.System.Programming
 
 					if (File.Exists(location))
 					{
-						if (commands[1].Contains(".SysData"))
+						if (commands[1].Contains(".SysData") && !Kernel.Root)
 						{
 
 							TextColor empty = new TextColor
@@ -528,7 +532,7 @@ namespace RadianceOS.System.Programming
 							TextColor task = new TextColor
 							{
 								text = processName.ToString() + space + "Process ID: " + i + space2,
-								color = gray
+								color = Process.Processes[index].color2
 							};
 
 							Process.Processes[index].lines.Add(task);
@@ -587,12 +591,12 @@ namespace RadianceOS.System.Programming
 							TextColor empty = new TextColor
 							{
 								text = "",
-								color = Color.White,
+								color = Process.Processes[index].color1,
 							};
 							TextColor empty2 = new TextColor
 							{
 								text = "",
-								color = Color.White,
+								color = Process.Processes[index].color1,
 							};
 							int lineToAdd = Process.Processes[index].lines.Count - 1;
 							string pathBefore = Process.Processes[index].metaData;
@@ -666,12 +670,12 @@ namespace RadianceOS.System.Programming
 								TextColor empty = new TextColor
 								{
 									text = "",
-									color = Color.White,
+									color = Process.Processes[index].color1,
 								};
 								TextColor empty2 = new TextColor
 								{
 									text = "",
-									color = Color.White,
+									color = Process.Processes[index].color1,
 								};
 								int lineToAdd = Process.Processes[index].lines.Count - 1;
 								string pathBefore = Process.Processes[index].metaData;
@@ -693,7 +697,7 @@ namespace RadianceOS.System.Programming
 					TextColor empty = new TextColor
 					{
 						text = "Ram usage: " + (Cosmos.Core.GCImplementation.GetUsedRAM() / 1048576) + "/" + Cosmos.Core.GCImplementation.GetAvailableRAM() + " MB",
-						color = gray
+						color = Process.Processes[index].color2
 					};
 
 					Process.Processes[index].lines.Add(empty);
@@ -711,28 +715,28 @@ namespace RadianceOS.System.Programming
 				}
 				else if (commands[0] == "system" || commands[0] == "info" || commands[0] == "about" || commands[0] == "sysinfo")
 				{
-					GenerateText("RadianceOS " + Kernel.version, Color.White, index);
-					GenerateText("Version: " + Kernel.subversion, Color.White, index);
-					GenerateText("Created by Szymekk", Color.White, index);
-					GenerateText("Szymekk.pl", Color.White, index);
-					GenerateText("Disk space: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", gray, index);
+					GenerateText("RadianceOS " + Kernel.version, Process.Processes[index].color1, index);
+					GenerateText("Version: " + Kernel.subversion, Process.Processes[index].color1, index);
+					GenerateText("Created by Szymekk", Process.Processes[index].color1, index);
+					GenerateText("Szymekk.pl", Process.Processes[index].color1, index);
+					GenerateText("Disk space: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", Process.Processes[index].color2, index);
 					TextColor ram = new TextColor
 					{
 						text = "Ram usage: " + (Cosmos.Core.GCImplementation.GetUsedRAM() / 1048576) + "/" + Cosmos.Core.GCImplementation.GetAvailableRAM() + " MB",
-						color = gray
+						color = Process.Processes[index].color2
 					};
 					Process.Processes[index].lines.Add(ram);
 
 					TextColor pro = new TextColor
 					{
 						text = "Processor: " + CPU.GetCPUBrandString(),
-						color = gray
+						color = Process.Processes[index].color2
 					};
 
 
 					Process.Processes[index].lines.Add(pro);
 
-                    GenerateText("Display: " + Explorer.screenSizeX+"x"+Explorer.screenSizeY, gray, index);
+                    GenerateText("Display: " + Explorer.screenSizeX+"x"+Explorer.screenSizeY, Process.Processes[index].color2, index);
                 }
 				else if (commands[0] == "start")
 				{
@@ -755,23 +759,275 @@ namespace RadianceOS.System.Programming
 						Process.Processes.Add(MessageBox2);
 						Process.UpdateProcess(Process.Processes.Count - 1);
 					}
+					else
+					{
+                        string location;
+                        string fullLocation = "";
+						fullLocation = commands[1];
+                        if (fullLocation.Contains(@"\"))
+                        {
+                            if (fullLocation.Contains(@"0:\"))
+                                location = fullLocation;
+                            else
+                                location = @"0:\" + fullLocation;
+                        }
+                        else
+                            location = Process.Processes[index].metaData + fullLocation;
+                        if (File.Exists(location))
+                        {
+                            switch (Path.GetExtension(location))
+                            {
+                                case ".ras":
+                                    RasExecuter.StartScript(location);
+                                    break;
+                                case ".txt":
+                                    Notepad.OpenFile(location);
+                                    break;
+                                default:
+                                    Notepad.OpenFile(location);
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            TextColor empty = new TextColor
+                            {
+                                text = "File" + fullLocation + " doesn't exists!",
+                                color = Color.Red
+                            };
+
+                            Process.Processes[index].lines.Add(empty);
+                        }
+                    }
 				}
 				else if (commands[0] == "help")
 				{
-					GenerateText("=-=FILE SYSTEM=-=", Color.White, index);
-					GenerateText("cat <file/path> - Reads the contents of a file.", gray, index);
-					GenerateText("cd <directory> - Changes the current directory.", gray, index);
-					GenerateText("del <file> - Deletes the file", gray, index);
-					GenerateText("dir <directory> - Displays a list of files and subdirectories in a directory.", gray, index);
-					GenerateText("echo> <file> - Creates and writes to a file.", gray, index);
-					GenerateText("md <name> - Creates a new directory", gray, index);
-					GenerateText("=-=OTHER=-=", Color.White, index);
-					GenerateText("time - Displays the system time.", gray, index);
-					GenerateText("tasklist - Displays all currently running tasks.", gray, index);
-					GenerateText("taskkill - Kill or stop a running process or application.", gray, index);
-					GenerateText("=-=RADIANCE OS=-=", Color.White, index);
-					GenerateText("ram - Displays RAM usage.", gray, index);
-					GenerateText("sysinfo - Displays information about RadianceOS and computer", gray, index);
+					GenerateText("=-=FILE SYSTEM=-=", Process.Processes[index].color1, index);
+					GenerateText("cat <file/path> - Reads the contents of a file.", Process.Processes[index].color2, index);
+					GenerateText("cd <directory> - Changes the current directory.", Process.Processes[index].color2, index);
+					GenerateText("del <file> - Deletes the file", Process.Processes[index].color2, index);
+					GenerateText("dir <directory> - Displays a list of files and subdirectories in a directory.", Process.Processes[index].color2, index);
+					GenerateText("echo> <file> - Creates and writes to a file.", Process.Processes[index].color2, index);
+					GenerateText("md <name> - Creates a new directory", Process.Processes[index].color2, index);
+					GenerateText("=-=OTHER=-=", Process.Processes[index].color1, index);
+					GenerateText("time - Displays the system time.", Process.Processes[index].color2, index);
+					GenerateText("tasklist - Displays all currently running tasks.", Process.Processes[index].color2, index);
+					GenerateText("taskkill - Kill or stop a running process or application.", Process.Processes[index].color2, index);
+					GenerateText("=-=RADIANCE OS=-=", Process.Processes[index].color1, index);
+					GenerateText("ram - Displays RAM usage.", Process.Processes[index].color2, index);
+					GenerateText("sysinfo - Displays information about RadianceOS and computer", Process.Processes[index].color2, index);
+				}
+				else if (commands[0] == "color")
+				{
+					commands[1] = commands[1].Trim();
+					if (commands[1].Length > 1)
+					{
+						Color col = Color.White;
+						Color col2 = Color.Gray;
+						char c1 = commands[1][1];
+						switch (c1)
+						{
+							case '0':
+								col = Color.Black;
+								col2 = Color.FromArgb(50,50,50);
+								break;
+							case '1':
+								col = Color.Blue;
+								col2 = Color.DarkBlue;
+								break;
+							case '2':
+								col = Color.LimeGreen;
+								col2 = Color.Green;
+								break;
+							case '3':
+								col = Color.Aqua;
+								col2 = Color.DarkCyan;
+								break;
+							case '4':
+								col = Color.Red;
+								col2 = Color.DarkRed;
+								break;
+							case '5':
+								col = Color.Purple;
+								col2 = Color.MediumPurple;
+								break;
+							case '6':
+								col = Color.Yellow;
+								col2 = Color.GreenYellow;
+								break;
+							case '7':
+								col = Color.FromArgb(240, 240, 240);
+								col2 = Color.FromArgb(186, 186, 186);
+								break;
+							case '8':
+								col = Color.Gray;
+								col2 = Color.DarkGray;
+								break;
+							case '9':
+								col = Color.Cyan;
+								col2 = Color.Blue;
+								break;
+							case 'a':
+								col = Color.GreenYellow;
+								col2 = Color.LimeGreen;
+								break;
+							case 'b':
+								col = Color.LightCyan;
+								col2 = Color.Cyan;
+								break;
+							case 'c':
+								col = Color.Pink;
+								col2 = Color.LightPink;
+								break;
+							case 'd':
+								col = Color.MediumPurple;
+								col2 = Color.Purple;
+								break;
+							case 'e':
+								col = Color.LightYellow;
+								col2 = Color.LightGoldenrodYellow;
+								break;
+							case 'f':
+								col = Color.FromArgb(255, 255, 255);
+								col2 = gray;
+								break;
+						}
+						Process.Processes[index].color1 = col;
+						Process.Processes[index].color2 = col2;
+
+
+						c1 = commands[1][0];
+						switch (c1)
+						{
+							case '0':
+								col = Color.Black;
+								break;
+							case '1':
+								col = Color.Blue;
+								break;
+							case '2':
+								col = Color.LimeGreen;
+								break;
+							case '3':
+								col = Color.Aqua;
+								break;
+							case '4':
+								col = Color.Red;
+								break;
+							case '5':
+								col = Color.Purple;
+								break;
+							case '6':
+								col = Color.Yellow;
+								break;
+							case '7':
+								col = Color.FromArgb(240, 240, 240);
+								break;
+							case '8':
+								col = Color.Gray;
+								break;
+							case '9':
+								col = Color.Cyan;
+								break;
+							case 'a':
+								col = Color.GreenYellow;
+								break;
+							case 'b':
+								col = Color.LightCyan;
+								break;
+							case 'c':
+								col = Color.Pink;
+
+								break;
+							case 'd':
+								col = Color.MediumPurple;
+								break;
+							case 'e':
+								col = Color.LightYellow;
+								break;
+							case 'f':
+								col = Color.FromArgb(255, 255, 255);
+								break;
+						}
+						Process.Processes[index].color3 = col;
+
+
+					}
+					else
+					{
+						Color col = Color.White;
+						Color col2 = Color.Gray;
+						char c1 = commands[1][0];
+						switch(c1)
+						{
+							case '0':
+								col = Color.Black;
+								col2 = Color.FromArgb(50, 50, 50);
+								break;
+							case '1':
+								col = Color.Blue;
+								col2 = Color.DarkBlue;
+								break;
+							case '2':
+								col = Color.LimeGreen;
+								col2 = Color.Green;
+								break;
+							case '3':
+								col = Color.Aqua;
+								col2 = Color.DarkCyan;
+								break;
+							case '4':
+								col = Color.Red;
+								col2 = Color.DarkRed;
+								break;
+							case '5':
+								col = Color.Purple;
+								col2 = Color.MediumPurple;
+								break;
+							case '6':
+								col = Color.Yellow;
+								col2 = Color.GreenYellow;
+								break;
+							case '7':
+								col = Color.FromArgb(240, 240, 240);
+								col2 = Color.FromArgb(186, 186, 186);
+								break;
+							case '8':
+								col = Color.Gray;
+								col2 = Color.DarkGray;
+								break;
+							case '9':
+								col = Color.Cyan;
+								col2 = Color.Blue;
+								break;
+							case 'a':
+								col = Color.GreenYellow;
+								col2 = Color.LimeGreen;
+								break;
+							case 'b':
+								col = Color.LightCyan;
+								col2 = Color.Cyan;
+								break;
+							case 'c':
+								col = Color.Pink;
+								col2 = Color.LightPink;
+								break;
+							case 'd':
+								col = Color.MediumPurple;
+								col2 = Color.Purple;
+								break;
+							case 'e':
+								col = Color.LightYellow;
+								col2 = Color.LightGoldenrodYellow;
+								break;
+							case 'f':
+								col = Color.FromArgb(255,255,255);
+								col2 = gray;
+								break;
+						}
+						Process.Processes[index].color1 = col;
+						Process.Processes[index].color2 = col2;
+					}
 				}
 				else
 				{

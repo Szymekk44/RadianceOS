@@ -34,7 +34,7 @@ namespace RadianceOS.System.Apps
 		//INPUT
 		public int CurrLine;
 		public int StartLine = 0;
-		public int CurrChar;
+		public int CurrChar = 0;
 		public string[] texts;
 		public List<TextColor> lines = new List<TextColor>();
 		public List<String> defaultLines = new List<String>();
@@ -51,6 +51,7 @@ namespace RadianceOS.System.Apps
 		public bool selected;
 		public bool saved;
 		public bool saving;
+		public Color color1 = Color.FromArgb(240, 240, 240), color2 = Color.FromArgb(240, 240, 240), color3 = Color.Black;
 
 		//TEMP
 		public string temp;
@@ -58,7 +59,7 @@ namespace RadianceOS.System.Apps
 		public int tempInt;
 		public int tempInt2;
 		public int tempInt3;
-		public List<int> tempList;
+		public List<int> tempList = new List<int>();
 
 		//OTHER
 		public List<fragment> fragments;
@@ -73,20 +74,24 @@ namespace RadianceOS.System.Apps
         public Bitmap bitmap3;
         public Bitmap bitmapTop;
         public FileExplorerData FileExplorerDat;
-		public WebData webData;
+		public WebData webData =  new WebData();
 
 		public RasProcessData RasData;
 		public int DataID;
+
+		// SECURITY
+		public System.Security.ProcessSecurityInfo ProcessSecurityInfo;
 	}
 	public class WebData
 	{
-		public List<ElementData> elements;
+		public List<ElementData> elements = new List<ElementData>();
 	}
 	public class ElementData
 	{
 		public int x, y, SizeX, SizeY;
 		public int type = 0;
 		public string url;
+		public bool download;
 	}
 	public class FileExplorerData
 	{

@@ -1,16 +1,13 @@
 ﻿using RadianceOS.System.Apps;
-using System;
-using System.Collections.Generic;
+using RadianceOS.System.ThemesInterpreter;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 
 namespace RadianceOS.System.Graphic
 {
     public static class Design
     {
-        public static void ChangeTheme(int theme)
+        public static void ChangeTheme(int theme, bool refresh = true)
         {
             switch (theme)
             {
@@ -56,13 +53,30 @@ namespace RadianceOS.System.Graphic
                     Kernel.startDefaultSelected = Color.FromArgb(245, 245, 245);
                     Kernel.startLightSelected = Color.FromArgb(252, 252, 252);
                     break;
+                case 3:
+                    Kernel.main = Color.FromArgb(34, 32, 48);
+                    Kernel.lightMain = Color.FromArgb(54, 51, 79);
+                    Kernel.lightlightMain = Color.FromArgb(63, 59, 99);
+                    Kernel.shadow = Color.FromArgb(26, 24, 36);
+                    Kernel.middark = Color.FromArgb(19, 18, 26);
+                    Kernel.dark = Color.FromArgb(16, 16, 20);
+                    Kernel.fontColor = Color.White;
+                    Kernel.terminalColor = Color.Black;
+                    Kernel.startDefault = Color.FromArgb(47, 44, 66);
+                    Kernel.startLight = Color.FromArgb(56, 51, 82);
+                    Kernel.startDefaultSelected = Color.FromArgb(41, 36, 66);
+                    Kernel.startLightSelected = Color.FromArgb(53, 48, 84);
+                    CustomTheme.ParseTheme(File.ReadAllText(@"0:\Users\" + Kernel.loggedUser + @"\Settings\Ctheme.rtheme"));
+                    break;
             }
+            if(refresh)
             Explorer.UpdateIcons();
             for (int i = 0; i < Process.Processes.Count; i++)
             {
                 Process.Processes[i].bitmapTop = null; //Change ttf title background color
 
 			}
+
         }
     }
 }

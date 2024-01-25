@@ -8,6 +8,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 {
 	public class RasVariablesMemory
 	{
-		public Dictionary<string, object> variables= new Dictionary<string, object>();
+		public Dictionary<string, object> variables = new Dictionary<string, object>();
+		public Dictionary<string, int> voids = new Dictionary<string, int>();
 	}
 }

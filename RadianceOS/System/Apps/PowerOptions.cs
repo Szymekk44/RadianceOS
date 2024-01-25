@@ -33,8 +33,6 @@ namespace RadianceOS.System.Apps
                 Y + 5 + 25,
                 (SizeX / 3) - 5 - 25,
                 SizeY - 5 - 25 - 5, 5, Kernel.lightMain);
-
-            Sleep.StartSleep();
         }
 
         public static bool IsCursorInArea(int cursorX, int cursorY, int areaLeft, int areaTop, int areaWidth, int areaHeight)

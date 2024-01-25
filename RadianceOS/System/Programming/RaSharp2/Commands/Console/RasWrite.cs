@@ -39,6 +39,24 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Console
 
 		}
 
+		public static void WriteLineError(int id, string text)
+		{
+			TextColor empt = new TextColor
+			{
+				text = "",
+				color = Color.Red
+			};
+			TextColor line = new TextColor
+			{
+				text = text,
+				color = Color.Red
+			};
+			Process.Processes[id].RasData.lines.Add(empt);
+			Process.Processes[id].RasData.lines[Process.Processes[id].RasData.lines.Count - 1].color = line.color; // Modify empty line;
+			Process.Processes[id].RasData.lines[Process.Processes[id].RasData.lines.Count - 1].text = Process.Processes[id].RasData.lines[Process.Processes[id].RasData.lines.Count - 1].text + line.text;
+
+		}
+
 		public static void ReadLine(int id, string Variable)
 		{
 			Process.Processes[id].RasData.waitForUserInput = true;

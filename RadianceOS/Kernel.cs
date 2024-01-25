@@ -18,11 +18,7 @@ using Cosmos.HAL.Audio;
 using RadianceOS.System.Radiance;
 using CosmosTTF;
 using RadianceOS.System.ConsoleMode;
-<<<<<<< Updated upstream
-=======
 using RadianceOS.System.Security.Auth;
-using RadianceOS.System;
->>>>>>> Stashed changes
 
 namespace RadianceOS
 {
@@ -31,15 +27,20 @@ namespace RadianceOS
 		public static CosmosVFS fs;
 		public static Canvas canvas;
 		public static Font font16;
-		public static Font font18, fontRuscii, fontLat;
+		public static Font font18, fontRuscii, fontLat, fontTis, fontDefault;
 		public static Bitmap Wallpaper1;
-		public static Bitmap Wallpaper1small, Wallpaper2small;
+		public static Bitmap Wallpaper1small, Wallpaper2small, Wallpaper3small;
 		public static Bitmap TaskBar1, lightButton, DarkButton, StartMenu;
 		public static Bitmap Cursor1;
-		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer;
+		public static Bitmap Error, Stop, Info, CriticalStop,DiskError, cmd, notepad, padlockIcon, settingIcon, gamepadIcon, sysinfoIcon, RadiantWave, fileExplorer, userIcon, UACIcon;
+		public static Bitmap SmallFE;
 		public static Bitmap Xicon, maxIcon, MinusIcon;
 		public static Bitmap txtIcon, unknownIcon, rasIcon;
 		public static Bitmap text16, docuent16, folder16, data16, sysData16;
+		public static Bitmap power, restart, standby;
+		public static Bitmap powersmall, restartsmall, standbysmall;
+		public static Bitmap RadianceOSLogo, RadianceOSLogoTransparent;
+		public static Bitmap UAC, UACSmall;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Websites.Test.skk.bmp")]
 		public static byte[] skk;
@@ -80,7 +81,7 @@ namespace RadianceOS
 		public static ulong MaxRam;
 
 		public static string version = "1.0";
-		public static string subversion = "pre 0.0.1";
+		public static string subversion = "0.0.1";
 		public static string RasVersion = "alpha 1.0.0";
 		public static bool loggedAsAdmin = false;
 
@@ -88,12 +89,10 @@ namespace RadianceOS
 		public static string htmlcode = "";
 
 		public static bool AllLoaded = false;
+		public static bool Root;
 
 		protected override void BeforeRun()
 		{
-		
-
-
 			Console.OutputEncoding = Cosmos.System.ExtendedASCII.CosmosEncodingProvider.Instance.GetEncoding(437);
 			Console.SetWindowSize(90, 30);
 			Console.ForegroundColor = ConsoleColor.Cyan;
@@ -106,7 +105,6 @@ namespace RadianceOS
 			Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
 
 
-			RAT.MinFreePages = 24;
 
 			bool fileSytstemError = false;
 			try
@@ -129,10 +127,12 @@ namespace RadianceOS
 			}
 			else
 			{
+
 				try
 				{
 					int DisplayMode = int.Parse(File.ReadAllText(@"0:\RadianceOS\Settings\DisplayMode.dat"));
 					DisplaySizeSelector.SaveMode(DisplayMode);
+					Console.WriteLine("Zmieniono na " + Explorer.screenSizeX + "x" + Explorer.screenSizeY);
 				}
 				catch(Exception e)
 				{
@@ -145,15 +145,18 @@ namespace RadianceOS
 
 			if (!fileSytstemError)
 			{
-				try
+
+          
+
+                try
 				{
 					Directory.GetDirectories(@"0:\Users");
 				}
 				catch
 				{
 					Cursor1 = new Bitmap(Files.cursor1);
-					Security.StartGui();
-					diskReady = false;
+                    System.Radiance.Security.StartGui();
+					diskReady = false; 
 					WriteLineERROR("Users folder not found!");
 
 					Repair = true;
@@ -211,7 +214,7 @@ namespace RadianceOS
 
 
 			TTFManager.RegisterFont("STR", Files.STRegualr);
-
+			fontDefault = PCScreenFont.Default;
 			Console.WriteLine("Loading files...");
 			font16 = PCScreenFont.LoadFont(Files.Font16);
 			WriteLineOK("Font16 Default");
@@ -221,6 +224,8 @@ namespace RadianceOS
 			WriteLineOK("Font16 Ruscii");
 			fontLat = PCScreenFont.LoadFont(Files.FontLat);
 			WriteLineOK("Font16 Lat");
+			fontTis = PCScreenFont.LoadFont(Files.FontTis);
+			WriteLineOK("Font16 Tis");
 			if (diskReady)
 			{
 				if (File.Exists(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat"))
@@ -236,21 +241,14 @@ namespace RadianceOS
                         File.WriteAllText(@"0:\Users\" + loggedUser + @"\Settings\Wallpaper.dat", "0");
 						MessageBoxCreator.CreateMessageBox("Config Erorr", "Wallpaper config was corrupted!\nRadianceOS has restored default settings.", MessageBoxCreator.MessageBoxIcon.warning, 500, 175);
                     }
-					switch (Explorer.Wallpaper)
-					{
-						case 0:
-							Wallpaper1 = new Bitmap(Files.wallpaper1);
-							break;
-						case 1:
-							Wallpaper1 = new Bitmap(Files.wallpaper2);
-							break;
-					}
+					LoginScreen.set = true;
+					Kernel.Wallpaper1 = new Bitmap(Files.wallpaperL);
 				}
 				else
 				{
 					Wallpaper1 = new Bitmap(Files.wallpaper1);
 				}
-				
+
 			}
 			else
 			{
@@ -353,8 +351,29 @@ namespace RadianceOS
 			folder16 = new Bitmap(Files.folder16);
 			data16 = new Bitmap(Files.data16);
 			sysData16 = new Bitmap(Files.sysData16);
+			SmallFE = new Bitmap(Files.FE16);
 			WriteLineOK("File Icons 16px");
 			BootScreen.Render("Audio", "Starting audio");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "Power Icons");
+			power = new Bitmap(Files.power);
+			restart = new Bitmap(Files.restart);
+			standby = new Bitmap(Files.standby);
+			powersmall = new Bitmap(Files.powersmall);
+			restartsmall = new Bitmap(Files.restartsmall);
+			standbysmall = new Bitmap(Files.standbysmall);
+			WriteLineOK("Power Icons");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "RadianceOS Logos");
+			RadianceOSLogo = new Bitmap(Files.RadianceOSIcon);
+			RadianceOSLogoTransparent = new Bitmap(Files.RadianceOSIconTransparent);
+			WriteLineOK("RadianceOS Logos");
+
+			BootScreen.Render("LOADING SYSTEM FILES", "Security Icons");
+			UAC = new Bitmap(Files.UAC);
+			UACIcon = new Bitmap(Files.UACShield32);
+			UACSmall = new Bitmap(Files.UACSmall);
+			WriteLineOK("Security Icons");
 
 			AllLoaded = true;
 			try
@@ -384,7 +403,7 @@ namespace RadianceOS
 			{
 				Console.WriteLine();
 				Console.Write(DrawConsole.CenterText("Welcome"));
-				BootScreen.Render("Welcome", "Connecting to network", Color.White, false);
+				BootScreen.Render("NETWORKING", "Connecting to network", Color.White, false);
 			
 				RadianceOS.System.Networking.NetworkManager.Connect();
 				if (!RadianceOS.System.Networking.NetworkManager.Network)
@@ -393,11 +412,16 @@ namespace RadianceOS
 					Thread.Sleep(500);
 				}
 					if (BootScreen.on)
+				{
+					BootScreen.Render("WELCOME", "Loading user environment", Color.White, false);
+					Explorer.UpdateIcons();
 					ConsoleCommands.RunCommand("gui");
+				}
+					
 			}
 			else
 			{
-				BootScreen.Render("Welcome", "Starting installer...", Color.White, false);
+				BootScreen.Render("WELCOME", "Starting installer...", Color.White, false);
 				Thread.Sleep(750);
 				if (BootScreen.on)
 				{
@@ -420,7 +444,7 @@ namespace RadianceOS
 			{
 				if (Kernel.loggedUser == null)
 				{
-					Security.Logged = true;
+                    System.Radiance.Security.Logged = true;
 					return;
 				}
 				string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
@@ -434,13 +458,13 @@ namespace RadianceOS
 				}
 				else
 				{
-					Security.Logged = true;
+                    System.Radiance.Security.Logged = true;
 				}
 
 			}
 			else
 			{
-				Security.Logged = true;
+                System.Radiance.Security.Logged = true;
 			}
 
 		}
@@ -472,51 +496,43 @@ namespace RadianceOS
 			Console.WriteLine(text);
 		}
 
-		public static bool IsSleeping = false;
 
 		protected override void Run()
 		{
 			if (render)
 			{
-				if(IsSleeping)
-				{
-                    Explorer.Update();
-                    Sleep.Render();
-				} else
-				{
-                    Explorer.Update();
-                }
+				Explorer.Update();
 			}
 			else if (!Repair)
 			{
-				if (Security.Logged)
+				if (System.Radiance.Security.Logged)
 				{
 
-					Console.Write(path + ">");
+                    Console.Write(path + ">");
 					var input = Console.ReadLine();
-					ConsoleCommands.RunCommand(input);
+                    ConsoleCommands.RunCommand(input);
 				}
 				else
 				{
-					Console.ForegroundColor = ConsoleColor.Cyan;
-					Console.Write("Password> ");
-					Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write("Password> ");
+                    Console.ForegroundColor = ConsoleColor.White;
 					var input = Console.ReadLine();
 					string myUser = @"0:\Users\" + Kernel.loggedUser + @"\";
 					if (input == File.ReadAllText(myUser + @"AccountInfo\Password.SysData"))
 					{
-						Security.Logged = true;
-						WriteLineOK("Logged as " + loggedUser);
+                        System.Radiance.Security.Logged = true;
+                        WriteLineOK("Logged as " + loggedUser);
 					}
 					else
 					{
-						WriteLineERROR("Incorrect password!");
+                        WriteLineERROR("Incorrect password!");
 					}
 				}
 			}
 			else if (Repair)
 			{
-				Security.Render();
+                System.Radiance.Security.Render();
 			}
 
 			if(countFPS)
@@ -545,7 +561,7 @@ namespace RadianceOS
 		{
 			Crash("Kernel has been stopped! Please restart RadianceOS.", 6);
 		}
-		public static void Crash(string Error, int id)
+		public static void Crash(string Error, int id, int state = 1)
 		{
 			render = false;
 			Repair = true;
@@ -555,9 +571,13 @@ namespace RadianceOS
 
 			Explorer.CanvasMain.Clear(Color.FromArgb(132, 0, 0));
 			Explorer.CanvasMain.Display();
-			Security.reason = Error + "\nID: " + id;
-			Security.State = 1;
-			Security.StartGui();
+            System.Radiance.Security.reason = Error + "\nID: " + id;
+            System.Radiance.Security.State = state;
+            System.Radiance.Security.StartGui();
+		}
+		public static void Write(string s)
+		{
+			Console.Write(s);
 		}
 
     }

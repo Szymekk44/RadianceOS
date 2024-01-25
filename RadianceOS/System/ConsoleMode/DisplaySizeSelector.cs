@@ -180,7 +180,7 @@ namespace RadianceOS.System.ConsoleMode
 		public static void SaveMode(int mode)
 		{
 		
-			switch (Curr)
+			switch (mode)
 			{
 				case 0:
 					{

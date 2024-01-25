@@ -28,7 +28,7 @@ namespace RadianceOS.System.Apps
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y + 28, tempX, SizeY - 25);
 			}
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y+25, tempX, SizeY-25);
-			Explorer.CanvasMain.DrawFilledRectangle(Color.Black, X+2, Y+27, tempX-4, SizeY-29);
+			Explorer.CanvasMain.DrawFilledRectangle(Process.Processes[i].color3, X+2, Y+27, tempX-4, SizeY-29);
 
 
 			int start = 0;
@@ -77,12 +77,12 @@ namespace RadianceOS.System.Apps
 						Batch.RunCommand(Process.Processes[i].lines[Process.Processes[i].lines.Count -1].text, i);
 						TextColor empty = new TextColor
 						{
-							text = "", color = Color.White,
+							text = "", color = Process.Processes[i].color1
 						};
 						TextColor empty2 = new TextColor
 						{
 							text = "",
-							color = Color.White,
+							color = Process.Processes[i].color1
 						};
 						Process.Processes[i].lines[lineToAdd].text = (pathBefore + ">" + Process.Processes[i].lines[lineToAdd].text);
 						Process.Processes[i].lines.Add(empty);

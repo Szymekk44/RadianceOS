@@ -17,6 +17,9 @@ using RadianceOS.System.Programming.RaSharp2;
 using Cosmos.HAL.Drivers.Audio;
 using Cosmos.System.Audio.IO;
 using Cosmos.System.Audio;
+using RadianceOS.System.Security.Auth;
+using System.IO;
+using RadianceOS.System.NewApps;
 
 namespace RadianceOS.System.Apps
 {
@@ -30,7 +33,7 @@ namespace RadianceOS.System.Apps
 		public static int ClickedIndex;
 		public static bool ClickedOnWindow;
 		static int OldX, OldY;
-
+		static List<App> NewApps = new();
 
 
 		public static bool DrawTaskbar, DrawMenu;
@@ -50,6 +53,7 @@ namespace RadianceOS.System.Apps
 
 		public static int TaskBarHeight = 40;
 
+
 		public static void Start()
 		{
 			if (Kernel.workingAudio)
@@ -68,25 +72,38 @@ namespace RadianceOS.System.Apps
 			}
 			BootScreen.BootImage = null;
 			Heap.Collect();
-
-			Cosmos.System.MouseManager.ScreenWidth = screenSizeX;
+            Cosmos.System.MouseManager.ScreenWidth = screenSizeX;
 			Cosmos.System.MouseManager.ScreenHeight = screenSizeY;
 			Cosmos.System.MouseManager.X = screenSizeX / 2; Cosmos.System.MouseManager.Y = screenSizeY / 2;
+
+
+
+
 			CanvasMain = FullScreenCanvas.GetFullScreenCanvas(new Mode(screenSizeX, screenSizeY, ColorDepth.ColorDepth32));
+			
+			// Initialise Radiance Security (It'll start everything up)
+			Security.Service.Initialise();
+
 		}
 
 		public static void ResizeWallpaper(int SizeX, int SizeY)
 		{
-			CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
-			Window.GetTempImage(0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY, "Wallpaper");
-			Kernel.Wallpaper1 = Window.tempBitmap;
+			if(Kernel.Wallpaper1.Width != SizeX || Kernel.Wallpaper1.Height != SizeY)
+			{
+				CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY);
+				Window.GetTempImage(0, 0, (int)Explorer.screenSizeX, (int)Explorer.screenSizeY, "Wallpaper");
+				Kernel.Wallpaper1 = Window.tempBitmap;
+			}
 		}
 
 
 
 		public static void Update()
 		{
-			MX = (int)Cosmos.System.MouseManager.X;
+            // Update the internal RS Service
+            Security.Service.UpdateInternal();
+
+            MX = (int)Cosmos.System.MouseManager.X;
 			MY = (int)Cosmos.System.MouseManager.Y;
 
 			CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
@@ -101,7 +118,7 @@ namespace RadianceOS.System.Apps
 				Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
 			}
 
-			if (Kernel.TaskBar1 == null)
+			if (Kernel.TaskBar1 == null && Radiance.Security.Logged)
 			{
 				Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
 
@@ -114,11 +131,14 @@ namespace RadianceOS.System.Apps
 
 				Window.GetTempImageDarkAndBlur(0, (int)Explorer.screenSizeY - 40, (int)Explorer.screenSizeX, 40, "TaskBar", 0.5f, 3);
 				Kernel.TaskBar1 = Window.tempBitmap;
-				UpdateIcons();
+				
 			}
-
+			
 			if (drawIcons)
 				DrawDesktopApps.Render();
+
+			// Render UAC
+			Security.Service.UpdateUAC();
 
 			try
 			{
@@ -133,7 +153,15 @@ namespace RadianceOS.System.Apps
 					switch (Process.Processes[i].ID)
 					{
 						case 0:
-							MessageBox.Render(Process.Processes[i].Name, Process.Processes[i].texts, Process.Processes[i].metaData, Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, "OK");
+							string button1 = "OK", button2 = null;
+							if(Process.Processes[i].defaultLines.Count > 1)
+							{
+								button1 = Process.Processes[i].defaultLines[0];
+								button2 = Process.Processes[i].defaultLines[1];
+							}
+							else if (Process.Processes[i].defaultLines.Count > 0)
+								button1 = Process.Processes[i].defaultLines[0];
+							MessageBox.Render(Process.Processes[i].Name, Process.Processes[i].texts, Process.Processes[i].metaData, Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, button1, button2);
 							break;
 						case 1:
 							if (Process.Processes[i].lines.Count == 0)
@@ -157,7 +185,9 @@ namespace RadianceOS.System.Apps
 							RasRender.Render(i);
 							break;
 						case 4:
-							Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							// Rendering the new Login window, keeping the old one, just in case.
+							//Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							Security.Auth.LoginScreen.Render(0, 0, (int)screenSizeX, (int)screenSizeY, i);
 							break;
 						case 5:
 							Settings.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
@@ -183,8 +213,17 @@ namespace RadianceOS.System.Apps
 						case 12:
 							RasExecuter.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
 							break;
+						case 13:
+							SecurityManager.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
+						case 99:
+							PowerOptions.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							break;
 						case 100:
 							NewInstallator.Render(i, Process.Processes[i].tempInt, Process.Processes[i].X, Process.Processes[i].Y, 800, 500, Process.Processes[i].tempBool);
+							break;
+						case 101:
+							Security.Service.Update(i);
 							break;
 					}
 				}
@@ -318,28 +357,28 @@ namespace RadianceOS.System.Apps
 											ClickedOnWindow = false;
 										}
 									}
-									if (Process.Processes[i].hideAble)
+									
+								}
+								if (Process.Processes[i].hideAble)
+								{
+									if (Process.Processes[i].sizeAble)
 									{
-										if (Process.Processes[i].sizeAble)
+										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
 										{
-											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
-											{
-												Process.Processes[i].hidden = true;
-											}
+											Process.Processes[i].hidden = true;
 										}
-										else
+									}
+									else
+									{
+										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
 										{
-											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
-											{
-												Process.Processes[i].hidden = true;
-											}
+											Process.Processes[i].hidden = true;
 										}
 									}
 								}
-							
-							
-							
-						}
+
+
+							}
 
 
 
@@ -611,6 +650,10 @@ namespace RadianceOS.System.Apps
 								StartMenu.y = (int)Explorer.screenSizeY - 35;
 								StartMenu.state = 1;
 							}
+							else
+							{
+								StartMenu.state = 2;
+							}
 
 						}
 					}
@@ -625,11 +668,19 @@ namespace RadianceOS.System.Apps
 			if (MouseManager.MouseState == MouseState.Left)
 				Clicked = true;
 
+		/*	foreach (var app in NewApps)
+			{
+				app.Update();
+			}
 
+			if (NewApps.Count == 0)
+			{
+				NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
+			}*/
 
 			Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
 
-			CanvasMain.Display();
+            CanvasMain.Display();
 		}
 
 		public static void Reset()
@@ -724,8 +775,25 @@ namespace RadianceOS.System.Apps
 			Kernel.sysData16 = Window.tempBitmap;
 		}
 
+		public static void RenderIconUser()
+		{
+			
+			
+				CanvasMain.DrawFilledRectangle(Kernel.shadow, 134, 0, 60, 73);
+				if (Kernel.fontColor == Color.White)
+					CanvasMain.DrawImageAlpha(new Bitmap(Files.udt), 134, 0);
+				else
+				CanvasMain.DrawImageAlpha(new Bitmap(Files.ult), 134, 0);
+			Window.GetTempImage(134, 0, 60, 73, "usesIcon");
+				Kernel.userIcon = Window.tempBitmap;
+			
+
+		}
+
 		public static void UpdateIcons()
 		{
+			Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0,0);
+			Explorer.CanvasMain.Display();
 			RenderIconx();
 			RenderIconSquare();
 			RenderIconminus();
@@ -734,6 +802,7 @@ namespace RadianceOS.System.Apps
 			RenderIconError2();
 			RenderIconWarning();
 			RenderSmallIcons();
+			RenderIconUser();
 		}
 
 	}

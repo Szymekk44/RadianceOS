@@ -12,16 +12,8 @@ namespace RadianceOS.System.Apps.NewInstaller
 {
     public static class NewInstallator
     {
-        public static bool RenderSecurityInstaller = false;
-
         public static void Render(int ProcessID, int state, int X, int Y, int SizeX, int SizeY, bool newRender)
         {
-            if(RenderSecurityInstaller)
-            {
-                Security.SecurityInstaller.Render();
-                return;
-            }
-
             newRender = Check(state, ProcessID);
 
             if (newRender) //RENDER WINDOW AS IMAGE
@@ -38,6 +30,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                             StringsAcitons.DrawCenteredTTFString("Welcome to RadianceOS installer", SizeX, X, Y + 110, 20, Kernel.fontColor, "UMB", 24);
                             StringsAcitons.DrawCenteredTTFString("To start the installation process, please click Install", SizeX, X, Y + 130, 18, Kernel.fontColor, "UMR", 18);
                             Window.GetImage(X, Y, SizeX, SizeY, ProcessID, "Installer");
+                            InputSystem.CurrentString = "";
                         }
                         break;
                     case 1:
@@ -300,7 +293,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                                     Kernel.fs.Disks[0].DeletePartition(0);
                                 Kernel.fs.Disks[0].Clear();
                                 int diskSize = 0;
-                                if (InputSystem.CurrentString == null)
+                                if (InputSystem.CurrentString == "")
 								{
 									diskSize = Kernel.fs.Disks[0].Size / 1048576;
 									//MessageBoxCreator.CreateMessageBox("Info", "Default size: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", MessageBoxCreator.MessageBoxIcon.info, 400, 175);
@@ -448,8 +441,6 @@ namespace RadianceOS.System.Apps.NewInstaller
 
         public static void InstallFiles(int ProcessID)
         {
-            RenderSecurityInstaller = true;
-
             Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
             DrawStatus("Please Wait", 0);
             Thread.Sleep(2500);
@@ -553,7 +544,7 @@ namespace RadianceOS.System.Apps.NewInstaller
                                     Process.Processes[ProcessID].CurrChar = 0;
                                 }
                                 break;
-                            case 6:
+                            case 6: //Default
                                 {
                                     Process.Processes[ProcessID].tempInt = 6;
                                     Process.Processes[ProcessID].bitmapTop = null;

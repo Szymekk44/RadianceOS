@@ -5,7 +5,6 @@ using RadianceOS.System.Programming.RaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-//using System.Diagnostics;
 using System.Text;
 
 namespace RadianceOS.System.Managment
@@ -25,7 +24,7 @@ namespace RadianceOS.System.Managment
 				ConsoleKeyInfo key = Console.ReadKey(true);
 				switch (key.Key)
 				{
-
+				
 					#region Main keys
 
 					case ConsoleKey.A:
@@ -912,6 +911,11 @@ namespace RadianceOS.System.Managment
 							case 6:
 								{
 									Process.Processes[Index].RasData.syncInput = true;
+								}
+								break;
+							case 7:
+								{
+									DrawDesktopApps.FinishRenaming();
 								}
 								break;
 						}

@@ -20,6 +20,8 @@ namespace RadianceOS.System.Managment
 		public static byte[] FontLat;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Fonts.ruscii_8x16.psf")]
 		public static byte[] FontRuscii;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Fonts.tis-ptlight.f16.psf")]
+		public static byte[] FontTis;
 
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.TTF.Fonts.UbuntuMono-Regular.ttf")]
@@ -45,12 +47,22 @@ namespace RadianceOS.System.Managment
 		public static byte[] wallpaper2;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree2Small.bmp")]
 		public static byte[] wallpaper2S;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3.bmp")]
+		public static byte[] wallpaper3;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3Small.bmp")]
+		public static byte[] wallpaper3S;
+
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.login.bmp")]
+		public static byte[] wallpaperL;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS icon.bmp")]
 		public static byte[] RadianceOSIcon;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS iconTransparent.bmp")]
 		public static byte[] RadianceOSIconTransparent;
+
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS iconShadow.bmp")]
+		public static byte[] RadianceOSIconShadow;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Start.buttonLight.bmp")]
 		public static byte[] LButton;
@@ -83,6 +95,10 @@ namespace RadianceOS.System.Managment
 		public static byte[] RadiantWave;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.fileExplorer.bmp")]
 		public static byte[] FileExplorer;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.user dark theme.bmp")]
+		public static byte[] udt;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.user light theme.bmp")]
+		public static byte[] ult;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.text16.bmp")]
 		public static byte[] text16;
@@ -95,7 +111,43 @@ namespace RadianceOS.System.Managment
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.FileExplorer.sysData16.bmp")]
 		public static byte[] sysData16;
 
-		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.FilesIcons.txt.bmp")]
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.fileExplorer16.bmp")]
+		public static byte[] FE16;
+
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.power.bmp")]
+		public static byte[] power;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.standby.bmp")]
+        public static byte[] standby;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.restart.bmp")]
+        public static byte[] restart;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.power.bmp")]
+        public static byte[] powersmall;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.standby.bmp")]
+        public static byte[] standbysmall;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Power.Small.restart.bmp")]
+        public static byte[] restartsmall;
+
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.UAC.bmp")]
+        public static byte[] UAC;
+		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UAC.bmp")]
+		public static byte[] UACSmall;
+
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.UACShield.bmp")]
+        public static byte[] UACShield;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield16.bmp")]
+        public static byte[] UACShield16;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield24.bmp")]
+        public static byte[] UACShield24;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield32.bmp")]
+        public static byte[] UACShield32;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield48.bmp")]
+        public static byte[] UACShield48;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield64.bmp")]
+        public static byte[] UACShield64;
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.Icons.Security.Small.UACShield128.bmp")]
+        public static byte[] UACShield128;
+
+        [ManifestResourceStream(ResourceName = "RadianceOS.Resources.FilesIcons.txt.bmp")]
 		public static byte[] txt;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.FilesIcons.ras.bmp")]
 		public static byte[] ras;

@@ -20,6 +20,7 @@ namespace RadianceOS.System.Programming.RaSharp
 			string[] commands = com.Split(' ');
 			string[] commandsDots = com.Split('.');
 			commands[0] = commands[0].Replace("\n", "");
+			commands[0] = commands[0].Trim();
 			if (commands[0] == "void")
 			{
 				if (commands[1].Contains(RasPerformer.Data[RasID].currVoid))

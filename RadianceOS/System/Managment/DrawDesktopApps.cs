@@ -1,17 +1,12 @@
 ﻿using RadianceOS.System.Apps;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
-using System.IO;
-using System.Diagnostics;
-using System.Xml.Linq;
-using RadianceOS.System.Programming.RaSharp;
 using Cosmos.System.Graphics;
 using RadianceOS.System.Graphic;
 using RadianceOS.System.Programming.RaSharp2;
+using System.IO;
+using RadianceOS.System.Security.FileManagment;
 
 namespace RadianceOS.System.Managment
 {
@@ -21,10 +16,24 @@ namespace RadianceOS.System.Managment
 
 		public static bool clicked;
 		public static bool stopperGoing;
+		public static bool renaming, deleting;
+		public static int renamingid, deletingid, monitoreid;
 		static DateTime startTime;
 		static bool clickedOn;
 		static bool mainClick;
-		
+		static string lastName;
+		static string firstName;
+		public static int ReturnID(string extension)
+		{
+			if (extension == "txt")
+				return 1;
+			else if (extension == "ras")
+				return 2;
+			else if (extension == "SysData")
+				return 99999;
+			else
+				return 0;
+		}
 		public static void UpdateIcons()
 		{
 			Icons.Clear();
@@ -37,12 +46,13 @@ namespace RadianceOS.System.Managment
 				if (lastDotIndex != -1 && lastDotIndex < files_list[i].Length - 1)
 				{
 					string extension = files_list[i].Substring(lastDotIndex + 1);
-					if (extension == "txt")
-						id = 1;
-					if (extension == "ras")
-						id = 2;
-					if (extension == "SysData")
+					id = ReturnID(extension);
+					if (id == 99999)
+					{
+						id = 0;
 						continue;
+					}
+						
 				}
 
 
@@ -66,38 +76,61 @@ namespace RadianceOS.System.Managment
 
 		public static void RenderMenu(int index)
 		{
-			bool ready = false;
-			switch(Icons[index].ID)
+			renaming = false;
+			
+			int addX = Icons[index].ClickedX;
+			int addY = Icons[index].ClickedX;
+			switch (Icons[index].ID)
 			{
 				case 2:
 					{
-						ready = true;
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + 26, Icons[index].y + 26, 200, 100);
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + 24, Icons[index].y + 24, 200, 100);
-						if (Cosmos.System.MouseManager.X > Icons[index].x + 24 && Cosmos.System.MouseManager.X < Icons[index].x + 224)
+
+
+						Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + addX + 2, Icons[index].y + addY + 2, 200, 100);
+						Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + addX, Icons[index].y + addY, 200, 100);
+						if (Cosmos.System.MouseManager.X > Icons[index].x + addX && Cosmos.System.MouseManager.X < Icons[index].x + addX + 200)
 						{
-							if (Cosmos.System.MouseManager.Y > Icons[index].y + 28 && Cosmos.System.MouseManager.Y < Icons[index].y + 46)
+							if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 2 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 20)
 							{
-								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + 24, Icons[index].y + 28, 200, 18);
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 2, 200, 18);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
-								
+
 									RasExecuter.StartScript(Icons[index].path);
 									clicked = true;
 									Icons[index].selected = false;
 									Icons[index].showMenu = false;
 								}
 							}
-						}
-
-						if (Cosmos.System.MouseManager.X > Icons[index].x + 24 && Cosmos.System.MouseManager.X < Icons[index].x + 224)
-						{
-							if (Cosmos.System.MouseManager.Y > Icons[index].y + 46 && Cosmos.System.MouseManager.Y < Icons[index].y + 64)
+							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 20 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 38)
 							{
-								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + 24, Icons[index].y + 46, 200, 18);
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 20, 200, 18);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
+
 									Notepad.OpenFile(Icons[index].path);
+									clicked = true;
+									Icons[index].selected = false;
+									Icons[index].showMenu = false;
+								}
+							}
+							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 38 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 56)
+							{
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 38, 200, 18);
+								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+								{
+									CallRename(index);
+									clicked = true;
+									Icons[index].selected = false;
+									Icons[index].showMenu = false;
+								}
+							}
+							else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 56 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 74)
+							{
+								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 56, 200, 18);
+								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+								{
+									CallDelete(index);
 									clicked = true;
 									Icons[index].selected = false;
 									Icons[index].showMenu = false;
@@ -106,40 +139,210 @@ namespace RadianceOS.System.Managment
 						}
 
 
-						Explorer.CanvasMain.DrawString("Run", Kernel.font18, Color.White, Icons[index].x + 30, Icons[index].y + 28);
-						Explorer.CanvasMain.DrawString("Edit", Kernel.font18, Color.White, Icons[index].x + 30, Icons[index].y + 46);
+
+
+
+						Explorer.CanvasMain.DrawString("Run", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 2);
+						Explorer.CanvasMain.DrawString("Edit", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 20);
+						Explorer.CanvasMain.DrawString("Rename", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 38);
+						Explorer.CanvasMain.DrawString("Delete", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 56);
 					}
 					break;
-					
-
-			}
-			if(!ready)
-			{
-				Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + 26, Icons[index].y + 26, 200, 100);
-				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + 24, Icons[index].y + 24, 200, 100);
-				if (Cosmos.System.MouseManager.X > Icons[index].x + 24 && Cosmos.System.MouseManager.X < Icons[index].x + 224)
-				{
-					if (Cosmos.System.MouseManager.Y > Icons[index].y + 28 && Cosmos.System.MouseManager.Y < Icons[index].y + 46)
+				default:
+					Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, Icons[index].x + addX + 2, Icons[index].y + addY + 2, 200, 100);
+					Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, Icons[index].x + addX, Icons[index].y + addY, 200, 100);
+					if (Cosmos.System.MouseManager.X > Icons[index].x + addX && Cosmos.System.MouseManager.X < Icons[index].x + addX + 200)
 					{
-						Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + 24, Icons[index].y + 28, 200, 18);
-						if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+						if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 2 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 20)
 						{
-							Notepad.OpenFile(Icons[index].path);
-							clicked = true;
-							Icons[index].selected = false;
-							Icons[index].showMenu = false;
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 2, 200, 18);
+							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+							{
+
+								Notepad.OpenFile(Icons[index].path);
+								clicked = true;
+								Icons[index].selected = false;
+								Icons[index].showMenu = false;
+							}
+						}
+						else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 20 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 38)
+						{
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 20, 200, 18);
+							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+							{
+								CallRename(index);
+								clicked = true;
+								Icons[index].selected = false;
+								Icons[index].showMenu = false;
+							}
+						}
+						else if (Cosmos.System.MouseManager.Y > Icons[index].y + addY + 38 && Cosmos.System.MouseManager.Y < Icons[index].y + addY + 56)
+						{
+							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, Icons[index].x + addX, Icons[index].y + addY + 38, 200, 18);
+							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+							{
+								CallDelete(index);
+								clicked = true;
+								Icons[index].selected = false;
+								Icons[index].showMenu = false;
+							}
 						}
 					}
-				}
-				Explorer.CanvasMain.DrawString("Open", Kernel.font18, Color.White, Icons[index].x + 30, Icons[index].y + 28);
+					Explorer.CanvasMain.DrawString("Open", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 2);
+					Explorer.CanvasMain.DrawString("Rename", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 20);
+					Explorer.CanvasMain.DrawString("Delete", Kernel.font18, Color.White, Icons[index].x + addX + 6, Icons[index].y + addY + 38);
+					break;
+
 
 			}
 
 
 		}
 
+
+		public static void CallRename(int id)
+		{
+			Process.Processes[0].defaultLines = new List<string>();
+
+			Process.Processes[0].defaultLines.Add(Icons[id].Name);
+			InputSystem.SpecialCharracters = false;
+			InputSystem.AllowArrows = true;
+			InputSystem.AllowUpDown = false;
+			InputSystem.onlyNumbers = false;
+			InputSystem.allowDots = true;
+			Process.Processes[0].selected = true;
+			for (int i = 1; i < Process.Processes.Count; i++)
+			{
+				Process.Processes[i].selected = false;
+			}
+			InputSystem.CurrentString = Icons[id].Name;
+			Process.Processes[0].CurrChar = Icons[id].Name.Length;
+			firstName = Icons[id].FinaleName;
+			renaming = true;
+			renamingid = id;
+		}
+
+		public static void CallDelete(int id)
+		{
+			deleting = true;
+			deletingid = id;
+			MessageBoxCreator.CreateMessageBox("Delete", "Are you sure you want to delete\n" + Icons[id].path, MessageBoxCreator.MessageBoxIcon.warning, 500,175, "Cancel", "Delete");
+			monitoreid = Process.Processes[Process.Processes.Count - 1].DataID;
+		}
+
+		public static void MonitoreDelete(int fileID, int delID)
+		{
+			if (MessageBox.closedWith[delID] != 0)
+			{
+				switch (MessageBox.closedWith[delID])
+				{
+					case 1:
+						{
+							deleting = false;
+						}
+						break;
+					case 2:
+						{
+							deleting = false;
+							FileAction.DelteFile(Icons[fileID].path);
+							DrawDesktopApps.UpdateIcons();
+						}
+						break;
+				}
+			}
+		}
+
+
+		public static void Rename(int id)
+		{
+			Process.Processes[0].defaultLines[0] = InputSystem.CurrentString;
+			InputSystem.Monitore(7, Process.Processes[0].CurrChar, 0, 20);
+			string result = InputSystem.CurrentString.Substring(0, Process.Processes[0].CurrChar) + "|" + InputSystem.CurrentString.Substring(Process.Processes[0].CurrChar);
+			Icons[id].Name = result;
+			if(lastName != Icons[id].Name)
+			{
+				Icons[id].FinaleName = "";
+				string[] commands = Icons[id].Name.Split(' ');
+				string finale = "";
+
+				foreach (string command in commands)
+				{
+					if (finale.Length + command.Length <= 10)
+					{
+						finale += (string.IsNullOrEmpty(finale) ? "" : " ") + command;
+					}
+					else
+					{
+						if (!string.IsNullOrEmpty(finale))
+						{
+							Icons[id].FinaleName += (string.IsNullOrEmpty(Icons[id].FinaleName) ? "" : "\n") + finale;
+						}
+						finale = command;
+					}
+				}
+
+				if (!string.IsNullOrEmpty(finale))
+				{
+					Icons[id].FinaleName += (string.IsNullOrEmpty(Icons[id].FinaleName) ? "" : "\n") + finale;
+				}
+			}
+		}
+
+		public static void FinishRenaming()
+		{
+
+			Icons[renamingid].Name = Icons[renamingid].Name.Trim();
+			Icons[renamingid].Name = Icons[renamingid].Name.Replace("|", "");
+	
+			string temp = Icons[renamingid].Name.Replace("|", "");
+			InputSystem.CurrentString = temp;
+			Process.Processes[0].defaultLines[0] = temp;
+			Process.Processes[0].CurrChar = temp.Length;
+			int indexOfPipe = Icons[renamingid].Name.IndexOf('|');
+			if (indexOfPipe != -1)
+			{
+				Icons[renamingid].Name = Icons[renamingid].Name.Remove(indexOfPipe, 1);
+			}
+			renaming = false;
+
+			if (!File.Exists(@"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + Icons[renamingid].Name))
+			{
+				//File.Move(Icons[renamingid].path, @"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + Icons[renamingid].Name); NO PLUG?!
+				File.Copy(Icons[renamingid].path, @"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + Icons[renamingid].Name);
+				File.Delete(Icons[renamingid].path);
+				string extension = Icons[renamingid].Name.Substring(Icons[renamingid].Name.LastIndexOf(".") + 1);
+
+				Icons[renamingid].FinaleName = "";
+				string[] commands = temp.Split(' ');
+
+
+				Icons[renamingid].FinaleName = "";
+
+				int currID = ReturnID(extension);
+				if (currID != Icons[renamingid].ID)
+				{
+					Icons[renamingid].ID = currID;
+					Render();
+				}
+				Icons[renamingid].FinaleName = "";
+				Icons[renamingid].FinaleName = "";
+				DrawDesktopApps.UpdateIcons();
+			}
+			else
+			{
+
+				Icons[renamingid].FinaleName = "";
+				Icons[renamingid].FinaleName = "";
+				DrawDesktopApps.UpdateIcons();
+				MessageBoxCreator.CreateMessageBox("Error", "File " + (@"0:\Users\" + Kernel.loggedUser + @"\Desktop\" + Icons[renamingid].Name) + "\nAlready exists!", MessageBoxCreator.MessageBoxIcon.error, 600);
+			}
+			
+				
+		}
+	
 		public static void Render()
 		{
+			bool refresh = false;
 			clickedOn = false;
 			int menuIndex = -1;
 			for (int i = 0; i < Icons.Count; i++)
@@ -172,31 +375,45 @@ namespace RadianceOS.System.Managment
 					}
 				}
 
-				if(Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+				if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 					mainClick = true;
 				//Explorer.CanvasMain.DrawString(Icons[i].Name, Kernel.font18, Color.White, Icons[i].x + 48, Icons[i].y + 48);
 				if (!Icons[i].selected)
-				StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x, Icons[i].y + 50, 15, Color.White, Kernel.font16);
+				{
+					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x + 1, Icons[i].y + 51, 15, Color.DarkGray, Kernel.font16);
+					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x, Icons[i].y + 50, 15, Color.White, Kernel.font16);
+
+				}
 				else
-					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x, Icons[i].y + 50, 15, Color.FromArgb(200,200,200), Kernel.font16);
+				{
+					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x + 1, Icons[i].y + 51, 15, Color.Black, Kernel.font16);
+					StringsAcitons.DrawCenteredString(Icons[i].FinaleName, 48, Icons[i].x, Icons[i].y + 50, 15, Color.FromArgb(200, 200, 200), Kernel.font16);
+				}
+					
 
 				switch (Icons[i].ID)
 				{
 					case 0://NONE
 						{
-                            if (Icons[i].alphaIcon != null)
-                            {
-                                Explorer.CanvasMain.DrawImage(Icons[i].alphaIcon, Icons[i].x, Icons[i].y);
-                            }
-                            else
-                            {
-                                Explorer.CanvasMain.DrawImageAlpha(Kernel.unknownIcon, Icons[i].x, Icons[i].y);
-                                Window.GetTempImage(Icons[i].x, Icons[i].y, 48, 48, "File icon");
-                                Icons[i].alphaIcon = Window.tempBitmap;
-                            }
+							if (Icons[i].alphaIcon != null)
+							{
+
+								Explorer.CanvasMain.DrawImage(Icons[i].alphaIcon, Icons[i].x, Icons[i].y);
+							}
+							else
+							{
+								if (!refresh)
+								{
+									refresh = true;
+									Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+								}
+								Explorer.CanvasMain.DrawImageAlpha(Kernel.unknownIcon, Icons[i].x, Icons[i].y);
+								Window.GetTempImage(Icons[i].x, Icons[i].y, 48, 48, "File icon");
+								Icons[i].alphaIcon = Window.tempBitmap;
+							}
 
 
-                            if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
+							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 							{
 								if (Cosmos.System.MouseManager.X > Icons[i].x && Cosmos.System.MouseManager.X < Icons[i].x + 48)
 								{
@@ -227,38 +444,25 @@ namespace RadianceOS.System.Managment
 								}
 
 							}
-							else if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Right && !Icons[i].showMenu)
-							{
-								if (Cosmos.System.MouseManager.X > Icons[i].x && Cosmos.System.MouseManager.X < Icons[i].x + 48)
-								{
-									if (Cosmos.System.MouseManager.Y > Icons[i].y && Cosmos.System.MouseManager.Y < Icons[i].y + 48)
-									{
-
-										for (int j = 0; j < Icons.Count; j++)
-										{
-											Icons[j].showMenu = false;
-										}
-										Icons[i].showMenu = true;
-									}
-										
-								}
-
-							}
-
 						}
 						break;
 					case 1://TXT
 						{
-							if (Icons[i].alphaIcon !=null)
+							if (Icons[i].alphaIcon != null)
 							{
 								Explorer.CanvasMain.DrawImage(Icons[i].alphaIcon, Icons[i].x, Icons[i].y);
-                            }
+							}
 							else
 							{
-                                Explorer.CanvasMain.DrawImageAlpha(Kernel.txtIcon, Icons[i].x, Icons[i].y);
+								if (!refresh)
+								{
+									refresh = true;
+									Explorer.CanvasMain.DrawImage(Kernel.Wallpaper1, 0, 0);
+								}
+								Explorer.CanvasMain.DrawImageAlpha(Kernel.txtIcon, Icons[i].x, Icons[i].y);
 								Window.GetTempImage(Icons[i].x, Icons[i].y, 48, 48, "File icon");
 								Icons[i].alphaIcon = Window.tempBitmap;
-                            }
+							}
 
 							if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 							{
@@ -293,23 +497,7 @@ namespace RadianceOS.System.Managment
 								}
 
 							}
-							else if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Right && !Icons[i].showMenu)
-							{
-								if (Cosmos.System.MouseManager.X > Icons[i].x && Cosmos.System.MouseManager.X < Icons[i].x + 48)
-								{
-									if (Cosmos.System.MouseManager.Y > Icons[i].y && Cosmos.System.MouseManager.Y < Icons[i].y + 48)
-									{
 
-										for (int j = 0; j < Icons.Count; j++)
-										{
-											Icons[j].showMenu = false;
-										}
-										Icons[i].showMenu = true;
-									}
-
-								}
-
-							}
 						}
 						break;
 
@@ -351,46 +539,62 @@ namespace RadianceOS.System.Managment
 								}
 
 							}
-							else if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Right && !Icons[i].showMenu)
-							{
-								if (Cosmos.System.MouseManager.X > Icons[i].x && Cosmos.System.MouseManager.X < Icons[i].x + 48)
-								{
-									if (Cosmos.System.MouseManager.Y > Icons[i].y && Cosmos.System.MouseManager.Y < Icons[i].y + 48)
-									{
 
-										for (int j = 0; j < Icons.Count; j++)
-										{
-											Icons[j].showMenu = false;
-										}
-										Icons[i].showMenu = true;
-									}
-
-								}
-
-							}
 						}
 						break;
 				}
+
+				if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Right && !Icons[i].showMenu)
+				{
+					if (Cosmos.System.MouseManager.X > Icons[i].x && Cosmos.System.MouseManager.X < Icons[i].x + 48)
+					{
+						if (Cosmos.System.MouseManager.Y > Icons[i].y && Cosmos.System.MouseManager.Y < Icons[i].y + 48)
+						{
+
+							for (int j = 0; j < Icons.Count; j++)
+							{
+								Icons[j].showMenu = false;
+							}
+							Icons[i].showMenu = true;
+							Icons[i].ClickedX = Explorer.MX - Icons[i].x;
+							Icons[i].ClickedY = Explorer.MY - Icons[i].y;
+						}
+
+					}
+
+				}
+
+
+
 				if (Icons[i].showMenu)
 					menuIndex = i;
-				
+
 			}
-			if(menuIndex != -1)
+
+			if (renaming)
+			{
+				Rename(renamingid);
+			}
+			if(deleting)
+			{
+				MonitoreDelete(deletingid, monitoreid);
+			}
+			if (menuIndex != -1)
 			{
 				RenderMenu(menuIndex);
 			}
-			if(clicked)
+			if (clicked)
 			{
-				if(Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.None)
+				if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.None)
 				{
 					clicked = false;
 				}
-				
+
 			}
-			if(mainClick)
+			if (mainClick)
 			{
 				mainClick = false;
-				if(!clickedOn)
+				if (!clickedOn)
 				{
 
 					for (int i = 0; i < Icons.Count; i++)
@@ -401,6 +605,14 @@ namespace RadianceOS.System.Managment
 				}
 			}
 
+		}
+
+		public static void clearIcons()
+		{
+			for (int i = 0; i < Icons.Count; i++)
+			{
+				Icons[i].alphaIcon = null;
+			}
 		}
 	}
 
@@ -415,5 +627,6 @@ namespace RadianceOS.System.Managment
 		public DateTime dateTime;
 		public bool showMenu;
 		public Bitmap alphaIcon;
+		public int ClickedX, ClickedY;
 	}
 }

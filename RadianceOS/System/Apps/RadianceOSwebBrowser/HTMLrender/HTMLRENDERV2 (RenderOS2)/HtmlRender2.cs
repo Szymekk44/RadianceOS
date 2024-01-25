@@ -1,4 +1,5 @@
-﻿using Cosmos.System.Graphics;
+﻿using Cosmos.HAL.BlockDevice;
+using Cosmos.System.Graphics;
 using Cosmos.System.Graphics.Fonts;
 using CosmosTTF;
 using HtmlAgilityPack;
@@ -31,6 +32,7 @@ namespace webkerneltest.HTMLRENDERV2
 
         static Rectangle renderpoint = Rectangle.Empty;
 
+        static string htmlCode;
         private static void RenderNode(HtmlNode node,Color col,int ProcessID, int TextSize = 14,bool centered = false)
         {
             switch (node.NodeType)
@@ -95,19 +97,92 @@ namespace webkerneltest.HTMLRENDERV2
                 case "a":
                     if (attribs.ContainsKey("href"))
                     {
-                        col = Color.Blue;
-                    }
+                        bool downloadLink = false;
+						string link2 = "empty";
+						if (node.OuterHtml.Contains("href") && node.OuterHtml.Contains("'"))
+						{
+							link2 = node.OuterHtml.Substring(node.OuterHtml.IndexOf('\'') + 1);
+							link2 = link2.Substring(0, link2.IndexOf("'"));
+						}
+						else if (node.OuterHtml.Contains("href") && node.OuterHtml.Contains("\""))
+						{
+							link2 = node.OuterHtml.Substring(node.OuterHtml.IndexOf('\"') + 1);
+							link2 = link2.Substring(0, link2.IndexOf("\""));
+						}
+						if (node.OuterHtml.Contains("download"))
+                        {
+                           string temp = node.OuterHtml.Substring(node.OuterHtml.IndexOf("download"));
+                            temp = temp.Trim();
+                            if (temp[8] != '"' && temp[8] != '\'')
+                            {
+								downloadLink = true;
+
+                            }
+
+
+						}
+						try
+						{
+							ElementData ed = new ElementData
+							{
+								x = 10 + Pos.X - Process.Processes[ProcessID].X,
+								y = 36 + Pos.Y + PagePos - Process.Processes[ProcessID].Y,
+								SizeX = node.InnerText.Length * 8,
+								SizeY = 18,
+								download = downloadLink,
+								type = 0,
+								url = link2
+							};
+							Process.Processes[ProcessID].webData.elements.Add(ed);
+						}
+
+						catch (Exception ex)
+						{
+							MessageBoxCreator.CreateMessageBox("Error", ex.Message, MessageBoxCreator.MessageBoxIcon.error);
+						}
+					}
                     break;
                 case "button":
-                    canv.DrawFilledRectangle(Color.LightGray,Pos.X+10, Pos.Y + PagePos,node.InnerText.Length * 8,18);
-                  /*  ElementData ed = new ElementData
+					bool downloadLink2 = false;
+					canv.DrawFilledRectangle(Color.LightGray,Pos.X+10, Pos.Y + PagePos,node.InnerText.Length * 8,18);
+                    string link = "empty";
+					if (node.OuterHtml.Contains("href"))
                     {
-                        x = Pos.X + 10, y = Pos.Y + PagePos, SizeX = node.InnerText.Length * 8, SizeY = 18, type = 0,
-                        url = node.InnerHtml
-                    };
-                    Process.Processes[ProcessID].webData.elements.Add(ed);*/
+						link = node.OuterHtml.Substring(node.OuterHtml.IndexOf('\'') + 1);
+                        link = link.Substring(0,link.IndexOf("'"));
+					}
+
+					if (node.OuterHtml.Contains("download"))
+					{
+						string temp = node.OuterHtml.Substring(node.OuterHtml.IndexOf("download"));
+						temp = temp.Trim();
+						if (temp[8] != '"' && temp[8] != '\'')
+						{
+							downloadLink2 = true;
+
+						}
 
 
+					}
+					try
+					{
+						ElementData ed = new ElementData
+						{
+							x = 10 + Pos.X - Process.Processes[ProcessID].X,
+							y = 36 + Pos.Y + PagePos - Process.Processes[ProcessID].Y,
+							SizeX = node.InnerText.Length * 8,
+							SizeY = 18,
+							download = downloadLink2,
+							type = 0,
+							url = link
+						};
+						Process.Processes[ProcessID].webData.elements.Add(ed);
+					}
+
+					catch (Exception ex)
+                    {
+                        MessageBoxCreator.CreateMessageBox("Error", ex.Message, MessageBoxCreator.MessageBoxIcon.error) ;
+					}
 
                     if (node.ChildNodes.Count == 0)
                     {
@@ -214,23 +289,21 @@ namespace webkerneltest.HTMLRENDERV2
         {
         }
 
-        public static void RenderHTML(this Canvas Canv,string HTMLCODE,int X=0,int Y=0,int Widht=1280,int Height=720, int ProcessID = 0)
+        public static void RenderHTML(this Canvas Canv,HtmlDocument doc,int X=0,int Y=0,int Widht=1280,int Height=720, int ProcessID = 0)
         {
 
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(HTMLCODE);
             PageStyle = CssParser.Empty();
 
             canv = Canv;
 
             Pos = new Point(X,Y);
-
+            htmlCode = doc.DocumentNode.InnerHtml;
             renderpoint.X = X;
             renderpoint.Y = Y;
             renderpoint.Width = Widht;
             renderpoint.Height = Height;
             canv.DrawFilledRectangle(Color.White,X, Y, Widht, Height);
-            RenderNode(htmlDoc.DocumentNode,Color.Black, ProcessID);
+            RenderNode(doc.DocumentNode,Color.Black, ProcessID);
         }
 
 

@@ -19,7 +19,7 @@ namespace RadianceOS.System.Managment
 			for (int i = 0; i < strings.Length; i++)
 			{
 				int lengh = 0;
-				if (font == Kernel.font18 || font == Kernel.fontRuscii)
+				if (font == Kernel.font18 || font == Kernel.fontRuscii || font == Kernel.fontDefault)
 				 lengh = strings[i].Length * 8;
 				else
 					 lengh = strings[i].Length * 6;
@@ -51,7 +51,7 @@ namespace RadianceOS.System.Managment
 				else
 					lengh = strings[i].Length * 6;
 				int posX = (WinLengh - lengh) / 2;
-				Security.canvas.DrawString(strings[i], font, color, posX + WinPosX, WinPosY + i * space);
+				Radiance.Security.canvas.DrawString(strings[i], font, color, posX + WinPosX, WinPosY + i * space);
 			}
 		}
 	}
