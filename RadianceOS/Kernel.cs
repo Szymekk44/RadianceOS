@@ -57,9 +57,10 @@ namespace RadianceOS
 		public static Color fontColor = Color.White;
 		public static Color terminalColor = Color.Black;
 		public static Color startDefault = Color.FromArgb(47, 44, 66), startLight = Color.FromArgb(56, 51, 82), startDefaultSelected = Color.FromArgb(41, 36, 66), startLightSelected = Color.FromArgb(53, 48, 84);
+        public static Color color1 = Color.FromArgb(240, 240, 240), color2 = Color.FromArgb(240, 240, 240), color3 = Color.Black;
 
 
-		public static bool render;
+        public static bool render;
 
 		public static bool diskReady = true;
 

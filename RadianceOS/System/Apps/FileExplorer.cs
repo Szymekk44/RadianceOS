@@ -1,19 +1,19 @@
 ﻿using Cosmos.HAL.Drivers.Video.SVGAII;
 using Cosmos.System;
+using RadianceOS.Render;
 using RadianceOS.System.Graphic;
 using RadianceOS.System.Managment;
 using RadianceOS.System.Programming.RaSharp2;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Numerics;
+using System.Reflection.Metadata;
 
 namespace RadianceOS.System.Apps
 {
 	public static class FileExplorer
 	{
+		static int pathIdx;
 		public static void Render(int X, int Y, int SizeX, int SizeY, int id)
 		{
 			Window.DrawTop(id, X, Y, SizeX, "File Explorer - " + Process.Processes[id].temp, true);
@@ -72,8 +72,11 @@ namespace RadianceOS.System.Apps
 
 						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && !Process.Processes[id].tempBool)
 						{
-							UpdateList(id, Process.Processes[id].FileExplorerDat.Directories[i].Path + @"\");
-							PreRender(X, Y, SizeX, SizeY, id);
+							if (MouseHelpers.DoubleClick())
+							{
+								UpdateList(id, Process.Processes[id].FileExplorerDat.Directories[i].Path + @"\");
+								PreRender(X, Y, SizeX, SizeY, id);
+							}
 						}
 					}
 				}
@@ -84,6 +87,7 @@ namespace RadianceOS.System.Apps
 			{
 				if (Process.Processes[id].FileExplorerDat.Files.Count <= i)
 					return;
+				pathIdx = i;
 				if (Explorer.MY > Y + 28 + ((i + start) * 20) && Explorer.MY < Y + 48 + ((i + start) * 20))
 				{
 					if (Explorer.MX > X + 200 && Explorer.MX < X + SizeX)
@@ -114,18 +118,44 @@ namespace RadianceOS.System.Apps
 
 						if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked && !Process.Processes[id].tempBool)
 						{
-							string ext = Process.Processes[id].FileExplorerDat.Files[i].Extension;
-							if (ext == "binary file")
+							if(MouseHelpers.DoubleClick())
 							{
-								MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be opened!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+								string ext = Process.Processes[id].FileExplorerDat.Files[i].Extension;
+								if (ext == "binary file")
+								{
+									MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be edited!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+                                }
+                                else
+								{
+									if (Process.Processes[id].FileExplorerDat.ExplorerMode == 0)
+									{
+										Notepad.OpenFile(Process.Processes[id].FileExplorerDat.Files[i].Path);
+										Process.Processes[id].tempBool = false;
+									}
+									else
+									{
+										switch (Process.Processes[id].FileExplorerDat.AppID)
+										{
+											case 2:
+												switch (Process.Processes[id].FileExplorerDat.ExplorerMode)
+												{
+													case 1:
+														Notepad.save(Process.Processes[id].FileExplorerDat.Files[i].Path);
+														break;
+													case 2:
+														Notepad.OpenFile(Process.Processes[id].FileExplorerDat.Files[i].Path);
+														break;
+												}
+												break;
+										}
+									}
+								}
 							}
 							else
 							{
-								Notepad.OpenFile(Process.Processes[id].FileExplorerDat.Files[i].Path);
-								Process.Processes[id].tempBool = false;
-							}
-						
-							
+								Process.Processes[id].tempBool = true;
+								Process.Processes[id].FileExplorerDat.FileName = Process.Processes[id].FileExplorerDat.Files[i].Name;
+                            }
 						}
 						if (MouseManager.MouseState == MouseState.Right)
 						{
@@ -163,6 +193,7 @@ namespace RadianceOS.System.Apps
 			{
 				RenderMenu(Process.Processes[id].tempInt, Process.Processes[id].FileExplorerDat.Files[Process.Processes[id].tempInt2].Path, Process.Processes[id].tempInt3 + Process.Processes[id].X, Process.Processes[id].Y + ((Process.Processes[id].tempInt2 + start) * 20) - 25, start, id);
 			}
+			RenderOptionsBar(id);
 		}
 
 		public static void PreRender(int X, int Y, int SizeX, int SizeY, int id)
@@ -295,7 +326,6 @@ namespace RadianceOS.System.Apps
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, x, trueY, 150, 18);
 					if (MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
 					{
-						
 						switch (action)
 						{
 							case 0:
@@ -411,5 +441,91 @@ namespace RadianceOS.System.Apps
 
 		}
 
-	}
+		public static void RenderOptionsBar(int ProcessID)
+		{
+			int X = Process.Processes[ProcessID].X;
+			int Y = Process.Processes[ProcessID].Y;
+			int SizeX = Process.Processes[ProcessID].SizeX;
+			int SizeY = Process.Processes[ProcessID].SizeY;
+			if (ProcessID != 0)
+			{
+				Canvas.canvas.DrawFilledRectangle(Kernel.middark, X, Y + SizeY - 50, SizeX, 50);
+				Canvas.canvas.DrawFilledRectangle(Kernel.lightMain, X + SizeX - 230, Y + SizeY - 40, 100, 30);
+				StringsAcitons.DrawCenteredString("Cancel", 100, X + SizeX - 230, Y + SizeY - 34, 15, Kernel.fontColor, Kernel.fontDefault);
+				Canvas.canvas.DrawFilledRectangle(Kernel.main, X + 10, Y + SizeY - 40, SizeX - 260, 30);
+				Canvas.canvas.DrawRectangle(Kernel.lightMain, X + 10, Y + SizeY - 40, SizeX - 260, 30);
+				Canvas.canvas.DrawString(Process.Processes[ProcessID].FileExplorerDat.FileName, Kernel.fontDefault, Kernel.fontColor, X + 15, Y + SizeY - 40 - Kernel.fontDefault.Height / 2 + 15);
+
+			}
+			switch (Process.Processes[ProcessID].FileExplorerDat.ExplorerMode)
+			{
+				case 1:
+					Canvas.canvas.DrawFilledRectangle(Kernel.lightMain, X + SizeX - 110, Y + SizeY - 40, 100, 30);
+					StringsAcitons.DrawCenteredString("Save", 100, X + SizeX - 110, Y + SizeY - 34, 15, Kernel.fontColor, Kernel.fontDefault);
+                    string ext1 = Process.Processes[ProcessID].FileExplorerDat.Files[pathIdx].Extension;
+                    if (ext1 == "binary file")
+                    {
+                        MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be edited!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+                    }
+					else
+					{
+                        switch (Process.Processes[ProcessID].FileExplorerDat.AppID)
+                        {
+                            case 2:
+                                Notepad.save(Process.Processes[ProcessID].FileExplorerDat.Files[pathIdx].Path);
+                                break;
+                        }
+                    }
+                    break;
+				case 2:
+					Canvas.canvas.DrawFilledRectangle(Kernel.lightMain, X + SizeX - 110, Y + SizeY - 40, 100, 30);
+					StringsAcitons.DrawCenteredString("Select", 100, X + SizeX - 110, Y + SizeY - 34, 15, Kernel.fontColor, Kernel.fontDefault);
+                    string ext2 = Process.Processes[ProcessID].FileExplorerDat.Files[pathIdx].Extension;
+                    if (ext2 == "binary file")
+                    {
+                        MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be edited!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+                    }
+                    else
+                    {
+                        switch (Process.Processes[ProcessID].FileExplorerDat.AppID)
+                        {
+                            case 2:
+                                Notepad.save(Process.Processes[ProcessID].FileExplorerDat.Files[pathIdx].Path);
+                                break;
+                        }
+                    }
+                    break;
+				case 3:
+					Canvas.canvas.DrawFilledRectangle(Kernel.lightMain, X + SizeX - 110, Y + SizeY - 40, 100, 30);
+					StringsAcitons.DrawCenteredString("Select", 100, X + SizeX - 110, Y + SizeY - 34, 15, Kernel.fontColor, Kernel.fontDefault);
+					break;
+			}
+		}
+		public static void enter(int ProcessID)
+		{
+            switch (Process.Processes[ProcessID].FileExplorerDat.ExplorerMode)
+            {
+                case 1:
+                    string ext = Process.Processes[ProcessID].FileExplorerDat.Files[pathIdx].Extension;
+                    if (ext == "binary file")
+                    {
+                        MessageBoxCreator.CreateMessageBox("Error", "This file type cannot be edited!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+                    }
+                    else
+                    {
+                        switch (Process.Processes[ProcessID].FileExplorerDat.AppID)
+                        {
+                            case 2:
+                                Notepad.save(Process.Processes[ProcessID].FileExplorerDat.Files[pathIdx].Path);
+                                break;
+                        }
+                    }
+					break;
+				case 2:
+
+					break;
+            }
+        }
+
+    }
 }

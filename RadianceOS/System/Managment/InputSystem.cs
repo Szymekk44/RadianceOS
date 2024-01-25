@@ -918,6 +918,11 @@ namespace RadianceOS.System.Managment
 									DrawDesktopApps.FinishRenaming();
 								}
 								break;
+							case 8:
+								{
+									FileExplorer.enter(Index);
+								}
+								break;
 						}
 						break;
 						enterChar = false;
