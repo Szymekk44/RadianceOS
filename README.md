@@ -68,4 +68,4 @@ Made by WTDawson9 - [MrBisquit](https://github.com/MrBisquit).
 
 
 ## License
-RadianceOS is licensed under the [MIT License](LICENSE).
+RadianceOS is licensed under the [BSD 3-Clause License](LICENSE).
