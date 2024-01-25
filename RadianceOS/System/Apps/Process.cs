@@ -100,8 +100,16 @@ namespace RadianceOS.System.Apps
 		public List<FilePath> Files;
 		public List<FilePath> MainDirectories;
 		public List<FilePath> Directories;
-	}
-	public class FilePath
+		public int ExplorerMode = 2;
+		//ExplorerMode:
+		//0: Normal
+		//1: Save
+		//2: Select
+		//3: Select Folder
+		public int AppID = -1;
+		public string FileName;
+    }
+    public class FilePath
 	{
 		public string Name;
 		public string Path;

@@ -327,8 +327,136 @@ namespace RadianceOS.System.Apps
 
 			}
 		}
+
+		public static void save(string path)
+		{
+			for (int i = 0; i < Process.Processes.Count; i++)
+			{
+				if (Process.Processes[i].ID == 2)
+				{
+					if (Process.Processes[i].selected)
+					{
+						if (Process.Processes[i].temp != null)
+						{
+							if(Process.Processes[i].tempInt3 == 0 || Process.Processes[i].tempInt3 == 1)
+							{
+                                if (Process.Processes[i].temp.Contains(".txt") || Process.Processes[i].temp.Contains(".ras") || Process.Processes[i].temp.Contains("."))
+                                {
+                                    if (!Process.Processes[i].saved)
+                                    {
+                                        if (Kernel.diskReady)
+                                        {
+                                            var file_stream = File.Create(Process.Processes[i].temp);
+                                            string[] pathArg = Process.Processes[i].temp.Split(@"\");
+                                            Process.Processes[i].Name = pathArg[pathArg.Length - 1];
+                                            file_stream.Close();
+                                            string finaleString = "";
+                                            for (int j = 0; j < Process.Processes[i].defaultLines.Count; j++)
+                                            {
+                                                finaleString += Process.Processes[i].defaultLines[j] + '\n';
+                                            }
+                                            File.WriteAllText(Process.Processes[i].temp, finaleString);
+                                            DrawDesktopApps.UpdateIcons();
+                                        }
+                                        else
+                                        {
+                                            MessageBoxCreator.CreateMessageBox("Error", "Read only file system!\nPlease format your drive\nand create an account.", MessageBoxCreator.MessageBoxIcon.error, 400);
+                                        }
+                                        Process.Processes[i].saved = true;
+                                        Process.Processes[i].saving = false;
+                                        InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
+                                        Process.Processes[i].tempInt = 0;
+
+                                    }
+                                }
+                                else
+                                {
+                                    Process.Processes[i].saving = true;
+                                    Process.Processes[i].tempBool = true;
+
+                                }
+                            }
+							else
+							{
+								MessageBoxCreator.CreateMessageBox("Error", "Cannot save read only file!", MessageBoxCreator.MessageBoxIcon.error, 350, 175);
+
+                            }
+								
+						}
+
+					}
+				}
+
+			}
+		}
 		
 		public static void OpenFile(string path)
+		{
+			string[] content = File.ReadAllText(path).Split('\n');
+			int lenght = 0;
+			if (content.Length > 1)
+			{
+				for (int i = 0; i < content.Length; i++)
+				{
+					lenght += content[i].Length;
+				}
+				List<string> contentList = content.ToList();
+				contentList.RemoveAt(contentList.Count - 1);
+				content = contentList.ToArray();
+
+			}
+			else
+				lenght = content[0].Length;
+			if(lenght > 25000)
+			{
+				MessageBoxCreator.CreateMessageBox("Notepad Error", "File " + path + "\nis too large for notepad to open!\n(" + lenght + ")", MessageBoxCreator.MessageBoxIcon.error, 400, 175);
+				return;
+			}
+			int minX = 200;
+			string[] pathArg = path.Split(@"\");
+			string[] dots = path.Split('.');
+			string extension = dots[dots.Length -1];
+			int warningLevel = 0;
+			if (extension == "dat")
+				warningLevel = 1;
+            if (extension == "bin")
+                warningLevel = 2;
+			if(path.Contains(@"1:\") && !path.Contains(@"0:\"))
+                warningLevel = 2;
+            if (extension == "SysData" && !Kernel.Root)
+			{
+				MessageBoxCreator.CreateMessageBox("STOP", "RadianceOS blocked an attempt to open a system file.", MessageBoxCreator.MessageBoxIcon.STOP, 600, 150);
+				return;
+			}
+			if (warningLevel != 0)
+				minX = 400;
+			 
+            Processes MessageBox2 = new Processes
+			{
+				ID = 2,
+				Name = pathArg[pathArg.Length-1],
+				Description = "Notepad",
+				metaData = @"0:\",
+				defaultLines = content.ToList(),
+				X = 150,
+				Y = 150,
+				SizeX = 800,
+				SizeY = 500,
+				saved = true,
+				sizeAble = true,
+				MinX = minX,
+				CurrLine = content.Length - 1,
+				temp = path,
+				tempInt3 = warningLevel,
+				CurrChar = content[content.Length - 1].Length,
+				moveAble = true
+			};
+			Process.Processes.Add(MessageBox2);
+			Process.UpdateProcess(Process.Processes.Count - 1);
+
+		}
+		
+		public static void load(string path)
 		{
 			string[] content = File.ReadAllText(path).Split('\n');
 			int lenght = 0;
