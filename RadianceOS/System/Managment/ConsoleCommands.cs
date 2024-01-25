@@ -77,6 +77,7 @@ namespace RadianceOS.System.Managment
 			{
 				if (command.Length > 1)
 				{
+
 					if (Directory.Exists(Kernel.path + command[1]))
 						Kernel.path += command[1] + @"\";
 					else

@@ -111,12 +111,14 @@ namespace RadianceOSInstaller.System.ConsoleMode
 													{
 														SaveMode(0);
 														Finished = true;
+														Kernel.render = true;
 													}
 													break;
 												case 1:
 													{
 														state = 1;
 														Curr = 0;
+														Kernel.render = true;
 													}
 													break;
 												case 2:
@@ -144,7 +146,7 @@ namespace RadianceOSInstaller.System.ConsoleMode
 														Console.Clear();
 														Finished = true;
 														Kernel.render = false;
-														  
+														
 														return;
 													}
 													break;

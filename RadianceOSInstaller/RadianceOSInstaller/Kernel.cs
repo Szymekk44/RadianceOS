@@ -74,6 +74,9 @@ namespace RadianceOSInstaller
 		public static Color shadow = Color.FromArgb(26, 24, 36);
 		public static string statusString = "Wallpaper - Radiance";
 		int curr = 0;
+		public static bool logged;
+		public static string path = @"0:\";
+		public static bool Root = true;
 		protected override void BeforeRun()
 		{
 			Console.OutputEncoding = Cosmos.System.ExtendedASCII.CosmosEncodingProvider.Instance.GetEncoding(437);
@@ -88,15 +91,10 @@ namespace RadianceOSInstaller
 				Sys.FileSystem.VFS.VFSManager.RegisterVFS(fs);
 			
 
-			if (!File.Exists(@"0:\RadianceOS\Settings\DisplayMode.dat"))
-			{
+			
 					DisplaySizeSelector.SelectMode();
-			}
-			else
-			{
-				SaveMode(int.Parse(File.ReadAllText(@"0:\RadianceOS\Settings\DisplayMode.dat")));
-					diskReady = true;
-			}
+			
+	
 
 
 			Console.WriteLine("Loading ttf...");
@@ -119,6 +117,7 @@ namespace RadianceOSInstaller
 	
 				WallpaperL = new Bitmap(Wallpaper02);
 				cursor = new Bitmap(Cursor);
+				if(render)
 			Graphic.Start();
 			}
 			catch (Exception ex)
@@ -137,155 +136,178 @@ namespace RadianceOSInstaller
 			if(diskReady)
 			{
 				InstallerProgress = 1;
-				Wallpaper = new Bitmap(Wallpaper1);
+				Wallpaper = new Bitmap(Wallpaper2);
 			}
 			else
 				Wallpaper = new Bitmap(Wallpaper01);
+
+
+
+
 		}
 		protected override void Run()
 		{
-			switch(InstallerProgress)
+			if(render)
 			{
-				case 0:
-					{
-						PreInstaller.Render();
-					}
-					break;
-				case 1:
-					{
-						Graphic.Render();
-						switch (status)
+				switch (InstallerProgress)
+				{
+					case 0:
 						{
-							case 0:
-								{
-									statusString = "Creating Directories";
-									procent = true;
-
-									Directory.CreateDirectory(@"0:\RadianceOS");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\System");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\System\Files");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Wallpapers");
-									Progress++;
-									Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Icons");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Audio");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Apps");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Images");
-									Progress++;
-									Graphic.Render();
-									Directory.CreateDirectory(@"0:\RadianceOS\Settings");
-									Progress++;
-									Graphic.Render();
-									status++;
-
-								}
-								break;
-							case 1:
-								{
-									statusString = "Saving Image: Wallpaper 1/6";
-								
-									procent = false;
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper1.bmp"))
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper1.bmp", Wallpaper1, Wallpaper1.Length);
-									else
-										status++;
-								}
-								break;
-							case 2:
-								{
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper2.bmp"))
-									{
-										statusString = "Saving Image: Wallpaper 2/6";
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper2.bmp", Wallpaper2, Wallpaper2.Length);
-									}
-									else
-										status++;
-								}
-								break;
-							case 3:
-								{
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"))
-									{
-										statusString = "Saving Image: Wallpaper 3/6";
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp", Wallpaper3, Wallpaper3.Length);
-									}
-									else
-										status++;
-								}
-								break;
-							case 4:
-								{
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp"))
-									{
-										statusString = "Saving Image: Wallpaper 4/6";
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp", Wallpaper4, Wallpaper4.Length);
-									}
-									else
-										status++;
-								}
-								break;
-							case 5:
-								{
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp"))
-									{
-										statusString = "Saving Image: Wallpaper 5/6";
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp", Wallpaper01, Wallpaper01.Length);
-									}
-									else
-										status++;
-								}
-								break;
-							case 6:
-								{
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp"))
-									{
-										statusString = "Saving Image: Wallpaper 6/6";
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp", Wallpaper02, Wallpaper02.Length);
-									}
-									else
-										status++;
-								}
-								break;
-							case 7:
-								{
-									if (!File.Exists(@"0:\RadianceOS\System\Files\Images\ShadowLogo.bmp"))
-									{
-										statusString = "Saving Image: Logo - RadianceOS Shadow Logo";
-										ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Images\ShadowLogo.bmp", Logo2, Logo2.Length);
-									}
-									else
-										status++;
-								}
-								break;
-							default:
-								{
-									statusString = "Installed!";
-									Thread.Sleep(1500);
-									Cosmos.System.Power.Reboot();
-								}
-								break;
+							PreInstaller.Render();
 						}
-					}
-					break;
-			}
-			if(curr >= 20)
-			{
-				Heap.Collect();
-				curr = 0;
+						break;
+					case 1:
+						{
+							Graphic.Render();
+							switch (status)
+							{
+								case 0:
+									{
+										statusString = "Creating Directories";
+										procent = true;
+
+										Directory.CreateDirectory(@"0:\RadianceOS");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\System");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\System\Files");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Wallpapers");
+										Progress++;
+										Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Icons");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Audio");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Apps");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\System\Files\Images");
+										Progress++;
+										Graphic.Render();
+										Directory.CreateDirectory(@"0:\RadianceOS\Settings");
+										Progress++;
+										Graphic.Render();
+										status++;
+
+									}
+									break;
+								case 1:
+									{
+										statusString = "Saving Image: Wallpaper 1/6";
+
+										procent = false;
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper1.bmp"))
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper1.bmp", Wallpaper1, Wallpaper1.Length);
+										else
+											status++;
+									}
+									break;
+								case 2:
+									{
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper2.bmp"))
+										{
+											statusString = "Saving Image: Wallpaper 2/6";
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper2.bmp", Wallpaper2, Wallpaper2.Length);
+										}
+										else
+											status++;
+									}
+									break;
+								case 3:
+									{
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp"))
+										{
+											statusString = "Saving Image: Wallpaper 3/6";
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper3.bmp", Wallpaper3, Wallpaper3.Length);
+										}
+										else
+											status++;
+									}
+									break;
+								case 4:
+									{
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp"))
+										{
+											statusString = "Saving Image: Wallpaper 4/6";
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper4.bmp", Wallpaper4, Wallpaper4.Length);
+										}
+										else
+											status++;
+									}
+									break;
+								case 5:
+									{
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp"))
+										{
+											statusString = "Saving Image: Wallpaper 5/6";
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper5.bmp", Wallpaper01, Wallpaper01.Length);
+										}
+										else
+											status++;
+									}
+									break;
+								case 6:
+									{
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp"))
+										{
+											statusString = "Saving Image: Wallpaper 6/6";
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp", Wallpaper02, Wallpaper02.Length);
+										}
+										else
+											status++;
+									}
+									break;
+								case 7:
+									{
+										if (!File.Exists(@"0:\RadianceOS\System\Files\Images\ShadowLogo.bmp"))
+										{
+											statusString = "Saving Image: Logo - RadianceOS Shadow Logo";
+											ZapisywanieFragmentow(@"0:\RadianceOS\System\Files\Images\ShadowLogo.bmp", Logo2, Logo2.Length);
+										}
+										else
+											status++;
+									}
+									break;
+								default:
+									{
+										statusString = "Installed!";
+										Graphic.Render();
+										Thread.Sleep(1500);
+										Cosmos.System.Power.Reboot();
+									}
+									break;
+							}
+						}
+						break;
+				}
+				if (curr >= 20)
+				{
+					Heap.Collect();
+					curr = 0;
+				}
+				else
+					curr++;
 			}
 			else
-				curr++;
+			{
+				if(!logged)
+				{
+					Console.ForegroundColor = ConsoleColor.Cyan;
+					Console.Write("Installer> ");
+					Console.ForegroundColor = ConsoleColor.White;
+				}
+				else
+				{
+					Console.Write(path);
+				}
+				var input = Console.ReadLine();
+				ConsoleCommands.RunCommand(input);
+			}
 
 		}
 
