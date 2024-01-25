@@ -1,0 +1,76 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <!--<RuntimeIdentifier>cosmos</RuntimeIdentifier>-->
+        <Platform>cosmos</Platform>
+        <SupportsX86Intrinsics>false</SupportsX86Intrinsics>
+        <SelfContained>True</SelfContained>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <EnableGDB>False</EnableGDB>
+        <StartCosmosGDB>False</StartCosmosGDB>
+        <VisualStudioDebugPort>Pipe: Cosmos\Serial</VisualStudioDebugPort>
+        <CosmosDebugPort>Serial: COM1</CosmosDebugPort>
+        <Launch>VMware</Launch>
+        <Profile>VMware</Profile>
+        <Description>Use VMware Player or Workstation to deploy and debug.</Description>
+        <PxeInterface>192.168.0.8</PxeInterface>
+        <DebugEnabled>False</DebugEnabled>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\cursor.bmp" />
+      <None Remove="Resources\Fonts\lat9w-16.psf" />
+      <None Remove="Resources\Fonts\ruscii_8x16.psf" />
+      <None Remove="Resources\Fonts\tis-ptlight.f16.psf" />
+      <None Remove="Resources\Fonts\zap-ext-light16.psf" />
+      <None Remove="Resources\Fonts\zap-ext-light18.psf" />
+      <None Remove="Resources\Packages\login.bmp" />
+      <None Remove="Resources\Packages\RadianceOS iconShadow.bmp" />
+      <None Remove="Resources\Packages\wallpaper-tree.bmp" />
+      <None Remove="Resources\Packages\wallpaper-tree2.bmp" />
+      <None Remove="Resources\Packages\wallpaper-tree3.bmp" />
+      <None Remove="Resources\Packages\wll1.bmp" />
+      <None Remove="Resources\Packages\wll2.bmp" />
+      <None Remove="TTF\Fonts\Arial.ttf" />
+      <None Remove="TTF\Fonts\AzeretMono-Medium.ttf" />
+      <None Remove="TTF\Fonts\Cousine-Bold.ttf" />
+      <None Remove="TTF\Fonts\Cousine-Regular.ttf" />
+      <None Remove="TTF\Fonts\SometypeMono-Regular.ttf" />
+      <None Remove="TTF\Fonts\UbuntuMono-Bold.ttf" />
+      <None Remove="TTF\Fonts\UbuntuMono-Regular.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\cursor.bmp" />
+      <EmbeddedResource Include="Resources\Fonts\lat9w-16.psf" />
+      <EmbeddedResource Include="Resources\Fonts\ruscii_8x16.psf" />
+      <EmbeddedResource Include="Resources\Fonts\tis-ptlight.f16.psf" />
+      <EmbeddedResource Include="Resources\Fonts\zap-ext-light16.psf" />
+      <EmbeddedResource Include="Resources\Fonts\zap-ext-light18.psf" />
+      <EmbeddedResource Include="Resources\Packages\login.bmp" />
+      <EmbeddedResource Include="Resources\Packages\RadianceOS iconShadow.bmp" />
+      <EmbeddedResource Include="Resources\Packages\wallpaper-tree.bmp" />
+      <EmbeddedResource Include="Resources\Packages\wallpaper-tree2.bmp" />
+      <EmbeddedResource Include="Resources\Packages\wallpaper-tree3.bmp" />
+      <EmbeddedResource Include="Resources\Packages\wll2.bmp" />
+      <EmbeddedResource Include="Resources\Packages\wll1.bmp" />
+      <EmbeddedResource Include="TTF\Fonts\Arial.ttf" />
+      <EmbeddedResource Include="TTF\Fonts\AzeretMono-Medium.ttf" />
+      <EmbeddedResource Include="TTF\Fonts\Cousine-Bold.ttf" />
+      <EmbeddedResource Include="TTF\Fonts\Cousine-Regular.ttf" />
+      <EmbeddedResource Include="TTF\Fonts\SometypeMono-Regular.ttf" />
+      <EmbeddedResource Include="TTF\Fonts\UbuntuMono-Bold.ttf" />
+      <EmbeddedResource Include="TTF\Fonts\UbuntuMono-Regular.ttf" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Cosmos.Build" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.Debug.Kernel" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.System2" Version="0-*" NoWarn="NU1604" />
+        <PackageReference Include="Cosmos.Plugs" Version="0-*" NoWarn="NU1604" />
+    </ItemGroup>
+
+</Project>

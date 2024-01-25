@@ -10,6 +10,7 @@ using RadianceOS.System.Graphic;
 using CosmosTTF;
 using System.Dynamic;
 using Cosmos.System.Graphics;
+using System.IO;
 
 namespace RadianceOS.System.Security.Auth
 {
@@ -52,8 +53,13 @@ namespace RadianceOS.System.Security.Auth
                 if(!set)
                 {
                     set = true;
-                    Kernel.Wallpaper1 = new Bitmap(Files.wallpaperL);
-                }
+					if (File.Exists(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp"))
+						Kernel.Wallpaper1 = new Bitmap(File.ReadAllBytes(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp"));
+					else
+					{
+                        Kernel.WallpaperNotFound(@"0:\RadianceOS\System\Files\Wallpapers\Wallpaper6.bmp");
+					}
+				}
                 if(shadowLogo == null)
                 {
                    shadowLogo = new Bitmap(Files.RadianceOSIconShadow);

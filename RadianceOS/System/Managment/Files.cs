@@ -39,21 +39,12 @@ namespace RadianceOS.System.Managment
 		[ManifestResourceStream(ResourceName = "RadianceOS.TTF.Fonts.Cousine-Bold.ttf")]
 		public static byte[] CousineBold;
 
-		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree.bmp")]
-        public static byte[] wallpaper1;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-treeSmall.bmp")]
 		public static byte[] wallpaper1S;
-		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree2.bmp")]
-		public static byte[] wallpaper2;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree2Small.bmp")]
 		public static byte[] wallpaper2S;
-		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3.bmp")]
-		public static byte[] wallpaper3;
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.wallpaper-tree3Small.bmp")]
 		public static byte[] wallpaper3S;
-
-		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.Wallpapers.login.bmp")]
-		public static byte[] wallpaperL;
 
 		[ManifestResourceStream(ResourceName = "RadianceOS.Resources.RadianceOS.RadianceOS icon.bmp")]
 		public static byte[] RadianceOSIcon;

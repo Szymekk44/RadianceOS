@@ -16,12 +16,12 @@ namespace RadianceOS.System.Security.FileManagment
 		{
 			if (path.EndsWith(".SysData") && !Kernel.Root)
 			{
-				MessageBoxCreator.CreateMessageBox("Permission denied", path + "\nThis system file cannot be deleted!", MessageBoxCreator.MessageBoxIcon.STOP);
+				MessageBoxCreator.CreateMessageBox("Permission denied", path + "\nThis system file cannot be deleted!", MessageBoxCreator.MessageBoxIcon.STOP, 500);
 				return;
 			}
 			if (path.StartsWith(@"1:\") && !Kernel.Root)
 			{
-				MessageBoxCreator.CreateMessageBox("Permission denied", path + "\nThis file is located on a read-only drive", MessageBoxCreator.MessageBoxIcon.STOP);
+				MessageBoxCreator.CreateMessageBox("Permission denied", path + "\nThis file is located on a read-only drive", MessageBoxCreator.MessageBoxIcon.STOP, 500);
 				return;
 			}
 

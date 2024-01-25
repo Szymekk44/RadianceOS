@@ -56,6 +56,8 @@ namespace RadianceOS.System.Apps
 		//TEMP
 		public string temp;
 		public bool tempBool;
+		public bool tempBool2;
+		public bool tempBool3;
 		public int tempInt;
 		public int tempInt2;
 		public int tempInt3;
