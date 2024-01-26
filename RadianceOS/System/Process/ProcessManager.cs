@@ -15,7 +15,7 @@ namespace RadianceOS.System.Process
             foreach (Process process in Processes)
             {
                 if (process.Update != null) process.Update();
-                else throw new InvalidProcessException(InvalidProcessException.Type.InvalidUpdateAction);
+                //else throw new InvalidProcessException(InvalidProcessException.Type.InvalidUpdateAction); // Probably not the best of ideas
             }
         }
 
