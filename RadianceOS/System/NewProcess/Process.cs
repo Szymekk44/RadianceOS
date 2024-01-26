@@ -20,6 +20,7 @@ namespace RadianceOS.System.Process
         public bool Suspended { get; private set; } = false;
 
         public string OwnedBy { get; private set; } = default; // null = SYSTEM owned, default = not set
+        public ProcessHandle ProcessHandle { get; private set; } = default;
 
         public ProcessType CurrentProcessType()
         {
