@@ -21,14 +21,14 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Window
 			arg1 = arg1.Trim();
 			if (arg1 == "mode")
 			{
-				int mode = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int mode = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				switch(mode)
 				{
 					case 0:
-						Process.Processes[ProcessID].RasData.StopRenderConsole = false;
+						Apps.Process.Processes[ProcessID].RasData.StopRenderConsole = false;
 						break;
 					case 1:
-						Process.Processes[ProcessID].RasData.StopRenderConsole = true;
+						Apps.Process.Processes[ProcessID].RasData.StopRenderConsole = true;
 						break;
 					default:
 						MessageBoxCreator.CreateMessageBox("Ra# Error", "Mode: " + mode + " not implemented!", MessageBoxCreator.MessageBoxIcon.error,400);
@@ -37,14 +37,14 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Window
 			}
 			else if(arg1 == "sizeAble")
 			{
-				int mode = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int mode = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				switch (mode)
 				{
 					case 0:
-						Process.Processes[ProcessID].sizeAble = false;
+						Apps.Process.Processes[ProcessID].sizeAble = false;
 						break;
 					case 1:
-						Process.Processes[ProcessID].sizeAble = true;
+						Apps.Process.Processes[ProcessID].sizeAble = true;
 						break;
 					default:
 						MessageBoxCreator.CreateMessageBox("Ra# Error", "SizeAble: " + mode + " not implemented!", MessageBoxCreator.MessageBoxIcon.error,400);
@@ -53,54 +53,54 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Window
 			}
 			else if (arg1 == "height" || arg1 == "sizeY")
 			{
-				int size = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int size = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				if(size < 25)
 				{
 					MessageBoxCreator.CreateMessageBox("Ra# Error", "You cannot set the window\nheight to less than 25.", MessageBoxCreator.MessageBoxIcon.error, 500);
 					return;
 				}
-				Process.Processes[ProcessID].SizeY = size;
+				Apps.Process.Processes[ProcessID].SizeY = size;
 			}
 			else if (arg1 == "width" || arg1 == "sizeX")
 			{
-				int size = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int size = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				if (size < 40)
 				{
 					MessageBoxCreator.CreateMessageBox("Ra# Error", "You cannot set the window\n width to less than 40.", MessageBoxCreator.MessageBoxIcon.error, 500);
 					return;
 				}
-				Process.Processes[ProcessID].SizeX = size;
+				Apps.Process.Processes[ProcessID].SizeX = size;
 			}
 			else if (arg1 == "minHeight" || arg1 == "minSizeY")
 			{
-				int size = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int size = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				if (size < 25)
 				{
 					MessageBoxCreator.CreateMessageBox("Ra# Error", "You cannot set the window\nmin height to less than 25.", MessageBoxCreator.MessageBoxIcon.error, 500);
 					return;
 				}
-				Process.Processes[ProcessID].MinY = size;
+				Apps.Process.Processes[ProcessID].MinY = size;
 			}
 			else if (arg1 == "minWidth" || arg1 == "minSizeX")
 			{
-				int size = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int size = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				if (size < 40)
 				{
 					MessageBoxCreator.CreateMessageBox("Ra# Error", "You cannot set the window\nmin width to less than 40.", MessageBoxCreator.MessageBoxIcon.error, 500);
 					return;
 				}
-				Process.Processes[ProcessID].MinX = size;
+				Apps.Process.Processes[ProcessID].MinX = size;
 			}
 			else if (arg1 == "moveAble")
 			{
-				int mode = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
+				int mode = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
 				switch (mode)
 				{
 					case 0:
-						Process.Processes[ProcessID].moveAble = false;
+						Apps.Process.Processes[ProcessID].moveAble = false;
 						break;
 					case 1:
-						Process.Processes[ProcessID].moveAble = true;
+						Apps.Process.Processes[ProcessID].moveAble = true;
 						break;
 					default:
 						MessageBoxCreator.CreateMessageBox("Ra# Error", "MoveAble: " + mode + " not implemented!", MessageBoxCreator.MessageBoxIcon.error, 400);
@@ -109,23 +109,23 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Window
 			}
 			else if (arg1 == "posX")
 			{
-				int size = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
-				if (size < 0 || Explorer.screenSizeX < Process.Processes[ProcessID].X + size)
+				int size = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
+				if (size < 0 || Explorer.screenSizeX < Apps.Process.Processes[ProcessID].X + size)
 				{
 					MessageBoxCreator.CreateMessageBox("Ra# Error", "Cannot change window Window X Position", MessageBoxCreator.MessageBoxIcon.error, 500);
 					return;
 				}
-				Process.Processes[ProcessID].X = size;
+				Apps.Process.Processes[ProcessID].X = size;
 			}
 			else if (arg1 == "posY")
 			{
-				int size = GetInt.ReturnInt(ProcessID, com, Process.Processes[ProcessID].DataID);
-				if (size < 0 || Explorer.screenSizeY < Process.Processes[ProcessID].Y + size)
+				int size = GetInt.ReturnInt(ProcessID, com, Apps.Process.Processes[ProcessID].DataID);
+				if (size < 0 || Explorer.screenSizeY < Apps.Process.Processes[ProcessID].Y + size)
 				{
 					MessageBoxCreator.CreateMessageBox("Ra# Error", "Cannot change window Window Y Position", MessageBoxCreator.MessageBoxIcon.error, 500);
 					return;
 				}
-				Process.Processes[ProcessID].Y = size;
+				Apps.Process.Processes[ProcessID].Y = size;
 			}
 		}
 	}

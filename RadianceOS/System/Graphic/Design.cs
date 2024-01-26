@@ -71,9 +71,9 @@ namespace RadianceOS.System.Graphic
             }
             if(refresh)
             Explorer.UpdateIcons();
-            for (int i = 0; i < Process.Processes.Count; i++)
+            for (int i = 0; i < Apps.Process.Processes.Count; i++)
             {
-                Process.Processes[i].bitmapTop = null; //Change ttf title background color
+                Apps.Process.Processes[i].bitmapTop = null; //Change ttf title background color
 
 			}
 

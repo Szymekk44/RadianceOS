@@ -41,16 +41,16 @@ namespace RadianceOS.System.Graphic
 				{
 					if (ProcessID != -1)
 					{
-						if (Process.Processes[ProcessID].bitmapTop == null)
+						if (Apps.Process.Processes[ProcessID].bitmapTop == null)
 						{
 							Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 8, Y + 18);
 							int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
 							Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
-							Process.Processes[ProcessID].bitmapTop = tempBitmap;
+							Apps.Process.Processes[ProcessID].bitmapTop = tempBitmap;
 						}
 						else
 						{
-							Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
+							Explorer.CanvasMain.DrawImage(Apps.Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
 						}
 					}
 
@@ -65,16 +65,16 @@ namespace RadianceOS.System.Graphic
 				{
 					if (ProcessID != -1)
 					{
-						if (Process.Processes[ProcessID].bitmapTop == null)
+						if (Apps.Process.Processes[ProcessID].bitmapTop == null)
 						{
 							Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 8, Y + 18);
 							int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
 							Window.GetTempImage(X + 8, Y + 1, sizeX, 21, "Top");
-							Process.Processes[ProcessID].bitmapTop = tempBitmap;
+							Apps.Process.Processes[ProcessID].bitmapTop = tempBitmap;
 						}
 						else
 						{
-							Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
+							Explorer.CanvasMain.DrawImage(Apps.Process.Processes[ProcessID].bitmapTop, X + 8, Y + 1);
 						}
 					}
 
@@ -90,16 +90,16 @@ namespace RadianceOS.System.Graphic
 				{
 					if (ProcessID != -1)
 					{
-						if (Process.Processes[ProcessID].bitmapTop == null)
+						if (Apps.Process.Processes[ProcessID].bitmapTop == null)
 						{
 							Explorer.CanvasMain.DrawStringTTF(windowName, "UMB", Kernel.fontColor, 17, X + 4, Y + 18);
 							int sizeX = TTFManager.GetTTFWidth(windowName, "UMB", 17);
 							Window.GetTempImage(X + 4, Y + 1, sizeX, 21, "Top");
-							Process.Processes[ProcessID].bitmapTop = tempBitmap;
+							Apps.Process.Processes[ProcessID].bitmapTop = tempBitmap;
 						}
 						else
 						{
-							Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmapTop, X + 4, Y + 1);
+							Explorer.CanvasMain.DrawImage(Apps.Process.Processes[ProcessID].bitmapTop, X + 4, Y + 1);
 						}
 					}
 
@@ -196,7 +196,7 @@ namespace RadianceOS.System.Graphic
 
 		/*public static void RenderShadows(int x, int y, int width, int height, int radius, int ProcessID)
 		{
-			Process.Processes[ProcessID].shadowDown = new List<Color>(new Color[width*radius]);
+			Apps.Process.Processes[ProcessID].shadowDown = new List<Color>(new Color[width*radius]);
 			GetDownShadows(x,y,width, height, radius, ProcessID);
 		}
 
@@ -210,7 +210,7 @@ namespace RadianceOS.System.Graphic
 					float alpha = (float)distanceFromEdge / radius;
 					Color originalColor = Explorer.CanvasMain.GetPointColor(x + px, y + py);
 					Color shadowColor = Color.FromArgb((int)(originalColor.A * alpha), originalColor.R, originalColor.G, originalColor.B);
-					Process.Processes[ProcessID].shadowDown[py*width + px] = shadowColor;
+					Apps.Process.Processes[ProcessID].shadowDown[py*width + px] = shadowColor;
 				}
 			}
 		}*/
@@ -221,15 +221,15 @@ namespace RadianceOS.System.Graphic
             switch (customBitmap)
             {
                 case 0:
-					if (Process.Processes[ProcessID].bitmap != null)
+					if (Apps.Process.Processes[ProcessID].bitmap != null)
 						return;
 					break;
                 case 1:
-                    if (Process.Processes[ProcessID].bitmap2 != null)
+                    if (Apps.Process.Processes[ProcessID].bitmap2 != null)
                         return;
                     break;
                 case 2:
-                    if (Process.Processes[ProcessID].bitmap3 != null)
+                    if (Apps.Process.Processes[ProcessID].bitmap3 != null)
                         return;
                     break;
             }
@@ -286,13 +286,13 @@ namespace RadianceOS.System.Graphic
 					switch(customBitmap)
 					{
 						case 0:
-                            Process.Processes[ProcessID].bitmap = new Cosmos.System.Graphics.Bitmap(byteArray);
+                            Apps.Process.Processes[ProcessID].bitmap = new Cosmos.System.Graphics.Bitmap(byteArray);
 							break;
 						case 1:
-                            Process.Processes[ProcessID].bitmap2 = new Cosmos.System.Graphics.Bitmap(byteArray);
+                            Apps.Process.Processes[ProcessID].bitmap2 = new Cosmos.System.Graphics.Bitmap(byteArray);
 							break;
 						case 2:
-                            Process.Processes[ProcessID].bitmap3 = new Cosmos.System.Graphics.Bitmap(byteArray);
+                            Apps.Process.Processes[ProcessID].bitmap3 = new Cosmos.System.Graphics.Bitmap(byteArray);
 							break;
                     }
 				}

@@ -17,7 +17,7 @@ namespace RadianceOS.System.Apps
 		{
 			try
 			{
-				Window.DrawTop(index, X, Y, SizeX, Title, false, Process.Processes[index].closeAble, true, Process.Processes[index].closeAble);
+				Window.DrawTop(index, X, Y, SizeX, Title, false, Apps.Process.Processes[index].closeAble, true, Apps.Process.Processes[index].closeAble);
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY-25);
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y+25, SizeX, SizeY-25);
 				
@@ -34,9 +34,9 @@ namespace RadianceOS.System.Apps
 							StringsAcitons.DrawCenteredString(Button1, 100, X + SizeX - 125, Y + SizeY - 30, 15, Kernel.fontColor, Kernel.font18);
 							if(MouseManager.MouseState == MouseState.Left)
 							{
-								if (Process.Processes[index].tempBool)
-								closedWith[Process.Processes[index].DataID] = 1;
-								Process.Processes.RemoveAt(index);
+								if (Apps.Process.Processes[index].tempBool)
+								closedWith[Apps.Process.Processes[index].DataID] = 1;
+								Apps.Process.Processes.RemoveAt(index);
 							}
 						}
 						else
@@ -66,9 +66,9 @@ namespace RadianceOS.System.Apps
 							StringsAcitons.DrawCenteredString(Button2, 100, X + SizeX - 235, Y + SizeY - 30, 15, Kernel.fontColor, Kernel.font18);
 							if (MouseManager.MouseState == MouseState.Left)
 							{
-								if (Process.Processes[index].tempBool)
-									closedWith[Process.Processes[index].DataID] = 2;
-								Process.Processes.RemoveAt(index);
+								if (Apps.Process.Processes[index].tempBool)
+									closedWith[Apps.Process.Processes[index].DataID] = 2;
+								Apps.Process.Processes.RemoveAt(index);
 	
 							}
 						}

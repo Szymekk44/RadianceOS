@@ -22,11 +22,11 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 				string[] fragments = temp.Split("+");
 				finaleString = ReturnString(fragments, ProcessID, com);
 
-				RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.Add(paramets[1], finaleString);
+				RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.Add(paramets[1], finaleString);
 			}
 			else
 			{
-				RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.Add(paramets[1], "empt0x");
+				RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.Add(paramets[1], "empt0x");
 			}
 		}
 		public static string ReturnString(string[] paramets, int ProcessID, string com)
@@ -53,15 +53,15 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 								without = without.Replace(';', ' ');
 								without = without.Trim();
 							}
-							if (RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.ContainsKey(without))
+							if (RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.ContainsKey(without))
 							{
-								finaleString += RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[without].ToString();
+								finaleString += RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables[without].ToString();
 							}
 							else if (without == "Console.ReadLine()")
 							{
 								string temp = com.Trim();
 								RasWrite.ReadLine(ProcessID, temp.Substring(0, temp.IndexOf('=')));
-								RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[without] = "WaitForInput";
+								RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables[without] = "WaitForInput";
 								return "null";
 							}
 							else
@@ -94,9 +94,9 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 						without = without.Replace(';', ' ');
 						without = without.Trim();
 					}
-					if (RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.ContainsKey(fragments[0]))
+					if (RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.ContainsKey(fragments[0]))
 					{
-						finaleString += RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[fragments[0]].ToString();
+						finaleString += RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables[fragments[0]].ToString();
 					}
 					else if (without == "Console.ReadLine()")
 					{
@@ -115,7 +115,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 		public static void ChangeSrtingInput(int id, string varName, string varValue)
 		{
 			varName = varName.Trim();
-			RasExecuter.Data[Process.Processes[id].DataID].variables[varName] = InputSystem.CurrentString;
+			RasExecuter.Data[Apps.Process.Processes[id].DataID].variables[varName] = InputSystem.CurrentString;
 		}
 	}
 

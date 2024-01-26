@@ -25,15 +25,15 @@ namespace RadianceOS.System.Apps
             Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
             Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y + 25, 200, SizeY - 25);
 
-            Process.Processes[i].metaData = "Security Manager";
+            Apps.Process.Processes[i].metaData = "Security Manager";
 
-            if (Process.Processes[i].bitmap == null || !Initialised || RequestRerender)
+            if (Apps.Process.Processes[i].bitmap == null || !Initialised || RequestRerender)
             {
                 RenderPage(SelectedPage, X, Y, SizeX, SizeY, i);
                 Window.GetImage(X, Y, SizeX, SizeY, i, "Security Manager");
             }
             else
-                Explorer.CanvasMain.DrawImage(Process.Processes[i].bitmap, X, Y + 25);
+                Explorer.CanvasMain.DrawImage(Apps.Process.Processes[i].bitmap, X, Y + 25);
 
             RenderButtons(SelectedPage, X, Y, SizeX, SizeY, i, Explorer.Clicked);
 
@@ -44,11 +44,11 @@ namespace RadianceOS.System.Apps
                 if(Session.CurrentUserLevel == Session.UserLevel.User && InitLoop == 1)
                 {
                     MessageBoxCreator.CreateMessageBox("Security Manager", "You do not have permission to access Security Manager, attempting to elevate your permissions...", MessageBoxCreator.MessageBoxIcon.info, 875);
-                    Process.Processes[i].ProcessSecurityInfo = new Security.ProcessSecurityInfo("Security Manager", "RadianceOS Security Manager", "RadianceOS", true);
-                    Process.Processes[i].ProcessSecurityInfo.AttemptElevation(Process.Processes[i], (Security.UAC.UACResult? result) =>
+                    Apps.Process.Processes[i].ProcessSecurityInfo = new Security.ProcessSecurityInfo("Security Manager", "RadianceOS Security Manager", "RadianceOS", true);
+                    Apps.Process.Processes[i].ProcessSecurityInfo.AttemptElevation(Apps.Process.Processes[i], (Security.UAC.UACResult? result) =>
                     {
 
-                    }, (Security.UAC.UACResult? result) => { Process.Processes.RemoveAt(i); });
+                    }, (Security.UAC.UACResult? result) => { Apps.Process.Processes.RemoveAt(i); });
                     Session.ElevateUser(() =>
                     {
                         Initialised = true;
@@ -115,7 +115,7 @@ namespace RadianceOS.System.Apps
                                 SizeX = 600,
                                 SizeY = 200,
                             };
-                            Process.Processes.Add(processes);
+                            Apps.Process.Processes.Add(processes);
                         }
                     }
                     StringsAcitons.DrawCenteredString("Power options", 100, X + 210 + 100, Y + 20 + 35 + (15 * 6) + 3, 1, Color.White, Cosmos.System.Graphics.Fonts.PCScreenFont.Default);

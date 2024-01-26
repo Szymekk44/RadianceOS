@@ -202,21 +202,21 @@ namespace RadianceOS.System.Managment
 
 		public static void CallRename(int id)
 		{
-			Process.Processes[0].defaultLines = new List<string>();
+			Apps.Process.Processes[0].defaultLines = new List<string>();
 
-			Process.Processes[0].defaultLines.Add(Icons[id].Name);
+			Apps.Process.Processes[0].defaultLines.Add(Icons[id].Name);
 			InputSystem.SpecialCharracters = false;
 			InputSystem.AllowArrows = true;
 			InputSystem.AllowUpDown = false;
 			InputSystem.onlyNumbers = false;
 			InputSystem.allowDots = true;
-			Process.Processes[0].selected = true;
-			for (int i = 1; i < Process.Processes.Count; i++)
+			Apps.Process.Processes[0].selected = true;
+			for (int i = 1; i < Apps.Process.Processes.Count; i++)
 			{
-				Process.Processes[i].selected = false;
+				Apps.Process.Processes[i].selected = false;
 			}
 			InputSystem.CurrentString = Icons[id].Name;
-			Process.Processes[0].CurrChar = Icons[id].Name.Length;
+			Apps.Process.Processes[0].CurrChar = Icons[id].Name.Length;
 			firstName = Icons[id].FinaleName;
 			renaming = true;
 			renamingid = id;
@@ -227,7 +227,7 @@ namespace RadianceOS.System.Managment
 			deleting = true;
 			deletingid = id;
 			MessageBoxCreator.CreateMessageBox("Delete", "Are you sure you want to delete\n" + Icons[id].path, MessageBoxCreator.MessageBoxIcon.warning, 500,175, "Cancel", "Delete");
-			monitoreid = Process.Processes[Process.Processes.Count - 1].DataID;
+			monitoreid = Apps.Process.Processes[Apps.Process.Processes.Count - 1].DataID;
 		}
 
 		public static void MonitoreDelete(int fileID, int delID)
@@ -255,9 +255,9 @@ namespace RadianceOS.System.Managment
 
 		public static void Rename(int id)
 		{
-			Process.Processes[0].defaultLines[0] = InputSystem.CurrentString;
-			InputSystem.Monitore(7, Process.Processes[0].CurrChar, 0, 20);
-			string result = InputSystem.CurrentString.Substring(0, Process.Processes[0].CurrChar) + "|" + InputSystem.CurrentString.Substring(Process.Processes[0].CurrChar);
+			Apps.Process.Processes[0].defaultLines[0] = InputSystem.CurrentString;
+			InputSystem.Monitore(7, Apps.Process.Processes[0].CurrChar, 0, 20);
+			string result = InputSystem.CurrentString.Substring(0, Apps.Process.Processes[0].CurrChar) + "|" + InputSystem.CurrentString.Substring(Apps.Process.Processes[0].CurrChar);
 			Icons[id].Name = result;
 			if(lastName != Icons[id].Name)
 			{
@@ -296,8 +296,8 @@ namespace RadianceOS.System.Managment
 	
 			string temp = Icons[renamingid].Name.Replace("|", "");
 			InputSystem.CurrentString = temp;
-			Process.Processes[0].defaultLines[0] = temp;
-			Process.Processes[0].CurrChar = temp.Length;
+			Apps.Process.Processes[0].defaultLines[0] = temp;
+			Apps.Process.Processes[0].CurrChar = temp.Length;
 			int indexOfPipe = Icons[renamingid].Name.IndexOf('|');
 			if (indexOfPipe != -1)
 			{

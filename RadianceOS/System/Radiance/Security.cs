@@ -32,7 +32,7 @@ namespace RadianceOS.System.Radiance
             Kernel.loggedUser = folder_list[0];
             if(Kernel.render)
             {
-                Process.Processes.RemoveAt(1);
+                Apps.Process.Processes.RemoveAt(1);
 				Explorer.drawIcons = true;
 				DrawDesktopApps.UpdateIcons();
 				Explorer.DrawTaskbar = true;
@@ -164,16 +164,16 @@ namespace RadianceOS.System.Radiance
                                             Cosmos.System.Power.Reboot();
                                             break;
                                         case 2:
-                                            if (Process.Processes.Count > 1)
+                                            if (Apps.Process.Processes.Count > 1)
                                             {
-                                                int toKill = Process.Processes.Count - 1;
+                                                int toKill = Apps.Process.Processes.Count - 1;
 
-                                                for (int i = 0; i < Process.Processes.Count; i++)
+                                                for (int i = 0; i < Apps.Process.Processes.Count; i++)
                                                 {
-                                                    if (Process.Processes[i].selected)
+                                                    if (Apps.Process.Processes[i].selected)
                                                         toKill = i;
                                                 }
-                                                Process.Processes.RemoveAt(toKill);
+                                                Apps.Process.Processes.RemoveAt(toKill);
                                                 Kernel.Repair = false;
                                                 Kernel.render = true;
                                                 Explorer.DrawTaskbar = true;
@@ -181,18 +181,18 @@ namespace RadianceOS.System.Radiance
 
                                             break;
                                         case 3:
-                                            Process.Processes.RemoveAt(Process.Processes.Count - 1);
+                                            Apps.Process.Processes.RemoveAt(Apps.Process.Processes.Count - 1);
                                             Kernel.Repair = false;
                                             Kernel.render = true;
                                             Explorer.DrawTaskbar = true;
                                             break;
                                         case 4:
-                                            Process.Processes.Clear();
+                                            Apps.Process.Processes.Clear();
                                             Processes start = new Processes
                                             {
                                                 ID = -1,
                                             };
-                                            Process.Processes.Add(start);
+                                            Apps.Process.Processes.Add(start);
                                             Kernel.Repair = false;
                                             Kernel.render = true;
                                             Explorer.DrawTaskbar = true;

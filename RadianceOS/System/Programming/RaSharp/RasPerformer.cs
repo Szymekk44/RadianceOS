@@ -46,7 +46,7 @@ namespace RadianceOS.System.Programming.RaSharp
 				methodss = GetMethodIndices(temp);
 				if(methodss.ContainsKey("Start"))
 				{
-					Process.Processes.Add(RaScript);
+					Apps.Process.Processes.Add(RaScript);
 					RasData rasData = new RasData
 					{
 						Commands = Commands,
@@ -72,8 +72,8 @@ namespace RadianceOS.System.Programming.RaSharp
 						SizeY = 175,
 						moveAble = true
 					};
-					Process.Processes.Add(MessageBox);
-					Process.UpdateProcess(Process.Processes.Count - 1);
+					Apps.Process.Processes.Add(MessageBox);
+					Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 				}
 				
 			}
@@ -91,8 +91,8 @@ namespace RadianceOS.System.Programming.RaSharp
 					SizeY = 175,
 					moveAble = true
 				};
-				Process.Processes.Add(MessageBox);
-				Process.UpdateProcess(Process.Processes.Count - 1);
+				Apps.Process.Processes.Add(MessageBox);
+				Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 			}
 
 		}

@@ -15,16 +15,16 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 			if (paramets.Count() > 2)
 			{
 				string temp = com.Trim();
-				int finaleInt = ReturnInt(ProcessID,com,Process.Processes[ProcessID].DataID);
+				int finaleInt = ReturnInt(ProcessID,com,Apps.Process.Processes[ProcessID].DataID);
 
 
 				string VarName = temp.Substring(3, temp.IndexOf('=')-3);
 				VarName = VarName.Trim();
-				RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.Add(VarName, finaleInt);
+				RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.Add(VarName, finaleInt);
 			}
 			else
 			{
-				RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.Add(paramets[1], 0);
+				RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.Add(paramets[1], 0);
 			}
 		}
 
@@ -82,7 +82,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 					text = "Incorrect operations. There is no operation or the number of operations/operands is not even.",
 					color = Color.Red
 				};
-				Process.Processes[ProcessID].lines.Add(toReturn2);
+				Apps.Process.Processes[ProcessID].lines.Add(toReturn2);
 				return -1;
 			}
 
@@ -99,9 +99,9 @@ namespace RadianceOS.System.Programming.RaSharp2.Functions
 					else
 					{
 						operations[i] = operations[i].Trim();
-						if (RasExecuter.Data[Process.Processes[ProcessID].DataID].variables.ContainsKey(operations[i]))
+						if (RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables.ContainsKey(operations[i]))
 						{
-							tempOperands.Add(RasExecuter.Data[Process.Processes[ProcessID].DataID].variables[operations[i]].ToString());
+							tempOperands.Add(RasExecuter.Data[Apps.Process.Processes[ProcessID].DataID].variables[operations[i]].ToString());
 						}
 					}
 				}

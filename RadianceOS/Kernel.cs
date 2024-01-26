@@ -91,6 +91,8 @@ namespace RadianceOS
 		public static bool AllLoaded = false;
 		public static bool Root;
 
+		public static bool IsSleeping = false;
+
 		protected override void BeforeRun()
 		{
 			Console.OutputEncoding = Cosmos.System.ExtendedASCII.CosmosEncodingProvider.Instance.GetEncoding(437);

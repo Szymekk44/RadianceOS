@@ -30,25 +30,25 @@ namespace RadianceOS.System.Apps
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y + 25, 200, SizeY - 25);
 			//	Explorer.CanvasMain.DrawFilledRectangle(Color.Black, X + 2, Y + 27, SizeX - 4, SizeY - 29);
 			bool mouseClicked = false;
-			if (Process.Processes[index].tempBool)
+			if (Apps.Process.Processes[index].tempBool)
 			{
 				if (MouseManager.MouseState == MouseState.None)
 				{
-					Process.Processes[index].tempBool = false;
+					Apps.Process.Processes[index].tempBool = false;
 				}
 			}
 
-			if (MouseManager.MouseState == MouseState.Left && !Process.Processes[index].tempBool)
+			if (MouseManager.MouseState == MouseState.Left && !Apps.Process.Processes[index].tempBool)
 			{
 				mouseClicked = true;
-				Process.Processes[index].tempBool = true;
+				Apps.Process.Processes[index].tempBool = true;
 			}
 
 			DrawButton(0, Y + 25, X, SizeX, index, mouseClicked);
 			DrawButton(1, Y + 25, X, SizeX, index, mouseClicked);
 
 
-			switch (Process.Processes[index].tempInt)
+			switch (Apps.Process.Processes[index].tempInt)
 			{
 				case 0:
 					{
@@ -322,16 +322,16 @@ namespace RadianceOS.System.Apps
 		}
 		public static void DrawButton(int id, int y, int x, int sizeX, int index, bool clicked)
 		{
-			int curr = Process.Processes[index].tempInt;
+			int curr = Apps.Process.Processes[index].tempInt;
 			bool selected = false;
 			if (Explorer.MY >= y + (id * 40) && Explorer.MY <= y + (id * 40) + 40)
 			{
 				if (Explorer.MX >= x && Explorer.MX <= x + 200)
 				{
 					selected = true;
-					if (clicked && id != Process.Processes[index].tempInt)
+					if (clicked && id != Apps.Process.Processes[index].tempInt)
 					{
-						Process.Processes[index].tempInt = id;
+						Apps.Process.Processes[index].tempInt = id;
 						switch (id)
 						{
 							case 0:

@@ -73,9 +73,9 @@ namespace RadianceOS.System.Security
         {
             bool hasRSSP = false;
 
-            for (int i = 0; i < Process.Processes.Count; i++)
+            for (int i = 0; i < Apps.Process.Processes.Count; i++)
             {
-                Processes p = Process.Processes[i];
+                Processes p = Apps.Process.Processes[i];
                 // TODO: Once permissions implemented, go through and check everything's in check
 
                 if(p.ID == 101)
@@ -87,7 +87,7 @@ namespace RadianceOS.System.Security
 
             if (!hasRSSP && Session.IsAuthenticated)
             {
-                Process.Processes.Clear(); // Kill all apps
+                Apps.Process.Processes.Clear(); // Kill all apps
                 InitService();
                 MessageBoxCreator.CreateMessageBox("Radiance Security - Security Alert", "Something has occurred and the Radiance Security background process has been killed,\nRadiance Security (Explorer Built-In) has detected this and has taken measures to kill all running applications to\nprevent possible malware from executing further.", MessageBoxCreator.MessageBoxIcon.STOP, 1200);
                 ResetExplorer();
@@ -96,17 +96,17 @@ namespace RadianceOS.System.Security
 
         public static void PauseAllProcesses()
         {
-            for (int i = 0; i < Process.Processes.Count; i++)
+            for (int i = 0; i < Apps.Process.Processes.Count; i++)
             {
-                Process.Processes[i].hidden = true;
+                Apps.Process.Processes[i].hidden = true;
             }
         }
 
         public static void UnPauseAllProcesses()
         {
-            for (int i = 0; i < Process.Processes.Count; i++)
+            for (int i = 0; i < Apps.Process.Processes.Count; i++)
             {
-                Process.Processes[i].hidden = false;
+                Apps.Process.Processes[i].hidden = false;
             }
         }
 
@@ -129,7 +129,7 @@ namespace RadianceOS.System.Security
                 ID = 101
             };
 
-            Process.Processes.Add(service);
+            Apps.Process.Processes.Add(service);
         }
 
         static void ResetExplorer()

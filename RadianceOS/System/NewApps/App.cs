@@ -31,7 +31,7 @@ namespace RadianceOS.System.NewApps
             MinSize.Height = apprect.Height / 2;
             ui = new(apprect.Size);
             //process = new();
-            //Process.Processes.Add(process);
+            //Apps.Process.Processes.Add(process);
             this.appname = appname;
             Start();
 

@@ -275,8 +275,8 @@ namespace RadianceOS.System.Apps
 											SizeY = 200,
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox);
-										Process.UpdateProcess(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(MessageBox);
+										Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 										return;
 
 									}
@@ -397,7 +397,7 @@ namespace RadianceOS.System.Apps
 							case 8:
 								{
 
-									Process.Processes.RemoveAt(ProcessID);
+									Apps.Process.Processes.RemoveAt(ProcessID);
 										Kernel.diskReady = true;
 									Processes welcome = new Processes
 									{
@@ -409,7 +409,7 @@ namespace RadianceOS.System.Apps
 										SizeY = 305,
 										moveAble = true
 									};
-									Process.Processes.Add(welcome);
+									Apps.Process.Processes.Add(welcome);
 									Explorer.DrawTaskbar = true;
 									Security.LogIn();
 
@@ -439,14 +439,14 @@ namespace RadianceOS.System.Apps
 							}
 							else if(Progress == 7)
 							{
-								Process.Processes.Clear();
+								Apps.Process.Processes.Clear();
 								Kernel.diskReady = false;
 								Kernel.DiskError = new Bitmap(Files.disk);
 								Processes start = new Processes
 								{
 									ID = -1,
 								};
-								Process.Processes.Add(start);
+								Apps.Process.Processes.Add(start);
 								Processes MessageBox = new Processes
 								{
 									ID = 0,
@@ -459,8 +459,8 @@ namespace RadianceOS.System.Apps
 									SizeY = 200,
 									moveAble = true
 								};
-								Process.Processes.Add(MessageBox);
-									Process.UpdateProcess(Process.Processes.Count - 1);
+								Apps.Process.Processes.Add(MessageBox);
+									Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 								Processes MessageBox2 = new Processes
 								{
 									ID = 1,
@@ -473,8 +473,8 @@ namespace RadianceOS.System.Apps
 									SizeY = 500,
 									moveAble = true
 								};
-								Process.Processes.Add(MessageBox2);
-								Process.UpdateProcess(Process.Processes.Count - 1);
+								Apps.Process.Processes.Add(MessageBox2);
+								Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 								Explorer.DrawTaskbar = true;
 							}
 						}

@@ -17,10 +17,10 @@ namespace RadianceOS.System.Apps
 	{
 		public static void Render(int X, int Y, int SizeX, int SizeY,int i, List<String> texts)
 		{
-			if (Process.Processes[i].saved)
-				Window.DrawTop(i, X, Y, SizeX, "Notepad - " + Process.Processes[i].Name, true, true, false, true);
+			if (Apps.Process.Processes[i].saved)
+				Window.DrawTop(i, X, Y, SizeX, "Notepad - " + Apps.Process.Processes[i].Name, true, true, false, true);
 			else
-				Window.DrawTop(i, X, Y, SizeX, "Notepad - " + Process.Processes[i].Name + " *", true, true, false, true);
+				Window.DrawTop(i, X, Y, SizeX, "Notepad - " + Apps.Process.Processes[i].Name + " *", true, true, false, true);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY-25);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
 
@@ -28,7 +28,7 @@ namespace RadianceOS.System.Apps
 			DrawNotepadButton(0, X, Y, 60, i );
 
 			int minusSize = 50;
-			switch(Process.Processes[i].tempInt3)
+			switch(Apps.Process.Processes[i].tempInt3)
 			{
                 case 1:
                     minusSize = 70;
@@ -49,19 +49,19 @@ namespace RadianceOS.System.Apps
             }
 
 
-            int start = Process.Processes[i].StartLine;
+            int start = Apps.Process.Processes[i].StartLine;
 			if (texts.Count == 0)
-				Process.Processes[i].defaultLines.Add("");
-			if(Process.Processes[i].defaultLines.Count < (Process.Processes[i].SizeY - minusSize) / 18)
+				Apps.Process.Processes[i].defaultLines.Add("");
+			if(Apps.Process.Processes[i].defaultLines.Count < (Apps.Process.Processes[i].SizeY - minusSize) / 18)
 			{
-				for (int j = start; j < Process.Processes[i].defaultLines.Count; j++)
+				for (int j = start; j < Apps.Process.Processes[i].defaultLines.Count; j++)
 				{
 
-					if (j != Process.Processes[i].CurrLine)
+					if (j != Apps.Process.Processes[i].CurrLine)
 						Explorer.CanvasMain.DrawString(texts[j], Kernel.font18, Kernel.fontColor, X + 2, Y + minusSize+2 + ((j - start) * 18));
-					else if (Process.Processes[i].selected && !Process.Processes[i].saving)
+					else if (Apps.Process.Processes[i].selected && !Apps.Process.Processes[i].saving)
 					{
-						string result = texts[j].Substring(0, Process.Processes[i].CurrChar) + "|" + texts[j].Substring(Process.Processes[i].CurrChar);
+						string result = texts[j].Substring(0, Apps.Process.Processes[i].CurrChar) + "|" + texts[j].Substring(Apps.Process.Processes[i].CurrChar);
 						Explorer.CanvasMain.DrawString(result, Kernel.font18, Kernel.fontColor, X + 2, Y + minusSize + 2 + ((j - start) * 18));
 					}
 					else
@@ -70,15 +70,15 @@ namespace RadianceOS.System.Apps
 			}
 			else
 			{
-				for (int j = start; j < start+ (Process.Processes[i].SizeY - minusSize) / 18; j++)
+				for (int j = start; j < start+ (Apps.Process.Processes[i].SizeY - minusSize) / 18; j++)
 				{
 					if (j >= texts.Count)
 						break;
-					if (j != Process.Processes[i].CurrLine)
+					if (j != Apps.Process.Processes[i].CurrLine)
 						Explorer.CanvasMain.DrawString(texts[j], Kernel.font18, Color.White, X + 2, Y + minusSize + 2 + ((j - start) * 18));
-					else if (Process.Processes[i].selected && !Process.Processes[i].saving)
+					else if (Apps.Process.Processes[i].selected && !Apps.Process.Processes[i].saving)
 					{
-						string result = texts[j].Substring(0, Process.Processes[i].CurrChar) + "|" + texts[j].Substring(Process.Processes[i].CurrChar);
+						string result = texts[j].Substring(0, Apps.Process.Processes[i].CurrChar) + "|" + texts[j].Substring(Apps.Process.Processes[i].CurrChar);
 						Explorer.CanvasMain.DrawString(result, Kernel.font18, Color.White, X + 2, Y + minusSize + 2 + ((j - start) * 18));
 					}
 					else
@@ -86,17 +86,17 @@ namespace RadianceOS.System.Apps
 				}
 			}
 			
-			if (Process.Processes[i].selected)
+			if (Apps.Process.Processes[i].selected)
 			{
-				if (!Process.Processes[i].saving)
+				if (!Apps.Process.Processes[i].saving)
 				{
 					InputSystem.SpecialCharracters = true;
 					InputSystem.AllowArrows = true;
 					InputSystem.AllowUpDown = true;
-					InputSystem.Monitore(2, Process.Processes[i].CurrChar, i);
-					Process.Processes[i].tempInt2 = 0;
-					Process.Processes[i].defaultLines[Process.Processes[i].CurrLine] = InputSystem.CurrentString;
-					switch(Process.Processes[i].tempInt)
+					InputSystem.Monitore(2, Apps.Process.Processes[i].CurrChar, i);
+					Apps.Process.Processes[i].tempInt2 = 0;
+					Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine] = InputSystem.CurrentString;
+					switch(Apps.Process.Processes[i].tempInt)
 					{
 						case 1:
 							{
@@ -105,13 +105,13 @@ namespace RadianceOS.System.Apps
 							}
 							break;
 					}
-					if(Process.Processes[i].tempInt != 0 && Process.Processes[i].tempInt2 == 0)
+					if(Apps.Process.Processes[i].tempInt != 0 && Apps.Process.Processes[i].tempInt2 == 0)
 					{
 						if(!Explorer.Clicked)
 						{
 							if(MouseManager.MouseState == MouseState.Left)
 							{
-								Process.Processes[i].tempInt = 0;
+								Apps.Process.Processes[i].tempInt = 0;
 							}
 						}
 					}
@@ -123,31 +123,31 @@ namespace RadianceOS.System.Apps
 					InputSystem.AllowUpDown = false;
 					InputSystem.Monitore(3, 0, 0);
 
-					if (Process.Processes[i].tempBool)
+					if (Apps.Process.Processes[i].tempBool)
 					{
-						InputSystem.CurrentString = Process.Processes[i].temp;
-						Process.Processes[i].tempBool = false;
+						InputSystem.CurrentString = Apps.Process.Processes[i].temp;
+						Apps.Process.Processes[i].tempBool = false;
 					}
 
-					Process.Processes[i].temp = InputSystem.CurrentString;
+					Apps.Process.Processes[i].temp = InputSystem.CurrentString;
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.dark, X + (SizeX / 2) - 248, Y + (SizeY / 2) - 98, 500, 200);
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X + (SizeX / 2) - 250, Y + (SizeY / 2) - 100, 500, 200);
 					StringsAcitons.DrawCenteredString("Save File", 500, X + (SizeX / 2) - 240, Y + (SizeY / 2) - 100, 18, Color.White, Kernel.font18);
-					StringsAcitons.DrawCenteredString(">>> " + Process.Processes[i].temp + "|", 500, X + (SizeX / 2) - 240, Y + (SizeY / 2) - 60, 18, Color.White, Kernel.font18);
+					StringsAcitons.DrawCenteredString(">>> " + Apps.Process.Processes[i].temp + "|", 500, X + (SizeX / 2) - 240, Y + (SizeY / 2) - 60, 18, Color.White, Kernel.font18);
 					//	StringsAcitons.DrawCenteredString(@"path: 0:\Users\" + Kernel.loggedUser + @"\Desktop", 500, X + (SizeX / 2) - 240, Y + (SizeY / 2) - 20, 18, Color.White, Kernel.font18);
-					Process.Processes[i].tempInt = 0;
+					Apps.Process.Processes[i].tempInt = 0;
 
 				}
 
 
 			}
-			else if (Process.Processes[i].saving)
+			else if (Apps.Process.Processes[i].saving)
 			{
-				Process.Processes[i].saving = false;
-				Process.Processes[i].tempInt = 0;
+				Apps.Process.Processes[i].saving = false;
+				Apps.Process.Processes[i].tempInt = 0;
 			}
 			else
-				Process.Processes[i].tempInt = 0;
+				Apps.Process.Processes[i].tempInt = 0;
 
 
 		}
@@ -160,7 +160,7 @@ namespace RadianceOS.System.Apps
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X, Y, ButtonSizeX, 20);
 					if (MouseManager.MouseState == MouseState.Left)
 					{
-						Process.Processes[ProcessID].tempInt2 = 1;
+						Apps.Process.Processes[ProcessID].tempInt2 = 1;
 						switch (id)
 						{
 							case 0:
@@ -194,7 +194,7 @@ namespace RadianceOS.System.Apps
 						switch(id)
 						{
 							case 0:
-								Process.Processes[ProcessID].tempInt = 1;
+								Apps.Process.Processes[ProcessID].tempInt = 1;
 								break;
 						}
 					}
@@ -219,40 +219,40 @@ namespace RadianceOS.System.Apps
 
 		public static void enter()
 		{
-			for (int i = 0; i < Process.Processes.Count; i++)
+			for (int i = 0; i < Apps.Process.Processes.Count; i++)
 			{
-				if (Process.Processes[i].ID == 2)
+				if (Apps.Process.Processes[i].ID == 2)
 				{
-					if (Process.Processes[i].selected)
+					if (Apps.Process.Processes[i].selected)
 					{
-						int lineToAdd = Process.Processes[i].defaultLines.Count - 1;
+						int lineToAdd = Apps.Process.Processes[i].defaultLines.Count - 1;
 
-						//Batch.RunCommand(Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text, i);
+						//Batch.RunCommand(Apps.Process.Processes[i].lines[Apps.Process.Processes[i].lines.Count - 1].text, i);
 					
 				
-						Process.Processes[i].CurrLine++;
-						if (Process.Processes[i].defaultLines.Count >= (Process.Processes[i].SizeY - 50) / 18)
+						Apps.Process.Processes[i].CurrLine++;
+						if (Apps.Process.Processes[i].defaultLines.Count >= (Apps.Process.Processes[i].SizeY - 50) / 18)
 						{
-							Process.Processes[i].StartLine++;
+							Apps.Process.Processes[i].StartLine++;
 							
 						}
 						
-						if (Process.Processes[i].CurrLine > Process.Processes[i].defaultLines.Count)
+						if (Apps.Process.Processes[i].CurrLine > Apps.Process.Processes[i].defaultLines.Count)
 						{
 							
-							Process.Processes[i].defaultLines.Add("");
+							Apps.Process.Processes[i].defaultLines.Add("");
 
-							InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine -1].Substring(Process.Processes[i].CurrChar); //TU TRZEBA ZMIENIĆ!!1
-							Process.Processes[i].defaultLines[Process.Processes[i].CurrLine-1] = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine - 1].Remove(Process.Processes[i].CurrChar);
-							Process.Processes[i].CurrChar = 0;
+							InputSystem.CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine -1].Substring(Apps.Process.Processes[i].CurrChar); //TU TRZEBA ZMIENIĆ!!1
+							Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine-1] = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine - 1].Remove(Apps.Process.Processes[i].CurrChar);
+							Apps.Process.Processes[i].CurrChar = 0;
 						}
 						else
 						{
 							
-							Process.Processes[i].defaultLines.Insert(Process.Processes[i].CurrLine, "");
-							InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine - 1].Substring(Process.Processes[i].CurrChar); //TU TRZEBA ZMIENIĆ!!1
-							Process.Processes[i].defaultLines[Process.Processes[i].CurrLine - 1] = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine - 1].Remove(Process.Processes[i].CurrChar);
-							Process.Processes[i].CurrChar = 0;
+							Apps.Process.Processes[i].defaultLines.Insert(Apps.Process.Processes[i].CurrLine, "");
+							InputSystem.CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine - 1].Substring(Apps.Process.Processes[i].CurrChar); //TU TRZEBA ZMIENIĆ!!1
+							Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine - 1] = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine - 1].Remove(Apps.Process.Processes[i].CurrChar);
+							Apps.Process.Processes[i].CurrChar = 0;
 						}
 					}
 				}
@@ -263,49 +263,49 @@ namespace RadianceOS.System.Apps
 
 		public static void save()
 		{
-			for (int i = 0; i < Process.Processes.Count; i++)
+			for (int i = 0; i < Apps.Process.Processes.Count; i++)
 			{
-				if (Process.Processes[i].ID == 2)
+				if (Apps.Process.Processes[i].ID == 2)
 				{
-					if (Process.Processes[i].selected)
+					if (Apps.Process.Processes[i].selected)
 					{
-						if (Process.Processes[i].temp != null)
+						if (Apps.Process.Processes[i].temp != null)
 						{
-							if(Process.Processes[i].tempInt3 == 0 || Process.Processes[i].tempInt3 == 1)
+							if(Apps.Process.Processes[i].tempInt3 == 0 || Apps.Process.Processes[i].tempInt3 == 1)
 							{
-                                if (Process.Processes[i].temp.Contains(".txt") || Process.Processes[i].temp.Contains(".ras") || Process.Processes[i].temp.Contains("."))
+                                if (Apps.Process.Processes[i].temp.Contains(".txt") || Apps.Process.Processes[i].temp.Contains(".ras") || Apps.Process.Processes[i].temp.Contains("."))
                                 {
-                                    if (!Process.Processes[i].saved)
+                                    if (!Apps.Process.Processes[i].saved)
                                     {
                                         if (Kernel.diskReady)
                                         {
-                                            var file_stream = File.Create(Process.Processes[i].temp);
-                                            string[] pathArg = Process.Processes[i].temp.Split(@"\");
-                                            Process.Processes[i].Name = pathArg[pathArg.Length - 1];
+                                            var file_stream = File.Create(Apps.Process.Processes[i].temp);
+                                            string[] pathArg = Apps.Process.Processes[i].temp.Split(@"\");
+                                            Apps.Process.Processes[i].Name = pathArg[pathArg.Length - 1];
                                             file_stream.Close();
                                             string finaleString = "";
-                                            for (int j = 0; j < Process.Processes[i].defaultLines.Count; j++)
+                                            for (int j = 0; j < Apps.Process.Processes[i].defaultLines.Count; j++)
                                             {
-                                                finaleString += Process.Processes[i].defaultLines[j] + '\n';
+                                                finaleString += Apps.Process.Processes[i].defaultLines[j] + '\n';
                                             }
-                                            File.WriteAllText(Process.Processes[i].temp, finaleString);
+                                            File.WriteAllText(Apps.Process.Processes[i].temp, finaleString);
                                             DrawDesktopApps.UpdateIcons();
                                         }
                                         else
                                         {
                                             MessageBoxCreator.CreateMessageBox("Error", "Read only file system!\nPlease format your drive\nand create an account.", MessageBoxCreator.MessageBoxIcon.error, 400);
                                         }
-                                        Process.Processes[i].saved = true;
-                                        Process.Processes[i].saving = false;
-                                        InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
-                                        Process.Processes[i].tempInt = 0;
+                                        Apps.Process.Processes[i].saved = true;
+                                        Apps.Process.Processes[i].saving = false;
+                                        InputSystem.CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine];
+                                        Apps.Process.Processes[i].tempInt = 0;
 
                                     }
                                 }
                                 else
                                 {
-                                    Process.Processes[i].saving = true;
-                                    Process.Processes[i].tempBool = true;
+                                    Apps.Process.Processes[i].saving = true;
+                                    Apps.Process.Processes[i].tempBool = true;
 
                                 }
                             }
@@ -318,8 +318,8 @@ namespace RadianceOS.System.Apps
 						}
 						else
 						{
-							Process.Processes[i].saving = true;
-							Process.Processes[i].tempBool = true;
+							Apps.Process.Processes[i].saving = true;
+							Apps.Process.Processes[i].tempBool = true;
 						}
 
 					}
@@ -389,8 +389,8 @@ namespace RadianceOS.System.Apps
 				CurrChar = content[content.Length - 1].Length,
 				moveAble = true
 			};
-			Process.Processes.Add(MessageBox2);
-			Process.UpdateProcess(Process.Processes.Count - 1);
+			Apps.Process.Processes.Add(MessageBox2);
+			Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 
 		}
 

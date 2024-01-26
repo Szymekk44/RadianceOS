@@ -50,8 +50,8 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Draw
 				string font = GetString.ReturnString(paramets3, ProcessID, com);
 				string finale2 = "=" + paramets[2];
 				string finale3 = "=" + paramets[3];
-				int x = GetInt.ReturnInt(ProcessID, finale2, Process.Processes[ProcessID].DataID);
-				int y = GetInt.ReturnInt(ProcessID, finale3, Process.Processes[ProcessID].DataID);
+				int x = GetInt.ReturnInt(ProcessID, finale2, Apps.Process.Processes[ProcessID].DataID);
+				int y = GetInt.ReturnInt(ProcessID, finale3, Apps.Process.Processes[ProcessID].DataID);
 				if (x < 0)
 					x = 0;
 				if (y < 0)
@@ -80,7 +80,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Draw
 					Font = newFont,
 					posY = y + 25,
 				};
-				Process.Processes[ProcessID].RasData.text.Add(TextEl);
+				Apps.Process.Processes[ProcessID].RasData.text.Add(TextEl);
 			}
 			else if (arg1 == "textC")
 			{
@@ -115,7 +115,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Draw
 				string text = GetString.ReturnString(paramets2, ProcessID, com);
 				string font = GetString.ReturnString(paramets3, ProcessID, com);
 				string finale2 = "=" + paramets[2];
-				int y = GetInt.ReturnInt(ProcessID, finale2, Process.Processes[ProcessID].DataID);
+				int y = GetInt.ReturnInt(ProcessID, finale2, Apps.Process.Processes[ProcessID].DataID);
 				if (y < 0)
 					y = 0;
 				Font newFont = Kernel.font18;
@@ -148,7 +148,7 @@ namespace RadianceOS.System.Programming.RaSharp2.Commands.Draw
 					Font = newFont,
 					posY = y + 25,
 				};
-				Process.Processes[ProcessID].RasData.text.Add(TextEl);
+				Apps.Process.Processes[ProcessID].RasData.text.Add(TextEl);
 			}
 		}
 	}

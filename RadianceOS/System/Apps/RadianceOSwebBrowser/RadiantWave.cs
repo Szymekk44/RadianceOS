@@ -50,8 +50,8 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 					NetworkStream stream = client.GetStream();
 
 					string url = "szymekk.pl/RadianceOS/index.html";
-					Process.Processes[ProcessID].texts[0] = url;
-					Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
+					Apps.Process.Processes[ProcessID].texts[0] = url;
+					Apps.Process.Processes[ProcessID].CurrChar = Apps.Process.Processes[ProcessID].texts[0].Length;
 					sysStatus.DrawBusy("Requesting data");
 					string[] urlAddress = url.Split('/');
 					string webAddress = "";
@@ -112,7 +112,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
 
-			if(Process.Processes[ProcessID].bitmap == null)
+			if(Apps.Process.Processes[ProcessID].bitmap == null)
 			{
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
 				sysStatus.DrawBusy("Rendering page");
@@ -168,7 +168,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 				try
 				{
 					byte[] byteArray = fileHeader.Concat(pixelData).ToArray();
-					Process.Processes[ProcessID].bitmap = new Bitmap(byteArray);
+					Apps.Process.Processes[ProcessID].bitmap = new Bitmap(byteArray);
 				}
 				catch
 				{
@@ -183,35 +183,35 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 			{
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, 35);
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.shadow, X + 60, Y + 27, SizeX - 120, 29);
-				if(!Process.Processes[ProcessID].selected)
+				if(!Apps.Process.Processes[ProcessID].selected)
 				{
-					Explorer.CanvasMain.DrawString("http://" + Process.Processes[ProcessID].texts[0], Kernel.font18, Kernel.fontColor, X+65, Y+33);
+					Explorer.CanvasMain.DrawString("http://" + Apps.Process.Processes[ProcessID].texts[0], Kernel.font18, Kernel.fontColor, X+65, Y+33);
 				}
 				else
 				{
-					InputSystem.Monitore(5, Process.Processes[ProcessID].CurrChar, ProcessID);
+					InputSystem.Monitore(5, Apps.Process.Processes[ProcessID].CurrChar, ProcessID);
 					InputSystem.AllowArrows = true;
 					InputSystem.AllowUpDown = false;
 					InputSystem.SpecialCharracters = true;
-					Process.Processes[ProcessID].CurrLine = 0;
-					Process.Processes[ProcessID].texts[0] = InputSystem.CurrentString;
-					string result = Process.Processes[ProcessID].texts[0].Substring(0, Process.Processes[ProcessID].CurrChar) + "|" + Process.Processes[ProcessID].texts[0].Substring(Process.Processes[ProcessID].CurrChar);
+					Apps.Process.Processes[ProcessID].CurrLine = 0;
+					Apps.Process.Processes[ProcessID].texts[0] = InputSystem.CurrentString;
+					string result = Apps.Process.Processes[ProcessID].texts[0].Substring(0, Apps.Process.Processes[ProcessID].CurrChar) + "|" + Apps.Process.Processes[ProcessID].texts[0].Substring(Apps.Process.Processes[ProcessID].CurrChar);
 					Explorer.CanvasMain.DrawString("http://" + result, Kernel.font18, Kernel.fontColor, X + 65, Y + 33);
 				}
-				Explorer.CanvasMain.DrawImage(Process.Processes[ProcessID].bitmap, X, Y+60);
-				for (int i = 0; i < Process.Processes[ProcessID].webData.elements.Count; i++)
+				Explorer.CanvasMain.DrawImage(Apps.Process.Processes[ProcessID].bitmap, X, Y+60);
+				for (int i = 0; i < Apps.Process.Processes[ProcessID].webData.elements.Count; i++)
 				{
 					if(MouseManager.MouseState == MouseState.Left && !Explorer.Clicked)
 					{
-						if (Explorer.MX > Process.Processes[ProcessID].webData.elements[i].x + X && Explorer.MX < Process.Processes[ProcessID].webData.elements[i].x + Process.Processes[ProcessID].webData.elements[i].SizeX + X)
+						if (Explorer.MX > Apps.Process.Processes[ProcessID].webData.elements[i].x + X && Explorer.MX < Apps.Process.Processes[ProcessID].webData.elements[i].x + Apps.Process.Processes[ProcessID].webData.elements[i].SizeX + X)
 						{
-							if (Explorer.MY > Process.Processes[ProcessID].webData.elements[i].y + Y && Explorer.MY < Process.Processes[ProcessID].webData.elements[i].y + Process.Processes[ProcessID].webData.elements[i].SizeY + Y)
+							if (Explorer.MY > Apps.Process.Processes[ProcessID].webData.elements[i].y + Y && Explorer.MY < Apps.Process.Processes[ProcessID].webData.elements[i].y + Apps.Process.Processes[ProcessID].webData.elements[i].SizeY + Y)
 							{
-								if (Process.Processes[ProcessID].webData.elements[i].url != Process.Processes[ProcessID].texts[0])
+								if (Apps.Process.Processes[ProcessID].webData.elements[i].url != Apps.Process.Processes[ProcessID].texts[0])
 								{
-									if(!Process.Processes[ProcessID].webData.elements[i].download)
+									if(!Apps.Process.Processes[ProcessID].webData.elements[i].download)
 									{
-										string newUrl = Process.Processes[ProcessID].webData.elements[i].url;
+										string newUrl = Apps.Process.Processes[ProcessID].webData.elements[i].url;
 										if (newUrl.StartsWith("https"))
 										{
 											MessageBoxCreator.CreateMessageBox("RadiantWave", "RadiantWave does not support HTTPS connections\nTrying to connect via http", MessageBoxCreator.MessageBoxIcon.warning, 550);
@@ -230,7 +230,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 									else
 									{
 
-										string newUrl = Process.Processes[ProcessID].webData.elements[i].url;
+										string newUrl = Apps.Process.Processes[ProcessID].webData.elements[i].url;
 										if (newUrl.StartsWith("https"))
 										{
 											MessageBoxCreator.CreateMessageBox("RadiantWave", "RadiantWave does not support HTTPS connections\nTrying to connect via http", MessageBoxCreator.MessageBoxIcon.warning, 550);
@@ -290,7 +290,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 											{
 												string headers = responseParts[0];
 												string content = responseParts[1];
-												Process.Processes[ProcessID].temp = content;
+												Apps.Process.Processes[ProcessID].temp = content;
 											}
 								
 
@@ -336,10 +336,10 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 		{
 			try
 			{
-				Process.Processes[ProcessID].bitmap = null;
+				Apps.Process.Processes[ProcessID].bitmap = null;
 				InputSystem.CurrentString = url;
-				Process.Processes[ProcessID].texts[0] = url;
-				Process.Processes[ProcessID].CurrChar = Process.Processes[ProcessID].texts[0].Length;
+				Apps.Process.Processes[ProcessID].texts[0] = url;
+				Apps.Process.Processes[ProcessID].CurrChar = Apps.Process.Processes[ProcessID].texts[0].Length;
 				sysStatus.DrawBusy("Requesting http data");
 				string[] urlAddress = url.Split('/');
 				string webAddress = "";
@@ -390,7 +390,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 						document = new();
 						document.LoadHtml(content);
 
-						Process.Processes[ProcessID].temp = content;
+						Apps.Process.Processes[ProcessID].temp = content;
 			
 					}
 					else
@@ -419,7 +419,7 @@ namespace RadianceOS.System.Apps.RadianceOSwebBrowser
 					stream.Close();
 				}
 				
-				Process.Processes[ProcessID].selected = false;
+				Apps.Process.Processes[ProcessID].selected = false;
 				HtmlRender2.resources.Clear();
 
 				HtmlRender2.AddResource(@"skk.png", Kernel.skk);

@@ -14,18 +14,18 @@ namespace RadianceOS.System.Programming.RaSharp
 	{
 		public static void Render(int ProcessID)
 		{
-			if (!RasPerformer.Data[Process.Processes[ProcessID].tempInt].inGraphic)
+			if (!RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].inGraphic)
 			{
-				if(!RasPerformer.Data[Process.Processes[ProcessID].tempInt].GetInput)
+				if(!RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].GetInput)
 				{
-					if (RasPerformer.Data[Process.Processes[ProcessID].tempInt].CurrLine < RasPerformer.Data[Process.Processes[ProcessID].tempInt].Commands.Length - 1)
+					if (RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].CurrLine < RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].Commands.Length - 1)
 					{
-						RasInvoker.RunCommand(RasPerformer.Data[Process.Processes[ProcessID].tempInt].Commands[RasPerformer.Data[Process.Processes[ProcessID].tempInt].CurrLine], Process.Processes[ProcessID].tempInt, ProcessID);
-						RasPerformer.Data[Process.Processes[ProcessID].tempInt].CurrLine++;
+						RasInvoker.RunCommand(RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].Commands[RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].CurrLine], Apps.Process.Processes[ProcessID].tempInt, ProcessID);
+						RasPerformer.Data[Apps.Process.Processes[ProcessID].tempInt].CurrLine++;
 					}
 				}
 				
-				RenderConsole(ProcessID, Process.Processes[ProcessID].tempInt);
+				RenderConsole(ProcessID, Apps.Process.Processes[ProcessID].tempInt);
 				
 			}
 		}
@@ -33,11 +33,11 @@ namespace RadianceOS.System.Programming.RaSharp
 		public static void RenderConsole(int i, int DataID)
 		{
 			List<TextColor> texts = RasPerformer.Data[DataID].output;
-			int X = Process.Processes[i].X;
-			int Y = Process.Processes[i].Y;
-			int SizeX = Process.Processes[i].SizeX;
-			int SizeY = Process.Processes[i].SizeY;
-			Window.DrawTop(i,X, Y, SizeX, Process.Processes[i].Name);
+			int X = Apps.Process.Processes[i].X;
+			int Y = Apps.Process.Processes[i].Y;
+			int SizeX = Apps.Process.Processes[i].SizeX;
+			int SizeY = Apps.Process.Processes[i].SizeY;
+			Window.DrawTop(i,X, Y, SizeX, Apps.Process.Processes[i].Name);
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
 
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
@@ -53,23 +53,23 @@ namespace RadianceOS.System.Programming.RaSharp
 			{
 				if (j + 1 < texts.Count)
 					Explorer.CanvasMain.DrawString(texts[j].text, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
-				else if (Process.Processes[i].selected && RasPerformer.Data[Process.Processes[i].tempInt].GetInput)
+				else if (Apps.Process.Processes[i].selected && RasPerformer.Data[Apps.Process.Processes[i].tempInt].GetInput)
 				{
-					string result = texts[j].text.Substring(0, Process.Processes[i].CurrChar) + "_" + texts[j].text.Substring(Process.Processes[i].CurrChar);
+					string result = texts[j].text.Substring(0, Apps.Process.Processes[i].CurrChar) + "_" + texts[j].text.Substring(Apps.Process.Processes[i].CurrChar);
 					Explorer.CanvasMain.DrawString(result, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
 				}
 				else
 					Explorer.CanvasMain.DrawString(texts[j].text, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
 			}
-			if (Process.Processes[i].selected && RasPerformer.Data[Process.Processes[i].tempInt].GetInput)
+			if (Apps.Process.Processes[i].selected && RasPerformer.Data[Apps.Process.Processes[i].tempInt].GetInput)
 			{
 
-				InputSystem.Monitore(4, Process.Processes[i].CurrChar, i);
+				InputSystem.Monitore(4, Apps.Process.Processes[i].CurrChar, i);
 				InputSystem.SpecialCharracters = true;
 				InputSystem.AllowArrows = true;
 				InputSystem.AllowUpDown = false;
-				//Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text = InputSystem.CurrentString;
-				 RasPerformer.Data[Process.Processes[i].tempInt].output[RasPerformer.Data[Process.Processes[i].tempInt].output.Count - 1].text = InputSystem.CurrentString;
+				//Apps.Process.Processes[i].lines[Apps.Process.Processes[i].lines.Count - 1].text = InputSystem.CurrentString;
+				 RasPerformer.Data[Apps.Process.Processes[i].tempInt].output[RasPerformer.Data[Apps.Process.Processes[i].tempInt].output.Count - 1].text = InputSystem.CurrentString;
 			}
 		}
 	}

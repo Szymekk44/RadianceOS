@@ -144,27 +144,27 @@ namespace RadianceOS.System.Apps
 			{
 				if (!Kernel.diskReady)
 					CanvasMain.DrawString("RadianceOS is not fully installed on this PC!", Kernel.font16, Color.Gray, (int)Explorer.screenSizeX - 275, (int)Explorer.screenSizeY - 20);
-				for (int i = 0; i < Process.Processes.Count; i++)
+				for (int i = 0; i < Apps.Process.Processes.Count; i++)
 				{
-					if (i >= Process.Processes.Count)
+					if (i >= Apps.Process.Processes.Count)
 						break;
-					if (Process.Processes[i].hidden)
+					if (Apps.Process.Processes[i].hidden)
 						continue;
-					switch (Process.Processes[i].ID)
+					switch (Apps.Process.Processes[i].ID)
 					{
 						case 0:
 							string button1 = "OK", button2 = null;
-							if(Process.Processes[i].defaultLines.Count > 1)
+							if(Apps.Process.Processes[i].defaultLines.Count > 1)
 							{
-								button1 = Process.Processes[i].defaultLines[0];
-								button2 = Process.Processes[i].defaultLines[1];
+								button1 = Apps.Process.Processes[i].defaultLines[0];
+								button2 = Apps.Process.Processes[i].defaultLines[1];
 							}
-							else if (Process.Processes[i].defaultLines.Count > 0)
-								button1 = Process.Processes[i].defaultLines[0];
-							MessageBox.Render(Process.Processes[i].Name, Process.Processes[i].texts, Process.Processes[i].metaData, Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, button1, button2);
+							else if (Apps.Process.Processes[i].defaultLines.Count > 0)
+								button1 = Apps.Process.Processes[i].defaultLines[0];
+							MessageBox.Render(Apps.Process.Processes[i].Name, Apps.Process.Processes[i].texts, Apps.Process.Processes[i].metaData, Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i, button1, button2);
 							break;
 						case 1:
-							if (Process.Processes[i].lines.Count == 0)
+							if (Apps.Process.Processes[i].lines.Count == 0)
 							{
 								TextColor empty = new TextColor
 								{
@@ -172,55 +172,55 @@ namespace RadianceOS.System.Apps
 									color = Color.White,
 								};
 
-								Process.Processes[i].lines.Add(empty);
+								Apps.Process.Processes[i].lines.Add(empty);
 
 							}
-							Terminal.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, Process.Processes[i].lines);
+							Terminal.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i, Apps.Process.Processes[i].lines);
 
 							break;
 						case 2:
-							Notepad.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, Process.Processes[i].defaultLines);
+							Notepad.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i, Apps.Process.Processes[i].defaultLines);
 							break;
 						case 3:
 							RasRender.Render(i);
 							break;
 						case 4:
 							// Rendering the new Login window, keeping the old one, just in case.
-							//Login.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							//Login.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							Security.Auth.LoginScreen.Render(0, 0, (int)screenSizeX, (int)screenSizeY, i);
 							break;
 						case 5:
-							Settings.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							Settings.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 6:
-							Snake.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, Process.Processes[i].fragments, Process.Processes[i].fragments2);
+							Snake.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i, Apps.Process.Processes[i].fragments, Apps.Process.Processes[i].fragments2);
 							break;
 						case 7:
-							SystemInfo.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i, Process.Processes[i].tempBool);
+							SystemInfo.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i, Apps.Process.Processes[i].tempBool);
 							break;
 						case 8:
-							RadiantWave.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							RadiantWave.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 9:
-							Welcome.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							Welcome.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 10:
-							FileExplorer.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							FileExplorer.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 11:
-							Information.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							Information.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 12:
-							RasExecuter.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							RasExecuter.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 13:
-							SecurityManager.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							SecurityManager.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 99:
-							PowerOptions.Render(Process.Processes[i].X, Process.Processes[i].Y, Process.Processes[i].SizeX, Process.Processes[i].SizeY, i);
+							PowerOptions.Render(Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, Apps.Process.Processes[i].SizeX, Apps.Process.Processes[i].SizeY, i);
 							break;
 						case 100:
-							NewInstallator.Render(i, Process.Processes[i].tempInt, Process.Processes[i].X, Process.Processes[i].Y, 800, 500, Process.Processes[i].tempBool);
+							NewInstallator.Render(i, Apps.Process.Processes[i].tempInt, Apps.Process.Processes[i].X, Apps.Process.Processes[i].Y, 800, 500, Apps.Process.Processes[i].tempBool);
 							break;
 						case 101:
 							Security.Service.Update(i);
@@ -252,29 +252,29 @@ namespace RadianceOS.System.Apps
 				{
 
 					ClickedOnWindow = false;
-					for (int i = 0; i < Process.Processes.Count; i++)
+					for (int i = 0; i < Apps.Process.Processes.Count; i++)
 					{
-						if (i >= Process.Processes.Count)
+						if (i >= Apps.Process.Processes.Count)
 							return;
-						if (!Process.Processes[i].moveAble)
+						if (!Apps.Process.Processes[i].moveAble)
 							continue;
-						if (Process.Processes[i].hidden)
+						if (Apps.Process.Processes[i].hidden)
 							continue;
-						if (MX - 3 >= Process.Processes[i].X && MX + 3 <= Process.Processes[i].X + Process.Processes[i].SizeX)
+						if (MX - 3 >= Apps.Process.Processes[i].X && MX + 3 <= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX)
 						{
-							if (MY - 3 >= Process.Processes[i].Y && MY + 3 <= Process.Processes[i].Y + 25)
+							if (MY - 3 >= Apps.Process.Processes[i].Y && MY + 3 <= Apps.Process.Processes[i].Y + 25)
 							{
 								ClickedIndex = i;
 								ClickedOnWindow = true;
-								OldX = MX - Process.Processes[i].X;
-								OldY = MY - Process.Processes[i].Y;
+								OldX = MX - Apps.Process.Processes[i].X;
+								OldY = MY - Apps.Process.Processes[i].Y;
 								//CLOSING
-								if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 38 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 8 && Process.Processes[i].closeAble)
+								if (MX >= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 38 && MX <= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 8 && Apps.Process.Processes[i].closeAble)
 								{
 
-									if (Process.Processes[i].ID == 5)
+									if (Apps.Process.Processes[i].ID == 5)
 									{
-										if (Process.Processes[i].tempInt == 1)
+										if (Apps.Process.Processes[i].tempInt == 1)
 										{
 											Settings.resouresLoaded--;
 											if (Settings.resouresLoaded <= 0)
@@ -285,7 +285,7 @@ namespace RadianceOS.System.Apps
 									}
 									int scanId = 0;
 
-									switch (Process.Processes[i].ID)
+									switch (Apps.Process.Processes[i].ID)
 									{
 										case 6:
 											scanId = 1;
@@ -295,7 +295,7 @@ namespace RadianceOS.System.Apps
 											break;
 									}
 
-									Process.Processes.RemoveAt(i);
+									Apps.Process.Processes.RemoveAt(i);
 									bool found = false;
 									if (scanId != 0)
 									{
@@ -303,9 +303,9 @@ namespace RadianceOS.System.Apps
 										{
 											case 1:
 												{
-													for (int j = 0; j < Process.Processes.Count; j++)
+													for (int j = 0; j < Apps.Process.Processes.Count; j++)
 													{
-														switch (Process.Processes[j].ID)
+														switch (Apps.Process.Processes[j].ID)
 														{
 															case 6:
 																found = true;
@@ -332,47 +332,47 @@ namespace RadianceOS.System.Apps
 									}
 									return;
 								}
-								else if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
+								else if (MX >= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 68 && MX <= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 40)
 								{
-									if (Process.Processes[i].sizeAble)
+									if (Apps.Process.Processes[i].sizeAble)
 									{
-										if (!Process.Processes[i].maximized)
+										if (!Apps.Process.Processes[i].maximized)
 										{
-											Process.Processes[i].maximized = true;
-											Process.Processes[i].notMaxX = Process.Processes[i].SizeX;
-											Process.Processes[i].notMaxY = Process.Processes[i].SizeY;
-											Process.Processes[i].X = 0;
-											Process.Processes[i].Y = 0;
-											Process.Processes[i].SizeX = (int)screenSizeX;
-											Process.Processes[i].SizeY = (int)screenSizeY - TaskBarHeight;
+											Apps.Process.Processes[i].maximized = true;
+											Apps.Process.Processes[i].notMaxX = Apps.Process.Processes[i].SizeX;
+											Apps.Process.Processes[i].notMaxY = Apps.Process.Processes[i].SizeY;
+											Apps.Process.Processes[i].X = 0;
+											Apps.Process.Processes[i].Y = 0;
+											Apps.Process.Processes[i].SizeX = (int)screenSizeX;
+											Apps.Process.Processes[i].SizeY = (int)screenSizeY - TaskBarHeight;
 											ClickedOnWindow = false;
 										}
 										else
 										{
-											Process.Processes[i].maximized = false;
-											Process.Processes[i].SizeX = Process.Processes[i].notMaxX;
-											Process.Processes[i].SizeY = Process.Processes[i].notMaxY;
-											Process.Processes[i].X = (int)screenSizeX - Process.Processes[i].SizeX;
-											Process.Processes[i].Y = 0;
+											Apps.Process.Processes[i].maximized = false;
+											Apps.Process.Processes[i].SizeX = Apps.Process.Processes[i].notMaxX;
+											Apps.Process.Processes[i].SizeY = Apps.Process.Processes[i].notMaxY;
+											Apps.Process.Processes[i].X = (int)screenSizeX - Apps.Process.Processes[i].SizeX;
+											Apps.Process.Processes[i].Y = 0;
 											ClickedOnWindow = false;
 										}
 									}
 									
 								}
-								if (Process.Processes[i].hideAble)
+								if (Apps.Process.Processes[i].hideAble)
 								{
-									if (Process.Processes[i].sizeAble)
+									if (Apps.Process.Processes[i].sizeAble)
 									{
-										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
+										if (MX >= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 96 && MX <= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 68)
 										{
-											Process.Processes[i].hidden = true;
+											Apps.Process.Processes[i].hidden = true;
 										}
 									}
 									else
 									{
-										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
+										if (MX >= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 68 && MX <= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 40)
 										{
-											Process.Processes[i].hidden = true;
+											Apps.Process.Processes[i].hidden = true;
 										}
 									}
 								}
@@ -384,20 +384,20 @@ namespace RadianceOS.System.Apps
 
 
 							//SELECTING
-							switch (Process.Processes[i].ID)
+							switch (Apps.Process.Processes[i].ID)
 							{
 								case 1:
 									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										if (MY >= Apps.Process.Processes[i].Y + 25 && MY <= Apps.Process.Processes[i].Y + 25 + Apps.Process.Processes[i].SizeY)
 										{
-											if (!Process.Processes[i].selected)
+											if (!Apps.Process.Processes[i].selected)
 											{
-												for (int j = 0; j < Process.Processes.Count; j++)
+												for (int j = 0; j < Apps.Process.Processes.Count; j++)
 												{
-													Process.Processes[j].selected = false;
+													Apps.Process.Processes[j].selected = false;
 												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
+												Apps.Process.Processes[i].selected = true;
+												InputSystem.CurrentString = Apps.Process.Processes[i].lines[Apps.Process.Processes[i].lines.Count - 1].text;
 											}
 
 										}
@@ -405,16 +405,16 @@ namespace RadianceOS.System.Apps
 									break;
 								case 2:
 									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										if (MY >= Apps.Process.Processes[i].Y + 25 && MY <= Apps.Process.Processes[i].Y + 25 + Apps.Process.Processes[i].SizeY)
 										{
-											if (!Process.Processes[i].selected)
+											if (!Apps.Process.Processes[i].selected)
 											{
-												for (int j = 0; j < Process.Processes.Count; j++)
+												for (int j = 0; j < Apps.Process.Processes.Count; j++)
 												{
-													Process.Processes[j].selected = false;
+													Apps.Process.Processes[j].selected = false;
 												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
+												Apps.Process.Processes[i].selected = true;
+												InputSystem.CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine];
 											}
 
 										}
@@ -422,16 +422,16 @@ namespace RadianceOS.System.Apps
 									break;
 								case 3:
 									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										if (MY >= Apps.Process.Processes[i].Y + 25 && MY <= Apps.Process.Processes[i].Y + 25 + Apps.Process.Processes[i].SizeY)
 										{
-											if (!Process.Processes[i].selected)
+											if (!Apps.Process.Processes[i].selected)
 											{
-												for (int j = 0; j < Process.Processes.Count; j++)
+												for (int j = 0; j < Apps.Process.Processes.Count; j++)
 												{
-													Process.Processes[j].selected = false;
+													Apps.Process.Processes[j].selected = false;
 												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = RasPerformer.Data[Process.Processes[i].tempInt].output[RasPerformer.Data[Process.Processes[i].tempInt].output.Count - 1].text;
+												Apps.Process.Processes[i].selected = true;
+												InputSystem.CurrentString = RasPerformer.Data[Apps.Process.Processes[i].tempInt].output[RasPerformer.Data[Apps.Process.Processes[i].tempInt].output.Count - 1].text;
 											}
 
 										}
@@ -439,16 +439,16 @@ namespace RadianceOS.System.Apps
 									break;
 								case 6:
 									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										if (MY >= Apps.Process.Processes[i].Y + 25 && MY <= Apps.Process.Processes[i].Y + 25 + Apps.Process.Processes[i].SizeY)
 										{
-											if (!Process.Processes[i].selected)
+											if (!Apps.Process.Processes[i].selected)
 											{
-												for (int j = 0; j < Process.Processes.Count; j++)
+												for (int j = 0; j < Apps.Process.Processes.Count; j++)
 												{
-													Process.Processes[j].selected = false;
+													Apps.Process.Processes[j].selected = false;
 												}
-												Process.Processes[i].selected = true;
-												Process.Processes[i].tempInt2 = 0;
+												Apps.Process.Processes[i].selected = true;
+												Apps.Process.Processes[i].tempInt2 = 0;
 											}
 
 										}
@@ -456,16 +456,16 @@ namespace RadianceOS.System.Apps
 									break;
 								case 8:
 									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										if (MY >= Apps.Process.Processes[i].Y + 25 && MY <= Apps.Process.Processes[i].Y + 25 + Apps.Process.Processes[i].SizeY)
 										{
-											if (!Process.Processes[i].selected)
+											if (!Apps.Process.Processes[i].selected)
 											{
-												for (int j = 0; j < Process.Processes.Count; j++)
+												for (int j = 0; j < Apps.Process.Processes.Count; j++)
 												{
-													Process.Processes[j].selected = false;
+													Apps.Process.Processes[j].selected = false;
 												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = Process.Processes[i].texts[0];
+												Apps.Process.Processes[i].selected = true;
+												InputSystem.CurrentString = Apps.Process.Processes[i].texts[0];
 											}
 
 										}
@@ -473,17 +473,17 @@ namespace RadianceOS.System.Apps
 									break;
 								case 12:
 									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+										if (MY >= Apps.Process.Processes[i].Y + 25 && MY <= Apps.Process.Processes[i].Y + 25 + Apps.Process.Processes[i].SizeY)
 										{
-											if (!Process.Processes[i].selected)
+											if (!Apps.Process.Processes[i].selected)
 											{
-												for (int j = 0; j < Process.Processes.Count; j++)
+												for (int j = 0; j < Apps.Process.Processes.Count; j++)
 												{
-													Process.Processes[j].selected = false;
+													Apps.Process.Processes[j].selected = false;
 												}
-												Process.Processes[i].selected = true;
-												//InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
-												InputSystem.CurrentString = Process.Processes[i].RasData.lines[Process.Processes[i].RasData.lines.Count - 1].text;
+												Apps.Process.Processes[i].selected = true;
+												//InputSystem.CurrentString = Apps.Process.Processes[i].lines[Apps.Process.Processes[i].lines.Count - 1].text;
+												InputSystem.CurrentString = Apps.Process.Processes[i].RasData.lines[Apps.Process.Processes[i].RasData.lines.Count - 1].text;
 											}
 
 										}
@@ -492,25 +492,25 @@ namespace RadianceOS.System.Apps
 							}
 						}
 
-						if (Process.Processes[i].sizeAble)
+						if (Apps.Process.Processes[i].sizeAble)
 						{
-							if (MY + 5 > Process.Processes[i].Y && MY - 5 < Process.Processes[i].Y + Process.Processes[i].SizeY)
+							if (MY + 5 > Apps.Process.Processes[i].Y && MY - 5 < Apps.Process.Processes[i].Y + Apps.Process.Processes[i].SizeY)
 							{
-								if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 5 && MX < Process.Processes[i].X + Process.Processes[i].SizeX + 5)
+								if (MX >= Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX - 5 && MX < Apps.Process.Processes[i].X + Apps.Process.Processes[i].SizeX + 5)
 								{
 									scalingX = true;
 									scalingXleft = false;
 									scalingY = false;
 									ClickedIndex = i;
 								}
-								else if (MX >= Process.Processes[i].X - 5 && MX < Process.Processes[i].X + 5)
+								else if (MX >= Apps.Process.Processes[i].X - 5 && MX < Apps.Process.Processes[i].X + 5)
 								{
 									scalingXleft = true;
 									scalingX = false;
 									scalingY = false;
 									ClickedIndex = i;
 								}
-								else if (MY >= Process.Processes[i].Y + Process.Processes[i].SizeY - 5 && MY < Process.Processes[i].Y + Process.Processes[i].SizeY + 5)
+								else if (MY >= Apps.Process.Processes[i].Y + Apps.Process.Processes[i].SizeY - 5 && MY < Apps.Process.Processes[i].Y + Apps.Process.Processes[i].SizeY + 5)
 								{
 									scalingX = false;
 									scalingXleft = false;
@@ -535,55 +535,55 @@ namespace RadianceOS.System.Apps
 				}
 				else if (ClickedOnWindow)
 				{
-					if (Process.Processes[ClickedIndex].maximized)
+					if (Apps.Process.Processes[ClickedIndex].maximized)
 					{
-						Process.Processes[ClickedIndex].maximized = false;
-						Process.Processes[ClickedIndex].SizeX = Process.Processes[ClickedIndex].notMaxX;
-						Process.Processes[ClickedIndex].SizeY = Process.Processes[ClickedIndex].notMaxY;
+						Apps.Process.Processes[ClickedIndex].maximized = false;
+						Apps.Process.Processes[ClickedIndex].SizeX = Apps.Process.Processes[ClickedIndex].notMaxX;
+						Apps.Process.Processes[ClickedIndex].SizeY = Apps.Process.Processes[ClickedIndex].notMaxY;
 
-						if (MX - (short)OldX > 0 && MX - (short)OldX < Process.Processes[ClickedIndex].SizeX)
-							Process.Processes[ClickedIndex].X = MX - (short)OldX;
+						if (MX - (short)OldX > 0 && MX - (short)OldX < Apps.Process.Processes[ClickedIndex].SizeX)
+							Apps.Process.Processes[ClickedIndex].X = MX - (short)OldX;
 						else
 						{
-							Process.Processes[ClickedIndex].X = MX - Process.Processes[ClickedIndex].SizeX / 2;
-							OldX = MX - Process.Processes[ClickedIndex].X;
+							Apps.Process.Processes[ClickedIndex].X = MX - Apps.Process.Processes[ClickedIndex].SizeX / 2;
+							OldX = MX - Apps.Process.Processes[ClickedIndex].X;
 							return;
 						}
 
-						Process.Processes[ClickedIndex].Y = 0;
+						Apps.Process.Processes[ClickedIndex].Y = 0;
 
 
 					}
 					if (MX - (short)OldX > 0)
-						Process.Processes[ClickedIndex].X = MX - (short)OldX;
+						Apps.Process.Processes[ClickedIndex].X = MX - (short)OldX;
 					else
-						Process.Processes[ClickedIndex].X = 0;
+						Apps.Process.Processes[ClickedIndex].X = 0;
 					if (MY - (short)OldY > 0)
-						Process.Processes[ClickedIndex].Y = MY - (short)OldY;
+						Apps.Process.Processes[ClickedIndex].Y = MY - (short)OldY;
 					else
-						Process.Processes[ClickedIndex].Y = 0;
+						Apps.Process.Processes[ClickedIndex].Y = 0;
 
 
-					if (Process.Processes.Count - 1 > ClickedIndex)
+					if (Apps.Process.Processes.Count - 1 > ClickedIndex)
 					{
-						Process.Processes.Add(Process.Processes[ClickedIndex]);
-						Process.Processes.RemoveAt(ClickedIndex);
-						ClickedIndex = Process.Processes.Count - 1;
+						Apps.Process.Processes.Add(Apps.Process.Processes[ClickedIndex]);
+						Apps.Process.Processes.RemoveAt(ClickedIndex);
+						ClickedIndex = Apps.Process.Processes.Count - 1;
 					}
 				}
 				else if (scalingX)
 				{
-					if (MX - Process.Processes[ClickedIndex].X > Process.Processes[ClickedIndex].MinX)
-						Process.Processes[ClickedIndex].SizeX = MX - Process.Processes[ClickedIndex].X;
+					if (MX - Apps.Process.Processes[ClickedIndex].X > Apps.Process.Processes[ClickedIndex].MinX)
+						Apps.Process.Processes[ClickedIndex].SizeX = MX - Apps.Process.Processes[ClickedIndex].X;
 					else
-						Process.Processes[ClickedIndex].SizeX = Process.Processes[ClickedIndex].MinX;
+						Apps.Process.Processes[ClickedIndex].SizeX = Apps.Process.Processes[ClickedIndex].MinX;
 				}
 				else if (scalingY)
 				{
-					if (MY - Process.Processes[ClickedIndex].Y > Process.Processes[ClickedIndex].MinY)
-						Process.Processes[ClickedIndex].SizeY = MY - Process.Processes[ClickedIndex].Y;
+					if (MY - Apps.Process.Processes[ClickedIndex].Y > Apps.Process.Processes[ClickedIndex].MinY)
+						Apps.Process.Processes[ClickedIndex].SizeY = MY - Apps.Process.Processes[ClickedIndex].Y;
 					else
-						Process.Processes[ClickedIndex].SizeY = Process.Processes[ClickedIndex].MinY;
+						Apps.Process.Processes[ClickedIndex].SizeY = Apps.Process.Processes[ClickedIndex].MinY;
 				}
 
 			}

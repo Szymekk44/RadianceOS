@@ -395,7 +395,7 @@ namespace RadianceOS.System.Programming.RaSharp
 						};
 						RasPerformer.Data[RasID].output.Add(toReturn);
 						InputSystem.CurrentString = "";
-						Process.Processes[ProcessID].CurrChar = 0;
+						Apps.Process.Processes[ProcessID].CurrChar = 0;
 						RasPerformer.Data[RasID].tempStringName = sname;
 						return "waitForInput....!@#$Ra#%";
 					}
@@ -523,18 +523,18 @@ namespace RadianceOS.System.Programming.RaSharp
 
 		public static void enter() //Input
 		{
-			for (int i = 0; i < Process.Processes.Count; i++)
+			for (int i = 0; i < Apps.Process.Processes.Count; i++)
 			{
-				if (Process.Processes[i].ID == 3)
+				if (Apps.Process.Processes[i].ID == 3)
 				{
-					if (Process.Processes[i].selected)
+					if (Apps.Process.Processes[i].selected)
 					{
-						if (RasPerformer.Data[Process.Processes[i].tempInt].tempStringName != null)
+						if (RasPerformer.Data[Apps.Process.Processes[i].tempInt].tempStringName != null)
 						{
-							if (RasPerformer.Data[Process.Processes[i].tempInt].tempStringName != "")
+							if (RasPerformer.Data[Apps.Process.Processes[i].tempInt].tempStringName != "")
 							{
-								RasPerformer.Data[Process.Processes[i].tempInt].strings.Add(RasPerformer.Data[Process.Processes[i].tempInt].tempStringName, InputSystem.CurrentString);
-								RasPerformer.Data[Process.Processes[i].tempInt].GetInput = false;
+								RasPerformer.Data[Apps.Process.Processes[i].tempInt].strings.Add(RasPerformer.Data[Apps.Process.Processes[i].tempInt].tempStringName, InputSystem.CurrentString);
+								RasPerformer.Data[Apps.Process.Processes[i].tempInt].GetInput = false;
 							}
 						}
 					}

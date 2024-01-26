@@ -19,7 +19,7 @@ namespace RadianceOS.System.Apps
 		{
 			try
 			{
-                InputSystem.Monitore(0, Process.Processes[i].CurrChar, i);
+                InputSystem.Monitore(0, Apps.Process.Processes[i].CurrChar, i);
                 Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
                 Window.DrawTop(i, X, Y, SizeX, "User authentication", false, false, true, false);
                 Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
@@ -32,7 +32,7 @@ namespace RadianceOS.System.Apps
                         Clicked = false;
                     }
                 }
-                switch (Process.Processes[i].tempInt)
+                switch (Apps.Process.Processes[i].tempInt)
                 {
                     case 0:
                         {
@@ -86,7 +86,7 @@ namespace RadianceOS.System.Apps
                                         }
                                         else
                                         {
-                                            Process.Processes[i].tempInt = 1;
+                                            Apps.Process.Processes[i].tempInt = 1;
                                             Clicked = true;
                                         }
                                     }
@@ -105,7 +105,7 @@ namespace RadianceOS.System.Apps
                             InputSystem.SpecialCharracters = false;
                             InputSystem.AllowArrows = false;
                             InputSystem.CurrentString = "";
-                            Process.Processes[i].CurrChar = 0;
+                            Apps.Process.Processes[i].CurrChar = 0;
                             Explorer.CanvasMain.DrawStringTTF("Wrong password!", "UMR", Color.White, 17, X + 163, Y + 46 + 15);
                             Explorer.CanvasMain.DrawStringTTF("Try again.", "UMR", Color.White, 17, X + 163, Y + 65 + 15);
 
@@ -116,7 +116,7 @@ namespace RadianceOS.System.Apps
                                     Explorer.CanvasMain.DrawFilledRectangle(Kernel.dark, X + 222 - 50, Y + SizeY - 40, 100, 30);
                                     if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left && !Clicked)
                                     {
-                                        Process.Processes[i].tempInt = 0;
+                                        Apps.Process.Processes[i].tempInt = 0;
                                         Clicked = true;
                                     }
                                 }

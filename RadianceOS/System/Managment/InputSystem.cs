@@ -20,7 +20,7 @@ namespace RadianceOS.System.Managment
 			bool isSpaceBar = false;
 			while (Console.KeyAvailable)
 			{
-				Process.Processes[Index].saved = false;
+				Apps.Process.Processes[Index].saved = false;
 				ConsoleKeyInfo key = Console.ReadKey(true);
 				switch (key.Key)
 				{
@@ -86,7 +86,7 @@ namespace RadianceOS.System.Managment
 									tempInt = 0,
 									moveAble = true
 								};
-								Process.Processes.Add(MessageBox2);
+								Apps.Process.Processes.Add(MessageBox2);
 								Kernel.countFPS = true;
 							}
 					
@@ -668,11 +668,11 @@ namespace RadianceOS.System.Managment
 							if (AllowArrows)
 							{
 								CurrentString = CurrentString.Remove(CurChar - 1, 1);
-								for (int i = 0; i < Process.Processes.Count; i++)
+								for (int i = 0; i < Apps.Process.Processes.Count; i++)
 								{
-									if (Process.Processes[i].selected)
+									if (Apps.Process.Processes[i].selected)
 									{
-										Process.Processes[i].CurrChar--;
+										Apps.Process.Processes[i].CurrChar--;
 
 
 									}
@@ -684,27 +684,27 @@ namespace RadianceOS.System.Managment
 						}
 						else if (AllowUpDown)
 						{
-							for (int i = 0; i < Process.Processes.Count; i++)
+							for (int i = 0; i < Apps.Process.Processes.Count; i++)
 							{
-								if (Process.Processes[i].selected)
+								if (Apps.Process.Processes[i].selected)
 								{
-									if (Process.Processes[i].CurrLine > 0)
+									if (Apps.Process.Processes[i].CurrLine > 0)
 									{
-										if (Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length == 0)
+										if (Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length == 0)
 										{
-											Process.Processes[i].defaultLines.RemoveAt(Process.Processes[i].CurrLine);
-											Process.Processes[i].CurrLine--;
-											CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
+											Apps.Process.Processes[i].defaultLines.RemoveAt(Apps.Process.Processes[i].CurrLine);
+											Apps.Process.Processes[i].CurrLine--;
+											CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine];
 
-											Process.Processes[i].CurrChar = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length;
+											Apps.Process.Processes[i].CurrChar = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length;
 										}
 										else
 										{
-											CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine - 1] + Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
-											Process.Processes[i].defaultLines.RemoveAt(Process.Processes[i].CurrLine);
-											Process.Processes[i].CurrLine--;
+											CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine - 1] + Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine];
+											Apps.Process.Processes[i].defaultLines.RemoveAt(Apps.Process.Processes[i].CurrLine);
+											Apps.Process.Processes[i].CurrLine--;
 
-											Process.Processes[i].CurrChar = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length;
+											Apps.Process.Processes[i].CurrChar = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length;
 										}
 
 									}
@@ -723,37 +723,37 @@ namespace RadianceOS.System.Managment
 						enterChar = false;
 						if (AllowArrows)
 						{
-							for (int i = 0; i < Process.Processes.Count; i++)
+							for (int i = 0; i < Apps.Process.Processes.Count; i++)
 							{
-								if (Process.Processes[i].selected)
+								if (Apps.Process.Processes[i].selected)
 								{
 									if (AllowUpDown)
 									{
-										if (Process.Processes[i].lines.Count != 0)
+										if (Apps.Process.Processes[i].lines.Count != 0)
 										{
-											if (Process.Processes[i].lines[Process.Processes[i].CurrLine].text.Length > Process.Processes[i].CurrChar)
-												Process.Processes[i].CurrChar++;
+											if (Apps.Process.Processes[i].lines[Apps.Process.Processes[i].CurrLine].text.Length > Apps.Process.Processes[i].CurrChar)
+												Apps.Process.Processes[i].CurrChar++;
 										}
-										else if (Process.Processes[i].defaultLines.Count != 0)
+										else if (Apps.Process.Processes[i].defaultLines.Count != 0)
 										{
-											if (Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length > Process.Processes[i].CurrChar)
+											if (Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length > Apps.Process.Processes[i].CurrChar)
 											{
-												Process.Processes[i].CurrChar++;
+												Apps.Process.Processes[i].CurrChar++;
 											}
 										}
 									}
 									else
 									{
-										if (Process.Processes[i].lines.Count != 0)
+										if (Apps.Process.Processes[i].lines.Count != 0)
 										{
-											if (Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text.Length > Process.Processes[i].CurrChar)
-												Process.Processes[i].CurrChar++;
+											if (Apps.Process.Processes[i].lines[Apps.Process.Processes[i].lines.Count - 1].text.Length > Apps.Process.Processes[i].CurrChar)
+												Apps.Process.Processes[i].CurrChar++;
 										}
-										else if (Process.Processes[i].defaultLines.Count != 0)
+										else if (Apps.Process.Processes[i].defaultLines.Count != 0)
 										{
-											if (Process.Processes[i].defaultLines[Process.Processes[i].defaultLines.Count - 1].Length > Process.Processes[i].CurrChar)
+											if (Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].defaultLines.Count - 1].Length > Apps.Process.Processes[i].CurrChar)
 											{
-												Process.Processes[i].CurrChar++;
+												Apps.Process.Processes[i].CurrChar++;
 											}
 										}
 									}
@@ -769,20 +769,20 @@ namespace RadianceOS.System.Managment
 						enterChar = false;
 						if (AllowArrows)
 						{
-							for (int i = 0; i < Process.Processes.Count; i++)
+							for (int i = 0; i < Apps.Process.Processes.Count; i++)
 							{
-								if (Process.Processes[i].selected)
+								if (Apps.Process.Processes[i].selected)
 								{
-									if (Process.Processes[i].lines.Count != 0)
+									if (Apps.Process.Processes[i].lines.Count != 0)
 									{
-										if (Process.Processes[i].CurrChar > 0)
-											Process.Processes[i].CurrChar--;
+										if (Apps.Process.Processes[i].CurrChar > 0)
+											Apps.Process.Processes[i].CurrChar--;
 									}
-									else if (Process.Processes[i].defaultLines.Count != 0)
+									else if (Apps.Process.Processes[i].defaultLines.Count != 0)
 									{
-										if (Process.Processes[i].CurrChar > 0)
+										if (Apps.Process.Processes[i].CurrChar > 0)
 										{
-											Process.Processes[i].CurrChar--;
+											Apps.Process.Processes[i].CurrChar--;
 										}
 									}
 
@@ -797,35 +797,35 @@ namespace RadianceOS.System.Managment
 						if (AllowUpDown)
 						{
 							int i = Index;
-							if (Process.Processes[i].lines.Count != 0)
+							if (Apps.Process.Processes[i].lines.Count != 0)
 							{
-								if (Process.Processes[i].CurrLine > 0)
+								if (Apps.Process.Processes[i].CurrLine > 0)
 								{
-									Process.Processes[i].CurrLine--;
-									if (Process.Processes[i].lines[Process.Processes[i].CurrLine].text.Length - 1 > Process.Processes[i].CurrChar)
+									Apps.Process.Processes[i].CurrLine--;
+									if (Apps.Process.Processes[i].lines[Apps.Process.Processes[i].CurrLine].text.Length - 1 > Apps.Process.Processes[i].CurrChar)
 									{
-										Process.Processes[i].CurrChar = Process.Processes[i].lines[Process.Processes[i].CurrLine].text.Length;
+										Apps.Process.Processes[i].CurrChar = Apps.Process.Processes[i].lines[Apps.Process.Processes[i].CurrLine].text.Length;
 									}
 								}
 
 							}
-							else if (Process.Processes[i].defaultLines.Count != 0)
+							else if (Apps.Process.Processes[i].defaultLines.Count != 0)
 							{
-								if (Process.Processes[i].CurrLine > 0)
+								if (Apps.Process.Processes[i].CurrLine > 0)
 								{
 
-									Process.Processes[i].CurrLine--;
-									if(Process.Processes[i].CurrLine < Process.Processes[i].StartLine)
+									Apps.Process.Processes[i].CurrLine--;
+									if(Apps.Process.Processes[i].CurrLine < Apps.Process.Processes[i].StartLine)
 									{
-										Process.Processes[i].StartLine--;
+										Apps.Process.Processes[i].StartLine--;
 									}
 
-									if (Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length - 1 < Process.Processes[i].CurrChar)
+									if (Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length - 1 < Apps.Process.Processes[i].CurrChar)
 									{
-										Process.Processes[i].CurrChar = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length;
+										Apps.Process.Processes[i].CurrChar = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length;
 
 									}
-									CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
+									CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine];
 								}
 							}
 
@@ -840,35 +840,35 @@ namespace RadianceOS.System.Managment
 						if (AllowUpDown)
 						{
 							int i = Index;
-							if (Process.Processes[i].lines.Count != 0)
+							if (Apps.Process.Processes[i].lines.Count != 0)
 							{
-								if (Process.Processes[i].CurrLine < Process.Processes[i].lines.Count)
+								if (Apps.Process.Processes[i].CurrLine < Apps.Process.Processes[i].lines.Count)
 								{
-									Process.Processes[i].CurrLine++;
-									if (Process.Processes[i].lines[Process.Processes[i].CurrLine].text.Length - 1 > Process.Processes[i].CurrChar)
+									Apps.Process.Processes[i].CurrLine++;
+									if (Apps.Process.Processes[i].lines[Apps.Process.Processes[i].CurrLine].text.Length - 1 > Apps.Process.Processes[i].CurrChar)
 									{
-										Process.Processes[i].CurrChar = Process.Processes[i].lines[Process.Processes[i].CurrLine].text.Length;
+										Apps.Process.Processes[i].CurrChar = Apps.Process.Processes[i].lines[Apps.Process.Processes[i].CurrLine].text.Length;
 									}
 								}
 
 							}
-							else if (Process.Processes[i].defaultLines.Count != 0)
+							else if (Apps.Process.Processes[i].defaultLines.Count != 0)
 							{
-								if (Process.Processes[i].CurrLine < Process.Processes[i].defaultLines.Count-1)
+								if (Apps.Process.Processes[i].CurrLine < Apps.Process.Processes[i].defaultLines.Count-1)
 								{
-									Process.Processes[i].CurrLine++;
+									Apps.Process.Processes[i].CurrLine++;
 
-									if (Process.Processes[i].CurrLine >= Process.Processes[i].StartLine + (Process.Processes[i].SizeY - 50) / 18)
+									if (Apps.Process.Processes[i].CurrLine >= Apps.Process.Processes[i].StartLine + (Apps.Process.Processes[i].SizeY - 50) / 18)
 									{
-										Process.Processes[i].StartLine++;
+										Apps.Process.Processes[i].StartLine++;
 									}
 
-									if (Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length - 1 < Process.Processes[i].CurrChar)
+									if (Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length - 1 < Apps.Process.Processes[i].CurrChar)
 									{
-										Process.Processes[i].CurrChar = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine].Length;
+										Apps.Process.Processes[i].CurrChar = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine].Length;
 
 									}
-									CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
+									CurrentString = Apps.Process.Processes[i].defaultLines[Apps.Process.Processes[i].CurrLine];
 								}
 							}
 
@@ -910,7 +910,7 @@ namespace RadianceOS.System.Managment
 								break;
 							case 6:
 								{
-									Process.Processes[Index].RasData.syncInput = true;
+									Apps.Process.Processes[Index].RasData.syncInput = true;
 								}
 								break;
 							case 7:
@@ -946,12 +946,12 @@ namespace RadianceOS.System.Managment
 							return;
 						}
 					}
-					for (int i = 0; i < Process.Processes.Count; i++)
+					for (int i = 0; i < Apps.Process.Processes.Count; i++)
 					{
-						if (Process.Processes[i].selected)
+						if (Apps.Process.Processes[i].selected)
 						{
 							if (AllowArrows)
-								Process.Processes[i].CurrChar++;
+								Apps.Process.Processes[i].CurrChar++;
 
 						}
 					}

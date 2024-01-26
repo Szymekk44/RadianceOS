@@ -40,21 +40,21 @@ namespace RadianceOS.System.Programming.RaSharp2
 
 
 				};
-				Process.Processes.Add(RasApp);
-				Process.Processes[Process.Processes.Count - 1].RasData = new RasProcessData();
-				Process.Processes[Process.Processes.Count - 1].RasData.lines = new List<TextColor>();
-				Process.Processes[Process.Processes.Count - 1].RasData.CurrentLine = 0;
-				Process.Processes[Process.Processes.Count - 1].RasData.code = File.ReadAllLines(path);
-				Process.Processes[Process.Processes.Count - 1].RasData.StopRenderConsole = false;
-				Process.Processes[Process.Processes.Count - 1].DataID = AllApps;
+				Apps.Process.Processes.Add(RasApp);
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData = new RasProcessData();
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.lines = new List<TextColor>();
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.CurrentLine = 0;
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code = File.ReadAllLines(path);
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.StopRenderConsole = false;
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].DataID = AllApps;
 				Data.Add(new RasVariablesMemory());
-				for (int i = 0; i < Process.Processes[Process.Processes.Count - 1].RasData.code.Length; i++)
+				for (int i = 0; i < Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code.Length; i++)
 				{
-					Process.Processes[Process.Processes.Count - 1].RasData.code[i] = Process.Processes[Process.Processes.Count - 1].RasData.code[i].Trim();
-					if (Process.Processes[Process.Processes.Count - 1].RasData.code[i].StartsWith("void"))
+					Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i] = Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i].Trim();
+					if (Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i].StartsWith("void"))
 					{
-					Data[AllApps].voids.Add(Process.Processes[Process.Processes.Count - 1].RasData.code[i].Substring(5, Process.Processes[Process.Processes.Count - 1].RasData.code[i].Length - 6).Trim(), i);
-					//	MessageBoxCreator.CreateMessageBox("Found!", "name: " + Process.Processes[Process.Processes.Count - 1].RasData.code[i].Substring(5, Process.Processes[Process.Processes.Count - 1].RasData.code[i].Length - 6).Trim() + "\nLine: " + i, MessageBoxCreator.MessageBoxIcon.info, 600);
+					Data[AllApps].voids.Add(Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i].Substring(5, Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i].Length - 6).Trim(), i);
+					//	MessageBoxCreator.CreateMessageBox("Found!", "name: " + Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i].Substring(5, Apps.Process.Processes[Apps.Process.Processes.Count - 1].RasData.code[i].Length - 6).Trim() + "\nLine: " + i, MessageBoxCreator.MessageBoxIcon.info, 600);
 					}
 				}
 				AllApps++;
@@ -70,19 +70,19 @@ namespace RadianceOS.System.Programming.RaSharp2
 		{
 			try
 			{
-				if (!Process.Processes[i].RasData.waitForUserInput && Process.Processes[i].RasData.CurrentLine < Process.Processes[i].RasData.code.Length)
+				if (!Apps.Process.Processes[i].RasData.waitForUserInput && Apps.Process.Processes[i].RasData.CurrentLine < Apps.Process.Processes[i].RasData.code.Length)
 				{
-					RasInterpreter.RunCommand(Process.Processes[i].RasData.code[Process.Processes[i].RasData.CurrentLine], i);
+					RasInterpreter.RunCommand(Apps.Process.Processes[i].RasData.code[Apps.Process.Processes[i].RasData.CurrentLine], i);
 				}
-				if (Process.Processes[i].RasData.waitForUserInput)
+				if (Apps.Process.Processes[i].RasData.waitForUserInput)
 				{
-					if (Process.Processes[i].RasData.syncInput)
+					if (Apps.Process.Processes[i].RasData.syncInput)
 					{
 
 
-						GetString.ChangeSrtingInput(i, Process.Processes[i].RasData.toVariable, InputSystem.CurrentString);
-						Process.Processes[i].RasData.syncInput = false;
-						Process.Processes[i].RasData.waitForUserInput = false;
+						GetString.ChangeSrtingInput(i, Apps.Process.Processes[i].RasData.toVariable, InputSystem.CurrentString);
+						Apps.Process.Processes[i].RasData.syncInput = false;
+						Apps.Process.Processes[i].RasData.waitForUserInput = false;
 
 
 					}
@@ -93,7 +93,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 				{
 					tempX -= SizeX + X - (int)Explorer.screenSizeX;
 				}
-				Window.DrawTop(i, X, Y, SizeX, Process.Processes[i].Name, Process.Processes[i].sizeAble, Process.Processes[i].closeAble, true, Process.Processes[i].hideAble, tempX);
+				Window.DrawTop(i, X, Y, SizeX, Apps.Process.Processes[i].Name, Apps.Process.Processes[i].sizeAble, Apps.Process.Processes[i].closeAble, true, Apps.Process.Processes[i].hideAble, tempX);
 				if (tempX == SizeX)
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, tempX, SizeY - 25);
 				else
@@ -101,11 +101,11 @@ namespace RadianceOS.System.Programming.RaSharp2
 					Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X, Y + 28, tempX, SizeY - 25);
 				}
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, tempX, SizeY - 25);
-				if (!Process.Processes[i].RasData.StopRenderConsole)
+				if (!Apps.Process.Processes[i].RasData.StopRenderConsole)
 				{
 					Explorer.CanvasMain.DrawFilledRectangle(Color.Black, X + 2, Y + 27, tempX - 4, SizeY - 29);
 
-					List<TextColor> texts = Process.Processes[i].RasData.lines;
+					List<TextColor> texts = Apps.Process.Processes[i].RasData.lines;
 
 
 
@@ -123,11 +123,11 @@ namespace RadianceOS.System.Programming.RaSharp2
 						}
 						if (j + 1 < texts.Count)
 							Explorer.CanvasMain.DrawString(tempText, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
-						else if (Process.Processes[i].selected && Process.Processes[i].RasData.waitForUserInput)
+						else if (Apps.Process.Processes[i].selected && Apps.Process.Processes[i].RasData.waitForUserInput)
 						{
 							string result;
 							if (tempText.Length > 0)
-								result = tempText.Substring(0, Process.Processes[i].CurrChar) + "_" + tempText.Substring(Process.Processes[i].CurrChar);
+								result = tempText.Substring(0, Apps.Process.Processes[i].CurrChar) + "_" + tempText.Substring(Apps.Process.Processes[i].CurrChar);
 							else
 								result = "_";
 							Explorer.CanvasMain.DrawString(result, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
@@ -135,36 +135,36 @@ namespace RadianceOS.System.Programming.RaSharp2
 						else
 							Explorer.CanvasMain.DrawString(tempText, Kernel.font18, texts[j].color, X + 3, Y + 27 + ((j - start) * 18));
 					}
-					if (Process.Processes[i].selected && Process.Processes[i].RasData.waitForUserInput)
+					if (Apps.Process.Processes[i].selected && Apps.Process.Processes[i].RasData.waitForUserInput)
 					{
 
-						InputSystem.Monitore(6, Process.Processes[i].CurrChar, i);
+						InputSystem.Monitore(6, Apps.Process.Processes[i].CurrChar, i);
 						InputSystem.SpecialCharracters = true;
 						InputSystem.AllowArrows = true;
 						InputSystem.AllowUpDown = false;
-						Process.Processes[i].RasData.lines[Process.Processes[i].RasData.lines.Count - 1].text = InputSystem.CurrentString;
-						if (Process.Processes[i].lines.Count < 1)
-							Process.Processes[i].lines.Add(new TextColor());
-						Process.Processes[i].lines[0].text = InputSystem.CurrentString;
+						Apps.Process.Processes[i].RasData.lines[Apps.Process.Processes[i].RasData.lines.Count - 1].text = InputSystem.CurrentString;
+						if (Apps.Process.Processes[i].lines.Count < 1)
+							Apps.Process.Processes[i].lines.Add(new TextColor());
+						Apps.Process.Processes[i].lines[0].text = InputSystem.CurrentString;
 					}
 				}
 				else
 				{
-					for (int j = 0; j < Process.Processes[i].RasData.text.Count; j++)
+					for (int j = 0; j < Apps.Process.Processes[i].RasData.text.Count; j++)
 					{
 						int XPos = 0 ;
-						if (Process.Processes[i].RasData.text[j].center)
-							XPos = (Process.Processes[i].SizeX - Process.Processes[i].RasData.text[j].Text.Length * Process.Processes[i].RasData.text[j].FontWidth) / 2;
+						if (Apps.Process.Processes[i].RasData.text[j].center)
+							XPos = (Apps.Process.Processes[i].SizeX - Apps.Process.Processes[i].RasData.text[j].Text.Length * Apps.Process.Processes[i].RasData.text[j].FontWidth) / 2;
 						else
-							XPos = Process.Processes[i].RasData.text[j].posX;
-						Explorer.CanvasMain.DrawString(Process.Processes[i].RasData.text[j].Text, Process.Processes[i].RasData.text[j].Font, Color.White, XPos + X, Process.Processes[i].RasData.text[j].posY + Y);
+							XPos = Apps.Process.Processes[i].RasData.text[j].posX;
+						Explorer.CanvasMain.DrawString(Apps.Process.Processes[i].RasData.text[j].Text, Apps.Process.Processes[i].RasData.text[j].Font, Color.White, XPos + X, Apps.Process.Processes[i].RasData.text[j].posY + Y);
 					}
 				}
 			}
 			catch (Exception ex)
 			{
-				MessageBoxCreator.CreateMessageBox("Ra# Error", ex.Message + "\nLine: " + Process.Processes[i].RasData.CurrentLine, MessageBoxCreator.MessageBoxIcon.error, 600);
-				Process.Processes[i].RasData.CurrentLine++;
+				MessageBoxCreator.CreateMessageBox("Ra# Error", ex.Message + "\nLine: " + Apps.Process.Processes[i].RasData.CurrentLine, MessageBoxCreator.MessageBoxIcon.error, 600);
+				Apps.Process.Processes[i].RasData.CurrentLine++;
 			}
 		}
 

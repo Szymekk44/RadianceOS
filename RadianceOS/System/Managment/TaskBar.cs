@@ -56,27 +56,27 @@ namespace RadianceOS.System.Managment
 				TaskBarCalendar.Render();
 
 			}
-			for (int i = 1; i < Process.Processes.Count; i++)
+			for (int i = 1; i < Apps.Process.Processes.Count; i++)
 			{
-				DrawIcon(Process.Processes[i].Name, i);
+				DrawIcon(Apps.Process.Processes[i].Name, i);
 			}
 			if(Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left && !Explorer.Clicked)
 			{
 				if (Explorer.MY > (int)Explorer.screenSizeY - 35 && Explorer.MY < (int)Explorer.screenSizeY - 5)
 				{
-					for (int i = 1; i < Process.Processes.Count; i++)
+					for (int i = 1; i < Apps.Process.Processes.Count; i++)
 					{
 						if (Explorer.MX > 100 + ((i - 1) * 210) && Explorer.MX < 300 + ((i - 1) * 210))
 						{
-							if(Process.Processes[i].hideAble)
+							if(Apps.Process.Processes[i].hideAble)
 							{
-								if (Process.Processes[i].hidden)
+								if (Apps.Process.Processes[i].hidden)
 								{
-									Process.Processes[i].hidden = false;
+									Apps.Process.Processes[i].hidden = false;
 								}
 								else
 								{
-									Process.Processes[i].hidden = true;
+									Apps.Process.Processes[i].hidden = true;
 								}
 							}
 						}
@@ -90,7 +90,7 @@ namespace RadianceOS.System.Managment
 		public static void DrawIcon(string name,int ProcessIndex)
 		{
 			int startX = 100 + ((ProcessIndex-1) * 210);
-			if (!Process.Processes[ProcessIndex].hidden)
+			if (!Apps.Process.Processes[ProcessIndex].hidden)
 			{
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, startX + 2, (int)Explorer.screenSizeY - 33, 200, 30);
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, startX, (int)Explorer.screenSizeY - 35, 200, 30);

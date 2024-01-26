@@ -113,8 +113,8 @@ namespace RadianceOS.System.Apps
 											sizeAble = true,
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox2);
-										Process.UpdateProcess(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(MessageBox2);
+										Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 									}
 									break;
 
@@ -135,8 +135,8 @@ namespace RadianceOS.System.Apps
 											temp = @"0:\Users\" + Kernel.loggedUser + @"\Desktop\",
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox2);
-										Process.UpdateProcess(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(MessageBox2);
+										Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 									}
 									break;
 								case 2:
@@ -154,8 +154,8 @@ namespace RadianceOS.System.Apps
 											tempInt = 0,
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox2);
-										Process.UpdateProcess(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(MessageBox2);
+										Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 									
 									}
 									break;
@@ -174,8 +174,8 @@ namespace RadianceOS.System.Apps
 											tempInt = 0,
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox2);
-										Snake.Start(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(MessageBox2);
+										Snake.Start(Apps.Process.Processes.Count - 1);
 
 
 									}
@@ -195,7 +195,7 @@ namespace RadianceOS.System.Apps
 											tempInt = 0,
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox2);
+										Apps.Process.Processes.Add(MessageBox2);
 										Kernel.countFPS = true;
 
 									}
@@ -217,8 +217,8 @@ namespace RadianceOS.System.Apps
 											CurrChar = "szymekk.pl/RadianceOS/index.html".Length,
 											moveAble = true
 										};
-										Process.Processes.Add(MessageBox2);
-										RadiantWave.LoadWebsite(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(MessageBox2);
+										RadiantWave.LoadWebsite(Apps.Process.Processes.Count - 1);
 
 									}
 									break;
@@ -237,8 +237,8 @@ namespace RadianceOS.System.Apps
 											SizeY = 700,
 											moveAble = true
 										};
-										Process.Processes.Add(SecurityManager);
-										Process.UpdateProcess(Process.Processes.Count - 1);
+										Apps.Process.Processes.Add(SecurityManager);
+										Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 
 									}
 									break;
@@ -327,8 +327,8 @@ namespace RadianceOS.System.Apps
 											sizeAble = true,
 											moveAble = true
 										};
-										Process.Processes.Add(FE);
-										FileExplorer.UpdateList(Process.Processes.Count - 1, @"0:\");
+										Apps.Process.Processes.Add(FE);
+										FileExplorer.UpdateList(Apps.Process.Processes.Count - 1, @"0:\");
 									}
 									break;
 							}

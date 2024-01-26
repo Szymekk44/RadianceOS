@@ -45,7 +45,7 @@ namespace RadianceOS.System.Security.Auth
         {
             try
             {
-                InputSystem.Monitore(0, Process.Processes[i].CurrChar, i);
+                InputSystem.Monitore(0, Apps.Process.Processes[i].CurrChar, i);
                
                 // TODO: Fix the below code (Won't blur correctly)
                 //Explorer.CanvasMain.DrawImageAlpha(Kernel.Wallpaper1, 0, 0);
@@ -82,7 +82,7 @@ namespace RadianceOS.System.Security.Auth
                             SizeX = 600,
                             SizeY = 200,
                         };
-                        Process.Processes.Add(processes);
+                        Apps.Process.Processes.Add(processes);
                     }
                 } else if(IsPowerClicked)
                 {

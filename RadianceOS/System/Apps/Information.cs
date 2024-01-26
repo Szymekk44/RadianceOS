@@ -17,7 +17,7 @@ namespace RadianceOS.System.Apps
 		{
 			Window.DrawTop(i, X, Y, SizeX, "RadianceOS - information");
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 3, Y + 28, SizeX, SizeY - 25);
-			if (Process.Processes[i].bitmap == null)
+			if (Apps.Process.Processes[i].bitmap == null)
 			{
 				Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X, Y + 25, SizeX, SizeY - 25);
 				Bitmap logo = new Bitmap(Files.RadianceOSIconTransparent);
@@ -33,7 +33,7 @@ namespace RadianceOS.System.Apps
 			}
 			else
 			{
-				Explorer.CanvasMain.DrawImage(Process.Processes[i].bitmap, X, Y + 25);
+				Explorer.CanvasMain.DrawImage(Apps.Process.Processes[i].bitmap, X, Y + 25);
 			}
 		}
 	}

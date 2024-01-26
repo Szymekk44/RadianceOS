@@ -32,7 +32,7 @@ namespace RadianceOS.System.Apps
 				Explorer.CanvasMain.DrawString("Memory usage: disabled/" + Kernel.MaxRam + "MB", Kernel.font18, Kernel.fontColor, X + 5, Y + 97);
 			}
 			
-			Explorer.CanvasMain.DrawString("Processes: " + Process.Processes.Count, Kernel.font18, Kernel.fontColor, X + 5, Y + 115);
+			Explorer.CanvasMain.DrawString("Processes: " + Apps.Process.Processes.Count, Kernel.font18, Kernel.fontColor, X + 5, Y + 115);
 		}
 	}
 }

@@ -44,15 +44,15 @@ namespace RadianceOS.System.Managment
 				saved = true
 		
 			};
-			Process.Processes.Add(MessageBox);
-			Process.UpdateProcess(Process.Processes.Count - 1);
+			Apps.Process.Processes.Add(MessageBox);
+			Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 			RadianceOS.System.Apps.MessageBox.closedWith.Add(0);
-			Process.Processes[Process.Processes.Count - 1].DataID = RadianceOS.System.Apps.MessageBox.closedWith.Count - 1;
-			Process.Processes[Process.Processes.Count - 1].tempBool = true;
-			Process.Processes[Process.Processes.Count - 1].defaultLines.Add(Button1);
-			Process.Processes[Process.Processes.Count - 1].defaultLines.Add(Button2);
+			Apps.Process.Processes[Apps.Process.Processes.Count - 1].DataID = RadianceOS.System.Apps.MessageBox.closedWith.Count - 1;
+			Apps.Process.Processes[Apps.Process.Processes.Count - 1].tempBool = true;
+			Apps.Process.Processes[Apps.Process.Processes.Count - 1].defaultLines.Add(Button1);
+			Apps.Process.Processes[Apps.Process.Processes.Count - 1].defaultLines.Add(Button2);
 			if (Button2 != null)
-				Process.Processes[Process.Processes.Count - 1].closeAble = false;
+				Apps.Process.Processes[Apps.Process.Processes.Count - 1].closeAble = false;
 		}
 		public enum MessageBoxIcon
 		{

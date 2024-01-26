@@ -32,7 +32,7 @@ namespace RadianceOS.System.Programming
 						text = "The current time is: " + DateTime.Now,
 					};
 
-					Process.Processes[index].lines.Add(empty);
+					Apps.Process.Processes[index].lines.Add(empty);
 				}
 				else if (commands[0] == "dir")
 				{
@@ -45,7 +45,7 @@ namespace RadianceOS.System.Programming
 							location = @"0:\" + commands[1];
 					}
 					else
-						location = Process.Processes[index].metaData;
+						location = Apps.Process.Processes[index].metaData;
 
 
 					var folder_list = Directory.GetDirectories(location);
@@ -55,23 +55,23 @@ namespace RadianceOS.System.Programming
 						text = location + " - " + folder_list.Length + " Folder(s)",
 						color = green
 					};
-					Process.Processes[index].lines.Add(folders);
+					Apps.Process.Processes[index].lines.Add(folders);
 					foreach (var file in folder_list)
 					{
 						TextColor folder = new TextColor
 						{
 							text = file,
-							color = Process.Processes[index].color2
+							color = Apps.Process.Processes[index].color2
 						};
-						Process.Processes[index].lines.Add(folder);
+						Apps.Process.Processes[index].lines.Add(folder);
 					}
-					var files_list = Directory.GetFiles(Process.Processes[index].metaData);
+					var files_list = Directory.GetFiles(Apps.Process.Processes[index].metaData);
 					TextColor files = new TextColor
 					{
 						text = location + " - " + files_list.Length + " File(s)",
 						color = green
 					};
-					Process.Processes[index].lines.Add(files);
+					Apps.Process.Processes[index].lines.Add(files);
 
 
 
@@ -81,9 +81,9 @@ namespace RadianceOS.System.Programming
 						TextColor folder = new TextColor
 						{
 							text = file,
-							color = Process.Processes[index].color2
+							color = Apps.Process.Processes[index].color2
 						};
-						Process.Processes[index].lines.Add(folder);
+						Apps.Process.Processes[index].lines.Add(folder);
 					}
 
 				}
@@ -92,8 +92,8 @@ namespace RadianceOS.System.Programming
 				{
 					if (commands.Length > 1)
 					{
-						if (Directory.Exists(Process.Processes[index].metaData + commands[1]))
-							Process.Processes[index].metaData += commands[1] + @"\";
+						if (Directory.Exists(Apps.Process.Processes[index].metaData + commands[1]))
+							Apps.Process.Processes[index].metaData += commands[1] + @"\";
 						else
 						{
 
@@ -102,17 +102,17 @@ namespace RadianceOS.System.Programming
 								text = "Directory " + commands[1] + " does not exist!",
 								color = Color.Red
 							};
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 						}
 					}
 					else
 					{
-						Process.Processes[index].metaData = @"0:\";
+						Apps.Process.Processes[index].metaData = @"0:\";
 					}
 				}
 				else if (commands[0] == "cd..")
 				{
-					if (Process.Processes[index].metaData == @"0:\")
+					if (Apps.Process.Processes[index].metaData == @"0:\")
 					{
 
 						TextColor empty = new TextColor
@@ -120,30 +120,30 @@ namespace RadianceOS.System.Programming
 							text = "Could not exit disk 0!",
 							color = Color.Red
 						};
-						Process.Processes[index].lines.Add(empty);
+						Apps.Process.Processes[index].lines.Add(empty);
 					}
 					else
 					{
-						Process.Processes[index].metaData = Process.Processes[index].metaData.Remove(Process.Processes[index].metaData.Length - 1);
-						int lastSlashIndex = Process.Processes[index].metaData.LastIndexOf(@"\");
-						string result = Process.Processes[index].metaData.Substring(0, lastSlashIndex + 1);
-						Process.Processes[index].metaData = result;
+						Apps.Process.Processes[index].metaData = Apps.Process.Processes[index].metaData.Remove(Apps.Process.Processes[index].metaData.Length - 1);
+						int lastSlashIndex = Apps.Process.Processes[index].metaData.LastIndexOf(@"\");
+						string result = Apps.Process.Processes[index].metaData.Substring(0, lastSlashIndex + 1);
+						Apps.Process.Processes[index].metaData = result;
 					}
 				}
 				else if (commands[0] == "size")
 				{
 					TextColor empty = new TextColor
 					{
-						text = Kernel.fs.GetTotalSize(Process.Processes[index].metaData).ToString() + " Bytes",
-						color = Process.Processes[index].color1
+						text = Kernel.fs.GetTotalSize(Apps.Process.Processes[index].metaData).ToString() + " Bytes",
+						color = Apps.Process.Processes[index].color1
 					};
-					Process.Processes[index].lines.Add(empty);
+					Apps.Process.Processes[index].lines.Add(empty);
 					TextColor empty2 = new TextColor
 					{
-						text = "(" + Kernel.fs.GetTotalSize(Process.Processes[index].metaData) / 1048576 + " MB)",
-						color = Process.Processes[index].color1
+						text = "(" + Kernel.fs.GetTotalSize(Apps.Process.Processes[index].metaData) / 1048576 + " MB)",
+						color = Apps.Process.Processes[index].color1
 					};
-					Process.Processes[index].lines.Add(empty2);
+					Apps.Process.Processes[index].lines.Add(empty2);
 				}
 				else if (commands[0] == "echo")
 				{
@@ -164,13 +164,13 @@ namespace RadianceOS.System.Programming
 									color = Color.Red
 								};
 
-								Process.Processes[index].lines.Add(error);
+								Apps.Process.Processes[index].lines.Add(error);
 								return;
 							}
 							string[] parts = finale.Split('>');
 							string fileName = parts[parts.Length - 1];
 							fileName = fileName.Substring(0, fileName.Length - 1);
-							var file_stream = File.Create(Process.Processes[index].metaData + fileName);
+							var file_stream = File.Create(Apps.Process.Processes[index].metaData + fileName);
 						
 							file_stream.Close();
 							string content = "";
@@ -178,15 +178,15 @@ namespace RadianceOS.System.Programming
 							{
 								content += parts[i];
 							}
-							File.WriteAllText(Process.Processes[index].metaData + fileName, content);
+							File.WriteAllText(Apps.Process.Processes[index].metaData + fileName, content);
 							TextColor empty = new TextColor
 							{
-								text = "File created in " + Process.Processes[index].metaData,
+								text = "File created in " + Apps.Process.Processes[index].metaData,
 								color = green
 							};
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 
-							if (Process.Processes[index].metaData.Contains(@"0:\Users\" + Kernel.loggedUser + @"\Desktop"))
+							if (Apps.Process.Processes[index].metaData.Contains(@"0:\Users\" + Kernel.loggedUser + @"\Desktop"))
 								DrawDesktopApps.UpdateIcons();
 						}
 						else
@@ -195,7 +195,7 @@ namespace RadianceOS.System.Programming
 							{
 								text = finale,
 							};
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 						}
 
 					}
@@ -206,7 +206,7 @@ namespace RadianceOS.System.Programming
 							text = "",
 						};
 
-						Process.Processes[index].lines.Add(empty);
+						Apps.Process.Processes[index].lines.Add(empty);
 					}
 
 				}
@@ -220,7 +220,7 @@ namespace RadianceOS.System.Programming
 							color = Color.Red
 						};
 
-						Process.Processes[index].lines.Add(error);
+						Apps.Process.Processes[index].lines.Add(error);
 						return;
 					}
 					string location;
@@ -233,7 +233,7 @@ namespace RadianceOS.System.Programming
 							location = @"0:\" + commands[1];
 					}
 					else
-						location = Process.Processes[index].metaData + commands[1];
+						location = Apps.Process.Processes[index].metaData + commands[1];
 
 					if (File.Exists(location))
 					{
@@ -246,7 +246,7 @@ namespace RadianceOS.System.Programming
 								color = Color.Red
 							};
 
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 						}
 						else
 						{
@@ -256,9 +256,9 @@ namespace RadianceOS.System.Programming
 								TextColor empty = new TextColor
 								{
 									text = File.ReadAllText(location),
-									color = Process.Processes[index].color2
+									color = Apps.Process.Processes[index].color2
 								};
-								Process.Processes[index].lines.Add(empty);
+								Apps.Process.Processes[index].lines.Add(empty);
 							}
 							catch (Exception e)
 							{
@@ -270,7 +270,7 @@ namespace RadianceOS.System.Programming
 									color = Color.Red
 								};
 
-								Process.Processes[index].lines.Add(empty);
+								Apps.Process.Processes[index].lines.Add(empty);
 
 							}
 						}
@@ -284,7 +284,7 @@ namespace RadianceOS.System.Programming
 							color = Color.Red
 						};
 
-						Process.Processes[index].lines.Add(empty);
+						Apps.Process.Processes[index].lines.Add(empty);
 					}
 
 				}
@@ -298,7 +298,7 @@ namespace RadianceOS.System.Programming
 							color = Color.Red
 						};
 
-						Process.Processes[index].lines.Add(error);
+						Apps.Process.Processes[index].lines.Add(error);
 						return;
 					}
 					string location;
@@ -326,7 +326,7 @@ namespace RadianceOS.System.Programming
 							location = @"0:\" + fullLocation;
 					}
 					else
-						location = Process.Processes[index].metaData + fullLocation;
+						location = Apps.Process.Processes[index].metaData + fullLocation;
 
 					if (File.Exists(location))
 					{
@@ -339,7 +339,7 @@ namespace RadianceOS.System.Programming
 								color = Color.Red
 							};
 
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 						}
 						else
 						{
@@ -351,7 +351,7 @@ namespace RadianceOS.System.Programming
 									text = "File " + location + " has been deleted",
 									color = green
 								};
-								Process.Processes[index].lines.Add(empty);
+								Apps.Process.Processes[index].lines.Add(empty);
 								if (location.Contains(@"0:\Users\" + Kernel.loggedUser + @"\Desktop"))
 									DrawDesktopApps.UpdateIcons();
 							}
@@ -365,7 +365,7 @@ namespace RadianceOS.System.Programming
 									color = Color.Red
 								};
 
-								Process.Processes[index].lines.Add(empty);
+								Apps.Process.Processes[index].lines.Add(empty);
 
 							}
 						}
@@ -380,7 +380,7 @@ namespace RadianceOS.System.Programming
 							color = Color.Red
 						};
 
-						Process.Processes[index].lines.Add(empty);
+						Apps.Process.Processes[index].lines.Add(empty);
 					}
 				}
 				else if (commands[0] == "md")
@@ -393,7 +393,7 @@ namespace RadianceOS.System.Programming
 							color = Color.Red
 						};
 
-						Process.Processes[index].lines.Add(error);
+						Apps.Process.Processes[index].lines.Add(error);
 						return;
 					}
 					string location;
@@ -421,7 +421,7 @@ namespace RadianceOS.System.Programming
 							location = @"0:\" + fullLocation;
 					}
 					else
-						location = Process.Processes[index].metaData + fullLocation;
+						location = Apps.Process.Processes[index].metaData + fullLocation;
 
 					if (!Directory.Exists(location))
 					{
@@ -435,7 +435,7 @@ namespace RadianceOS.System.Programming
 								text = "Created directory " + location,
 								color = green
 							};
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 							if (location.Contains(@"0:\Users\" + Kernel.loggedUser + @"\Desktop"))
 								DrawDesktopApps.UpdateIcons();
 						}
@@ -449,7 +449,7 @@ namespace RadianceOS.System.Programming
 								color = Color.Red
 							};
 
-							Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty);
 
 						}
 
@@ -463,7 +463,7 @@ namespace RadianceOS.System.Programming
 							color = Color.Red
 						};
 
-						Process.Processes[index].lines.Add(empty);
+						Apps.Process.Processes[index].lines.Add(empty);
 					}
 				}
 				else if (commands[0] == "tasklist")
@@ -478,12 +478,12 @@ namespace RadianceOS.System.Programming
 							color = Color.Gray
 						};
 
-						Process.Processes[index].lines.Add(exp);
+						Apps.Process.Processes[index].lines.Add(exp);
 					}
-					for (int i = 0; i < Process.Processes.Count; i++)
+					for (int i = 0; i < Apps.Process.Processes.Count; i++)
 					{
 						string processName = "";
-						switch (Process.Processes[i].ID)
+						switch (Apps.Process.Processes[i].ID)
 						{
 							case 0:
 								processName = "MessageBox";
@@ -532,10 +532,10 @@ namespace RadianceOS.System.Programming
 							TextColor task = new TextColor
 							{
 								text = processName.ToString() + space + "Process ID: " + i + space2,
-								color = Process.Processes[index].color2
+								color = Apps.Process.Processes[index].color2
 							};
 
-							Process.Processes[index].lines.Add(task);
+							Apps.Process.Processes[index].lines.Add(task);
 						}
 						else
 							continue;
@@ -549,7 +549,7 @@ namespace RadianceOS.System.Programming
 						if (int.Parse(commands[1]) > 0)
 						{
 							string processName = "";
-							switch (Process.Processes[int.Parse(commands[1])].ID)
+							switch (Apps.Process.Processes[int.Parse(commands[1])].ID)
 							{
 								case 0:
 									processName = "MessageBox";
@@ -591,20 +591,20 @@ namespace RadianceOS.System.Programming
 							TextColor empty = new TextColor
 							{
 								text = "",
-								color = Process.Processes[index].color1,
+								color = Apps.Process.Processes[index].color1,
 							};
 							TextColor empty2 = new TextColor
 							{
 								text = "",
-								color = Process.Processes[index].color1,
+								color = Apps.Process.Processes[index].color1,
 							};
-							int lineToAdd = Process.Processes[index].lines.Count - 1;
-							string pathBefore = Process.Processes[index].metaData;
-							Process.Processes[index].lines[lineToAdd].text = (pathBefore + ">" + Process.Processes[index].lines[lineToAdd].text);
-							Process.Processes[index].lines.Add(empty);
-							Process.Processes[index].lines.Add(empty2);
+							int lineToAdd = Apps.Process.Processes[index].lines.Count - 1;
+							string pathBefore = Apps.Process.Processes[index].metaData;
+							Apps.Process.Processes[index].lines[lineToAdd].text = (pathBefore + ">" + Apps.Process.Processes[index].lines[lineToAdd].text);
+							Apps.Process.Processes[index].lines.Add(empty);
+							Apps.Process.Processes[index].lines.Add(empty2);
 							InputSystem.CurrentString = "";
-							Process.Processes.RemoveAt(int.Parse(commands[1]));
+							Apps.Process.Processes.RemoveAt(int.Parse(commands[1]));
 
 						}
 						else if (int.Parse(commands[1]) == 0)
@@ -623,10 +623,10 @@ namespace RadianceOS.System.Programming
 							Cosmos.System.Power.Reboot();
 							return;
 						}
-						for (int i = 0; i < Process.Processes.Count; i++)
+						for (int i = 0; i < Apps.Process.Processes.Count; i++)
 						{
 							string processName = "";
-							switch (Process.Processes[i].ID)
+							switch (Apps.Process.Processes[i].ID)
 							{
 								case 0:
 									processName = "MessageBox";
@@ -670,20 +670,20 @@ namespace RadianceOS.System.Programming
 								TextColor empty = new TextColor
 								{
 									text = "",
-									color = Process.Processes[index].color1,
+									color = Apps.Process.Processes[index].color1,
 								};
 								TextColor empty2 = new TextColor
 								{
 									text = "",
-									color = Process.Processes[index].color1,
+									color = Apps.Process.Processes[index].color1,
 								};
-								int lineToAdd = Process.Processes[index].lines.Count - 1;
-								string pathBefore = Process.Processes[index].metaData;
-								Process.Processes[index].lines[lineToAdd].text = (pathBefore + ">" + Process.Processes[index].lines[lineToAdd].text);
-								Process.Processes[index].lines.Add(empty);
-								Process.Processes[index].lines.Add(empty2);
+								int lineToAdd = Apps.Process.Processes[index].lines.Count - 1;
+								string pathBefore = Apps.Process.Processes[index].metaData;
+								Apps.Process.Processes[index].lines[lineToAdd].text = (pathBefore + ">" + Apps.Process.Processes[index].lines[lineToAdd].text);
+								Apps.Process.Processes[index].lines.Add(empty);
+								Apps.Process.Processes[index].lines.Add(empty2);
 								InputSystem.CurrentString = "";
-								Process.Processes.RemoveAt(i);
+								Apps.Process.Processes.RemoveAt(i);
 								return;
 							}
 
@@ -697,10 +697,10 @@ namespace RadianceOS.System.Programming
 					TextColor empty = new TextColor
 					{
 						text = "Ram usage: " + (Cosmos.Core.GCImplementation.GetUsedRAM() / 1048576) + "/" + Cosmos.Core.GCImplementation.GetAvailableRAM() + " MB",
-						color = Process.Processes[index].color2
+						color = Apps.Process.Processes[index].color2
 					};
 
-					Process.Processes[index].lines.Add(empty);
+					Apps.Process.Processes[index].lines.Add(empty);
 				}
 				else if (commands[0] == "refresh")
 				{
@@ -711,32 +711,32 @@ namespace RadianceOS.System.Programming
 						color = green
 					};
 
-					Process.Processes[index].lines.Add(empty);
+					Apps.Process.Processes[index].lines.Add(empty);
 				}
 				else if (commands[0] == "system" || commands[0] == "info" || commands[0] == "about" || commands[0] == "sysinfo")
 				{
-					GenerateText("RadianceOS " + Kernel.version, Process.Processes[index].color1, index);
-					GenerateText("Version: " + Kernel.subversion, Process.Processes[index].color1, index);
-					GenerateText("Created by Szymekk", Process.Processes[index].color1, index);
-					GenerateText("Szymekk.pl", Process.Processes[index].color1, index);
-					GenerateText("Disk space: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", Process.Processes[index].color2, index);
+					GenerateText("RadianceOS " + Kernel.version, Apps.Process.Processes[index].color1, index);
+					GenerateText("Version: " + Kernel.subversion, Apps.Process.Processes[index].color1, index);
+					GenerateText("Created by Szymekk", Apps.Process.Processes[index].color1, index);
+					GenerateText("Szymekk.pl", Apps.Process.Processes[index].color1, index);
+					GenerateText("Disk space: " + Kernel.fs.Disks[0].Size / 1048576 + " MB", Apps.Process.Processes[index].color2, index);
 					TextColor ram = new TextColor
 					{
 						text = "Ram usage: " + (Cosmos.Core.GCImplementation.GetUsedRAM() / 1048576) + "/" + Cosmos.Core.GCImplementation.GetAvailableRAM() + " MB",
-						color = Process.Processes[index].color2
+						color = Apps.Process.Processes[index].color2
 					};
-					Process.Processes[index].lines.Add(ram);
+					Apps.Process.Processes[index].lines.Add(ram);
 
 					TextColor pro = new TextColor
 					{
 						text = "Processor: " + CPU.GetCPUBrandString(),
-						color = Process.Processes[index].color2
+						color = Apps.Process.Processes[index].color2
 					};
 
 
-					Process.Processes[index].lines.Add(pro);
+					Apps.Process.Processes[index].lines.Add(pro);
 
-                    GenerateText("Display: " + Explorer.screenSizeX+"x"+Explorer.screenSizeY, Process.Processes[index].color2, index);
+                    GenerateText("Display: " + Explorer.screenSizeX+"x"+Explorer.screenSizeY, Apps.Process.Processes[index].color2, index);
                 }
 				else if (commands[0] == "start")
 				{
@@ -756,8 +756,8 @@ namespace RadianceOS.System.Programming
 							SizeY = 305,
 							moveAble = true
 						};
-						Process.Processes.Add(MessageBox2);
-						Process.UpdateProcess(Process.Processes.Count - 1);
+						Apps.Process.Processes.Add(MessageBox2);
+						Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 					}
 					else
 					{
@@ -772,7 +772,7 @@ namespace RadianceOS.System.Programming
                                 location = @"0:\" + fullLocation;
                         }
                         else
-                            location = Process.Processes[index].metaData + fullLocation;
+                            location = Apps.Process.Processes[index].metaData + fullLocation;
                         if (File.Exists(location))
                         {
                             switch (Path.GetExtension(location))
@@ -796,26 +796,26 @@ namespace RadianceOS.System.Programming
                                 color = Color.Red
                             };
 
-                            Process.Processes[index].lines.Add(empty);
+                            Apps.Process.Processes[index].lines.Add(empty);
                         }
                     }
 				}
 				else if (commands[0] == "help")
 				{
-					GenerateText("=-=FILE SYSTEM=-=", Process.Processes[index].color1, index);
-					GenerateText("cat <file/path> - Reads the contents of a file.", Process.Processes[index].color2, index);
-					GenerateText("cd <directory> - Changes the current directory.", Process.Processes[index].color2, index);
-					GenerateText("del <file> - Deletes the file", Process.Processes[index].color2, index);
-					GenerateText("dir <directory> - Displays a list of files and subdirectories in a directory.", Process.Processes[index].color2, index);
-					GenerateText("echo> <file> - Creates and writes to a file.", Process.Processes[index].color2, index);
-					GenerateText("md <name> - Creates a new directory", Process.Processes[index].color2, index);
-					GenerateText("=-=OTHER=-=", Process.Processes[index].color1, index);
-					GenerateText("time - Displays the system time.", Process.Processes[index].color2, index);
-					GenerateText("tasklist - Displays all currently running tasks.", Process.Processes[index].color2, index);
-					GenerateText("taskkill - Kill or stop a running process or application.", Process.Processes[index].color2, index);
-					GenerateText("=-=RADIANCE OS=-=", Process.Processes[index].color1, index);
-					GenerateText("ram - Displays RAM usage.", Process.Processes[index].color2, index);
-					GenerateText("sysinfo - Displays information about RadianceOS and computer", Process.Processes[index].color2, index);
+					GenerateText("=-=FILE SYSTEM=-=", Apps.Process.Processes[index].color1, index);
+					GenerateText("cat <file/path> - Reads the contents of a file.", Apps.Process.Processes[index].color2, index);
+					GenerateText("cd <directory> - Changes the current directory.", Apps.Process.Processes[index].color2, index);
+					GenerateText("del <file> - Deletes the file", Apps.Process.Processes[index].color2, index);
+					GenerateText("dir <directory> - Displays a list of files and subdirectories in a directory.", Apps.Process.Processes[index].color2, index);
+					GenerateText("echo> <file> - Creates and writes to a file.", Apps.Process.Processes[index].color2, index);
+					GenerateText("md <name> - Creates a new directory", Apps.Process.Processes[index].color2, index);
+					GenerateText("=-=OTHER=-=", Apps.Process.Processes[index].color1, index);
+					GenerateText("time - Displays the system time.", Apps.Process.Processes[index].color2, index);
+					GenerateText("tasklist - Displays all currently running tasks.", Apps.Process.Processes[index].color2, index);
+					GenerateText("taskkill - Kill or stop a running process or application.", Apps.Process.Processes[index].color2, index);
+					GenerateText("=-=RADIANCE OS=-=", Apps.Process.Processes[index].color1, index);
+					GenerateText("ram - Displays RAM usage.", Apps.Process.Processes[index].color2, index);
+					GenerateText("sysinfo - Displays information about RadianceOS and computer", Apps.Process.Processes[index].color2, index);
 				}
 				else if (commands[0] == "color")
 				{
@@ -892,8 +892,8 @@ namespace RadianceOS.System.Programming
 								col2 = gray;
 								break;
 						}
-						Process.Processes[index].color1 = col;
-						Process.Processes[index].color2 = col2;
+						Apps.Process.Processes[index].color1 = col;
+						Apps.Process.Processes[index].color2 = col2;
 
 
 						c1 = commands[1][0];
@@ -949,7 +949,7 @@ namespace RadianceOS.System.Programming
 								col = Color.FromArgb(255, 255, 255);
 								break;
 						}
-						Process.Processes[index].color3 = col;
+						Apps.Process.Processes[index].color3 = col;
 
 
 					}
@@ -1025,8 +1025,8 @@ namespace RadianceOS.System.Programming
 								col2 = gray;
 								break;
 						}
-						Process.Processes[index].color1 = col;
-						Process.Processes[index].color2 = col2;
+						Apps.Process.Processes[index].color1 = col;
+						Apps.Process.Processes[index].color2 = col2;
 					}
 				}
 				else
@@ -1037,7 +1037,7 @@ namespace RadianceOS.System.Programming
 						color = Color.Red
 					};
 
-					Process.Processes[index].lines.Add(empty);
+					Apps.Process.Processes[index].lines.Add(empty);
 				}
 			}
 			catch(Exception ex)
@@ -1054,7 +1054,7 @@ namespace RadianceOS.System.Programming
 				text = text,
 				color = color
 			};
-			Process.Processes[index].lines.Add(First);
+			Apps.Process.Processes[index].lines.Add(First);
 		}
 
 		public static void ReturnError(int errorID, int index)

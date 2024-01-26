@@ -63,11 +63,11 @@ namespace RadianceOS.System.Security.Auth
 							Kernel.Wallpaper1 = new Bitmap(Files.wallpaper3);
 							break;
 					}
-					for (int i = 0; i < Process.Processes.Count; i++)
+					for (int i = 0; i < Apps.Process.Processes.Count; i++)
                     {
-                        if (Process.Processes[i].ID == 4)
+                        if (Apps.Process.Processes[i].ID == 4)
                         {
-							Process.Processes.RemoveAt(i);
+							Apps.Process.Processes.RemoveAt(i);
 
                             break;
 						}
@@ -89,8 +89,8 @@ namespace RadianceOS.System.Security.Auth
         /// </summary>
         public static void Logout()
         {
-            Process.Processes.Clear();
-            foreach (var p in Process.Processes)
+            Apps.Process.Processes.Clear();
+            foreach (var p in Apps.Process.Processes)
             {
                 //if (p.ID == 4) return; // Stop the process if the login screen already exists
             }
@@ -103,18 +103,18 @@ namespace RadianceOS.System.Security.Auth
             Radiance.Security.Logged = false;
 
             // Kill all processes
-            foreach (var p in Process.Processes)
+            foreach (var p in Apps.Process.Processes)
             {
                 if (p.ID == 0) continue; // Unless it's Explorer
-                Process.Processes.Remove(p);
+                Apps.Process.Processes.Remove(p);
             }
 
             Explorer.drawIcons = false;
             DrawDesktopApps.UpdateIcons();
             Explorer.DrawTaskbar = false;
 
-            Process.Processes.Add(new Processes() { ID = 4, Name = "Login", moveAble = false, SizeX = 1200, SizeY = 700 });
-            Process.UpdateProcess(Process.Processes.Count - 1);
+            Apps.Process.Processes.Add(new Processes() { ID = 4, Name = "Login", moveAble = false, SizeX = 1200, SizeY = 700 });
+            Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
             LoginScreen.Reinitialise();
         }
         /// <summary>
@@ -155,7 +155,7 @@ namespace RadianceOS.System.Security.Auth
             Radiance.Security.Logged = true;
             if (Kernel.render)
             {
-                Process.Processes.RemoveAt(1); // Kill the login screen, which might be disabled later and just hide it
+                Apps.Process.Processes.RemoveAt(1); // Kill the login screen, which might be disabled later and just hide it
                 Explorer.drawIcons = true;
                 DrawDesktopApps.UpdateIcons();
                 Explorer.DrawTaskbar = true;

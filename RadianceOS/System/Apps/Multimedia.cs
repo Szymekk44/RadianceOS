@@ -26,8 +26,8 @@ namespace RadianceOS.System.Apps
 				SizeY = 200,
 				moveAble = true
 			};
-			Process.Processes.Add(MessageBox);
-			Process.UpdateProcess(Process.Processes.Count - 1);
+			Apps.Process.Processes.Add(MessageBox);
+			Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 
 
 

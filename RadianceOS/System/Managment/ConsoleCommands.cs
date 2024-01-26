@@ -338,7 +338,7 @@ namespace RadianceOS.System.Managment
 					{
 						ID = -1,
 					};
-					Process.Processes.Add(start);
+					Apps.Process.Processes.Add(start);
 					int status = 8;
 
 					try //Checks if already formatted
@@ -366,7 +366,7 @@ namespace RadianceOS.System.Managment
 						sizeAble = false,
 						moveAble = true
 					};
-					Process.Processes.Add(InstallerWin);
+					Apps.Process.Processes.Add(InstallerWin);
 				}
 				else
 				{
@@ -374,7 +374,7 @@ namespace RadianceOS.System.Managment
 					{
 						ID = -1,
 					};
-					Process.Processes.Add(start);
+					Apps.Process.Processes.Add(start);
 					Processes MessageBox = new Processes
 					{
 						ID = 0,
@@ -387,8 +387,8 @@ namespace RadianceOS.System.Managment
 						SizeY = 175,
 						moveAble = true
 					};
-					//		Process.Processes.Add(MessageBox);
-					//	Process.UpdateProcess(Process.Processes.Count - 1);
+					//		Apps.Process.Processes.Add(MessageBox);
+					//	Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 					if (!Radiance.Security.Logged)
 					{
 						Processes MessageBox2 = new Processes
@@ -406,7 +406,7 @@ namespace RadianceOS.System.Managment
 							closeAble = false,
 							hideAble = false
 						};
-						Process.Processes.Add(MessageBox2);
+						Apps.Process.Processes.Add(MessageBox2);
 					}
 					else
 					{
@@ -456,7 +456,7 @@ namespace RadianceOS.System.Managment
 					sizeAble = false,
 					moveAble = true
 				};
-				Process.Processes.Add(InstallerWin);
+				Apps.Process.Processes.Add(InstallerWin);
 
 
 
@@ -465,14 +465,14 @@ namespace RadianceOS.System.Managment
 			else if (command[0] == "guid")
 			{
 				Explorer.Start();
-				Process.Processes.Clear();
+				Apps.Process.Processes.Clear();
 				Kernel.diskReady = false;
 				Kernel.DiskError = new Bitmap(Files.disk);
 				Processes start = new Processes
 				{
 					ID = -1,
 				};
-				Process.Processes.Add(start);
+				Apps.Process.Processes.Add(start);
 				Processes MessageBox = new Processes
 				{
 					ID = 0,
@@ -487,8 +487,8 @@ namespace RadianceOS.System.Managment
 
 					moveAble = true
 				};
-				Process.Processes.Add(MessageBox);
-				Process.UpdateProcess(Process.Processes.Count - 1);
+				Apps.Process.Processes.Add(MessageBox);
+				Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 				Processes MessageBox2 = new Processes
 				{
 					ID = 1,
@@ -501,8 +501,8 @@ namespace RadianceOS.System.Managment
 					SizeY = 500,
 					moveAble = true
 				};
-				Process.Processes.Add(MessageBox2);
-				Process.UpdateProcess(Process.Processes.Count - 1);
+				Apps.Process.Processes.Add(MessageBox2);
+				Apps.Process.UpdateProcess(Apps.Process.Processes.Count - 1);
 				Explorer.DrawTaskbar = true;
 				Kernel.render = true;
 			}

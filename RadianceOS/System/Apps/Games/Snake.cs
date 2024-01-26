@@ -15,8 +15,8 @@ namespace RadianceOS.System.Apps.Games
 	{
 		public static void Start(int ProcessID)
 		{
-			Process.Processes[ProcessID].fragments = new List<fragment>();
-			Process.Processes[ProcessID].fragments2 = new List<fragment>();
+			Apps.Process.Processes[ProcessID].fragments = new List<fragment>();
+			Apps.Process.Processes[ProcessID].fragments2 = new List<fragment>();
 			fragment frag = new fragment
 			{
 				x = 16,
@@ -31,18 +31,18 @@ namespace RadianceOS.System.Apps.Games
 				lastx = 14,
 				lasty = 14
 			};
-			Process.Processes[ProcessID].fragments.Add(frag);
-			Process.Processes[ProcessID].fragments.Add(frag2);
+			Apps.Process.Processes[ProcessID].fragments.Add(frag);
+			Apps.Process.Processes[ProcessID].fragments.Add(frag2);
 		
 
 
 
-			for (int j = 0; j < Process.Processes.Count; j++)
+			for (int j = 0; j < Apps.Process.Processes.Count; j++)
 			{
-				Process.Processes[j].selected = false;
+				Apps.Process.Processes[j].selected = false;
 			}
-			Process.Processes[ProcessID].tempInt = 1;
-			Process.Processes[ProcessID].selected = true;
+			Apps.Process.Processes[ProcessID].tempInt = 1;
+			Apps.Process.Processes[ProcessID].selected = true;
 			int best = 0;
 			if(Kernel.diskReady)
 			{
@@ -70,7 +70,7 @@ namespace RadianceOS.System.Apps.Games
 				MessageBoxCreator.CreateMessageBox("Warning", "Unable to load Best Score.\nRadianceOS is not installed on this computer.", MessageBoxCreator.MessageBoxIcon.warning, 500);
 			}
 			
-			Process.Processes[ProcessID].tempList = new List<int> { 40, 6, 0, 2 , best};
+			Apps.Process.Processes[ProcessID].tempList = new List<int> { 40, 6, 0, 2 , best};
 
 
 			Kernel.countFPS = true;
@@ -88,13 +88,13 @@ namespace RadianceOS.System.Apps.Games
 			Explorer.CanvasMain.DrawFilledRectangle(Kernel.middark, X + 2, Y + 27 + 21, SizeX - 4, SizeY - 50);
 
 		
-		switch(Process.Processes[i].tempList[2])
+		switch(Apps.Process.Processes[i].tempList[2])
 			{
 				case 0:
 					{
 						StringsAcitons.DrawCenteredString("Game settings", SizeX, X, Y + 29, 15, Kernel.fontColor, Kernel.fontRuscii);
-						StringsAcitons.DrawCenteredString("Speed: "+ Process.Processes[i].tempList[1], SizeX, X, Y + 379, 15, Kernel.fontColor, Kernel.fontRuscii);
-						StringsAcitons.DrawCenteredString("Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + 79, 15, Kernel.fontColor, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Speed: "+ Apps.Process.Processes[i].tempList[1], SizeX, X, Y + 379, 15, Kernel.fontColor, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Best: " + Apps.Process.Processes[i].tempList[4], SizeX, X, Y + 79, 15, Kernel.fontColor, Kernel.fontRuscii);
 						//SPEED
 						if (Explorer.MY > Y + 379 - 17 && Explorer.MY < Y + 379 + 33)
 						{
@@ -106,8 +106,8 @@ namespace RadianceOS.System.Apps.Games
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + 350, Y + 379 - 17, 50, 50);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
-									if(!Explorer.Clicked && Process.Processes[i].tempList[1] > 1)
-									Process.Processes[i].tempList[1]--;
+									if(!Explorer.Clicked && Apps.Process.Processes[i].tempList[1] > 1)
+									Apps.Process.Processes[i].tempList[1]--;
 									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 403, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
@@ -123,8 +123,8 @@ namespace RadianceOS.System.Apps.Games
 
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
-									if (!Explorer.Clicked && Process.Processes[i].tempList[1] < 20)
-										Process.Processes[i].tempList[1]++;
+									if (!Explorer.Clicked && Apps.Process.Processes[i].tempList[1] < 20)
+										Apps.Process.Processes[i].tempList[1]++;
 									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 403, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
@@ -160,8 +160,8 @@ namespace RadianceOS.System.Apps.Games
 								Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + 350, Y + 479 - 17, 50, 50);
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
-									if (!Explorer.Clicked && Process.Processes[i].tempList[3] > 1)
-										Process.Processes[i].tempList[3]--;
+									if (!Explorer.Clicked && Apps.Process.Processes[i].tempList[3] > 1)
+										Apps.Process.Processes[i].tempList[3]--;
 									StringsAcitons.DrawCenteredTTFString("-", 50, X + 356, Y + 503, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
@@ -178,8 +178,8 @@ namespace RadianceOS.System.Apps.Games
 
 								if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 								{
-									if (!Explorer.Clicked && Process.Processes[i].tempList[3] < 6)
-										Process.Processes[i].tempList[3]++;
+									if (!Explorer.Clicked && Apps.Process.Processes[i].tempList[3] < 6)
+										Apps.Process.Processes[i].tempList[3]++;
 									StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 503, 18, Kernel.fontColor, "UMB", 50);
 								}
 								else
@@ -205,7 +205,7 @@ namespace RadianceOS.System.Apps.Games
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.main, X + 500, Y + 479 - 17, 50, 50);
 							StringsAcitons.DrawCenteredTTFString("+", 50, X + 503, Y + 500, 18, Kernel.fontColor, "UMB", 50);
 						}
-						StringsAcitons.DrawCenteredString("Apples: " + Process.Processes[i].tempList[3], SizeX, X, Y + 479, 15, Kernel.fontColor, Kernel.fontRuscii);
+						StringsAcitons.DrawCenteredString("Apples: " + Apps.Process.Processes[i].tempList[3], SizeX, X, Y + 479, 15, Kernel.fontColor, Kernel.fontRuscii);
 
 
 
@@ -220,7 +220,7 @@ namespace RadianceOS.System.Apps.Games
 									if (!Explorer.Clicked)
 									{
 										Random random = new Random();
-										for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+										for (int o = 0; o < Apps.Process.Processes[i].tempList[3]; o++)
 										{
 											int x1 = random.Next(0, 30);
 											int y1 = random.Next(2, 31);
@@ -229,24 +229,24 @@ namespace RadianceOS.System.Apps.Games
 												x = x1,
 												y = y1
 											};
-											Process.Processes[i].fragments2.Add(fragApple);
+											Apps.Process.Processes[i].fragments2.Add(fragApple);
 										}
-										for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+										for (int o = 0; o < Apps.Process.Processes[i].tempList[3]; o++)
 										{
-											for (int j = 0; j < Process.Processes[i].tempList[3]; j++)
+											for (int j = 0; j < Apps.Process.Processes[i].tempList[3]; j++)
 											{
-												if (o != j && Process.Processes[i].fragments2[o].x == Process.Processes[i].fragments2[j].x)
+												if (o != j && Apps.Process.Processes[i].fragments2[o].x == Apps.Process.Processes[i].fragments2[j].x)
 												{
-													Process.Processes[i].fragments2[i].x = random.Next(0, 30);
+													Apps.Process.Processes[i].fragments2[i].x = random.Next(0, 30);
 												}
 
-												if (o != j && Process.Processes[i].fragments2[o].y == Process.Processes[i].fragments2[j].y)
+												if (o != j && Apps.Process.Processes[i].fragments2[o].y == Apps.Process.Processes[i].fragments2[j].y)
 												{
-													Process.Processes[i].fragments2[i].y = random.Next(2, 31);
+													Apps.Process.Processes[i].fragments2[i].y = random.Next(2, 31);
 												}
 											}
 										}
-										Process.Processes[i].tempList[2] = 1;
+										Apps.Process.Processes[i].tempList[2] = 1;
 									}
 									
 									StringsAcitons.DrawCenteredString("START", 100, X + 400, Y + 622, 15, Kernel.fontColor, Kernel.fontRuscii);
@@ -272,14 +272,14 @@ namespace RadianceOS.System.Apps.Games
 				case 1:
 					{
 					# region snake
-						if (Process.Processes[i].selected && !Process.Processes[i].tempBool && Kernel._fps > Process.Processes[i].tempList[1])
+						if (Apps.Process.Processes[i].selected && !Apps.Process.Processes[i].tempBool && Kernel._fps > Apps.Process.Processes[i].tempList[1])
 						{
 
 
 
-							StringsAcitons.DrawCenteredString("Update every " + Process.Processes[i].tempList[0] + " frames (" + Process.Processes[i].tempList[1] + "/s)", SizeX, X, Y + 29, 15, Kernel.fontColor, Kernel.fontRuscii);
+							StringsAcitons.DrawCenteredString("Update every " + Apps.Process.Processes[i].tempList[0] + " frames (" + Apps.Process.Processes[i].tempList[1] + "/s)", SizeX, X, Y + 29, 15, Kernel.fontColor, Kernel.fontRuscii);
 							bool update = false;
-							int dirrection = Process.Processes[i].tempInt3;
+							int dirrection = Apps.Process.Processes[i].tempInt3;
 
 
 
@@ -292,7 +292,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 3)
 											{
-												Process.Processes[i].tempInt3 = 1;
+												Apps.Process.Processes[i].tempInt3 = 1;
 											}
 										}
 										break;
@@ -300,7 +300,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 1)
 											{
-												Process.Processes[i].tempInt3 = 3;
+												Apps.Process.Processes[i].tempInt3 = 3;
 											}
 										}
 										break;
@@ -308,7 +308,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 2)
 											{
-												Process.Processes[i].tempInt3 = 0;
+												Apps.Process.Processes[i].tempInt3 = 0;
 											}
 										}
 										break;
@@ -316,7 +316,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 0)
 											{
-												Process.Processes[i].tempInt3 = 2;
+												Apps.Process.Processes[i].tempInt3 = 2;
 											}
 										}
 										break;
@@ -324,7 +324,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 3)
 											{
-												Process.Processes[i].tempInt3 = 1;
+												Apps.Process.Processes[i].tempInt3 = 1;
 											}
 										}
 										break;
@@ -332,7 +332,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 1)
 											{
-												Process.Processes[i].tempInt3 = 3;
+												Apps.Process.Processes[i].tempInt3 = 3;
 											}
 										}
 										break;
@@ -340,7 +340,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 2)
 											{
-												Process.Processes[i].tempInt3 = 0;
+												Apps.Process.Processes[i].tempInt3 = 0;
 											}
 										}
 										break;
@@ -348,7 +348,7 @@ namespace RadianceOS.System.Apps.Games
 										{
 											if (dirrection != 0)
 											{
-												Process.Processes[i].tempInt3 = 2;
+												Apps.Process.Processes[i].tempInt3 = 2;
 											}
 										}
 										break;
@@ -356,11 +356,11 @@ namespace RadianceOS.System.Apps.Games
 
 							}
 
-							if (Process.Processes[i].tempInt2 > Process.Processes[i].tempList[0]/*curr speed*/) //pls cosmos add milliseconds support!@!
+							if (Apps.Process.Processes[i].tempInt2 > Apps.Process.Processes[i].tempList[0]/*curr speed*/) //pls cosmos add milliseconds support!@!
 							{
 								if (Kernel._fps != 0)
 								{
-									Process.Processes[i].tempList[0] = Kernel._fps / Process.Processes[i].tempList[1];
+									Apps.Process.Processes[i].tempList[0] = Kernel._fps / Apps.Process.Processes[i].tempList[1];
 								}
 								fragments[0].lasty = fragments[0].y;
 								fragments[0].lastx = fragments[0].x;
@@ -381,13 +381,13 @@ namespace RadianceOS.System.Apps.Games
 										break;
 								}
 								update = true;
-								Process.Processes[i].tempInt2 = 0;
+								Apps.Process.Processes[i].tempInt2 = 0;
 								for (int j = 0; j < fragments2.Count; j++)
 								{
 
 									if (fragments[0].x == fragments2[j].x && fragments[0].y == fragments2[j].y)
 									{
-										Process.Processes[i].tempInt++;
+										Apps.Process.Processes[i].tempInt++;
 										Random random = new Random();
 
 										int x1 = random.Next(0, 30);
@@ -402,15 +402,15 @@ namespace RadianceOS.System.Apps.Games
 										}
 										fragments2[j].x = x1;
 										fragments2[j].y = y1;
-										int count = Process.Processes[i].fragments.Count;
+										int count = Apps.Process.Processes[i].fragments.Count;
 										fragment newFrag = new fragment
 										{
-											x = Process.Processes[i].fragments[count - 1].lastx,
-											y = Process.Processes[i].fragments[count - 1].lasty,
-											lastx = Process.Processes[i].fragments[count - 1].lastx - 1,
-											lasty = Process.Processes[i].fragments[count - 1].lasty
+											x = Apps.Process.Processes[i].fragments[count - 1].lastx,
+											y = Apps.Process.Processes[i].fragments[count - 1].lasty,
+											lastx = Apps.Process.Processes[i].fragments[count - 1].lastx - 1,
+											lasty = Apps.Process.Processes[i].fragments[count - 1].lasty
 										};
-										Process.Processes[i].fragments.Add(newFrag);
+										Apps.Process.Processes[i].fragments.Add(newFrag);
 
 									}
 								}
@@ -418,11 +418,11 @@ namespace RadianceOS.System.Apps.Games
 								{
 									if (fragments[0].x == fragments[j].x && fragments[0].y == fragments[j].y)
 									{
-										Process.Processes[i].tempBool = true;//end
-										if(Process.Processes[i].tempInt > Process.Processes[i].tempList[4])
+										Apps.Process.Processes[i].tempBool = true;//end
+										if(Apps.Process.Processes[i].tempInt > Apps.Process.Processes[i].tempList[4])
 										{
-											Process.Processes[i].tempList[4] = Process.Processes[i].tempInt;
-											File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Saved\Snake\Save.dat", Process.Processes[i].tempInt.ToString());
+											Apps.Process.Processes[i].tempList[4] = Apps.Process.Processes[i].tempInt;
+											File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Saved\Snake\Save.dat", Apps.Process.Processes[i].tempInt.ToString());
 										}
 											
 									}
@@ -434,16 +434,16 @@ namespace RadianceOS.System.Apps.Games
 								}
 								else
 								{
-									Process.Processes[i].tempBool = true;//end
-									if (Process.Processes[i].tempInt > Process.Processes[i].tempList[4])
+									Apps.Process.Processes[i].tempBool = true;//end
+									if (Apps.Process.Processes[i].tempInt > Apps.Process.Processes[i].tempList[4])
 									{
-										Process.Processes[i].tempList[4] = Process.Processes[i].tempInt;
-										File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Saved\Snake\Save.dat", Process.Processes[i].tempInt.ToString());
+										Apps.Process.Processes[i].tempList[4] = Apps.Process.Processes[i].tempInt;
+										File.WriteAllText(@"0:\Users\" + Kernel.loggedUser + @"\Saved\Snake\Save.dat", Apps.Process.Processes[i].tempInt.ToString());
 									}
 								}
 							}
 							else
-								Process.Processes[i].tempInt2++;
+								Apps.Process.Processes[i].tempInt2++;
 							Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightlightMain, X + fragments[0].x * 30, Y + fragments[0].y * 30, 27, 27);
 
 							for (int j = 0; j < fragments2.Count; j++)
@@ -466,18 +466,18 @@ namespace RadianceOS.System.Apps.Games
 
 							}
 
-							StringsAcitons.DrawCenteredTTFString(Process.Processes[i].tempInt.ToString(), SizeX, X, Y + 70, 15, Kernel.fontColor, "CB", 25);
+							StringsAcitons.DrawCenteredTTFString(Apps.Process.Processes[i].tempInt.ToString(), SizeX, X, Y + 70, 15, Kernel.fontColor, "CB", 25);
 
 						}
-						else if (!Process.Processes[i].tempBool && Kernel._fps > Process.Processes[i].tempList[1])
+						else if (!Apps.Process.Processes[i].tempBool && Kernel._fps > Apps.Process.Processes[i].tempList[1])
 						{
 							StringsAcitons.DrawCenteredString("Game paused.", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
 							StringsAcitons.DrawCenteredString("Please select this window to continue playing!", SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Kernel.fontColor, Kernel.fontRuscii);
 						}
-						else if (Kernel._fps > Process.Processes[i].tempList[1])
+						else if (Kernel._fps > Apps.Process.Processes[i].tempList[1])
 						{
 							StringsAcitons.DrawCenteredString("You lost!", SizeX, X, Y + (SizeY - 50) / 2 - 9, 15, Color.Red, Kernel.fontRuscii);
-							StringsAcitons.DrawCenteredString("Points: " + Process.Processes[i].tempInt + " Best: " + Process.Processes[i].tempList[4], SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Kernel.fontColor, Kernel.fontRuscii);
+							StringsAcitons.DrawCenteredString("Points: " + Apps.Process.Processes[i].tempInt + " Best: " + Apps.Process.Processes[i].tempList[4], SizeX, X, Y + (SizeY - 50) / 2 + 9, 15, Kernel.fontColor, Kernel.fontRuscii);
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + (SizeX / 2) - 50, Y + SizeY / 2 + 30, 100, 30);
                             StringsAcitons.DrawCenteredString("Play Again", SizeX, X, Y + SizeY / 2 + 38, 15, Kernel.fontColor, Kernel.fontRuscii);
                             Explorer.CanvasMain.DrawFilledRectangle(Kernel.lightMain, X + (SizeX / 2) - 50, Y + SizeY / 2 + 70, 100, 30);
@@ -515,8 +515,8 @@ namespace RadianceOS.System.Apps.Games
 		}
 		public static void PlayAgain(int i)
 		{
-            Process.Processes[i].fragments = new List<fragment>();
-            Process.Processes[i].fragments2 = new List<fragment>();
+            Apps.Process.Processes[i].fragments = new List<fragment>();
+            Apps.Process.Processes[i].fragments2 = new List<fragment>();
             fragment frag = new fragment
             {
                 x = 16,
@@ -531,10 +531,10 @@ namespace RadianceOS.System.Apps.Games
                 lastx = 14,
                 lasty = 14
             };
-            Process.Processes[i].fragments.Add(frag);
-            Process.Processes[i].fragments.Add(frag2);
+            Apps.Process.Processes[i].fragments.Add(frag);
+            Apps.Process.Processes[i].fragments.Add(frag2);
             Random random = new Random();
-            for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+            for (int o = 0; o < Apps.Process.Processes[i].tempList[3]; o++)
             {
                 int x1 = random.Next(0, 30);
                 int y1 = random.Next(2, 31);
@@ -543,32 +543,32 @@ namespace RadianceOS.System.Apps.Games
                     x = x1,
                     y = y1
                 };
-                Process.Processes[i].fragments2.Add(fragApple);
+                Apps.Process.Processes[i].fragments2.Add(fragApple);
             }
-            for (int o = 0; o < Process.Processes[i].tempList[3]; o++)
+            for (int o = 0; o < Apps.Process.Processes[i].tempList[3]; o++)
             {
-                for (int j = 0; j < Process.Processes[i].tempList[3]; j++)
+                for (int j = 0; j < Apps.Process.Processes[i].tempList[3]; j++)
                 {
-                    if (o != j && Process.Processes[i].fragments2[o].x == Process.Processes[i].fragments2[j].x)
+                    if (o != j && Apps.Process.Processes[i].fragments2[o].x == Apps.Process.Processes[i].fragments2[j].x)
                     {
-                        Process.Processes[i].fragments2[i].x = random.Next(0, 30);
+                        Apps.Process.Processes[i].fragments2[i].x = random.Next(0, 30);
                     }
 
-                    if (o != j && Process.Processes[i].fragments2[o].y == Process.Processes[i].fragments2[j].y)
+                    if (o != j && Apps.Process.Processes[i].fragments2[o].y == Apps.Process.Processes[i].fragments2[j].y)
                     {
-                        Process.Processes[i].fragments2[i].y = random.Next(2, 31);
+                        Apps.Process.Processes[i].fragments2[i].y = random.Next(2, 31);
                     }
                 }
             }
-            Process.Processes[i].tempInt = 1;
-            Process.Processes[i].tempInt3 = 0;
-            Process.Processes[i].tempBool = false;
-			Start(Process.Processes[i].ID);
+            Apps.Process.Processes[i].tempInt = 1;
+            Apps.Process.Processes[i].tempInt3 = 0;
+            Apps.Process.Processes[i].tempBool = false;
+			Start(Apps.Process.Processes[i].ID);
         }
 		public static void Menu(int i)
 		{
-            Process.Processes[i].fragments = new List<fragment>();
-            Process.Processes[i].fragments2 = new List<fragment>();
+            Apps.Process.Processes[i].fragments = new List<fragment>();
+            Apps.Process.Processes[i].fragments2 = new List<fragment>();
             fragment frag = new fragment
             {
                 x = 16,
@@ -583,13 +583,13 @@ namespace RadianceOS.System.Apps.Games
                 lastx = 14,
                 lasty = 14
             };
-            Process.Processes[i].fragments.Add(frag);
-            Process.Processes[i].fragments.Add(frag2);
-            Process.Processes[i].tempInt = 1;
-            Process.Processes[i].tempInt3 = 0;
-            Process.Processes[i].tempBool = false;
-            Process.Processes[i].tempList[2] = 0;
-			Start(Process.Processes[i].ID);
+            Apps.Process.Processes[i].fragments.Add(frag);
+            Apps.Process.Processes[i].fragments.Add(frag2);
+            Apps.Process.Processes[i].tempInt = 1;
+            Apps.Process.Processes[i].tempInt3 = 0;
+            Apps.Process.Processes[i].tempBool = false;
+            Apps.Process.Processes[i].tempList[2] = 0;
+			Start(Apps.Process.Processes[i].ID);
         }
 	}
 

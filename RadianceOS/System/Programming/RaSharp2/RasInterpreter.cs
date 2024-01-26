@@ -22,7 +22,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 			string[] commands = com.Split(';');
 			List<string[]> paramets = new List<string[]>();
 			List<string[]> dots = new List<string[]>();
-			int datId = Process.Processes[ProcessID].DataID;
+			int datId = Apps.Process.Processes[ProcessID].DataID;
 			for (int i = 0; i < commands.Length; i++)
 			{
 				string[] dotSplit = commands[i].Split('.');
@@ -34,7 +34,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 			com = com.Trim();
 			if (com.StartsWith("void") || com.StartsWith("//"))
 			{
-				Process.Processes[ProcessID].RasData.CurrentLine++;
+				Apps.Process.Processes[ProcessID].RasData.CurrentLine++;
 				return;
 			}	
 				
@@ -84,9 +84,9 @@ namespace RadianceOS.System.Programming.RaSharp2
 						temp.Add(paramets[i][j]);
 					}
 					string name = GetString.ReturnString(temp.ToArray(), ProcessID, com).Trim();
-					if (RasExecuter.Data[Process.Processes[i].DataID].voids.ContainsKey(name))
+					if (RasExecuter.Data[Apps.Process.Processes[i].DataID].voids.ContainsKey(name))
 					{
-						Process.Processes[ProcessID].RasData.CurrentLine = RasExecuter.Data[Process.Processes[i].DataID].voids[name];
+						Apps.Process.Processes[ProcessID].RasData.CurrentLine = RasExecuter.Data[Apps.Process.Processes[i].DataID].voids[name];
 					}
 					else
 						MessageBoxCreator.CreateMessageBox("Ra# Error", "Void " + name + " does not exist", MessageBoxCreator.MessageBoxIcon.error);
@@ -103,7 +103,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 					}
 					else if(RasExecuter.Data[datId].variables[paramets[i][0]] is int)
 					{
-						int finaleNumber = GetInt.ReturnInt(i, com, Process.Processes[i].DataID);
+						int finaleNumber = GetInt.ReturnInt(i, com, Apps.Process.Processes[i].DataID);
 						RasExecuter.Data[datId].variables[paramets[i][0]] = finaleNumber;
 					}
 
@@ -113,7 +113,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 					ReportError("Unknown command!", i, ProcessID);
 				}
 			}
-			Process.Processes[ProcessID].RasData.CurrentLine++;
+			Apps.Process.Processes[ProcessID].RasData.CurrentLine++;
 
 
 		}
@@ -126,7 +126,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 				text = error + " Line: " + line,
 				color = Color.Red
 			};
-			Process.Processes[ProcessID].RasData.lines.Add(err);
+			Apps.Process.Processes[ProcessID].RasData.lines.Add(err);
 		}
 
 	}
