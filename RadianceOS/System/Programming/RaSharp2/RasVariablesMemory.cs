@@ -10,5 +10,6 @@ namespace RadianceOS.System.Programming.RaSharp2
 	{
 		public Dictionary<string, object> variables = new Dictionary<string, object>();
 		public Dictionary<string, int> voids = new Dictionary<string, int>();
+		public Dictionary<string, string[]> Void = new Dictionary<string, string[]>();
 	}
 }

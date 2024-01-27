@@ -92,7 +92,27 @@ namespace RadianceOS.System.Programming
 				{
 					if (commands.Length > 1)
 					{
-						if (Directory.Exists(Process.Processes[index].metaData + commands[1]))
+						if (commands[1].Trim() == "..")
+						{
+							if (Process.Processes[index].metaData == @"0:\")
+							{
+
+								TextColor empty = new TextColor
+								{
+									text = "Could not exit disk 0!",
+									color = Color.Red
+								};
+								Process.Processes[index].lines.Add(empty);
+							}
+							else
+							{
+								Process.Processes[index].metaData = Process.Processes[index].metaData.Remove(Process.Processes[index].metaData.Length - 1);
+								int lastSlashIndex = Process.Processes[index].metaData.LastIndexOf(@"\");
+								string result = Process.Processes[index].metaData.Substring(0, lastSlashIndex + 1);
+								Process.Processes[index].metaData = result;
+							}
+						}
+						else if (Directory.Exists(Process.Processes[index].metaData + commands[1]))
 							Process.Processes[index].metaData += commands[1] + @"\";
 						else
 						{
@@ -808,6 +828,7 @@ namespace RadianceOS.System.Programming
 				{
 					var available_space = Kernel.fs.GetAvailableFreeSpace(@"0:\");
 					GenerateText(Kernel.fs.GetTotalSize(@"0:\")/1024 + "/" + available_space/1024 + "KB", Process.Processes[index].color1, index);
+					GenerateText(Kernel.fs.GetTotalSize(@"0:\") / (1024 * 1024) + "/" + available_space / (1024 * 1024) + "MB", Process.Processes[index].color1, index);
 				}
 				else if (commands[0] == "help")
 				{

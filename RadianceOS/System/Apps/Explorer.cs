@@ -47,8 +47,8 @@ namespace RadianceOS.System.Apps
 		public static int fail = 0;
 
 		public static int TaskBarHeight = 40;
-
-
+		public static bool AlreadyClicked;
+		public static int ClickedID;
 		public static void Start()
 		{
 			if (Kernel.workingAudio)
@@ -97,6 +97,7 @@ namespace RadianceOS.System.Apps
 		public static void Update()
 		{
 			// Update the internal RS Service
+			
 			Security.Service.UpdateInternal();
 			
 			MX = (int)Cosmos.System.MouseManager.X;
@@ -143,6 +144,7 @@ namespace RadianceOS.System.Apps
 						break;
 					if (Process.Processes[i].hidden)
 						continue;
+
 					switch (Process.Processes[i].ID)
 					{
 						case 0:
@@ -222,6 +224,18 @@ namespace RadianceOS.System.Apps
 							Security.Service.Update(i);
 							break;
 					}
+					int revertedI = Process.Processes.Count - 1 - i;
+					if(MouseManager.MouseState == MouseState.Left && !AlreadyClicked)
+					{
+						if (MX > Process.Processes[revertedI].X && MX < Process.Processes[revertedI].X + Process.Processes[revertedI].SizeX)
+						{
+							if (MY > Process.Processes[revertedI].Y && MY < Process.Processes[revertedI].Y + Process.Processes[revertedI].SizeY)
+							{
+								AlreadyClicked = true;
+								ClickedID = revertedI;
+							}
+						}
+					}
 				}
 			}
 			catch (Exception ex)
@@ -234,7 +248,7 @@ namespace RadianceOS.System.Apps
 			{
 				fail = 0;
 			}
-
+			Explorer.CanvasMain.DrawString("AlreadyClicked: " + AlreadyClicked, Kernel.font18, Color.White, 200,0);
 
 
 
@@ -256,272 +270,282 @@ namespace RadianceOS.System.Apps
 							continue;
 						if (Process.Processes[i].hidden)
 							continue;
-						if (MX - 3 >= Process.Processes[i].X && MX + 3 <= Process.Processes[i].X + Process.Processes[i].SizeX)
+						bool canContinue = false;
+						if (AlreadyClicked)
 						{
-							if (MY - 3 >= Process.Processes[i].Y && MY + 3 <= Process.Processes[i].Y + 25)
+							if (ClickedID == i)
+								canContinue = true;
+						}
+						else
+							canContinue = true;
+						if (canContinue)
+						{
+							if (MX - 3 >= Process.Processes[i].X && MX + 3 <= Process.Processes[i].X + Process.Processes[i].SizeX)
 							{
-								ClickedIndex = i;
-								ClickedOnWindow = true;
-								OldX = MX - Process.Processes[i].X;
-								OldY = MY - Process.Processes[i].Y;
-								//CLOSING
-								if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 38 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 8 && Process.Processes[i].closeAble)
+								if (MY - 3 >= Process.Processes[i].Y && MY + 3 <= Process.Processes[i].Y + 25)
 								{
-
-									if (Process.Processes[i].ID == 5)
+									ClickedIndex = i;
+									ClickedOnWindow = true;
+									OldX = MX - Process.Processes[i].X;
+									OldY = MY - Process.Processes[i].Y;
+									//CLOSING
+									if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 38 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 8 && Process.Processes[i].closeAble && !Clicked)
 									{
-										if (Process.Processes[i].tempInt == 1)
+
+										if (Process.Processes[i].ID == 5)
 										{
-											Settings.resouresLoaded--;
-											if (Settings.resouresLoaded <= 0)
+											if (Process.Processes[i].tempInt == 1)
 											{
-												Settings.UnloadData();
+												Settings.resouresLoaded--;
+												if (Settings.resouresLoaded <= 0)
+												{
+													Settings.UnloadData();
+												}
 											}
 										}
-									}
-									int scanId = 0;
+										int scanId = 0;
 
-									switch (Process.Processes[i].ID)
-									{
-										case 6:
-											scanId = 1;
-											break;
-										case 7:
-											scanId = 1;
-											break;
-									}
-
-									Process.Processes.RemoveAt(i);
-									bool found = false;
-									if (scanId != 0)
-									{
-										switch (scanId)
+										switch (Process.Processes[i].ID)
 										{
-											case 1:
-												{
-													for (int j = 0; j < Process.Processes.Count; j++)
+											case 6:
+												scanId = 1;
+												break;
+											case 7:
+												scanId = 1;
+												break;
+										}
+
+										Process.Processes.RemoveAt(i);
+										bool found = false;
+										if (scanId != 0)
+										{
+											switch (scanId)
+											{
+												case 1:
 													{
-														switch (Process.Processes[j].ID)
+														for (int j = 0; j < Process.Processes.Count; j++)
 														{
-															case 6:
-																found = true;
-																break;
-															case 7:
-																found = true;
-																break;
+															switch (Process.Processes[j].ID)
+															{
+																case 6:
+																	found = true;
+																	break;
+																case 7:
+																	found = true;
+																	break;
+															}
 														}
 													}
-												}
-												break;
+													break;
+											}
 										}
-									}
-									if (!found)
-									{
-										switch (scanId)
+										if (!found)
 										{
-											case 1:
-												{
-													Kernel.countFPS = false;
-												}
-												break;
+											switch (scanId)
+											{
+												case 1:
+													{
+														Kernel.countFPS = false;
+													}
+													break;
+											}
 										}
+										return;
 									}
-									return;
-								}
-								else if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
-								{
-									if (Process.Processes[i].sizeAble)
+									else if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
 									{
-										if (!Process.Processes[i].maximized)
+										if (Process.Processes[i].sizeAble)
 										{
-											Process.Processes[i].maximized = true;
-											Process.Processes[i].notMaxX = Process.Processes[i].SizeX;
-											Process.Processes[i].notMaxY = Process.Processes[i].SizeY;
-											Process.Processes[i].X = 0;
-											Process.Processes[i].Y = 0;
-											Process.Processes[i].SizeX = (int)screenSizeX;
-											Process.Processes[i].SizeY = (int)screenSizeY - TaskBarHeight;
-											ClickedOnWindow = false;
+											if (!Process.Processes[i].maximized)
+											{
+												Process.Processes[i].maximized = true;
+												Process.Processes[i].notMaxX = Process.Processes[i].SizeX;
+												Process.Processes[i].notMaxY = Process.Processes[i].SizeY;
+												Process.Processes[i].X = 0;
+												Process.Processes[i].Y = 0;
+												Process.Processes[i].SizeX = (int)screenSizeX;
+												Process.Processes[i].SizeY = (int)screenSizeY - TaskBarHeight;
+												ClickedOnWindow = false;
+											}
+											else
+											{
+												Process.Processes[i].maximized = false;
+												Process.Processes[i].SizeX = Process.Processes[i].notMaxX;
+												Process.Processes[i].SizeY = Process.Processes[i].notMaxY;
+												Process.Processes[i].X = (int)screenSizeX - Process.Processes[i].SizeX;
+												Process.Processes[i].Y = 0;
+												ClickedOnWindow = false;
+											}
+										}
+
+									}
+									if (Process.Processes[i].hideAble)
+									{
+										if (Process.Processes[i].sizeAble)
+										{
+											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
+											{
+												Process.Processes[i].hidden = true;
+											}
 										}
 										else
 										{
-											Process.Processes[i].maximized = false;
-											Process.Processes[i].SizeX = Process.Processes[i].notMaxX;
-											Process.Processes[i].SizeY = Process.Processes[i].notMaxY;
-											Process.Processes[i].X = (int)screenSizeX - Process.Processes[i].SizeX;
-											Process.Processes[i].Y = 0;
-											ClickedOnWindow = false;
+											if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
+											{
+												Process.Processes[i].hidden = true;
+											}
 										}
 									}
-									
+
+
 								}
-								if (Process.Processes[i].hideAble)
+
+
+
+
+								//SELECTING
+								switch (Process.Processes[i].ID)
 								{
-									if (Process.Processes[i].sizeAble)
-									{
-										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 96 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 68)
+									case 1:
 										{
-											Process.Processes[i].hidden = true;
+											if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+											{
+												if (!Process.Processes[i].selected)
+												{
+													for (int j = 0; j < Process.Processes.Count; j++)
+													{
+														Process.Processes[j].selected = false;
+													}
+													Process.Processes[i].selected = true;
+													InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
+												}
+
+											}
 										}
+										break;
+									case 2:
+										{
+											if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+											{
+												if (!Process.Processes[i].selected)
+												{
+													for (int j = 0; j < Process.Processes.Count; j++)
+													{
+														Process.Processes[j].selected = false;
+													}
+													Process.Processes[i].selected = true;
+													InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
+												}
+
+											}
+										}
+										break;
+									case 3:
+										{
+											if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+											{
+												if (!Process.Processes[i].selected)
+												{
+													for (int j = 0; j < Process.Processes.Count; j++)
+													{
+														Process.Processes[j].selected = false;
+													}
+													Process.Processes[i].selected = true;
+													InputSystem.CurrentString = RasPerformer.Data[Process.Processes[i].tempInt].output[RasPerformer.Data[Process.Processes[i].tempInt].output.Count - 1].text;
+												}
+
+											}
+										}
+										break;
+									case 6:
+										{
+											if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+											{
+												if (!Process.Processes[i].selected)
+												{
+													for (int j = 0; j < Process.Processes.Count; j++)
+													{
+														Process.Processes[j].selected = false;
+													}
+													Process.Processes[i].selected = true;
+													Process.Processes[i].tempInt2 = 0;
+												}
+
+											}
+										}
+										break;
+									case 8:
+										{
+											if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+											{
+												if (!Process.Processes[i].selected)
+												{
+													for (int j = 0; j < Process.Processes.Count; j++)
+													{
+														Process.Processes[j].selected = false;
+													}
+													Process.Processes[i].selected = true;
+													InputSystem.CurrentString = Process.Processes[i].texts[0];
+												}
+
+											}
+										}
+										break;
+									case 12:
+										{
+											if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
+											{
+												if (!Process.Processes[i].selected)
+												{
+													for (int j = 0; j < Process.Processes.Count; j++)
+													{
+														Process.Processes[j].selected = false;
+													}
+													Process.Processes[i].selected = true;
+													//InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
+													InputSystem.CurrentString = Process.Processes[i].RasData.lines[Process.Processes[i].RasData.lines.Count - 1].text;
+												}
+
+											}
+										}
+										break;
+								}
+							}
+
+							if (Process.Processes[i].sizeAble)
+							{
+								if (MY + 5 > Process.Processes[i].Y && MY - 5 < Process.Processes[i].Y + Process.Processes[i].SizeY)
+								{
+									if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 5 && MX < Process.Processes[i].X + Process.Processes[i].SizeX + 5)
+									{
+										scalingX = true;
+										scalingXleft = false;
+										scalingY = false;
+										ClickedIndex = i;
+									}
+									else if (MX >= Process.Processes[i].X - 5 && MX < Process.Processes[i].X + 5)
+									{
+										scalingXleft = true;
+										scalingX = false;
+										scalingY = false;
+										ClickedIndex = i;
+									}
+									else if (MY >= Process.Processes[i].Y + Process.Processes[i].SizeY - 5 && MY < Process.Processes[i].Y + Process.Processes[i].SizeY + 5)
+									{
+										scalingX = false;
+										scalingXleft = false;
+										scalingY = true;
+										ClickedIndex = i;
 									}
 									else
-									{
-										if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 68 && MX <= Process.Processes[i].X + Process.Processes[i].SizeX - 40)
-										{
-											Process.Processes[i].hidden = true;
-										}
-									}
-								}
-
-
-							}
-
-
-
-
-							//SELECTING
-							switch (Process.Processes[i].ID)
-							{
-								case 1:
-									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
-										{
-											if (!Process.Processes[i].selected)
-											{
-												for (int j = 0; j < Process.Processes.Count; j++)
-												{
-													Process.Processes[j].selected = false;
-												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
-											}
-
-										}
-									}
-									break;
-								case 2:
-									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
-										{
-											if (!Process.Processes[i].selected)
-											{
-												for (int j = 0; j < Process.Processes.Count; j++)
-												{
-													Process.Processes[j].selected = false;
-												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = Process.Processes[i].defaultLines[Process.Processes[i].CurrLine];
-											}
-
-										}
-									}
-									break;
-								case 3:
-									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
-										{
-											if (!Process.Processes[i].selected)
-											{
-												for (int j = 0; j < Process.Processes.Count; j++)
-												{
-													Process.Processes[j].selected = false;
-												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = RasPerformer.Data[Process.Processes[i].tempInt].output[RasPerformer.Data[Process.Processes[i].tempInt].output.Count - 1].text;
-											}
-
-										}
-									}
-									break;
-								case 6:
-									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
-										{
-											if (!Process.Processes[i].selected)
-											{
-												for (int j = 0; j < Process.Processes.Count; j++)
-												{
-													Process.Processes[j].selected = false;
-												}
-												Process.Processes[i].selected = true;
-												Process.Processes[i].tempInt2 = 0;
-											}
-
-										}
-									}
-									break;
-								case 8:
-									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
-										{
-											if (!Process.Processes[i].selected)
-											{
-												for (int j = 0; j < Process.Processes.Count; j++)
-												{
-													Process.Processes[j].selected = false;
-												}
-												Process.Processes[i].selected = true;
-												InputSystem.CurrentString = Process.Processes[i].texts[0];
-											}
-
-										}
-									}
-									break;
-								case 12:
-									{
-										if (MY >= Process.Processes[i].Y + 25 && MY <= Process.Processes[i].Y + 25 + Process.Processes[i].SizeY)
-										{
-											if (!Process.Processes[i].selected)
-											{
-												for (int j = 0; j < Process.Processes.Count; j++)
-												{
-													Process.Processes[j].selected = false;
-												}
-												Process.Processes[i].selected = true;
-												//InputSystem.CurrentString = Process.Processes[i].lines[Process.Processes[i].lines.Count - 1].text;
-												InputSystem.CurrentString = Process.Processes[i].RasData.lines[Process.Processes[i].RasData.lines.Count - 1].text;
-											}
-
-										}
-									}
-									break;
-							}
-						}
-
-						if (Process.Processes[i].sizeAble)
-						{
-							if (MY + 5 > Process.Processes[i].Y && MY - 5 < Process.Processes[i].Y + Process.Processes[i].SizeY)
-							{
-								if (MX >= Process.Processes[i].X + Process.Processes[i].SizeX - 5 && MX < Process.Processes[i].X + Process.Processes[i].SizeX + 5)
-								{
-									scalingX = true;
-									scalingXleft = false;
-									scalingY = false;
-									ClickedIndex = i;
-								}
-								else if (MX >= Process.Processes[i].X - 5 && MX < Process.Processes[i].X + 5)
-								{
-									scalingXleft = true;
-									scalingX = false;
-									scalingY = false;
-									ClickedIndex = i;
-								}
-								else if (MY >= Process.Processes[i].Y + Process.Processes[i].SizeY - 5 && MY < Process.Processes[i].Y + Process.Processes[i].SizeY + 5)
-								{
-									scalingX = false;
-									scalingXleft = false;
-									scalingY = true;
-									ClickedIndex = i;
+										Reset();
 								}
 								else
 									Reset();
 							}
 							else
 								Reset();
-						}
-						else
-							Reset();
-
+						}//end
 
 					}
 
@@ -588,6 +612,7 @@ namespace RadianceOS.System.Apps
 				if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.None)
 				{
 					Clicked = false;
+					AlreadyClicked = false;
 					ClickedOnWindow = false;
 					Reset();
 				}
@@ -603,7 +628,7 @@ namespace RadianceOS.System.Apps
 				if (Cosmos.System.MouseManager.MouseState == Cosmos.System.MouseState.Left)
 				{
 					bool clicked = false;
-
+					AlreadyClicked = false;
 					if (MY >= screenSizeY - 640 && MY <= screenSizeY)
 					{
 						if (MX >= 5 && MX <= 705)

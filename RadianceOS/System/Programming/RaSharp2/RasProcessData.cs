@@ -13,8 +13,9 @@ namespace RadianceOS.System.Programming.RaSharp2
 	{
 		public string[] code;
 		public List<TextColor> lines = new List<TextColor>();
-		public int CurrentLine;
-		public string CurrentVoid;
+		public List<int> CurrLines = new List<int>();
+		//public int CurrentLine;
+		public List<string> CurrVoids;
 		public bool waitForUserInput;
 		public string toVariable;
 		public bool syncInput = false, syncFIX;

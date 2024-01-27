@@ -34,7 +34,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 			com = com.Trim();
 			if (com.StartsWith("void") || com.StartsWith("//"))
 			{
-				Process.Processes[ProcessID].RasData.CurrentLine++;
+				Process.Processes[ProcessID].RasData.CurrLines[Process.Processes[ProcessID].RasData.CurrLines.Count - 1]++;
 				return;
 			}	
 				
@@ -86,7 +86,7 @@ namespace RadianceOS.System.Programming.RaSharp2
 					string name = GetString.ReturnString(temp.ToArray(), ProcessID, com).Trim();
 					if (RasExecuter.Data[Process.Processes[i].DataID].voids.ContainsKey(name))
 					{
-						Process.Processes[ProcessID].RasData.CurrentLine = RasExecuter.Data[Process.Processes[i].DataID].voids[name];
+						//Process.Processes[ProcessID].RasData.CurrentLine = RasExecuter.Data[Process.Processes[i].DataID].voids[name];
 					}
 					else
 						MessageBoxCreator.CreateMessageBox("Ra# Error", "Void " + name + " does not exist", MessageBoxCreator.MessageBoxIcon.error);
@@ -108,12 +108,22 @@ namespace RadianceOS.System.Programming.RaSharp2
 					}
 
 				}
+				else if(com.Contains('(') && com.Contains(')'))
+				{
+					if(RasExecuter.Data[datId].Void.ContainsKey(com.Substring(0, com.IndexOf('(')) +"()"))
+					{
+						Process.Processes[ProcessID].RasData.CurrLines[Process.Processes[ProcessID].RasData.CurrLines.Count - 1]++;
+						Process.Processes[ProcessID].RasData.CurrVoids.Add(com.Substring(0, com.IndexOf('(')) + "()");
+						Process.Processes[ProcessID].RasData.CurrLines.Add(0);
+						return;
+					}
+				}
 				else
 				{
 					ReportError("Unknown command!", i, ProcessID);
 				}
 			}
-			Process.Processes[ProcessID].RasData.CurrentLine++;
+			Process.Processes[ProcessID].RasData.CurrLines[Process.Processes[ProcessID].RasData.CurrLines.Count - 1]++;
 
 
 		}
