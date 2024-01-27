@@ -1029,6 +1029,22 @@ namespace RadianceOS.System.Programming
 						Apps.Process.Processes[index].color2 = col2;
 					}
 				}
+				else if (commands[0] == "shutdown")
+				{
+					Screens.Shutdown.StartShutdown();
+				}
+				else if (commands[0] == "reboot")
+				{
+
+				}
+				else if (commands[0] == "power")
+				{
+					// Start the power options UI
+				}
+				else if (commands[0] == "logout")
+				{
+					Security.Auth.Session.Logout();
+				}
 				else
 				{
 					TextColor empty = new TextColor

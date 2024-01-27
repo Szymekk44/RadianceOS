@@ -54,5 +54,5 @@ namespace RadianceOS.System.Managment
 				Radiance.Security.canvas.DrawString(strings[i], font, color, posX + WinPosX, WinPosY + i * space);
 			}
 		}
-	}
+    }
 }

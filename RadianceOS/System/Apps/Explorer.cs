@@ -55,6 +55,8 @@ namespace RadianceOS.System.Apps
 
 		public static int TaskBarHeight = 40;
 
+		public static bool DrawCursor = true;
+
 
 		public static void Start()
 		{
@@ -694,7 +696,9 @@ namespace RadianceOS.System.Apps
 				NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
 			}*/
 
-			Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
+			if(DrawCursor) Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
+
+			Screens.Shutdown.Render();
 
             CanvasMain.Display();
 		}
