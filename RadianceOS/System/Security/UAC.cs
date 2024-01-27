@@ -66,20 +66,35 @@ namespace RadianceOS.System.Security
                     Window.DrawFullRoundedRectangle(x + 10, y + height - 30, width - 20, 20, 5, Kernel.lightMain);
                     if(IsCursorInArea(Explorer.MX, Explorer.MY, x + 10, y + height - 30, width - 20, 20))
                     {
+                        if (Explorer.SingleClick)
+                        {
+                            currentRequest.Result = new ApplicationElevationResult { Success = true };
+                            currentRequest.RequestComplete(currentRequest.Result);
+                            UACRequestQueue.Remove(currentRequest);
+                            Finish();
+                        }
                         Window.DrawFullRoundedRectangle(x + 10, y + height - 30, width - 20, 20, 5, Kernel.middark);
                     }
                     StringsAcitons.DrawCenteredString("Yes", width, x + 10, y + height - 30 + 5, 1, Color.White, Cosmos.System.Graphics.Fonts.PCScreenFont.Default);
 
                     // No
                     Window.DrawFullRoundedRectangle(x + 10, y + height - 30 - 30, width - 20, 20, 5, Kernel.lightMain);
-                    if(IsCursorInArea(Explorer.MX, Explorer.MY, x + 10, height - 30 - 30, width - 20, 20))
+                    if(IsCursorInArea(Explorer.MX, Explorer.MY, x + 10, y + height - 30 - 30, width - 20, 20))
                     {
+                        if (Explorer.SingleClick)
+                        {
+                            currentRequest.Result = new ApplicationElevationResult { Success = false };
+                            currentRequest.RequestComplete(currentRequest.Result);
+                            UACRequestQueue.Remove(currentRequest);
+                            Finish();
+                        }
                         Window.DrawFullRoundedRectangle(x + 10, y + height - 30 - 30, width - 20, 20, 5, Kernel.middark);
                     }
                     StringsAcitons.DrawCenteredString("No", width, x + 10, y + height - 30 - 30 + 5, 1, Color.White, Cosmos.System.Graphics.Fonts.PCScreenFont.Default);
 
                     // Kill application
-                    Window.DrawFullRoundedRectangle(x + 10, y + height - 30 - 60, width - 20, 20, 5, Kernel.lightMain);
+                    // Not available right now
+                    Window.DrawFullRoundedRectangle(x + 10, y + height - 30 - 60, width - 20, 20, 5, Kernel.dark); // Kernel.lightMain
                     if(IsCursorInArea(Explorer.MX, Explorer.MY, x + 10, y + height - 30 - 60, width - 20, 20))
                     {
                         Window.DrawFullRoundedRectangle(x + 10, y + height - 30 - 60, width - 20, 20, 5, Kernel.middark);
@@ -96,6 +111,16 @@ namespace RadianceOS.System.Security
             }
 
             Heap.Collect();
+        }
+
+        private static void Finish()
+        {
+            Explorer.DrawTaskbar = true;
+            Explorer.DrawMenu = true;
+            Explorer.drawIcons = true;
+
+            Service.UnPauseAllProcesses();
+            init = false;
         }
 
         // By ChatGPT, makes it easier to detect if the cursor is in the area.
@@ -147,7 +172,7 @@ namespace RadianceOS.System.Security
         }
         public class ApplicationElevationResult : UACResult
         {
-            public bool Success { get; private set; } = false;
+            public bool Success { get; set; } = false;
         }
 
         public class UserElevation : UACRequest

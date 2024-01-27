@@ -28,6 +28,8 @@ namespace RadianceOS.System.Apps
 		public static Canvas CanvasMain;
 
 		public static bool Clicked;
+		public static bool SingleClick; // Only pulses when the user clicks
+		private static bool WasSingleClick;
 
 		public static bool scalingX, scalingXleft, scalingY;
 		public static int ClickedIndex;
@@ -665,8 +667,22 @@ namespace RadianceOS.System.Apps
 
 				TaskBar.Render();
 			}
+
 			if (MouseManager.MouseState == MouseState.Left)
-				Clicked = true;
+			{
+                Clicked = true;
+				if(Clicked == true && !SingleClick && !WasSingleClick)
+				{
+					SingleClick = true;
+				} else if(Clicked == true && SingleClick && !WasSingleClick)
+				{
+					SingleClick = false;
+					WasSingleClick = true;
+				}
+            } else
+			{
+				WasSingleClick = false;
+			}
 
 		/*	foreach (var app in NewApps)
 			{
