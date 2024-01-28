@@ -377,7 +377,19 @@ namespace RadianceOS
 			UACSmall = new Bitmap(Files.UACSmall);
 			WriteLineOK("Security Icons");
 
-			AllLoaded = true;
+			BootScreen.Render("Initialising config...", "Configuration manager");
+			System.SystemConfig.LoadConfigs.LoadAll();
+			WriteLineOK("Initialised configs...");
+            BootScreen.Render("Loading configuration...", "Configuration manager");
+			if(System.SystemConfig.BootConfig.RecoverOnLaunch)
+			{
+				System.Screens.Recovery.InRecovery = true;
+                BootScreen.Render("Starting recovery...", "RadianceOS Recovery");
+				Thread.Sleep(1000);
+            }
+            WriteLineOK("Loaded configs...");
+
+            AllLoaded = true;
 			try
 			{
 				var mixer = new AudioMixer();

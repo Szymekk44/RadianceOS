@@ -13,6 +13,7 @@ namespace RadianceOS.System.Managment
 	{
 		public static string CurrentString;
 		public static bool SpecialCharracters = true, allowDots, AllowArrows = false, AllowUpDown, onlyNumbers;
+		public static bool Shift;
 		public static void Monitore(int action, int CurChar, int Index, int maxLenght = 1000)
 		{
 			bool enterChar = true;
@@ -22,7 +23,15 @@ namespace RadianceOS.System.Managment
 			{
 				Apps.Process.Processes[Index].saved = false;
 				ConsoleKeyInfo key = Console.ReadKey(true);
-				switch (key.Key)
+
+                if(key.Modifiers == ConsoleModifiers.Shift) {
+					Shift = true;
+				} else
+				{
+					Shift = false;
+				}
+
+                switch (key.Key)
 				{
 				
 					#region Main keys

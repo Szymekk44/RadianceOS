@@ -87,7 +87,6 @@ namespace RadianceOS.System.Apps
 			
 			// Initialise Radiance Security (It'll start everything up)
 			Security.Service.Initialise();
-
 		}
 
 		public static void ResizeWallpaper(int SizeX, int SizeY)
@@ -696,9 +695,11 @@ namespace RadianceOS.System.Apps
 				NewApps.Add(new Testapp(new Rectangle(100, 100, 400, 400)));
 			}*/
 
-			if(DrawCursor) Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
-
 			Screens.Shutdown.Render();
+			Screens.Restart.Render();
+			Screens.Recovery.Render();
+
+			if(DrawCursor) Render.Canvas.DrawImageAlpha(Kernel.Cursor1, MX, MY);//CURSOR
 
             CanvasMain.Display();
 		}

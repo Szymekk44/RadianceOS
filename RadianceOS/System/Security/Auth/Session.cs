@@ -84,6 +84,19 @@ namespace RadianceOS.System.Security.Auth
                 return 2;
             }
         }
+
+        /// <summary>
+        /// Do not use this under any circumstance unless for recovery purposes.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="userLevel"></param>
+        public static void BruteAuthenticate(string username, UserLevel userLevel)
+        {
+            IsAuthenticated = true;
+            UserName = username;
+            CurrentUserLevel = userLevel;
+        }
+
         /// <summary>
         /// Logs the user out and returns them to the login screen
         /// </summary>

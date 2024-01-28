@@ -1035,7 +1035,7 @@ namespace RadianceOS.System.Programming
 				}
 				else if (commands[0] == "reboot")
 				{
-
+					Screens.Restart.StartRestart();
 				}
 				else if (commands[0] == "power")
 				{
@@ -1044,6 +1044,11 @@ namespace RadianceOS.System.Programming
 				else if (commands[0] == "logout")
 				{
 					Security.Auth.Session.Logout();
+				}
+				else if (commands[0] == "recovery")
+				{
+					// Starts the recovery UI
+					Screens.Recovery.StartRecovery();
 				}
 				else
 				{
