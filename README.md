@@ -6,7 +6,7 @@
   </picture>
 </p>
 
-RadianceOS is an operating system based on [Cosmos](https://github.com/CosmosOS/Cosmos), developed in C# by [Szymekk](https://youtube.com/Szymekk).
+RadianceOS is an operating system based on [Cosmos](https://github.com/CosmosOS/Cosmos), developed in C# by [Szymekk](https://youtube.com/Szymekk) (And [MrBisquit](https://github.com/mrbisquit).
 
 > [!CAUTION]
 > RadianceOS is in a very early stage of development! (There's still crap in the code)
