@@ -1050,6 +1050,22 @@ namespace RadianceOS.System.Programming
 					// Starts the recovery UI
 					Screens.Recovery.StartRecovery();
 				}
+				else if (commands[0] == "security" || commands[0] == "uac")
+				{
+					Security.SecurityCLI.RunCommand(commands, (line) =>
+					{
+						TextColor BaseWhite = new TextColor()
+						{
+							color = Color.White,
+							text = line
+						};
+
+                        Apps.Process.Processes[index].lines.Add(BaseWhite);
+                    }, (textColour) =>
+					{
+                        Apps.Process.Processes[index].lines.Add(textColour);
+                    });
+				}
 				else
 				{
 					TextColor empty = new TextColor

@@ -383,9 +383,8 @@ namespace RadianceOS
             BootScreen.Render("Loading configuration...", "Configuration manager");
 			if(System.SystemConfig.BootConfig.RecoverOnLaunch)
 			{
-				System.Screens.Recovery.InRecovery = true;
+				//System.Screens.Recovery.InRecovery = true; // Temporary.
                 BootScreen.Render("Starting recovery...", "RadianceOS Recovery");
-				Thread.Sleep(1000);
             }
             WriteLineOK("Loaded configs...");
 
