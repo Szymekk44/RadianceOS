@@ -44,6 +44,8 @@ namespace RadianceOS.System.Process
             // May need to add security checks in future
             Suspended = false;
         }
+
+        public bool End() => ProcessManager.Processes.Remove(this);
     }
 
     public class Service : Process
