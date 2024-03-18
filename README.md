@@ -64,8 +64,7 @@ UAC comes as part of this, which stands for **U**ser **A**ccess **C**ontrol. Thi
 Made by WTDawson9 - [MrBisquit](https://github.com/MrBisquit).
 
 > [!NOTE]
-> RadianceOS is an ongoing project, and contributions are encouraged to enhance its features and functionality.<br>
-> If you would like to help, please remeber to use **dev kit** 
+> RadianceOS is an ~ongoing~ discontinued project.
 
 
 ## License
